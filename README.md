@@ -29,20 +29,25 @@ A database chock-full of NYC housing data.
  - pluto_14v2
  - pluto_15v1
  - pluto_16v1
+ 
 *dob*
  - dobjobs
+ 
 *hpd violations*
  - violations
  - uniq_violations
  - open_violations
  - all_violations
+
 *hpd registrations*
  - hpd.contacts
  - hpd.corporate_owners
  - hpd.registrations
  - hpd.registrations_grouped_by_bbl
+
 *dof*
  - sales
+
 *tax bills*
  - rentstab
 
