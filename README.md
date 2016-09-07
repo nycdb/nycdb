@@ -67,18 +67,21 @@ Follow instructions on README.md
 
 [HPD Registrations](https://github.com/aepyornis/hpd)
 
-run ``` ./hpd_registrations ```
+Run ``` ./hpd_registrations.sh ```
 
 [DOF Sales](https://github.com/aepyornis/dof-sales)
 
+Run ``` ./dof_sales.sh ```
 
 [Rent Stabilization Unit Counts](https://github.com/aepyornis/nyc-stabilization-unit-counts-to-pg)
+
+run ``` ./rentstab.sh ```
 
 ### ENV VARS
 
 stored in env.sh
 
-```
+``` sh
 NYCDB_DOBJOB_CSVPARSER="nycdb"
 NYCDB_CONNECTION_STRING="dbname=nycdb user=ziggy"
 
@@ -91,6 +94,14 @@ HPD_REPO_PATH=
 HPD_REGISTRATIONS_FILE=
 HPD_CONTACTS_FILE=
 BBL_LAT_LNG=
+
+# DOF SALES
+DOF_SALES_DATA_PATH=
+DOF_SALES_REPO=
+
+# rentstab
+RENTSTAB_REPO=
+RENTSTAB_FILE="/path/to/joined.csv"
 
 ```
 
