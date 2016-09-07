@@ -55,15 +55,44 @@ The scripts to insert the data for these datasets are scatted across different r
 
 [PLUTO](https://github.com/aepyornis/pluto)
 
+Follow instructions on README.md
+
 [Department of Building's Job Filings](https://github.com/aepyornis/DOB-Jobs)
+
+After downloading the repo and setting up a virtualenv in /csvparser, run ``` ./dobjobs.sh ```
 
 [HPD Violations](https://github.com/aepyornis/hpd-violations)
 
+Follow instructions on README.md
+
 [HPD Registrations](https://github.com/aepyornis/hpd)
+
+run ``` ./hpd_registrations ```
 
 [DOF Sales](https://github.com/aepyornis/dof-sales)
 
+
 [Rent Stabilization Unit Counts](https://github.com/aepyornis/nyc-stabilization-unit-counts-to-pg)
+
+### ENV VARS
+
+stored in env.sh
+
+```
+NYCDB_DOBJOB_CSVPARSER="nycdb"
+NYCDB_CONNECTION_STRING="dbname=nycdb user=ziggy"
+
+# DOB JOBS
+DOBJOBS_CONNECTION="dbname=nycdb user=ziggy"
+NYCDB_DOBJOBS_CSVPARSER="/path/to/DOB-Jobs/csvparser"
+
+# HPD REGISTRATIONS
+HPD_REPO_PATH=
+HPD_REGISTRATIONS_FILE=
+HPD_CONTACTS_FILE=
+BBL_LAT_LNG=
+
+```
 
 ### Datasets to add:
     - ACRIS
