@@ -1,0 +1,15 @@
+[submodule "modules/pluto"]
+	path = modules/pluto
+	url = git@github.com:aepyornis/pluto.git
+[submodule "modules/dobjobs"]
+	path = modules/dobjobs
+	url = git@github.com:aepyornis/dob-jobs-parser.git
+[submodule "modules/hpd"]
+	path = modules/hpd
+	url = git@github.com:aepyornis/hpd.git
+[submodule "modules/dof-sales"]
+	path = modules/dof-sales
+	url = https://github.com/aepyornis/dof-sales
+[submodule "modules/nyc-stabilization-unit-counts"]
+	path = modules/nyc-stabilization-unit-counts
+	url = git@github.com:aepyornis/nyc-stabilization-unit-counts-to-pg
