@@ -13,3 +13,6 @@
 [submodule "modules/nyc-stabilization-unit-counts"]
 	path = modules/nyc-stabilization-unit-counts
 	url = git@github.com:aepyornis/nyc-stabilization-unit-counts-to-pg
+[submodule "modules/hpd-violations"]
+	path = modules/hpd-violations
+	url = git@github.com:aepyornis/hpd-violations.git
