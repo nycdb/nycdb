@@ -49,45 +49,38 @@ A database chock-full of NYC housing data.
 *tax bills*
  - rentstab
 
-### How it's built
+### Install requirements
 
-The scripts to insert the data for these datasets are scatted across different repos, each using varying languages and strategies. Some of them, such as [pluto](https://github.com/aepyornis/pluto) and [HPD Violations](https://github.com/aepyornis/hpd-violations), do only one thing: insert the data into postgres. Other projects, such as [DOB-Jobs](https://github.com/aepyornis/DOB-Jobs), have their own website utilizing that data.
+This will work on Debian, possibly ubuntu.
 
-[PLUTO](https://github.com/aepyornis/pluto)
+```
+sudo apt install wget python3 python3-psycopg2
+```
 
-Follow instructions on README.md
+The scripts to insert the data for these datasets are scatted across different repos, each using varying languages and strategies. They are kepts as submodules in the modules/ folder: 
 
-[Department of Building's Job Filings](https://github.com/aepyornis/DOB-Jobs)
-
-After downloading the repo and setting up a virtualenv in /csvparser, run ``` ./dobjobs.sh ```
-
-[HPD Violations](https://github.com/aepyornis/hpd-violations)
-
-Follow instructions on README.md
-
-[HPD Registrations](https://github.com/aepyornis/hpd)
-
-Run ``` ./hpd_registrations.sh ```
-
-[DOF Sales](https://github.com/aepyornis/dof-sales)
-
-Run ``` ./dof_sales.sh ```
-
-[Rent Stabilization Unit Counts](https://github.com/aepyornis/nyc-stabilization-unit-counts-to-pg)
-
-run ``` ./rentstab.sh ```
+- [PLUTO](https://github.com/aepyornis/pluto)
+- [Department of Building's Job Filings](https://github.com/aepyornis/DOB-Jobs)
+- [HPD Violations](https://github.com/aepyornis/hpd-violations)
+- [HPD Registrations](https://github.com/aepyornis/hpd)
+- [DOF Sales](https://github.com/aepyornis/dof-sales)
+- [Rent Stabilization Unit Counts](https://github.com/aepyornis/nyc-stabilization-unit-counts-to-pg)
 
 ### ENV VARS
 
 stored in env.sh
 
 ``` sh
+# postgres password
+PGPASSWORD=
+# define whatever psql command needed to connect to a database, which might vary depending on your setup.
+# for instance: 
+execute_sql () {
+	psql -u username -h 127.0.0.1 -d nycdb -f $1	
+}
+ 
 NYCDB_DOBJOB_CSVPARSER="nycdb"
 NYCDB_CONNECTION_STRING="dbname=nycdb user=ziggy"
-
-# DOB JOBS
-DOBJOBS_CONNECTION="dbname=nycdb user=ziggy"
-NYCDB_DOBJOBS_CSVPARSER="/path/to/DOB-Jobs/csvparser"
 
 # HPD REGISTRATIONS
 HPD_REPO_PATH=
