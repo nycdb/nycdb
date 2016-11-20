@@ -2,6 +2,7 @@
 # This downloads housing data for the database and stores the files in the 'data' folder.
 # Run this with the name of a data source to download: dobjobs, dofsales, hpd
 # or with 'all' to download all the data.
+# you can optionly include the flag: --pluto-all
 # Example: ./download.sh dofsales
 
 set -e
@@ -29,10 +30,20 @@ elif [ "$1" == hpd ]; then
     printf "Unzipping hpd registration data\n"
     unzip data/hpd/registrations.zip -d data/hpd
     rm data/hpd/*.xml
+elif [ "$1" == pluto ]; then
+
+    mkdir -p data/pluto
+    if  [ "$2" == --pluto-all ]; then
+	./download_pluto.sh all
+    else
+	./download_pluto.sh recent
+    fi
+
 elif [ "$1" == all ]; then
     ./download.sh dobjobs
     ./download.sh dofsales
     ./download.sh hpd
+    ./download.sh pluto $2
 else
     printf "Please provide which data source you would like to download. Your options are:\n"
     printf "dobjobs, dofsales, hpd, rentstab or all\n"
