@@ -48,6 +48,11 @@ elif [ "$1" == violations ]; then
     ${pwd}/modules/hpd-violations/unzip.sh
     cd $pwd
     
+elif [ "$1" == rentstab ]; then
+
+    mkdir -p data/rentstab
+    wget http://taxbills.nyc/joined.csv -O data/rentstab/joined.csv
+
 elif [ "$1" == all ]; then
 
     ./download.sh dobjobs
