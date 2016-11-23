@@ -62,6 +62,6 @@ elif [ "$1" == all ]; then
     ./download.sh violations
 else
     printf "Please provide which data source you would like to download. Your options are:\n"
-    printf "dobjobs, dofsales, hpd, rentstab or all\n"
+    printf "dobjobs, dofsales, hpd, violations, rentstab or all\n"
     exit 1
 fi
