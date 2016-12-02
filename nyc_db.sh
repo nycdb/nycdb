@@ -14,4 +14,4 @@ else
 fi
 
 ./hpd_violations.sh
-./rentsab.sh
+./rentstab.sh

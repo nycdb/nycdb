@@ -14,6 +14,8 @@ pluto_download () {
     done
 }
 
+mkdir -p data/pluto
+
 if [ "$1" == recent ]; then
     printf "Downloading the most recent PLUTO - 16v2\n"
     pluto_16v2
