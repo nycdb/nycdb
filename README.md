@@ -15,7 +15,7 @@ Builds a postgres database of NYC housing data, containing the following dataset
 
 On Debian & Ubuntu,, issue this command to install the requirements: 
 
-``` sudo apt install wget catdoc python3 python3-psycopg2 postgresql-client unzip ```
+``` sudo apt install wget python3 python3-psycopg2 postgresql-client unzip ```
 
 You will also need postgres running locally or on a server where you can access it via psql. If running locally, 10+ gb free space is required.
 
@@ -108,7 +108,7 @@ The scripts to insert the data for each datasets are stored in separate repos an
  - hpd.registrations_grouped_by_bbl
 
 *dof*
- - sales
+ - dof_sales
 
 *tax bills*
  - rentstab

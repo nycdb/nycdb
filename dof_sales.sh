@@ -1,23 +1,21 @@
 #!/bin/bash
 
 set -e
-source ./env.sh
 pwd=$(pwd)
+printf "***DOF ROLLING SALES***\n"
 
-printf "Converting xls files to csv using xls2csv\n"
+cp ./env.sh ${pwd}/modules/dof-sales/env.sh
 
-cd ${pwd}/data/dofsales
+if [ ! -d "${pwd}/modules/dof-sales/venv" ]; then
+    printf "Setting up python3 virtual environment with xlrd\n"
+    cd ${pwd}/modules/dof-sales
+    python3 -m venv venv
+    source venv/bin/activate
+    pip3 install xlrd
+else
+    printf "Using the python3 virutal environment located at ${pwd}/modules/dof-sales/venv\n"
+fi
 
-for f in *.xls
-do
-    filename=$(basename "${f}" ".xls")
-    xls2csv ${f} > ${filename}.csv
-done
-
-printf "Inserting the data into postgres\n"
 cd ${pwd}/modules/dof-sales
-python3 insert_data.py ${pwd}/data/dofsales "${NYCDB_CONNECTION_STRING}"
-printf "There are %s problem_lines\n" $(uniq problem_lines.csv | wc -l)
-printf "If this number is unreasonable high (above 50) then something went wrong\n"
-printf "Deleting problem_lines.csv\n"
-rm problem_lines.csv
+source venv/bin/activate
+bash to_postgres.sh ${pwd}/data/dofsales
