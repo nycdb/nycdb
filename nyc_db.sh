@@ -3,6 +3,8 @@
 # Run this before or uncomment
 # ./download.sh
 
+chmod -R +x *.sh
+
 ./dobjobs.sh
 ./dof_sales.sh
 ./hpd_registrations.sh

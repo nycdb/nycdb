@@ -19,3 +19,4 @@ fi
 cd ${pwd}/modules/dof-sales
 source venv/bin/activate
 bash to_postgres.sh ${pwd}/data/dofsales
+deactivate

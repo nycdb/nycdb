@@ -43,6 +43,9 @@ execute_sql_cmd () {
 NYCDB_CONNECTION_STRING="dbname=nycdb user=postgres password=YOURPGPASSWORD host=127.0.0.1"
 
 ```
+
+chmod the file if needed: ``` chmod +x ./nyc_db.sh
+
 ### Run
 
 These must be run from the root of the repo. Expect this whole process to take an hour.
@@ -52,6 +55,7 @@ Download the source files: ``` ./download.sh all```
 Build the database: ``` ./nyc_db.sh ```
 
 By default it only includes the most recent pluto. If you you'd like to include 14 (!) versions of pluto for historic analysis run the download and db script with the flag --pluto-all: ``` ./download.sh all --pluto-all ``` and ``` ./nyc_db.sh --pluto-all ```
+
 
 Notes: 
  - The scripts will drop existing tables of the same name from the database and re-populate them. This means you can re-run the scripts when new data is released
@@ -74,17 +78,17 @@ The scripts to insert the data for each datasets are stored in separate repos an
 - [Rent Stabilization Unit Counts](https://github.com/aepyornis/nyc-stabilization-unit-counts-to-pg)
 
 
-### TABLES:
+i### TABLES:
 
 *pluto*
  - pluto_03c
  - pluto_04c
- - pluto_05d
+l - pluto_05d
  - pluto_06c
  - pluto_07c
  - pluto_09v2
  - pluto_10v2
- - pluto_11v2
+e - pluto_11v2
  - pluto_12v2
  - pluto_13v2
  - pluto_14v2
