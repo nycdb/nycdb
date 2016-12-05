@@ -12,6 +12,7 @@ cp env.sh ./modules/pluto/pg_setup.sh
 echo "pluto_root=${pwd}/data/pluto/" >> modules/pluto/pg_setup.sh
 
 cd modules/pluto
+chmod +x *.sh
 
 # if the venv folder doesn't exist, setup it up
 if [ ! -d ${pwd}/modules/pluto/venv ]; then
@@ -28,3 +29,4 @@ else
 fi
 
 cd $pwd
+q
