@@ -13,11 +13,11 @@ Builds a postgres database of NYC housing data, containing the following dataset
 
 *Requirements*
 
-On Debian & Ubuntu,, issue this command to install the requirements: 
+On Debian & Ubuntu, issue this command to install the requirements: 
 
-``` sudo apt install wget python3 python3-psycopg2 postgresql-client unzip ```
+``` sudo apt-get install build-essential wget python3 python3-dev python3-psycopg2 python3.4-venv postgresql-client unzip git ```
 
-You will also need postgres running locally or on a server where you can access it via psql. If running locally, 10+ gb free space is required.
+On Debian Testing  use  ``` python3-venv ``` instead of ``` python3.4-venv ```
 
 *Setup*
 
@@ -44,7 +44,9 @@ NYCDB_CONNECTION_STRING="dbname=nycdb user=postgres password=YOURPGPASSWORD host
 
 ```
 
-chmod the file if needed: ``` chmod +x ./nyc_db.sh
+chmod the file if needed: ``` chmod +x ./nyc_db.sh ```
+
+Additionally, take a look at sample_setup.sh for a rough idea of how to setup up a debian or ubuntu server with the database.
 
 ### Run
 
@@ -78,17 +80,17 @@ The scripts to insert the data for each datasets are stored in separate repos an
 - [Rent Stabilization Unit Counts](https://github.com/aepyornis/nyc-stabilization-unit-counts-to-pg)
 
 
-i### TABLES:
+### TABLES:
 
 *pluto*
  - pluto_03c
  - pluto_04c
-l - pluto_05d
+ - pluto_05d
  - pluto_06c
  - pluto_07c
  - pluto_09v2
  - pluto_10v2
-e - pluto_11v2
+ - pluto_11v2
  - pluto_12v2
  - pluto_13v2
  - pluto_14v2
