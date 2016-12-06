@@ -29,4 +29,3 @@ else
 fi
 
 cd $pwd
-q
