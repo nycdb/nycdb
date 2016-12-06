@@ -3,3 +3,4 @@ env.sh
 tmp/
 data/
 .env/
+nyc-db.sql

@@ -84,7 +84,7 @@ This requires docker-compose.
 
 Clone the repo: ``` git clone https://github.com/aepyornis/nyc-db.git --recursive ```
 
-_in root of repo:_
+_In root of repo:_
 
 Make a folder to store the postgres data: ``` mkdir postgres-data ``` (or change the folder and settings in the docker-compose.yml file)
 
@@ -92,7 +92,15 @@ Download the data files: ``` ./download.sh all ```
 
 Create the database: ``` docker-compose run nycdb /opt/nyc-db/docker_run.sh ```
 
-### TABLES:
+_After the database is built:_
+
+Enter a psql shell: ``` docker-compose run nycdb psql -h pg -U postgres postgres ```
+
+Make database dump: ``` docker-compose run pg pg_dump --no-owner --clean --if-exists -h pg -U postgres --file=/opt/nyc-db/nyc-db.sql postgres ```
+
+
+
+### TABLES
 
 *pluto*
  - pluto_03c
