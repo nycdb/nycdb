@@ -63,9 +63,7 @@ Notes:
  - The scripts will drop existing tables of the same name from the database and re-populate them. This means you can re-run the scripts when new data is released
  - Some but not all of the tables have indexes. 
 
-
 *Individual datasets*
-
 If you want only one dataset or if you prefer to import the datasets one-at-a-time, you can run the download script with the name of the dataset and then execute the script for the corresponding dataset.
 
 For example, to import only DOF sales data do: ``` ./download.sh dofsales ``` and ``` ./dofsales.sh ```
@@ -79,6 +77,20 @@ The scripts to insert the data for each datasets are stored in separate repos an
 - [DOF Sales](https:g//github.com/aepyornis/dof-sales)
 - [Rent Stabilization Unit Counts](https://github.com/aepyornis/nyc-stabilization-unit-counts-to-pg)
 
+
+### If you like docker:
+
+This requires docker-compose.
+
+Clone the repo: ``` git clone https://github.com/aepyornis/nyc-db.git --recursive ```
+
+_in root of repo:_
+
+Make a folder to store the postgres data: ``` mkdir postgres-data ``` (or change the folder and settings in the docker-compose.yml file)
+
+Download the data files: ``` ./download.sh all ```
+
+Create the database: ``` docker-compose run nycdb /opt/nyc-db/docker_run.sh ```
 
 ### TABLES:
 
