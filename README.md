@@ -77,7 +77,6 @@ The scripts to insert the data for each datasets are stored in separate repos an
 - [DOF Sales](https:g//github.com/aepyornis/dof-sales)
 - [Rent Stabilization Unit Counts](https://github.com/aepyornis/nyc-stabilization-unit-counts-to-pg)
 
-
 ### If you like docker:
 
 This requires docker-compose.
@@ -98,6 +97,7 @@ Enter a psql shell: ``` docker-compose run nycdb psql -h pg -U postgres postgres
 
 Make database dump: ``` docker-compose run pg pg_dump --no-owner --clean --if-exists -h pg -U postgres --file=/opt/nyc-db/nyc-db.sql postgres ```
 
+Run the database standalone: ``` docker run --name nycdb -v "/path/to/postgres-data:/var/lib/postgresql/data" -e POSTGRES_PASSWORD=nycdb -d -p 127.0.0.1:5432:5432  postgres:9.6  ```
 
 
 ### TABLES
