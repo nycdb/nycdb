@@ -1,3 +1,4 @@
+
 #!/bin/bash
 
 set -e
@@ -9,8 +10,8 @@ mkdir -p tmp/
 printf "***HPD Registrations***\n"
 
 printf "Cleaning up the data\n"
-cat ${pwd}/data/hpd/Registration2016*.txt | python3 modules/hpd/data_cleanup.py 16 1> ${pwd}/tmp/registrations.txt 2> ${pwd}/tmp/registrations_errors.txt
-cat ${pwd}/data/hpd/RegistrationContact*.txt | python3 modules/hpd/data_cleanup.py 15 1> ${pwd}/tmp/contacts.txt 2> ${pwd}/tmp/contacts_errors.txt
+cat ${pwd}/data/hpd/Registration2016*.txt | python modules/hpd/data_cleanup.py 16 1> ${pwd}/tmp/registrations.txt 2> ${pwd}/tmp/registrations_errors.txt
+cat ${pwd}/data/hpd/RegistrationContact*.txt | python modules/hpd/data_cleanup.py 15 1> ${pwd}/tmp/contacts.txt 2> ${pwd}/tmp/contacts_errors.txt
 
 printf "Removed "$(cat ${pwd}/tmp/registrations_errors.txt | wc -l)" bad lines from the registrations data\n"
 printf "Removed "$(cat ${pwd}/tmp/contacts_errors.txt | wc -l)" bad lines from the contacts data\n"
