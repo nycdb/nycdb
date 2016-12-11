@@ -21,9 +21,10 @@ fi
 ./dobjobs.sh
 ./dof_sales.sh
 ./hpd_registrations.sh
-
 ./hpd_violations.sh
 ./rentstab.sh
+
+python3 check_installation.py $NYCDB_CONNECTION_STRING
 
 if [ -f ./.env.sh.backup ];then
     mv ./env.sh.backup ./env.sh

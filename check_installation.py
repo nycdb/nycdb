@@ -9,6 +9,11 @@ import sys
 import os
 import psycopg2
 
+class colors:
+    BLUE = '\033[94m'
+    GREEN = '\033[92m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
 
 if len(sys.argv) == 2:
     db_connection_string = sys.argv[1]
@@ -39,10 +44,13 @@ conn = psycopg2.connect(db_connection_string)
 cursor = conn.cursor()
 
 tables = [ 'pluto_16v2', 'dobjobs', 'violations', 'uniq_violations', 'open_violations', 'all_violations', 'contacts', 'corporate_owners', 'registrations', 'registrations_grouped_by_bbl', 'dof_sales', 'rentstab' ]
+
+print(colors.BLUE + 'Checking the row count of each table in NYC-DB' + colors.ENDC)
+
 for table in tables:
     if table_exists(cursor, table):
-        print(table + ' has ' + str(row_count(cursor, table)) + ' rows')
+        print(colors.GREEN + table + ' has ' + format(row_count(cursor, table), ',') + ' rows' + colors.ENDC)
     else:
-        print(table + ' is missing!')
+        print(colors.FAIL + table + ' is missing!' + colors.ENDC)
 
 conn.close()    
