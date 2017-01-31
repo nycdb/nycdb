@@ -60,6 +60,7 @@ elif [ "$1" == all ]; then
     ./download.sh hpd
     ./download.sh pluto $2
     ./download.sh violations
+    ./download.sh rentstab
 else
     printf "Please provide which data source you would like to download. Your options are:\n"
     printf "dobjobs, dofsales, hpd, violations, rentstab or all\n"

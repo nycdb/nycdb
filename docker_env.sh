@@ -8,4 +8,4 @@ execute_sql_cmd () {
  psql -h pg -d postgres -U postgres --command "$1"
 }
 
-NYCDB_CONNECTION_STRING="dbname=postgres user=postgres password=nycdb host=pg"
+export NYCDB_CONNECTION_STRING="dbname=postgres user=postgres password=nycdb host=pg"
