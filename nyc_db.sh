@@ -10,6 +10,8 @@ if [[ $NYCDB_DOCKER == true ]]; then
     cp docker_env.sh env.sh
 fi
 
+source env.sh
+
 chmod -R +x *.sh
 
 if  [ "$1" == --pluto-all ]; then

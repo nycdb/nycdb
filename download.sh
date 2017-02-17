@@ -44,9 +44,6 @@ elif [ "$1" == violations ]; then
     mkdir -p data/hpd_violations && cd data/hpd_violations
     printf "Downloading HPD Violations \n"
     ${pwd}/modules/hpd-violations/download_violations.sh
-    printf "Unzipping HPD Violations \n"
-    ${pwd}/modules/hpd-violations/unzip.sh
-    cd $pwd
     
 elif [ "$1" == rentstab ]; then
 
