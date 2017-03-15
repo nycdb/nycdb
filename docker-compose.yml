@@ -13,5 +13,7 @@ services:
     volumes:
       - ./postgres-data:/var/lib/postgresql/data
       - ./:/opt/nyc-db
+    ports:
+      - "5432:5432"
     environment:
       - POSTGRES_PASSWORD=nycdb
