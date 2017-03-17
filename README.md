@@ -44,20 +44,21 @@ NYCDB_CONNECTION_STRING="dbname=nycdb user=postgres password=YOURPGPASSWORD host
 
 ```
 
-chmod the file if needed: ``` chmod +x ./nyc_db.sh ```
-
 Additionally, take a look at sample_setup.sh for a rough idea of how to setup up a debian or ubuntu server with the database.
 
 ### Run
 
 These must be run from the root of the repo. Expect this whole process to take an hour.
 
-Download the source files: ``` ./download.sh all```
+Download the source files: ``` make download ```
 
-Build the database: ``` ./nyc_db.sh ```
+Build the database: ``` make nyc-db ```
 
-By default it only includes the most recent pluto. If you you'd like to include 14 (!) versions of pluto for historic analysis run the download and db script with the flag --pluto-all: ``` ./download.sh all --pluto-all ``` and ``` ./nyc_db.sh --pluto-all ```
+#### Run options:
 
+By default it only includes the most recent pluto. If you you'd like to include 14 (!) versions of pluto for historic analysis run the download and db script with the flag --pluto-all: ``` ./scripts/download.sh all --pluto-all ``` and ``` ./scripts/nyc_db.sh --pluto-all ```
+
+Or use the make commands:  ```  make download-pluto-all ``` and ``` make nyc-db-pluto-all ```
 
 Notes: 
  - The scripts will drop existing tables of the same name from the database and re-populate them. This means you can re-run the scripts when new data is released
@@ -66,7 +67,7 @@ Notes:
 *Individual datasets*
 If you want only one dataset or if you prefer to import the datasets one-at-a-time, you can run the download script with the name of the dataset and then execute the script for the corresponding dataset.
 
-For example, to import only DOF sales data do: ``` ./download.sh dofsales ``` and ``` ./dofsales.sh ```
+For example, to import only DOF sales data do: ``` ./scripts/download.sh dofsales ``` and ``` ./scripts/dofsales.sh ```
 
 The scripts to insert the data for each datasets are stored in separate repos and are are kept as submodules in the _modules_ folder: 
 
@@ -77,27 +78,27 @@ The scripts to insert the data for each datasets are stored in separate repos an
 - [DOF Sales](https://github.com/aepyornis/dof-sales)
 - [Rent Stabilization Unit Counts](https://github.com/aepyornis/nyc-stabilization-unit-counts-to-pg)
 
-### If you like docker:
+## If you like docker:
 
-This requires docker-compose.
+This requires docker, docker-compose, git, wget, make, and unzip
 
 Clone the repo: ``` git clone https://github.com/aepyornis/nyc-db.git --recursive ```
 
 _In root of repo:_
 
-Make a folder to store the postgres data: ``` mkdir postgres-data ``` (or change the folder and settings in the docker-compose.yml file)
+Setup docker:  ```  make docker-setup ```
 
-Download the data files: ``` ./download.sh all ```
+Download the data files: ``` make download ```
 
-Create the database: ``` docker-compose run nycdb /opt/nyc-db/docker_run.sh ```
+Create the database: ``` make docker-run ```
 
 _After the database is built:_
 
-Enter a psql shell: ``` docker-compose run nycdb psql -h pg -U postgres postgres ```
+Enter a psql shell: ``` make docker-shell ```
 
-Make database dump: ``` docker-compose run pg pg_dump --no-owner --clean --if-exists -h pg -U postgres --file=/opt/nyc-db/nyc-db.sql postgres ```
+Make database dump: ``` make docker-dump ```
 
-Run the database standalone: ``` docker run --name nycdb -v "/home/zy/code/nyc-db/postgres-data:/var/lib/postgresql/data" -e POSTGRES_PASSWORD=nycdb -d -p 127.0.0.1:5432:5432  postgres:9.6  ```
+Run the database standalone: ``` make docker-db-standalone ``` 
 
 
 ### TABLES
@@ -129,7 +130,7 @@ Run the database standalone: ``` docker run --name nycdb -v "/home/zy/code/nyc-d
 
 *hpd registrations*
  - hpd.contacts
- - hpd.corporate_owners
+nn - hpd.corporate_owners
  - hpd.registrations
  - hpd.registrations_grouped_by_bbl
 
