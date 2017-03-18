@@ -12,5 +12,6 @@ RENTSTAB_FILE=${pwd}/data/rentstab/joined.csv
 
 cd modules/nyc-stabilization-unit-counts
 
-
 python3 insert_rentstab.py $RENTSTAB_FILE "${NYCDB_CONNECTION_STRING}"
+
+cd ${pwd}

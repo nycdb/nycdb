@@ -13,7 +13,9 @@ job_filings_path=${pwd}/data/dobjobs/job_filings.csv
 python3 db_dobjobs.py $job_filings_path "${NYCDB_CONNECTION_STRING}"
 
 printf "Indexing and Processing DOB Data\n"
-cd ${pwd}/modules/dobjobs/sql
-execute_sql ./geocode.sql
-execute_sql ./add_columns.sql
-execute_sql ./index.sql
+
+execute_sql ${pwd}/modules/dobjobs/sql/geocode.sql
+execute_sql ${pwd}/modules/dobjobs/sql/add_columns.sql
+execute_sql ${pwd}/modules/dobjobs/sql/index.sql
+
+cd ${pwd}

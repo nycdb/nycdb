@@ -15,3 +15,7 @@ printf "Unzipping HPD Violations \n"
 printf "Inserting HPD Violations \n"
 ./to_postgres.sh
 ./add_lat_lng.sh
+
+rm ${pwd}/modules/hpd-violations/pg_setup.sh
+
+cd ${pwd}
