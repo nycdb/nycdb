@@ -25,7 +25,7 @@ Clone the repo: ``` git clone https://github.com/aepyornis/nyc-db.git --recursiv
 
 Create a pg database if you don't have one setup already: ``` createdb nycdb```
 
-Rename env.sh.sample to env.sh and modify it according to how postgres is setup. _env.sh_ defines two functions -- excute_sql and execute_sql_cmd -- which simply passes your postgres connection settings to psql and stores a connection string used by python.
+Rename env.sh.sample to env.sh and modify it according to how postgres is setup. _env.sh_ defines two functions -- execute_sql and execute_sql_cmd -- which simply defines two wrapper functions for 'psql', based on how your postgres connection settings. It aso stores a connection string in an env variable used by python.
 
 Example env.sh:
 
@@ -44,13 +44,13 @@ NYCDB_CONNECTION_STRING="dbname=nycdb user=postgres password=YOURPGPASSWORD host
 
 ```
 
-Additionally, take a look at sample_setup.sh for a rough idea of how to setup up a debian or ubuntu server with the database.
+Additionally, take a look at docs/sample_setup.sh for a rough idea of how to setup up a debian or ubuntu server with the database.
 
 ### Run
 
 These must be run from the root of the repo. Expect this whole process to take an hour.
 
-Download the source files: ``` make download ```
+Download the data files: ``` make download ```
 
 Build the database: ``` make nyc-db ```
 
@@ -61,7 +61,7 @@ By default it only includes the most recent pluto. If you you'd like to include 
 Or use the make commands:  ```  make download-pluto-all ``` and ``` make nyc-db-pluto-all ```
 
 Notes: 
- - The scripts will drop existing tables of the same name from the database and re-populate them. This means you can re-run the scripts when new data is released
+ - The scripts will drop existing tables of the same name from the database and re-populate them. This means you can re-run the scripts when new data is released.
  - Some but not all of the tables have indexes. 
 
 *Individual datasets*
@@ -69,7 +69,7 @@ If you want only one dataset or if you prefer to import the datasets one-at-a-ti
 
 For example, to import only DOF sales data do: ``` ./scripts/download.sh dofsales ``` and ``` ./scripts/dofsales.sh ```
 
-The scripts to insert the data for each datasets are stored in separate repos and are are kept as submodules in the _modules_ folder: 
+The scripts to insert the data for each datasets are stored in separate repos and are kept as submodules in the _modules_ folder: 
 
 - [PLUTO](https://github.com/aepyornis/pluto)
 - [Department of Building's Job Filings](https://github.com/aepyornis/dob-jobs-parser)
@@ -80,7 +80,7 @@ The scripts to insert the data for each datasets are stored in separate repos an
 
 ## If you like docker:
 
-This requires docker, docker-compose, git, wget, make, and unzip
+This requires docker, docker-compose, git, wget, make, and unzip.
 
 Clone the repo: ``` git clone https://github.com/aepyornis/nyc-db.git --recursive ```
 
@@ -146,7 +146,7 @@ nn - hpd.corporate_owners
 - ACRIS
 - hpd complaints
 - selected 311 complaints
-
+- census data
 
 #### LICENSE: GPLv3
 

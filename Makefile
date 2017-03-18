@@ -38,6 +38,7 @@ remove-venv:
 
 clean: remove-venv
 	rm -rf postgres-data
+	docker-compose rm -f
 
 help:
 	@echo 'NYC-DB: Postgres database of housing data'
