@@ -1,6 +1,8 @@
 ---
-- name: restart postgres
-  service: name=postgres state=restarted
+- name: restart postgresql
+  become: yes
+  service: name=postgresql state=restarted
 
-- name: start postgres
-  service: name=postgres state=started  
+- name: reload postgresql
+  become: yes
+  service: name=postgresql state=reloaded

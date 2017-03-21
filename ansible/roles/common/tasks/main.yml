@@ -5,8 +5,7 @@
     name: "{{ item }}"
   with_items: "{{ nycdb_packages }}"
   notify:
-    - start postgres
-
+    - restart postgresql
 
 - name: Clone the nyc-db repo
   git:
@@ -21,6 +20,14 @@
   become_user: postgres
   postgresql_db:
       name: "{{ nycdb_database_name }}"
+
+
+- name: Adding extension pg_trgm to db
+  become_method: sudo
+  become_user: postgres
+  postgresql_ext:
+    name: pg_trgm
+    db: "{{ nycdb_database_name }}"
 
       
 - name: Create database user
