@@ -15,7 +15,7 @@ Builds a postgres database of NYC housing data, containing the following dataset
 
 On Debian & Ubuntu, issue this command to install the requirements: 
 
-``` sudo apt-get install build-essential wget python3 python3-dev python3-psycopg2 python3.4-venv postgresql-client unzip git ```
+``` sudo apt-get install build-essential wget python python3 python3-dev python3-psycopg2 python3.4-venv postgresql-client unzip git ```
 
 On Debian Testing  use  ``` python3-venv ``` instead of ``` python3.4-venv ```
 
@@ -100,6 +100,23 @@ Make database dump: ``` make docker-dump ```
 
 Run the database standalone: ``` make docker-db-standalone ``` 
 
+## If you like ansible:
+
+Create a fresh debian jessie or ubuntu 16 server and configure your ansible hosts file. It might end up looking something like this:
+
+``` 
+xx.xx.xx.xx ansible_user=root ansible_ssh_private_key_file=/path/to/ssh/key
+```
+
+then run the playbook: ``` cd ansible && ansible-playbook playbook.yml ```
+
+After it's done. SSH into the server and run:
+
+```
+cd /srv/nyc-db
+make download
+make nyc-db
+```
 
 ### TABLES
 
@@ -130,7 +147,7 @@ Run the database standalone: ``` make docker-db-standalone ```
 
 *hpd registrations*
  - hpd.contacts
-nn - hpd.corporate_owners
+ - hpd.corporate_owners
  - hpd.registrations
  - hpd.registrations_grouped_by_bbl
 
