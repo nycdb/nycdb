@@ -35,8 +35,11 @@ nyc-db-pluto-all:
 .ONESHELL:
 SHELL=/bin/bash
 db-dump:
-        source ./env.sh
-        pg_dump --no-owner --clean --if-exists -h 127.0.0.1 -U nycdb nycdb > "nyc-db-$$(date +%F).sql"
+	source ./env.sh
+	pg_dump --no-owner --clean --if-exists -h 127.0.0.1 -U nycdb nycdb > "nyc-db-$$(date +%F).sql"
+
+db-dump-bzip:
+	bzip2 --keep nyc-db*.sql
 
 remove-venv:
 	rm -rf modules/dof-sales/venv

@@ -4,6 +4,7 @@ nycdb_packages:
   - wget
   - zip
   - unzip
+  - bzip2
   - git
   - htop
   - python
