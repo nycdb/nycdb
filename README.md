@@ -9,6 +9,23 @@ Builds a postgres database of NYC housing data, containing the following dataset
 - Department of Finance Rolling Sales
 - Tax bills - Rent Stabilization Unit Counts (John Krauss's data)
 
+### Get a copy
+
+Just want a copy of the database?
+
+Here's the latest version available to download from S3:
+
+[nyc-db-2017-05-05.sql.bz2](https://s3.amazonaws.com/nyc-db/nyc-db-2017-05-05.sql.bz2)
+
+It's ~500mb compressed and ~4gb decompressed.
+
+If you have aws cli installed, you can download it easily this way: ``` aws s3 cp s3://nyc-db/nyc-db-2017-05-05.sql.bz2 ./ ```
+
+To decompress: ```  bunzip2 nyc-db-2017-05-05.sql.bz2 ```
+
+Build the db: ``` psql -d database-name -f nyc-db-2017-05-05.sql ```
+
+
 ### Installation
 
 *Requirements*
@@ -104,7 +121,8 @@ Run the database standalone: ``` make docker-db-standalone ```
 
 Create a fresh debian jessie or ubuntu 16 server and configure your ansible hosts file. It might end up looking something like this:
 
-``` 
+```
+[nycdb]
 xx.xx.xx.xx ansible_user=root ansible_ssh_private_key_file=/path/to/ssh/key
 ```
 
