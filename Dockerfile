@@ -9,6 +9,7 @@ RUN apt-get update && \
     python3-psycopg2 \ 
     python3.4-venv \ 
     postgresql-client \
+    libpq-dev \
     unzip \
     git
 
