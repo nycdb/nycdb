@@ -1,12 +1,10 @@
 #!/bin/bash
 
 set -e
-source ./env.sh
+source modules/hpd/env.sh
 
 pwd=$(pwd)
 mkdir -p tmp/
-
-printf "***HPD Registrations***\n"
 
 printf "Cleaning up the data\n"
 cat ${pwd}/data/hpd/Registration2017*.txt | python modules/hpd/data_cleanup.py 16 1> ${pwd}/tmp/registrations.txt 2> ${pwd}/tmp/registrations_errors.txt

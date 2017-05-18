@@ -10,12 +10,14 @@ DB_PASSWORD=nycdb
 
 # exporting allows these variables
 # to be accessed in the subshells
-# required for the template.sh to work
+# required for template.sh to work
 export DB_HOST
 export DB_DATABASE
 export DB_USER
 export DB_PASSWORD
 
+# indicates if running inside a docker container
+# used by task docker-run
 NYCDB_DOCKER=
 
 # use BASH as our sell
@@ -23,7 +25,8 @@ SHELL=/bin/bash
 
 default: help
 
-nyc-db: prepare-docker pluto dobjobs
+# the 'main' task that builds the database
+nyc-db: prepare-docker pluto dobjobs dofsales hpd-registrations
 
 download:
 	./scripts/download.sh all
@@ -56,10 +59,24 @@ dobjobs:
 	rm env.sh
 
 
+DOF_SALES_PATH=$(shell pwd)/data/dofsales
+
+.PHONY : dofsales
+dofsales:
+	@echo "***DOF ROLLING SALES***"
+	./scripts/template.sh > ./modules/dof-sales/env.sh
+	cd modules/dof-sales && make && bash to_postgres.sh $(DOF_SALES_PATH)
+
+hpd-registrations:
+	@echo "***HPD Registrations***"
+	./scripts/template.sh > ./modules/hpd/env.sh
+	./scripts/hpd_registrations.sh
+
+
 .PHONY : docker-setup
 docker-setup:
 	mkdir -p postgres-data
-	docker pull aepyornis/nyc-db:0.0.1
+	docker pull aepyornis/nyc-db:0.0.2
 	docker pull postgres:9.6
 
 docker-download:
@@ -78,9 +95,9 @@ docker-dump:
 	docker-compose run pg pg_dump --no-owner --clean --if-exists -h pg -U postgres --file=/opt/nyc-db/nyc-db.sql postgres 
 
 
-preparse-docker: 
+prepare-docker: 
 ifdef NYCDB_DOCKER
-	@echo 'Running as docker!'
+	@echo 'Running inside a docker container!'
 	./scripts/docker_setup.sh
 else
 	@echo '-'
@@ -102,6 +119,7 @@ remove-venv:
 	rm -rf modules/dof-sales/venv
 	rm -rf modules/pluto/venv
 	rm -rf modules/dobjobs/venv
+	rm -rf modules/dof-sales/venv
 
 .PHONY : clean
 clean: remove-venv
