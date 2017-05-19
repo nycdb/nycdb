@@ -25,7 +25,10 @@ default: help
 # Most of the individual databases can also be run on their own:
 #    i.e. make hpd-violations
 # However both dobjobs and hpd-registrations require tables from Pluto
-nyc-db: pluto dobjobs dofsales hpd-registrations hpd-violations rentstab
+nyc-db: pluto dobjobs dofsales hpd-registrations hpd-violations rentstab verify
+
+.PHONY: verify
+verify:
 	python3 ./scripts/check_installation.py -H $(DB_HOST) -U $(DB_USER) -P $(DB_PASSWORD) -D $(DB_DATABASE)
 
 download:

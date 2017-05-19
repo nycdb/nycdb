@@ -5,7 +5,7 @@ import csv
 import re
 import psycopg2
 
-parser = argparse.ArgumentParser(description='inserts rent stabilization data into postgres')
+parser = argparse.ArgumentParser(description='inserts rent stabilization data intotal postgres')
 parser.add_argument('file', help='path to csv file')
 parser.add_argument("-U", "--user", help="Postgres user. default: postgres", default="postgres")
 parser.add_argument("-P", "--password", help="Postgres password. default: postgres", default="postgres")
@@ -169,6 +169,7 @@ def copy_data(csv_file, headers):
             try:
                 insert_row(row)
                 conn.commit()
+                global total
                 total += 1
             except Exception as e:
                 errors.append(row)
