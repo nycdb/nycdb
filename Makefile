@@ -19,15 +19,23 @@ export DB_PASSWORD
 # use BASH as our sell
 SHELL=/bin/bash
 
+tasks = pluto \
+	dobjobs \
+	dofsales \
+	hpd-registrations \
+	hpd-violations \
+	rentstab \
+	verify
+
+
 default: help
 
 # This central task that builds the database
 # Most of the individual databases can also be run on their own:
 #    i.e. make hpd-violations
 # However both dobjobs and hpd-registrations require tables from Pluto
-nyc-db: pluto dobjobs dofsales hpd-registrations hpd-violations rentstab verify
+nyc-db: $(tasks)
 
-.PHONY: verify
 verify:
 	python3 ./scripts/check_installation.py -H $(DB_HOST) -U $(DB_USER) -P $(DB_PASSWORD) -D $(DB_DATABASE)
 
@@ -37,7 +45,6 @@ download:
 download-pluto-all:
 	./scripts/download.sh all --pluto-all
 
-.PHONY: pluto
 pluto:
 	./scripts/template.sh > ./modules/pluto/pg_setup.sh
 	echo "pluto_root=$(shell pwd)/data/pluto/" >> modules/pluto/pg_setup.sh
@@ -46,7 +53,6 @@ pluto:
 JOB_FILINGS_PATH=$(shell pwd)/data/dobjobs/job_filings.csv
 
 .ONESHELL: dobjobs
-.PHONY : dobjobs
 dobjobs:
 	@echo "Inserting DOB data into postgres"
 	set -eu
@@ -63,7 +69,6 @@ dobjobs:
 
 DOF_SALES_PATH=$(shell pwd)/data/dofsales
 
-.PHONY : dofsales
 dofsales:
 	@echo "***DOF ROLLING SALES***"
 	./scripts/template.sh > ./modules/dof-sales/env.sh
@@ -89,7 +94,6 @@ rentstab:
 	@echo "See https://github.com/talos/nyc-stabilization-unit-counts for more information"
 	cd modules/rentstab && python3 rentstab.py -H $(DB_HOST) -U $(DB_USER) -P $(DB_PASSWORD) -D $(DB_DATABASE) "$(RENTSTAB_FILE)"
 
-.PHONY : docker-setup
 docker-setup:
 	mkdir -p postgres-data
 	docker pull aepyornis/nyc-db:0.0.2
@@ -101,18 +105,14 @@ docker-download:
 docker-run:
 	docker-compose run nycdb bash -c "cd /opt/nyc-db && make nyc-db DB_DATABASE=postgres DB_USER=postgres DB_HOST=pg"
 
-docker-shell:
-	PGPASSWORD=nycdb psql -U postgres -h 127.0.0.1
+docker-psql-shell:
+	PGPASSWORD=$(DB_PASSWORD) psql -U postgres -h 127.0.0.1 -d postgres
 
 docker-db-standalone:
 	docker run --name nycdb -v "/home/zy/code/nyc-db/postgres-data:/var/lib/postgresql/data" -e POSTGRES_PASSWORD=nycdb -d -p 127.0.0.1:5432:5432  postgres:9.6
 
 docker-dump:
 	docker-compose run pg pg_dump --no-owner --clean --if-exists -h pg -U postgres --file=/opt/nyc-db/nyc-db.sql postgres 
-
-nyc-db-pluto-all:
-	./scripts/nyc_db.sh --pluto-all
-
 
 .ONESHELL: db-dump
 db-dump:
@@ -128,7 +128,6 @@ remove-venv:
 	rm -rf modules/dobjobs/venv
 	rm -rf modules/dof-sales/venv
 
-.PHONY : clean
 clean: remove-venv
 	rm -rf postgres-data
 	docker-compose rm -f
@@ -157,3 +156,10 @@ help:
 	@echo '   or  '
 	@echo ' $ sudo make clean to remove the postgres directory (and the database data!)'
 	@echo 'Look at the README or Makefile for additional scripts'
+
+
+.PHONY: $(tasks) nyc-db
+.PHONY: download download-pluto-all
+.PHONY: db-dump db-dump-bzip 
+.PHONY: docker-setup docker-download docker-run docker-psql-shell docker-db-standalone docker-dump
+.PHONY: clean remove-venv default help
