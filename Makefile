@@ -84,7 +84,7 @@ rentstab:
 	@echo "**Rent Stabilization Unit Counts**"
 	@echo "NOTICE: The data used for this module is licensed CC-BY-SA by John Krauss (github.com/talos)"
 	@echo "See https://github.com/talos/nyc-stabilization-unit-counts for more information"
-	python3 modules/renstab.py -H $(DB_HOST) -U $(DB_USER) -P $(DB_PASSWORD) -D $(DB_DATABASE) "$(RENTSTAB_FILE)"
+	cd modules/rentstab && python3 rentstab.py -H $(DB_HOST) -U $(DB_USER) -P $(DB_PASSWORD) -D $(DB_DATABASE) "$(RENTSTAB_FILE)"
 
 .PHONY : docker-setup
 docker-setup:
