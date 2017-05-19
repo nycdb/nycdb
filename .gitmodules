@@ -10,9 +10,6 @@
 [submodule "modules/dof-sales"]
 	path = modules/dof-sales
 	url = https://github.com/aepyornis/dof-sales
-[submodule "modules/nyc-stabilization-unit-counts"]
-	path = modules/nyc-stabilization-unit-counts
-	url = https://github.com/aepyornis/nyc-stabilization-unit-counts-to-pg
 [submodule "modules/hpd-violations"]
 	path = modules/hpd-violations
 	url = https://github.com/aepyornis/hpd-violations.git
