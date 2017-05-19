@@ -16,17 +16,17 @@ export DB_DATABASE
 export DB_USER
 export DB_PASSWORD
 
-# indicates if running inside a docker container
-# used by task docker-run
-NYCDB_DOCKER=
-
 # use BASH as our sell
 SHELL=/bin/bash
 
 default: help
 
-# the 'main' task that builds the database
-nyc-db: prepare-docker pluto dobjobs dofsales hpd-registrations
+# This central task that builds the database
+# Most of the individual databases can also be run on their own:
+#    i.e. make hpd-violations
+# However both dobjobs and hpd-registrations require tables from Pluto
+nyc-db: pluto dobjobs dofsales hpd-registrations hpd-violations rentstab
+	python3 ./scripts/check_installation.py -H $(DB_HOST) -U $(DB_USER) -P $(DB_PASSWORD) -D $(DB_DATABASE)
 
 download:
 	./scripts/download.sh all
@@ -58,7 +58,6 @@ dobjobs:
 	execute_sql sql/index.sql
 	rm env.sh
 
-
 DOF_SALES_PATH=$(shell pwd)/data/dofsales
 
 .PHONY : dofsales
@@ -72,6 +71,20 @@ hpd-registrations:
 	./scripts/template.sh > ./modules/hpd/env.sh
 	./scripts/hpd_registrations.sh
 
+hpd-violations:
+	@echo "***HPD Violations***"
+	./scripts/template.sh > ./modules/hpd-violations/pg_setup.sh
+	echo "HPD_VIOLATIONS_DATA_FOLDER=$(shell pwd)/data/hpd_violations/data" >> ./modules/hpd-violations/pg_setup.sh
+	cd modules/hpd-violations && ./unzip.sh && ./to_postgres.sh
+	rm modules/hpd-violations/pg_setup.sh
+
+RENTSTAB_FILE=$(shell pwd)/data/rentstab/joined.csv
+
+rentstab:
+	@echo "**Rent Stabilization Unit Counts**"
+	@echo "NOTICE: The data used for this module is licensed CC-BY-SA by John Krauss (github.com/talos)"
+	@echo "See https://github.com/talos/nyc-stabilization-unit-counts for more information"
+	python3 modules/renstab.py -H $(DB_HOST) -U $(DB_USER) -P $(DB_PASSWORD) -D $(DB_DATABASE) "$(RENTSTAB_FILE)"
 
 .PHONY : docker-setup
 docker-setup:
@@ -83,7 +96,7 @@ docker-download:
 	docker-compose run nycdb bash -c "cd /opt/nyc-db && make download"
 
 docker-run:
-	docker-compose run nycdb bash -c "cd /opt/nyc-db && make nyc-db NYCDB_DOCKER=true DB_DATABASE=postgres DB_USER=postgres DB_HOST=pg"
+	docker-compose run nycdb bash -c "cd /opt/nyc-db && make nyc-db DB_DATABASE=postgres DB_USER=postgres DB_HOST=pg"
 
 docker-shell:
 	PGPASSWORD=nycdb psql -U postgres -h 127.0.0.1
@@ -93,15 +106,6 @@ docker-db-standalone:
 
 docker-dump:
 	docker-compose run pg pg_dump --no-owner --clean --if-exists -h pg -U postgres --file=/opt/nyc-db/nyc-db.sql postgres 
-
-
-prepare-docker: 
-ifdef NYCDB_DOCKER
-	@echo 'Running inside a docker container!'
-	./scripts/docker_setup.sh
-else
-	@echo '-'
-endif
 
 nyc-db-pluto-all:
 	./scripts/nyc_db.sh --pluto-all
@@ -127,7 +131,7 @@ clean: remove-venv
 	docker-compose rm -f
 
 help:
-	@echo 'NYC-DB: Postgres database of housing data'
+	@echo 'NYC-DB: Postgres database of NYC housing data'
 	@echo 'Copyright (C) 2017 Ziggy Mintz'
 	@echo "This program is free software: you can redistribute it and/or modify"
 	@echo "it under the terms of the GNU General Public License as published by"
@@ -135,16 +139,16 @@ help:
 	@echo '(at your option) any later version.'
 	@echo '---------------------------------------------------------------'
 	@echo 'To use without docker:'
-	@echo '  1) create a postgres database'
-	@echo '  2) create env.sh and define psql bash functions (see README for more information)'
-	@echo '  3) download the files: make download'
-	@echo '  4) create the database: make nyc-db'	
+	@echo '  1) create a postgres database: createdb nycdb'
+	@echo '  2) download the files: make download'
+	@echo '  3) create the database: make nyc-db DB_USER=YOURPGUSER DB_PASS=YOURPASS'
 	@echo '---------------------------------------------------------------'
+	@echo ''
 	@echo 'To use WITH docker:'
 	@echo '   1) Setup: make docker-setup'
 	@echo '   2) Download: make download'
 	@echo '   3) Build db: make docker-run'
-	@echo
+	@echo ''
 	@echo 'If things get messed up try: '
 	@echo ' $ sudo make remove-venv to clean the python environments'
 	@echo '   or  '

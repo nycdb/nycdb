@@ -42,25 +42,6 @@ Clone the repo: ``` git clone https://github.com/aepyornis/nyc-db.git --recursiv
 
 Create a pg database if you don't have one setup already: ``` createdb nycdb```
 
-Rename env.sh.sample to env.sh and modify it according to how postgres is setup. _env.sh_ defines two functions -- execute_sql and execute_sql_cmd -- which simply defines two wrapper functions for 'psql', based on how your postgres connection settings. It aso stores a connection string in an env variable used by python.
-
-Example env.sh:
-
-``` bash
-export PGPASSWORD=YOURPGPASSWORD
-
-execute_sql () {
- psql -h 127.0.0.1 -d nycdb -U postgres -f $1
-}
-
-execute_sql_cmd () {
- psql -h 127.0.0.1 -d nycdb -U postgres --command "$1"
-}
-
-NYCDB_CONNECTION_STRING="dbname=nycdb user=postgres password=YOURPGPASSWORD host=127.0.0.1"
-
-```
-
 Additionally, take a look at docs/sample_setup.sh for a rough idea of how to setup up a debian or ubuntu server with the database.
 
 ### Run
@@ -71,20 +52,22 @@ Download the data files: ``` make download ```
 
 Build the database: ``` make nyc-db ```
 
-#### Run options:
+There are 4 connection variables that you can pass to configure the postgres connection. For instance:
 
-By default it only includes the most recent pluto. If you you'd like to include 14 (!) versions of pluto for historic analysis run the download and db script with the flag --pluto-all: ``` ./scripts/download.sh all --pluto-all ``` and ``` ./scripts/nyc_db.sh --pluto-all ```
+```
+make nyc-db DB_HOST=localhost DB_DATABASE=nycdb DB_USER=databaseuser DB_PASS=mypassword
+```
 
-Or use the make commands:  ```  make download-pluto-all ``` and ``` make nyc-db-pluto-all ```
+#### Run options: *Individual datasets*
+
+If you want only one dataset or if you prefer to import the datasets one-at-a-time, you can run the download script with the name of the dataset and then execute the script for the corresponding dataset.
+
+For example, to import only DOF sales data do: ``` ./download.sh dofsales ``` and ``` make dofsales ```
 
 Notes: 
  - The scripts will drop existing tables of the same name from the database and re-populate them. This means you can re-run the scripts when new data is released.
- - Some but not all of the tables have indexes. 
+ - Some but not all of the tables have indexes.
 
-*Individual datasets*
-If you want only one dataset or if you prefer to import the datasets one-at-a-time, you can run the download script with the name of the dataset and then execute the script for the corresponding dataset.
-
-For example, to import only DOF sales data do: ``` ./scripts/download.sh dofsales ``` and ``` ./scripts/dofsales.sh ```
 
 The scripts to insert the data for each datasets are stored in separate repos and are kept as submodules in the _modules_ folder: 
 
@@ -139,19 +122,6 @@ make nyc-db
 ### TABLES
 
 *pluto*
- - pluto_03c
- - pluto_04c
- - pluto_05d
- - pluto_06c
- - pluto_07c
- - pluto_09v2
- - pluto_10v2
- - pluto_11v2
- - pluto_12v2
- - pluto_13v2
- - pluto_14v2
- - pluto_15v1
- - pluto_16v1
  - pluto_16v2
  
 *dob*
@@ -174,7 +144,6 @@ make nyc-db
 
 *tax bills*
  - rentstab
-
 
 ### Future datasets to add:
 
