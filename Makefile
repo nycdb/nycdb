@@ -76,7 +76,7 @@ hpd-violations:
 	./scripts/template.sh > ./modules/hpd-violations/pg_setup.sh
 	echo "HPD_VIOLATIONS_DATA_FOLDER=$(shell pwd)/data/hpd_violations/data" >> ./modules/hpd-violations/pg_setup.sh
 	cd modules/hpd-violations && ./unzip.sh && ./to_postgres.sh
-	rm modules/hpd-violations/pg_setup.sh
+	rm $(shell pwd)/modules/hpd-violations/pg_setup.sh
 
 RENTSTAB_FILE=$(shell pwd)/data/rentstab/joined.csv
 
