@@ -69,14 +69,14 @@ Notes:
  - Some but not all of the tables have indexes.
 
 
-The scripts to insert the data for each datasets are stored in separate repos and are kept as submodules in the _modules_ folder: 
+Some of the scripts are stored in separate repos and are kept as submodules in the _modules_ folder: 
 
 - [PLUTO](https://github.com/aepyornis/pluto)
 - [Department of Building's Job Filings](https://github.com/aepyornis/dob-jobs-parser)
 - [HPD Violations](https://github.com/aepyornis/hpd-violations)
 - [HPD Registrations](https://github.com/aepyornis/hpd)
 - [DOF Sales](https://github.com/aepyornis/dof-sales)
-- [Rent Stabilization Unit Counts](https://github.com/aepyornis/nyc-stabilization-unit-counts-to-pg)
+
 
 ## If you like docker:
 
