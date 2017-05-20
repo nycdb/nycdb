@@ -114,23 +114,18 @@ docker-db-standalone:
 docker-dump:
 	docker-compose run pg pg_dump --no-owner --clean --if-exists -h pg -U postgres --file=/opt/nyc-db/nyc-db.sql postgres 
 
-.ONESHELL: db-dump
 db-dump:
-	source ./env.sh
-	pg_dump --no-owner --clean --if-exists -h 127.0.0.1 -U nycdb nycdb > "nyc-db-$$(date +%F).sql"
+	PGPASSWORD=$(DB_PASSWORD) pg_dump --no-owner --clean --if-exists -U $(DB_USER) -h $(DB_HOST) $(DB_DATABASE) "nyc-db-$$(date +%F).sql"
 
 db-dump-bzip:
 	bzip2 --keep nyc-db*.sql
 
 remove-venv:
-	rm -rf modules/dof-sales/venv
-	rm -rf modules/pluto/venv
-	rm -rf modules/dobjobs/venv
-	rm -rf modules/dof-sales/venv
+	find ./modules -type d -name 'venv' -print0 | xargs -0 -r rm -r
 
 clean: remove-venv
 	rm -rf postgres-data
-	docker-compose rm -f
+	type docker-compose > /dev/null 2>&1 && docker-compose rm -f || /bin/true
 
 help:
 	@echo 'NYC-DB: Postgres database of NYC housing data'
