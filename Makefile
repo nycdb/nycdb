@@ -99,7 +99,14 @@ rentstab:
 	cd modules/rentstab && python3 rentstab.py -H $(DB_HOST) -U $(DB_USER) -P $(DB_PASSWORD) -D $(DB_DATABASE) "$(RENTSTAB_FILE)"
 
 311:
+	@echo "**311 Complaints**"
 	cd modules/311 && make && make run
+
+acris:
+	@echo "**ACRIS**"
+	cd modules/acris-download \
+	&& make \
+	&& make psql USER=$(DB_USER) PASS=$(DB_PASSWORD) DATABASE=$(DB_DATABASE) PSQLFLAGS="--host=$(DB_HOST)"
 
 docker-setup:
 	mkdir -p postgres-data
