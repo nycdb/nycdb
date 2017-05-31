@@ -18,6 +18,8 @@ nycdb_packages:
   - postgresql
   - postgresql-contrib
   - libpq-dev
+  - ruby
+  - bundler
       
 nycdb_database_host: 127.0.0.1
 

@@ -7,10 +7,12 @@
   notify:
     - restart postgresql
 
+    
 - name: Installling csvkt
   pip:
     executable: /usr/bin/pip2
     name: csvkit
+
 
 - name: Setup postgres db
   become: yes
@@ -46,12 +48,14 @@
     name: "{{ nycdb_database_user }}" 
     role_attr_flags: NOSUPERUSER,NOCREATEDB
 
+    
 - name: Create /srv/nyc-db
   file:
     path: /srv/nyc-db
     state: directory
     owner: ubuntu
 
+    
 - name: Clone the nyc-db repo
   become: yes
   become_user: ubuntu
@@ -59,6 +63,15 @@
     repo: https://github.com/aepyornis/nyc-db.git
     dest: /srv/nyc-db
     recursive: yes
+    
+- name: Installing Gems for 311 module
+  become: yes
+  become_user: ubuntu
+  bundler:
+    state: present
+    executable: ~/.rvm/gems/ruby-2.4.0/bin/bundler
+    gemfile: /srv/nyc-db/modules/311/Gemfile
+    
 
 - name: Setup env.sh
   become: yes

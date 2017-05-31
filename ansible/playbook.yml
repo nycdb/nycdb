@@ -5,9 +5,4 @@
   become_method: sudo
 
   roles:
-    - common
-    - { role: rvm_io.ruby,
-        tags: ruby,
-        rvm1_rubies: ['ruby-2.4.0'],
-        rvm1_user: 'ubuntu'
-      }
+    - nycdb
