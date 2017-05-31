@@ -65,16 +65,11 @@ def run(csv_file, user, pass, host, db)
 
   geo = NycGeosupport.client geo_function: '1A'
   db = Sequel.connect(pg_connection_str(user, pass, host, db))
-  db_table = db[:complaints_311]
-
-  count = 0
 
   SmarterCSV.process(csv_file, :key_mapping => key_mapping).each do |x|
     add_bbl(x, geo)
-    db_table.insert(x)
-    count += 1
-    print "." if (count % 10_000).zero?
-    print "\n" if (count % 100_000).zero?
+
+    db.transaction { db[:complaints_311].insert(x) }
   end
 end
 
