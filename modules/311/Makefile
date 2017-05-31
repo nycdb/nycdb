@@ -14,8 +14,8 @@ setup: download
 	-bundle install
 
 run:
-	ruby parse.rb create_table --user=$(DB_USER) --host=$(DB_HOST) --pass=$(DB_PASSWORD) --database=$(DB_DATABASE)
-	ruby parse.rb parse --user=$(DB_USER) --host=$(DB_HOST) --pass=$(DB_PASSWORD) --database=$(DB_DATABASE) 311.csv
+	bundle exec ruby parse.rb create_table --user=$(DB_USER) --host=$(DB_HOST) --pass=$(DB_PASSWORD) --database=$(DB_DATABASE)
+	bundle exec ruby parse.rb parse --user=$(DB_USER) --host=$(DB_HOST) --pass=$(DB_PASSWORD) --database=$(DB_DATABASE) 311.csv
 
 
 download: gdelx_17a.zip version-17a_17.1 311.csv
@@ -32,7 +32,7 @@ version-17a_17.1:
 
 clean:
 	rm -f 311.csv
-	ruby parse.rb drop_table --user=$(DB_USER) --host=$(DB_HOST) --pass=$(DB_PASSWORD) --database=$(DB_DATABASE)
+	bundle exec ruby parse.rb drop_table --user=$(DB_USER) --host=$(DB_HOST) --pass=$(DB_PASSWORD) --database=$(DB_DATABASE)
 
 
 .PHONY: setup run download clean
