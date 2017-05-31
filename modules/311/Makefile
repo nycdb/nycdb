@@ -8,8 +8,10 @@ export GEOFILES := $(shell pwd)/version-17a_17.1/fls/
 export LIBGEO_PATH := $(shell pwd)/version-17a_17.1/lib/libgeo.so
 
 setup: download
-	gem install bundler --no-ri --no-rdoc
-	bundle install
+# 	ignoring errors here because the gems might be already installed
+#       as is the case with the ansible setup
+	-gem install bundler --no-ri --no-rdoc
+	-bundle install
 
 run:
 	ruby parse.rb create_table --user=$(DB_USER) --host=$(DB_HOST) --pass=$(DB_PASSWORD) --database=$(DB_DATABASE)
