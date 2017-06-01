@@ -1,17 +1,25 @@
-FROM debian:jessie
+FROM debian:stretch
 MAINTAINER ziggy
 
 RUN apt-get update && \
-    apt-get -y install build-essential \ 
+    apt-get -y install build-essential \
     wget \ 
-    python3 \
+    zip \ 
+    unzip \
+    bzip2 \ 
+    git \
+    htop \
+    python \ 
+    python-pip \ 
+    build-essential \ 
+    python3 \ 
     python3-dev \ 
     python3-psycopg2 \ 
-    python3.4-venv \ 
-    postgresql-client \
-    libpq-dev \
-    unzip \
-    git
+    python3-venv \ 
+    postgresql-client \ 
+    libpq-dev \ 
+    ruby \
+    bundler  
 
 RUN mkdir /opt/nyc-db
 
