@@ -29,6 +29,7 @@ tasks = pluto \
 	hpd-violations \
 	rentstab \
 	311 \
+	acris \
 	verify
 
 
@@ -104,9 +105,10 @@ rentstab:
 
 acris:
 	@echo "**ACRIS**"
-	cd modules/acris-download \
-	&& make \
-	&& make psql USER=$(DB_USER) PASS=$(DB_PASSWORD) DATABASE=$(DB_DATABASE) PSQLFLAGS="--host=$(DB_HOST)"
+	cd modules/acris-download && make
+	cd modules/acris-download && make psql USER=$(DB_USER) PASS=$(DB_PASSWORD) DATABASE=$(DB_DATABASE) PSQLFLAGS="--host=$(DB_HOST)"
+	cd modules/acris-download && make psql_real_complete USER=$(DB_USER) PASS=$(DB_PASSWORD) DATABASE=$(DB_DATABASE) PSQLFLAGS="--host=$(DB_HOST)"
+	cd modules/acris-download && make psql_personal_complete USER=$(DB_USER) PASS=$(DB_PASSWORD) DATABASE=$(DB_DATABASE) PSQLFLAGS="--host=$(DB_HOST)"
 
 docker-setup:
 	mkdir -p postgres-data

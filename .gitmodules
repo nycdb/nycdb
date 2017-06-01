@@ -13,3 +13,6 @@
 [submodule "modules/hpd-violations"]
 	path = modules/hpd-violations
 	url = https://github.com/aepyornis/hpd-violations.git
+[submodule "modules/acris-download"]
+	path = modules/acris-download
+	url = https://github.com/fitnr/acris-download.git
