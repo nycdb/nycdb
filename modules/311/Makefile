@@ -15,7 +15,7 @@ setup: download
 
 run:
 	bundle exec ruby parse.rb create_table --user=$(DB_USER) --host=$(DB_HOST) --pass=$(DB_PASSWORD) --database=$(DB_DATABASE)
-	bundle exec ruby parse.rb parse --user=$(DB_USER) --host=$(DB_HOST) --pass=$(DB_PASSWORD) --database=$(DB_DATABASE) 311.csv
+	bundle exec ruby parse.rb parse --split=true --user=$(DB_USER) --host=$(DB_HOST) --pass=$(DB_PASSWORD) --database=$(DB_DATABASE) 311.csv
 
 
 download: gdelx_17a.zip version-17a_17.1 311.csv
