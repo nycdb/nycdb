@@ -78,8 +78,8 @@ def split_files(csv_file, user, pass, host, db)
   File.open(csv_file) do |f|
     header = f.readline
     count = 0
-    s = StringIO.new(header, 'r+')
-    
+    s = StringIO.new
+    s.write(header)
     f.each_line do |line|
       s.write(line)
       count += 1
@@ -87,7 +87,8 @@ def split_files(csv_file, user, pass, host, db)
       s.rewind
       run(s, user, pass, host, db)
       count = 0
-      s = StringIO.new(header, 'r+')
+      s = StringIO.new
+      s.write(header)
     end
     s.rewind
     run(s, user, pass, host, db) # final run
