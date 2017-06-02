@@ -55,6 +55,7 @@ class NYCDB
     row[:bbl] = nil
     boro = BBL_LOOKUP[row[:borough]]
     address = row[:incident_address]
+    return unless address.is_a?(String)
     return unless exists(address) and address.include?(' ')
     house = address.split(' ')[0]
     street = address.split(' ')[1..-1].join(' ')
