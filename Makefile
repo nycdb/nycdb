@@ -7,6 +7,7 @@ DB_HOST='127.0.0.1'
 DB_DATABASE=nycdb
 DB_USER=nycdb
 DB_PASSWORD=nycdb
+PGPASSWORD=$(DB_PASSWORD)
 
 # exporting allows these variables
 # to be accessed in the subshells
@@ -15,6 +16,8 @@ export DB_HOST
 export DB_DATABASE
 export DB_USER
 export DB_PASSWORD
+export PGPASSWORD
+
 
 # use BASH as our sell
 SHELL=/bin/bash
@@ -25,6 +28,8 @@ tasks = pluto \
 	hpd-registrations \
 	hpd-violations \
 	rentstab \
+	311 \
+	acris \
 	verify
 
 
@@ -94,6 +99,17 @@ rentstab:
 	@echo "See https://github.com/talos/nyc-stabilization-unit-counts for more information"
 	cd modules/rentstab && python3 rentstab.py -H $(DB_HOST) -U $(DB_USER) -P $(DB_PASSWORD) -D $(DB_DATABASE) "$(RENTSTAB_FILE)"
 
+311:
+	@echo "**311 Complaints**"
+	cd modules/311 && make && make run
+
+acris:
+	@echo "**ACRIS**"
+	cd modules/acris-download && make
+	cd modules/acris-download && make psql USER=$(DB_USER) PASS=$(DB_PASSWORD) DATABASE=$(DB_DATABASE) PSQLFLAGS="--host=$(DB_HOST)"
+	cd modules/acris-download && make psql_real_complete USER=$(DB_USER) PASS=$(DB_PASSWORD) DATABASE=$(DB_DATABASE) PSQLFLAGS="--host=$(DB_HOST)"
+	cd modules/acris-download && make psql_personal_complete USER=$(DB_USER) PASS=$(DB_PASSWORD) DATABASE=$(DB_DATABASE) PSQLFLAGS="--host=$(DB_HOST)"
+
 docker-setup:
 	mkdir -p postgres-data
 	docker pull aepyornis/nyc-db:0.0.2
@@ -114,6 +130,9 @@ docker-db-standalone:
 docker-dump:
 	docker-compose run pg pg_dump --no-owner --clean --if-exists -h pg -U postgres --file=/opt/nyc-db/nyc-db.sql postgres 
 
+db-shell:
+	psql -h $(DB_HOST) -U $(DB_USER) -d $(DB_DATABASE)
+
 db-dump:
 	PGPASSWORD=$(DB_PASSWORD) pg_dump --no-owner --clean --if-exists -U $(DB_USER) -h $(DB_HOST) $(DB_DATABASE) "nyc-db-$$(date +%F).sql"
 
@@ -122,6 +141,9 @@ db-dump-bzip:
 
 remove-venv:
 	find ./modules -type d -name 'venv' -print0 | xargs -0 -r rm -r
+
+pg-connection-test:
+	@psql -h $(DB_HOST) -U $(DB_USER) -d $(DB_DATABASE) -c "SELECT NOW()" > /dev/null 2>&1 && echo 'CONNECTION IS WORKING' || echo 'COULD NOT CONNECT'
 
 clean: remove-venv
 	rm -rf postgres-data
@@ -155,6 +177,6 @@ help:
 
 .PHONY: $(tasks) nyc-db
 .PHONY: download download-pluto-all
-.PHONY: db-dump db-dump-bzip 
+.PHONY: db-dump db-dump-bzip pg-connection-test
 .PHONY: docker-setup docker-download docker-run docker-psql-shell docker-db-standalone docker-dump
 .PHONY: clean remove-venv default help

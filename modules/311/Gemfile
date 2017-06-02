@@ -1,0 +1,12 @@
+# frozen_string_literal: true
+source "https://rubygems.org"
+
+# gem "rails"
+
+gem "nyc_geosupport", :git => "https://github.com/jordanderson/nyc_geosupport", :ref => "1fa76701f27d3fa97eb20dd34493e2dc5251a1b1"
+
+gem "sequel", "~> 4.46.0"
+gem "pg", "~> 0.20.0"
+gem "thor", "~>0.19.4"
+gem "smarter_csv", "~>1.1.4"
+

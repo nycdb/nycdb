@@ -37,7 +37,7 @@ def row_count(cur, table_name):
 conn = psycopg2.connect(user=args.user, password=args.password, host=args.host, database=args.database)
 cursor = conn.cursor()
 
-tables = ['pluto_16v2', 'dobjobs', 'violations', 'uniq_violations', 'open_violations', 'all_violations', 'contacts', 'corporate_owners', 'registrations', 'registrations_grouped_by_bbl', 'dof_sales', 'rentstab']
+tables = ['pluto_16v2', 'dobjobs', 'violations', 'uniq_violations', 'open_violations', 'all_violations', 'contacts', 'corporate_owners', 'registrations', 'registrations_grouped_by_bbl', 'dof_sales', 'rentstab', 'complaints_311']
 
 print(colors.BLUE + 'Checking the row count of each table in NYC-DB' + colors.ENDC)
 
