@@ -62,6 +62,7 @@
   git:
     repo: https://github.com/aepyornis/nyc-db.git
     dest: /srv/nyc-db
+    version: more-data
     recursive: yes
     
 - name: Installing Gems for 311 module
@@ -69,7 +70,6 @@
   become_user: ubuntu
   bundler:
     state: present
-    executable: ~/.rvm/gems/ruby-2.4.0/bin/bundler
     gemfile: /srv/nyc-db/modules/311/Gemfile
     
 
