@@ -36,11 +36,11 @@ class NYCDB
   end
 
   def exists(x)
-    return false if x.nil? || x.strip == ''
+    return false if x.nil? || x.to_s.strip == ''
     true
   end
 
-  # str, str, str, <NYC GeoSupport Client>
+  # str, str, str
   def geocode(house, street, boro)
     @geo.run(house_number_display_format: house, street_name1: street, b10sc1: boro)
 
