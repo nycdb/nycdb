@@ -22,9 +22,9 @@ HPD_REGISTRATIONS_FILE=${pwd}/tmp/registrations.txt
 HPD_CONTACTS_FILE=${pwd}/tmp/contacts.txt
 BBL_LAT_LNG=${pwd}/modules/hpd/bbl_lat_lng.txt
 
-cat $HPD_REGISTRATIONS_FILE | execute_sql_cmd "COPY hpd.registrations FROM STDIN (DELIMITER '|', FORMAT CSV, HEADER TRUE);"
-cat $HPD_CONTACTS_FILE | execute_sql_cmd "COPY hpd.contacts FROM STDIN (DELIMITER '|', FORMAT CSV, HEADER TRUE);"
-cat $BBL_LAT_LNG | execute_sql_cmd "COPY hpd.bbl_lookup FROM STDIN (FORMAT CSV,  HEADER TRUE);"
+cat $HPD_REGISTRATIONS_FILE | execute_sql_cmd "COPY hpd_registrations FROM STDIN (DELIMITER '|', FORMAT CSV, HEADER TRUE);"
+cat $HPD_CONTACTS_FILE | execute_sql_cmd "COPY hpd_contacts FROM STDIN (DELIMITER '|', FORMAT CSV, HEADER TRUE);"
+cat $BBL_LAT_LNG | execute_sql_cmd "COPY hpd_bbl_lookup FROM STDIN (FORMAT CSV,  HEADER TRUE);"
 
 printf 'Cleanup contact addresses\n'
 execute_sql ${pwd}/modules/hpd/sql/address_cleanup.sql

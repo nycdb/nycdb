@@ -1,3 +1,4 @@
+
 """
 USE: python3 check_installation.py --user USER --password PASS --host HOST -- database DATABASE
 """
@@ -23,21 +24,15 @@ def table_exists(cur, table_name):
     cur.execute(query)
     return cur.fetchone()[0]
 
-def schema_helper(table_name):
-    if table_name in ['contacts', 'corporate_owners', 'registrations', 'registrations_grouped_by_bbl']:
-        return "hpd.{}".format(table_name)
-    else:
-        return table_name
-    
 def row_count(cur, table_name):
-    query = "SELECT COUNT(*) from {0}".format(schema_helper(table_name))
+    query = "SELECT COUNT(*) from {0}".format(table_name)
     cur.execute(query)
     return cur.fetchone()[0]
 
 conn = psycopg2.connect(user=args.user, password=args.password, host=args.host, database=args.database)
 cursor = conn.cursor()
 
-tables = ['pluto_16v2', 'dobjobs', 'violations', 'uniq_violations', 'open_violations', 'all_violations', 'contacts', 'corporate_owners', 'registrations', 'registrations_grouped_by_bbl', 'dof_sales', 'rentstab', 'complaints_311']
+tables = ['pluto_16v2', 'dobjobs', 'hpd_violations', 'hpd_uniq_violations', 'hpd_open_violations', 'hpd_all_violations', 'hpd_contacts', 'hpd_corporate_owners', 'hpd_registrations', 'hpd_registrations_grouped_by_bbl', 'dof_sales', 'rentstab', 'complaints_311']
 
 print(colors.BLUE + 'Checking the row count of each table in NYC-DB' + colors.ENDC)
 

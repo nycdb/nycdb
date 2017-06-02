@@ -19,7 +19,7 @@ export DB_PASSWORD
 export PGPASSWORD
 
 
-# use BASH as our sell
+# use BASH as our shell
 SHELL=/bin/bash
 
 tasks = pluto \
