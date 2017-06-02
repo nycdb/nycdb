@@ -7,6 +7,7 @@ gem "nyc_geosupport", :git => "https://github.com/jordanderson/nyc_geosupport", 
 
 gem "sequel", "~> 4.46.0"
 gem "pg", "~> 0.20.0"
+gem "sequel_pg"
 gem "thor", "~>0.19.4"
 gem "smarter_csv", "~>1.1.4"
 
