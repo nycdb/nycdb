@@ -103,19 +103,14 @@ rentstab:
 	@echo "**311 Complaints**"
 	cd modules/311 && make && make run
 
-acris-tasks = acris-download acris-db acris-db-extras
 
-acris: $(acris-tasks)
+acris: acris-download
+	cd modules/acris-download \
+	&& make psql_real_complete USER=$(DB_USER) PASS=$(DB_PASSWORD) DATABASE=$(DB_DATABASE) PSQLFLAGS="--host=$(DB_HOST)" \
+	&& make psql_personal_complete USER=$(DB_USER) PASS=$(DB_PASSWORD) DATABASE=$(DB_DATABASE) PSQLFLAGS="--host=$(DB_HOST)"
 
 acris-download:
 	cd modules/acris-download && make
-
-acris-db:
-	cd modules/acris-download && make psql USER=$(DB_USER) PASS=$(DB_PASSWORD) DATABASE=$(DB_DATABASE) PSQLFLAGS="--host=$(DB_HOST)"
-
-acris-db-extras:
-	cd modules/acris-download && make psql_real_complete USER=$(DB_USER) PASS=$(DB_PASSWORD) DATABASE=$(DB_DATABASE) PSQLFLAGS="--host=$(DB_HOST)" \
-	&& make psql_personal_complete USER=$(DB_USER) PASS=$(DB_PASSWORD) DATABASE=$(DB_DATABASE) PSQLFLAGS="--host=$(DB_HOST)"
 
 docker-setup:
 	mkdir -p postgres-data
@@ -183,8 +178,7 @@ help:
 
 
 .PHONY: $(tasks) nyc-db
-.PHONY: download download-pluto-all
+.PHONY: download download-pluto-all acris-download
 .PHONY: db-dump db-dump-bzip pg-connection-test
 .PHONY: docker-setup docker-download docker-run docker-psql-shell docker-db-standalone docker-dump
 .PHONY: clean remove-venv default help
-.PHONY: $(acris-tasks)
