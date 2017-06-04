@@ -103,12 +103,19 @@ rentstab:
 	@echo "**311 Complaints**"
 	cd modules/311 && make && make run
 
-acris:
-	@echo "**ACRIS**"
+acris-tasks = acris-download acris-db acris-db-extras
+
+acris: $(acris-tasks)
+
+acris-download:
 	cd modules/acris-download && make
+
+acris-db:
 	cd modules/acris-download && make psql USER=$(DB_USER) PASS=$(DB_PASSWORD) DATABASE=$(DB_DATABASE) PSQLFLAGS="--host=$(DB_HOST)"
-	cd modules/acris-download && make psql_real_complete USER=$(DB_USER) PASS=$(DB_PASSWORD) DATABASE=$(DB_DATABASE) PSQLFLAGS="--host=$(DB_HOST)"
-	cd modules/acris-download && make psql_personal_complete USER=$(DB_USER) PASS=$(DB_PASSWORD) DATABASE=$(DB_DATABASE) PSQLFLAGS="--host=$(DB_HOST)"
+
+acris-db-extras:
+	cd modules/acris-download && make psql_real_complete USER=$(DB_USER) PASS=$(DB_PASSWORD) DATABASE=$(DB_DATABASE) PSQLFLAGS="--host=$(DB_HOST)" \
+	&& make psql_personal_complete USER=$(DB_USER) PASS=$(DB_PASSWORD) DATABASE=$(DB_DATABASE) PSQLFLAGS="--host=$(DB_HOST)"
 
 docker-setup:
 	mkdir -p postgres-data
@@ -160,7 +167,7 @@ help:
 	@echo 'To use without docker:'
 	@echo '  1) create a postgres database: createdb nycdb'
 	@echo '  2) download the files: make download'
-	@echo '  3) create the database: make nyc-db DB_USER=YOURPGUSER DB_PASS=YOURPASS'
+	@echo '  3) create the database: make nyc-db DB_USER=YOURPGUSER DB_PASSWORD=YOURPASS'
 	@echo '---------------------------------------------------------------'
 	@echo ''
 	@echo 'To use WITH docker:'
@@ -180,3 +187,4 @@ help:
 .PHONY: db-dump db-dump-bzip pg-connection-test
 .PHONY: docker-setup docker-download docker-run docker-psql-shell docker-db-standalone docker-dump
 .PHONY: clean remove-venv default help
+.PHONY: $(acris-tasks)
