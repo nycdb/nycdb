@@ -12,7 +12,11 @@
   pip:
     executable: /usr/bin/pip2
     name: csvkit
-
+    
+- name: Installling psycopg2
+  pip:
+    executable: /usr/bin/pip2
+    name: psycopg2
 
 - name: Setup postgres db
   become: yes
