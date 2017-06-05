@@ -15,4 +15,4 @@
 	url = https://github.com/aepyornis/hpd-violations.git
 [submodule "modules/acris-download"]
 	path = modules/acris-download
-	url = https://github.com/fitnr/acris-download.git
+	url = https://github.com/aepyornis/acris-download.git
