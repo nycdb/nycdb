@@ -134,7 +134,7 @@ db-shell:
 	psql -h $(DB_HOST) -U $(DB_USER) -d $(DB_DATABASE)
 
 db-dump:
-	PGPASSWORD=$(DB_PASSWORD) pg_dump --no-owner --clean --if-exists -U $(DB_USER) -h $(DB_HOST) $(DB_DATABASE) "nyc-db-$$(date +%F).sql"
+	PGPASSWORD=$(DB_PASSWORD) pg_dump --no-owner --clean --if-exists -U $(DB_USER) -h $(DB_HOST) $(DB_DATABASE) > "nyc-db-$$(date +%F).sql"
 
 db-dump-bzip:
 	bzip2 --keep nyc-db*.sql
