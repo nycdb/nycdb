@@ -1,40 +1,43 @@
 # nyc-db
 
-Builds a postgres database of NYC housing data, containing the following datasets:
+Let's research the landlord! New York City is in a housing crisis. Some [landlords](https://youtu.be/o1SzKHXz8tU) leave their buildings in despair and let their tenants suffer without heat in winter. Others evict their tenants, legally or illegally, in order to flip buildings and profit off of gentrification. Affordable housing is a scare resource. Residents, lawyers, tenants, and organizers who want to use data in their struggle either have to turn to proprietary databases and resources, like PropertyShark, designed for real estate or battle with CSV and printouts from city websites. NYC-DB aims to give technologists and researchers who want to volunteer their time helping community groups who are defending the city against the real estate industry a leg up by providing a ready-to-use database filled with housing data.
 
-- Pluto
-- Department of Buildings Job Filings
+NYC-DB builds a postgresql database of containing the following datasets:
+
+- Department of City Planning's Pluto
+- Department of Building's Job Filings
 - HPD Violations
 - HPD Registrations
 - Department of Finance Rolling Sales
 - Tax bills - Rent Stabilization Unit Counts (John Krauss's data)
+- 311 Complaints
+- ACRIS
 
-### Get a copy
+## Get a copy
 
 Just want a copy of the database?
 
-Here's the latest version available to download from S3:
+Here's the latest versions available to download from S3:
 
-[nyc-db-2017-05-05.sql.bz2](https://s3.amazonaws.com/nyc-db/nyc-db-2017-05-05.sql.bz2)
+- [nyc-db-2017-06-06.sql.bz2](https://s3.amazonaws.com/nyc-db/nyc-db-2017-06-06.sql.bz2)
+- [nyc-db-2017-05-05.sql.bz2](https://s3.amazonaws.com/nyc-db/nyc-db-2017-05-05.sql.bz2)
 
-It's ~500mb compressed and ~4gb decompressed.
+It's ~1.5gb compressed and ~14gb decompressed..
 
-If you have aws cli installed, you can download it easily this way: ``` aws s3 cp s3://nyc-db/nyc-db-2017-05-05.sql.bz2 ./ ```
+If you have aws cli installed, you can download it easily this way: ``` aws s3 cp s3://nyc-db/nyc-db-2017-06-06.sql.bz2 ./ ```
 
-To decompress: ```  bunzip2 nyc-db-2017-05-05.sql.bz2 ```
+To decompress: ```  bunzip2 nyc-db-2017-06-06.sql.bz2 ```
 
-Build the db: ``` psql -d database-name -f nyc-db-2017-05-05.sql ```
+Load the db: ``` psql -d database-name -f nyc-db-2017-06-06.sql ```
 
 
-### Installation
+## Build it yourself!
+
+###  Installation
 
 *Requirements*
 
-On Debian & Ubuntu, issue this command to install the requirements: 
-
-``` sudo apt-get install build-essential wget python python3 python3-dev python3-psycopg2 python3.4-venv postgresql-client unzip git ```
-
-On Debian Testing  use  ``` python3-venv ``` instead of ``` python3.4-venv ```
+Postgres and slew of common tools including python, python3, ruby, make, git, and wget. I recommend using Ansible or Docker if you can. See the ``` Dockerfile ``` for a list of required packages for Debian or Ubuntu.
 
 *Setup*
 
@@ -42,11 +45,9 @@ Clone the repo: ``` git clone https://github.com/aepyornis/nyc-db.git --recursiv
 
 Create a pg database if you don't have one setup already: ``` createdb nycdb```
 
-Additionally, take a look at docs/sample_setup.sh for a rough idea of how to setup up a debian or ubuntu server with the database.
-
 ### Run
 
-These must be run from the root of the repo. Expect this whole process to take an hour.
+These must be run from the root of the repo. Expect this whole process to take a few hours.
 
 Download the data files: ``` make download ```
 
@@ -55,10 +56,10 @@ Build the database: ``` make nyc-db ```
 There are 4 connection variables that you can pass to configure the postgres connection. For instance:
 
 ```
-make nyc-db DB_HOST=localhost DB_DATABASE=nycdb DB_USER=databaseuser DB_PASS=mypassword
+make nyc-db DB_HOST=localhost DB_DATABASE=nycdb DB_USER=databaseuser DB_PASSWORD=mypassword
 ```
 
-#### Run options: *Individual datasets*
+#### Run options: _Individual datasets_
 
 If you want only one dataset or if you prefer to import the datasets one-at-a-time, you can run the download script with the name of the dataset and then execute the script for the corresponding dataset.
 
@@ -66,10 +67,9 @@ For example, to import only DOF sales data do: ``` ./download.sh dofsales ``` an
 
 Notes: 
  - The scripts will drop existing tables of the same name from the database and re-populate them. This means you can re-run the scripts when new data is released.
- - Some but not all of the tables have indexes.
+ - Some indexes are created, but you might want to create additional depending on youre queries.
 
-
-Some of the scripts are stored in separate repos and are kept as submodules in the _modules_ folder: 
+Some of the scripts are stored in separate repos and are kept as submodules in the _modules_ folder:
 
 - [PLUTO](https://github.com/aepyornis/pluto)
 - [Department of Building's Job Filings](https://github.com/aepyornis/dob-jobs-parser)
@@ -113,7 +113,7 @@ then run the playbook: ``` cd ansible && ansible-playbook playbook.yml ```
 
 After it's done. SSH into the server and run:
 
-```
+``` bash
 cd /srv/nyc-db
 make download
 make nyc-db
@@ -122,34 +122,57 @@ make nyc-db
 ### TABLES
 
 *pluto*
- - pluto_16v2
+	- pluto_16v2
  
 *dob*
- - dobjobs
+	- dobjobs
  
 *hpd violations*
- - violations
- - uniq_violations
- - open_violations
- - all_violations
+  - hpd_violations
+  - hpd_uniq_violations
+  - hpd_open_violations
+  - hpd_all_violations
 
 *hpd registrations*
- - hpd.contacts
- - hpd.corporate_owners
- - hpd.registrations
- - hpd.registrations_grouped_by_bbl
+  - hpd_contacts
+  - hpd_corporate_owners
+  - hpd_registrations
+  - hpd_registrations_grouped_by_bbl
 
 *dof*
- - dof_sales
+  - dof_sales
 
 *tax bills*
- - rentstab
+  - rentstab
+
+*311*
+  - complaints_311
+ 
+*ACRIS*
+  - country_codes
+  - document_control_codes
+  - ucc_collateral_codes
+  - personal_property_legals
+  - personal_property_master
+  - personal_property_parties
+  - personal_property_references
+  - personal_property_remarks
+  - real_property_legals
+  - real_property_master
+  - real_property_parties
+  - real_property_references
+  - real_property_remarks
+
+### Acknowledgments
+
+- [@fitner](https://github.com/fitnr) for their brilliant [acris downloader](https://github.com/fitnr/acris-download)
+- [@jordanderson](https://github.com/jordanderson) for a [very useful ruby library for geocoding NYC addresses](https://github.com/jordanderson/nyc_geosupport).
+- [Heatseek](https://heatseek.org/) for ongoing support of the project and for their amazing work.
+- [@talos](https://github.com/talos) for his [tax bill scrapping](https://github.com/talos/nyc-stabilization-unit-counts) to get counts of rent-stabilization units
 
 ### Future datasets to add:
 
-- ACRIS
 - hpd complaints
-- selected 311 complaints
 - census data
 
 #### LICENSE: GPLv3
