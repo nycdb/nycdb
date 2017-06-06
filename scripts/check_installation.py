@@ -32,13 +32,45 @@ def row_count(cur, table_name):
 conn = psycopg2.connect(user=args.user, password=args.password, host=args.host, database=args.database)
 cursor = conn.cursor()
 
-tables = ['pluto_16v2', 'dobjobs', 'hpd_violations', 'hpd_uniq_violations', 'hpd_open_violations', 'hpd_all_violations', 'hpd_contacts', 'hpd_corporate_owners', 'hpd_registrations', 'hpd_registrations_grouped_by_bbl', 'dof_sales', 'rentstab', 'complaints_311']
+tables = [
+    'pluto_16v2',
+    'dobjobs',
+    'hpd_violations',
+    'hpd_uniq_violations',
+    'hpd_open_violations',
+    'hpd_all_violations',
+    'hpd_contacts',
+    'hpd_corporate_owners',
+    'hpd_registrations',
+    'hpd_registrations_grouped_by_bbl',
+    'dof_sales',
+    'rentstab',
+    'complaints_311',
+# ACRIS TABLES    
+    'country_codes',
+    'document_control_codes',
+    'ucc_collateral_codes',
+    'personal_property_legals',
+    'personal_property_master',
+    'personal_property_parties',
+    'personal_property_references',
+    'personal_property_remarks',
+    'real_property_legals',
+    'real_property_master',
+    'real_property_parties',
+    'real_property_references',
+    'real_property_remarks',
+]
 
 print(colors.BLUE + 'Checking the row count of each table in NYC-DB' + colors.ENDC)
 
 for table in tables:
+    cnt = row_count(cursor, table)
     if table_exists(cursor, table):
-        print(colors.GREEN + table + ' has ' + format(row_count(cursor, table), ',') + ' rows' + colors.ENDC)
+        if cnt > 0:
+            print(colors.GREEN + table + ' has ' + format(cnt, ',') + ' rows' + colors.ENDC)
+        else:
+            print(colors.FAIL + table + ' has no rows!' + colors.ENDC)
     else:
         print(colors.FAIL + table + ' is missing!' + colors.ENDC)
 
