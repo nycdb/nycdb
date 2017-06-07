@@ -1,0 +1,18 @@
+body {
+    margin: 0 auto;
+    margin-left: 1em;
+    max-width: 960px;
+}
+
+h1 {
+    font-size: 4em;
+}
+
+h2 {
+    font-size: 2em;
+}
+
+p {
+    font-size: 1em;
+}
+
