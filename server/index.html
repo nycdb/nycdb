@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style>
+  body {
+      margin: 0 auto;
+      margin-left: 1em;
+      max-width: 960px;
+  }
+  
+  h1 {
+      font-size: 4em;
+  }
+  
+  h2 {
+      font-size: 2em;
+  }
+  
+  p {
+      font-size: 1em;
+  }
+  
+  </style>
+</head>
+<body>
+<h1 id="nyc-db-api">NYC-DB API</h1>
+<h2 id="about">ABOUT</h2>
+<p>NYC-DB is a database of New York City housing data, built by and for community activists. The <a href="https://github.com/aepyornis/nyc-db">code</a> behind it is free software.</p>
+<h2 id="using-the-api">Using the API</h2>
+<p>This api is a free resource. No authorization is required and there are currently no limits. However, this api is not intended to be used to gather bulk data. Regular database dumps and instructions for how to create your own version of the database is available on the <a href="https://github.com/aepyornis/nyc-db">github page</a>.</p>
+<p>The API runs off <a href="https://postgrest.com">POSTGREST</a>. For detailed information on how api calls work, use the <a href="https://postgrest.com/en/v0.4/api.html">postgrest documentation</a> as a reference.</p>
+<h2 id="end-points">End Points</h2>
+<p>The api is available here <code>https://api.nycdb.info/</code> and is only available through TLS (HTTPS). HTTP requests will be redirected.</p>
+<p>Each table resource is at /table_name. For instance. <code>GET /dobjobs</code> will retrive rows from the 'dobjobs' table.</p>
+<h3 id="tables">Tables:</h3>
+<p><em>pluto</em></p>
+<ul>
+<li>pluto_16v2</li>
+</ul>
+<p><em>dob</em></p>
+<ul>
+<li>dobjobs</li>
+</ul>
+<p><em>hpd violations</em></p>
+<ul>
+<li>hpd_violations</li>
+<li>hpd_uniq_violations</li>
+<li>hpd_open_violations</li>
+<li>hpd_all_violations</li>
+</ul>
+<p><em>hpd registrations</em></p>
+<ul>
+<li>hpd_contacts</li>
+<li>hpd_corporate_owners</li>
+<li>hpd_registrations</li>
+<li>hpd_registrations_grouped_by_bbl</li>
+</ul>
+<p><em>dof</em></p>
+<ul>
+<li>dof_sales</li>
+</ul>
+<p><em>tax bills</em></p>
+<ul>
+<li>rentstab</li>
+</ul>
+<p><em>311</em></p>
+<ul>
+<li>complaints_311</li>
+</ul>
+<p><em>ACRIS</em></p>
+<ul>
+<li>personal_property_legals</li>
+<li>personal_property_master</li>
+<li>personal_property_parties</li>
+<li>real_property_legals</li>
+<li>real_property_master</li>
+<li>real_property_parties</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<p><strong>COMMING SOON</strong></p>
+</body>
+</html>

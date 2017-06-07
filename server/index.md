@@ -16,14 +16,49 @@ The api is available here ``` https://api.nycdb.info/ ``` and is only available 
 
 Each table resource is at /table_name. For instance. ``` GET /dobjobs ``` will retrive rows from the 'dobjobs' table.
 
-## BBL
-
-
 ### Tables:
 
+*pluto*
+  - pluto_16v2
+ 
+*dob*
+  - dobjobs
+ 
+*hpd violations*
+  - hpd_violations
+  - hpd_uniq_violations
+  - hpd_open_violations
+  - hpd_all_violations
 
-*pluto_v2*
+*hpd registrations*
+  - hpd_contacts
+  - hpd_corporate_owners
+  - hpd_registrations
+  - hpd_registrations_grouped_by_bbl
 
+*dof*
+  - dof_sales
+
+*tax bills*
+  - rentstab
+
+*311*
+  - complaints_311
+ 
+*ACRIS*
+  - personal_property_legals
+  - personal_property_master
+  - personal_property_parties
+  - real_property_legals
+  - real_property_master
+  - real_property_parties
+
+
+
+
+## Examples
+
+**COMMING SOON**
 
 
 

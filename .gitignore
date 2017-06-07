@@ -15,3 +15,4 @@ modules/311/version-17a_17.1/
 server/postgrest
 server/*.tar.xz
 server/*.html
+!server/index.html
