@@ -1,8 +1,10 @@
 # nyc-db
 
-Let's research the landlord! New York City is in a housing crisis. Some [landlords](https://youtu.be/o1SzKHXz8tU) leave their buildings in despair and let their tenants suffer without heat in winter. Others evict their tenants, legally or illegally, in order to flip buildings and profit off of gentrification. Affordable housing is a scare resource. Residents, lawyers, tenants, and organizers who want to use data in their struggle either have to turn to proprietary databases and resources, like PropertyShark, designed for real estate or battle with CSV and printouts from city websites. NYC-DB aims to give technologists and researchers who want to volunteer their time helping community groups who are defending the city against the real estate industry a leg up by providing a ready-to-use database filled with housing data.
+Let's research the landlord! New York City is in a housing crisis. Some [landlords](https://youtu.be/o1SzKHXz8tU) leave their buildings in despair and let their tenants suffer without heat in winter. Others evict their tenants, legally or illegally, in order to flip buildings and profit off of gentrification. Affordable housing is a scarce resource. 
 
-NYC-DB builds a postgresql database of containing the following datasets:
+Residents, lawyers, tenants, and organizers who want to use data in their struggle turn to proprietary databases and resources, like PropertyShark, designed for real estate or contend with CSV and printouts from city websites. NYC-DB aims to give technologists and researchers who want to volunteer their time helping community groups who are defending the city against the real estate industry a leg up by providing a ready-to-use database filled with housing data.
+
+NYC-DB builds a postgresql database containing the following datasets:
 
 - Department of City Planning's Pluto
 - Department of Building's Job Filings
@@ -29,7 +31,6 @@ If you have aws cli installed, you can download it easily this way: ``` aws s3 c
 To decompress: ```  bunzip2 nyc-db-2017-06-06.sql.bz2 ```
 
 Load the db: ``` psql -d database-name -f nyc-db-2017-06-06.sql ```
-
 
 ## Build it yourself!
 
@@ -122,10 +123,10 @@ make nyc-db
 ### TABLES
 
 *pluto*
-	- pluto_16v2
+  - pluto_16v2
  
 *dob*
-	- dobjobs
+  - dobjobs
  
 *hpd violations*
   - hpd_violations
