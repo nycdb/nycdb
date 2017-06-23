@@ -1,7 +1,7 @@
 version: '2'
 services:
   nycdb:
-    image: aepyornis/nyc-db:0.0.2
+    image: aepyornis/nyc-db:0.0.3
     volumes:
       - ./:/opt/nyc-db
     depends_on:

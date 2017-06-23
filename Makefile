@@ -112,7 +112,7 @@ acris-download:
 
 docker-setup:
 	mkdir -p postgres-data
-	docker pull aepyornis/nyc-db:0.0.2
+	docker pull aepyornis/nyc-db:0.0.3
 	docker pull postgres:9.6
 
 docker-download:
