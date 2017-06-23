@@ -101,7 +101,7 @@ class NYCDB
 
   def run(csv_file)
     key_mapping = { :"x_coordinate_(state_plane)" => :x_coordinate,  :"y_coordinate_(state_plane)" => :y_coordinate }
-    options = { :key_mapping => key_mapping, :chunk_size => 1000, :row_sep => "\n", :col_sep => ",", :quot_char => '"' }
+    options = { :key_mapping => key_mapping, :chunk_size => 1000, :row_sep => "\n", :col_sep => ",", :quot_char => '"', :force_utf8 => true }
     
     SmarterCSV.process(csv_file, options).each do |chunk|
       batch = chunk.map { |row| row_with_bbl(row) }
