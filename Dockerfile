@@ -10,8 +10,8 @@ RUN apt-get update && \
     git \
     htop \
     python \ 
-    python-pip \ 
-    build-essential \ 
+    python-pip \
+    python-psycopg2 \ 
     python3 \ 
     python3-dev \ 
     python3-psycopg2 \ 
@@ -19,7 +19,7 @@ RUN apt-get update && \
     postgresql-client \ 
     libpq-dev \ 
     ruby \
-    bundler  
+    bundler 
 
 RUN mkdir /opt/nyc-db
 
