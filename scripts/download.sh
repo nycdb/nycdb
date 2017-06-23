@@ -65,7 +65,7 @@ dofsales () {
 hpd () {
     printf "Downloading hpd registration data\n"
     mkdir -p data/hpd
-    wget http://www1.nyc.gov/assets/hpd/downloads/misc/Registrations20170501.zip -O data/hpd/registrations.zip
+    wget http://www1.nyc.gov/assets/hpd/downloads/misc/Registrations20170601.zip -O data/hpd/registrations.zip
     printf "Unzipping hpd registration data\n"
     unzip data/hpd/registrations.zip -d data/hpd
     rm data/hpd/*.xml
@@ -82,7 +82,8 @@ hpd_violations () {
 rentstab () {
     printf "Downloading Rent Stabilization Data \n"
     mkdir -p data/rentstab
-    wget http://taxbills.nyc/joined.csv -O data/rentstab/joined.csv
+    wget https://s3.amazonaws.com/nyc-db/data/rentstab/joined.csv -O data/rentstab/joined.csv
+    # wget http://taxbills.nyc/joined.csv -O data/rentstab/joined.csv
 }
 
 if [ "$1" == dobjobs ];then
