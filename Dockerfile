@@ -3,6 +3,7 @@ MAINTAINER ziggy
 
 RUN apt-get update && \
     apt-get -y install build-essential \
+    curl \
     wget \ 
     zip \ 
     unzip \

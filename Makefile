@@ -105,7 +105,7 @@ rentstab:
 
 
 acris: acris-download
-	cd modules/acris-download && make psql_all USER=$(DB_USER) PASS=$(DB_PASSWORD) DATABASE=$(DB_DATABASE) PSQLFLAGS="--host=$(DB_HOST)"
+	cd modules/acris-download && make psql_real_complete psql_personal_no_extras USER=$(DB_USER) PASS=$(DB_PASSWORD) DATABASE=$(DB_DATABASE) PSQLFLAGS="--host=$(DB_HOST)"
 
 acris-download:
 	cd modules/acris-download && make
