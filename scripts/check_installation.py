@@ -1,11 +1,11 @@
 
 """
-USE: python3 check_installation.py --user USER --password PASS --host HOST -- database DATABASE
+USE: python3 check_installation.py --user USER --password PASS --host HOST --database DATABASE
 """
 import argparse
 import psycopg2
 
-parser = argparse.ArgumentParser(description='clean and parse department of buildings jobs. Writes cleaned csv to stdout unless option --psql is invoked.')
+parser = argparse.ArgumentParser(description='Checks row count of tables in NYCDB')
 parser.add_argument("-U", "--user", help="Postgres user. default: postgres", default="postgres")
 parser.add_argument("-P", "--password", help="Postgres password. default: postgres", default="postgres")
 parser.add_argument("-H", "--host", help="Postgres host: default: 127.0.0.1", default="127.0.0.1")
@@ -53,8 +53,8 @@ tables = [
     'personal_property_legals',
     'personal_property_master',
     'personal_property_parties',
-    'personal_property_references',
-    'personal_property_remarks',
+#   'personal_property_references',
+#   'personal_property_remarks',
     'real_property_legals',
     'real_property_master',
     'real_property_parties',
@@ -65,8 +65,8 @@ tables = [
 print(colors.BLUE + 'Checking the row count of each table in NYC-DB' + colors.ENDC)
 
 for table in tables:
-    cnt = row_count(cursor, table)
     if table_exists(cursor, table):
+        cnt = row_count(cursor, table)
         if cnt > 0:
             print(colors.GREEN + table + ' has ' + format(cnt, ',') + ' rows' + colors.ENDC)
         else:
@@ -74,4 +74,4 @@ for table in tables:
     else:
         print(colors.FAIL + table + ' is missing!' + colors.ENDC)
 
-conn.close()    
+conn.close()
