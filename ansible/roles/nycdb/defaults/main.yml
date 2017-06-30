@@ -1,11 +1,14 @@
 ---
 
 nycdb_packages:
+  - sudo
   - wget
+  - curl
   - zip
   - unzip
   - bzip2
   - git
+  - screen
   - htop
   - python
   - python-pip
@@ -29,3 +32,4 @@ nycdb_database_user: "nycdb"
 
 nycdb_database_password: "nycdb"
 
+nycdb_user: "nycdb"

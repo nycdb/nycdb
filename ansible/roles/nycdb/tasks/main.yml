@@ -7,7 +7,26 @@
   notify:
     - restart postgresql
 
-    
+- name: Make sure we have a nycdb group
+  group:
+    name: nycdb
+    state: present
+
+- name: Allow nycdb group to have passwordless sudo
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: '^%nycdb'
+    line: '%nycdb ALL=(ALL) NOPASSWD: ALL'
+    validate: visudo -cf %s
+
+- name: Add nycdb user to nycdb group
+  user:
+    name: "{{ nycdb_user }}"
+    groups: nycdb
+    append: yes
+    shell: /bin/bash
+
 - name: Installling csvkt
   pip:
     executable: /usr/bin/pip2
@@ -20,22 +39,12 @@
 
 - name: Setup postgres db
   become: yes
-  become_method: sudo
   become_user: postgres
   postgresql_db:
       name: "{{ nycdb_database_name }}"
-
-
-- name: Adding extension pg_trgm to db
-  become_method: sudo
-  become_user: postgres
-  postgresql_ext:
-    name: pg_trgm
-    db: "{{ nycdb_database_name }}"
-
       
 - name: Create database user
-  become_method: sudo
+  become: yes
   become_user: postgres
   postgresql_user: 
     db: "{{ nycdb_database_name}}"
@@ -46,7 +55,7 @@
 
     
 - name: Ensure database user does not have unnecessary privileges
-  become_method: sudo
+  become: yes
   become_user: postgres
   postgresql_user:
     name: "{{ nycdb_database_user }}" 
@@ -57,21 +66,20 @@
   file:
     path: /srv/nyc-db
     state: directory
-    owner: ubuntu
+    owner: "{{ nycdb_user }}"
 
     
 - name: Clone the nyc-db repo
   become: yes
-  become_user: ubuntu
+  become_user: "{{ nycdb_user }}"
   git:
     repo: https://github.com/aepyornis/nyc-db.git
     dest: /srv/nyc-db
-    version: more-data
     recursive: yes
     
 - name: Installing Gems for 311 module
   become: yes
-  become_user: ubuntu
+  become_user: "{{ nycdb_user }}"
   bundler:
     state: present
     gemfile: /srv/nyc-db/modules/311/Gemfile
@@ -79,7 +87,7 @@
 
 - name: Setup env.sh
   become: yes
-  become_user: ubuntu
+  become_user: "{{ nycdb_user }}"
   template:
     src: "env.sh.j2"
     dest: "/srv/nyc-db/env.sh"
