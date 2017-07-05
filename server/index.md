@@ -14,7 +14,7 @@ The API runs off [POSTGREST](https://postgrest.com). For detailed information on
 
 The api is available here ``` https://api.nycdb.info/ ``` and is only available through TLS (HTTPS). HTTP requests will be redirected.
 
-Each table resource is at /table_name. For instance. ``` GET /dobjobs ``` will retrive rows from the 'dobjobs' table.
+Each table resource is at /table_name. For instance, ``` GET /dobjobs ``` will retrive rows from the 'dobjobs' table. There is a 5,000 row limit on requests.
 
 ### Tables:
 
@@ -54,11 +54,21 @@ Each table resource is at /table_name. For instance. ``` GET /dobjobs ``` will r
   - real_property_parties
 
 
-
-
 ## Examples
 
-**COMMING SOON**
+### HPD VIOLATIONS
+
+To get all violations for a given bbl:
+
+```
+curl https://api.nycdb.info/hpd_all_violations?bbl=eq.3033320008
+```
+
+### DOB JOBS
 
 
+The 20 most recent new buildings jobs in Bushwick:
 
+```
+curl -H 'Range-Unit: items' -H 'Range: 0-19' "https://api.nycdb.info/dobjobs?communityboard=eq.304&jobtype=eq.NB&order=latestactiondate.desc"
+```

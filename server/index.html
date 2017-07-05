@@ -36,7 +36,7 @@
 <p>The API runs off <a href="https://postgrest.com">POSTGREST</a>. For detailed information on how api calls work, use the <a href="https://postgrest.com/en/v0.4/api.html">postgrest documentation</a> as a reference.</p>
 <h2 id="end-points">End Points</h2>
 <p>The api is available here <code>https://api.nycdb.info/</code> and is only available through TLS (HTTPS). HTTP requests will be redirected.</p>
-<p>Each table resource is at /table_name. For instance. <code>GET /dobjobs</code> will retrive rows from the 'dobjobs' table.</p>
+<p>Each table resource is at /table_name. For instance, <code>GET /dobjobs</code> will retrive rows from the 'dobjobs' table. There is a 5,000 row limit on requests.</p>
 <h3 id="tables">Tables:</h3>
 <p><em>pluto</em></p>
 <ul>
@@ -82,6 +82,11 @@
 <li>real_property_parties</li>
 </ul>
 <h2 id="examples">Examples</h2>
-<p><strong>COMMING SOON</strong></p>
+<h3 id="hpd-violations">HPD VIOLATIONS</h3>
+<p>To get all violations for a given bbl:</p>
+<pre><code>curl https://api.nycdb.info/hpd_all_violations?bbl=eq.3033320008</code></pre>
+<h3 id="dob-jobs">DOB JOBS</h3>
+<p>The 20 most recent new buildings jobs in Bushwick:</p>
+<pre><code>curl -H &#39;Range-Unit: items&#39; -H &#39;Range: 0-19&#39; &quot;https://api.nycdb.info/dobjobs?communityboard=eq.304&amp;jobtype=eq.NB&amp;order=latestactiondate.desc&quot;</code></pre>
 </body>
 </html>
