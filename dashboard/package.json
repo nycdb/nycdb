@@ -1,0 +1,20 @@
+{
+  "name": "nycdb-dashboard",
+  "version": "0.0.1",
+  "description": "",
+  "main": "build.js",
+  "scripts": {
+    "build": "node build.js",
+    "clean": "find ./public -name '*.html' -delete",
+    "serve": "http-server ./"
+  },
+  "author": "",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "http-server": "^0.10.0",
+    "lodash": "^4.17.4",
+    "pg-promise": "^6.3.5",
+    "pug": "^2.0.0-rc.2",
+    "tachyons": "^4.7.4"
+  }
+}
