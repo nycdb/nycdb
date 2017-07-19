@@ -88,5 +88,12 @@
 <h3 id="dob-jobs">DOB JOBS</h3>
 <p>The 20 most recent new buildings jobs in Bushwick:</p>
 <pre><code>curl -H &#39;Range-Unit: items&#39; -H &#39;Range: 0-19&#39; &quot;https://api.nycdb.info/dobjobs?communityboard=eq.304&amp;jobtype=eq.NB&amp;order=latestactiondate.desc&quot;</code></pre>
+<h3 id="hpd-registrations">HPD Registrations</h3>
+<p>Get the registration id of a building:</p>
+<pre><code>curl -G &quot;https://api.nycdb.info/hpd_registrations&quot; --data-urlencode &quot;bbl=eq.&lt;YOUR BBL&gt;&quot; --data-urlencode &quot;select=registrationid&quot;</code></pre>
+<p>Use the registration id to get the building's contacts:</p>
+<pre><code>curl -G &quot;https://api.nycdb.info/hpd_contacts&quot; --data-urlencode &quot;registrationid=eq.&lt;REGID&gt;&quot;</code></pre>
+<p>Use the registration id to get a list of coprorate owners:</p>
+<pre><code>curl --data &quot;regid=&lt;REGID&gt;&quot; &quot;https://api.nycdb.info/rpc/get_corporate_owner_info_for_regid&quot;</code></pre>
 </body>
 </html>

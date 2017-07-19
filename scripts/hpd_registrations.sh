@@ -50,6 +50,9 @@ execute_sql ${pwd}/modules/hpd/sql/registrations_geocode.sql
 printf 'Creating table registrations_grouped_by_bbl\n'
 execute_sql ${pwd}/modules/hpd/sql/registrations_grouped_by_bbl.sql
 
+printf 'Adding custom functions\n'
+execute_sql ${pwd}/modules/hpd/sql/functions.sql
+
 printf 'Indexing tables\n'
 execute_sql ${pwd}/modules/hpd/sql/index.sql
 

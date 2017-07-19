@@ -72,3 +72,23 @@ The 20 most recent new buildings jobs in Bushwick:
 ```
 curl -H 'Range-Unit: items' -H 'Range: 0-19' "https://api.nycdb.info/dobjobs?communityboard=eq.304&jobtype=eq.NB&order=latestactiondate.desc"
 ```
+
+### HPD Registrations
+
+Get the registration id of a building:
+
+```
+curl -G "https://api.nycdb.info/hpd_registrations" --data-urlencode "bbl=eq.<YOUR BBL>" --data-urlencode "select=registrationid"
+```
+
+Use the registration id to get the building's contacts:
+
+```
+curl -G "https://api.nycdb.info/hpd_contacts" --data-urlencode "registrationid=eq.<REGID>"
+```
+
+Use the registration id to get a list of coprorate owners:
+
+```
+curl --data "regid=<REGID>" "https://api.nycdb.info/rpc/get_corporate_owner_info_for_regid"
+```
