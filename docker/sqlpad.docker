@@ -1,0 +1,10 @@
+FROM node:8-alpine
+MAINTAINER ziggy
+
+RUN mkdir /sqlpad
+
+RUN npm install -g sqlpad
+
+EXPOSE 3000
+
+CMD sqlpad --dir /sqlpad --port 3000

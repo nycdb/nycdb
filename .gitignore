@@ -16,3 +16,7 @@ server/postgrest
 server/*.tar.xz
 server/*.html
 !server/index.html
+
+docker/sqlpad
+docker/postgres-data
+postgres-data

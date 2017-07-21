@@ -1,5 +1,5 @@
 #------------------------#
-# NYC-DB                 #
+# NYC-DB             #
 #------------------------#
 
 # CONNECTION VARIABLES
@@ -18,7 +18,6 @@ export DB_USER
 export DB_PASSWORD
 export PGPASSWORD
 
-
 # use BASH as our shell
 SHELL=/bin/bash
 
@@ -32,13 +31,12 @@ tasks = pluto \
 	acris \
 	verify
 
-
 default: help
 
-# This central task that builds the database
+# The central task that builds the database
 # Most of the individual databases can also be run on their own:
 #    i.e. make hpd-violations
-# However both dobjobs and hpd-registrations require tables from Pluto
+# However both dobjobs and hpd-registrations require pluto
 nyc-db: $(tasks)
 
 verify:
@@ -110,25 +108,11 @@ acris: acris-download
 acris-download:
 	cd modules/acris-download && make
 
-docker-setup:
-	mkdir -p postgres-data
-	docker pull aepyornis/nyc-db:0.0.3
-	docker pull postgres:9.6
+remove-venv:
+	find ./modules -type d -name 'venv' -print0 | xargs -0 -r rm -r
 
-docker-download:
-	docker-compose run nycdb bash -c "cd /opt/nyc-db && make download"
-
-docker-run:
-	docker-compose run nycdb bash -c "cd /opt/nyc-db && make nyc-db DB_DATABASE=postgres DB_USER=postgres DB_HOST=pg"
-
-docker-psql-shell:
-	PGPASSWORD=$(DB_PASSWORD) psql -U postgres -h 127.0.0.1 -d postgres
-
-docker-db-standalone:
-	docker run --name nycdb -v "/home/zy/code/nyc-db/postgres-data:/var/lib/postgresql/data" -e POSTGRES_PASSWORD=nycdb -d -p 127.0.0.1:5432:5432  postgres:9.6
-
-docker-dump:
-	docker-compose run pg pg_dump --no-owner --clean --if-exists -h pg -U postgres --file=/opt/nyc-db/nyc-db.sql postgres 
+pg-connection-test:
+	@psql -h $(DB_HOST) -U $(DB_USER) -d $(DB_DATABASE) -c "SELECT NOW()" > /dev/null 2>&1 && echo 'CONNECTION IS WORKING' || echo 'COULD NOT CONNECT'
 
 db-shell:
 	psql -h $(DB_HOST) -U $(DB_USER) -d $(DB_DATABASE)
@@ -138,12 +122,6 @@ db-dump:
 
 db-dump-bzip:
 	bzip2 --keep nyc-db*.sql
-
-remove-venv:
-	find ./modules -type d -name 'venv' -print0 | xargs -0 -r rm -r
-
-pg-connection-test:
-	@psql -h $(DB_HOST) -U $(DB_USER) -d $(DB_DATABASE) -c "SELECT NOW()" > /dev/null 2>&1 && echo 'CONNECTION IS WORKING' || echo 'COULD NOT CONNECT'
 
 clean: remove-venv
 	rm -rf postgres-data
@@ -157,17 +135,11 @@ help:
 	@echo "the Free Software Foundation, either version 3 of the License, or"
 	@echo '(at your option) any later version.'
 	@echo '---------------------------------------------------------------'
-	@echo 'To use without docker:'
+	@echo 'USE:'
 	@echo '  1) create a postgres database: createdb nycdb'
 	@echo '  2) download the files: make download'
 	@echo '  3) create the database: make nyc-db DB_USER=YOURPGUSER DB_PASSWORD=YOURPASS'
 	@echo '---------------------------------------------------------------'
-	@echo ''
-	@echo 'To use WITH docker:'
-	@echo '   1) Setup: make docker-setup'
-	@echo '   2) Download: make download'
-	@echo '   3) Build db: make docker-run'
-	@echo ''
 	@echo 'If things get messed up try: '
 	@echo ' $ sudo make remove-venv to clean the python environments'
 	@echo '   or  '
@@ -178,5 +150,4 @@ help:
 .PHONY: $(tasks) nyc-db
 .PHONY: download download-pluto-all acris-download
 .PHONY: db-dump db-dump-bzip pg-connection-test
-.PHONY: docker-setup docker-download docker-run docker-psql-shell docker-db-standalone docker-dump
 .PHONY: clean remove-venv default help

@@ -9,7 +9,6 @@ RUN apt-get update && \
     unzip \
     bzip2 \ 
     git \
-    htop \
     python \ 
     python-pip \
     python-psycopg2 \ 
@@ -20,8 +19,8 @@ RUN apt-get update && \
     postgresql-client \ 
     libpq-dev \ 
     ruby \
-    bundler 
+    bundler && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/
 
 RUN mkdir /opt/nyc-db
-
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/

@@ -1,0 +1,44 @@
+version: '3.1'
+
+services:
+  nycdb:
+    image: aepyornis/nyc-db:0.1
+    volumes:
+      - ../:/opt/nyc-db
+    depends_on:
+      - pg
+    environment:
+      - NYCDB_DOCKER=true
+  
+  pg:
+    image: postgres:9.6
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+      - ../:/opt/nyc-db
+    ports:
+      - "127.0.0.1:5432:5432"
+    environment:
+      POSTGRES_PASSWORD: nycdb
+
+  adminer:
+    image: adminer:latest
+    ports:
+      - "127.0.0.1:8080:8080"
+
+  sqlpad:
+    image:  aepyornis/nyc-db-sqlpad:0.1
+    ports:
+      - "127.0.0.1:3000:3000"
+    volumes:
+      - ./sqlpad:/sqlpad
+    depends_on:
+      - pg
+
+  postgrest:
+      image: begriffs/postgrest:v0.4.2.0
+      volumes:
+        - ./postgrest.conf:/etc/postgrest.conf
+      ports:
+        - "127.0.0.1:4000:4000"
+      depends_on:
+        - pg
