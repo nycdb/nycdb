@@ -11,6 +11,7 @@
   "author": "",
   "license": "GPL-3.0",
   "dependencies": {
+    "d3": "^4.10.0",
     "http-server": "^0.10.0",
     "lodash": "^4.17.4",
     "pg-promise": "^6.3.5",

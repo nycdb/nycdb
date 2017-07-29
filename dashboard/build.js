@@ -1,14 +1,19 @@
-const pug = require('pug');
 const fs = require('fs');
+const pug = require('pug');
+
+const format = require('d3-format').format;
+
+// lodash
 const reduce = require('lodash/reduce');
 const merge = require('lodash/merge');
 const round = require('lodash/round');
 const partial = require('lodash/partial');
 const noop = require('lodash/noop');
 
-const cdFn = pug.compileFile('./src/cd.pug',{}); // Compile the pug into func
 const db = require('./database')();
 const sql = require('./query');
+const cdFn = pug.compileFile('./src/cd.pug',{}); // Compile the pug into func
+
 
 const districts = [ '303', '304'];
 
@@ -16,14 +21,22 @@ const flatMerge = (results, original = {}) => {
   return reduce(results, (acc, val) => merge(acc, { [val.name]: val.d }), original);
 };
 
-const parseViolations = result => ({'violationBuildings': result[0].buildings, 'numberOfViolations': result[0].number_of_violations });
+const parseViolations = result => (
+  {
+    "violationBuildings": result[0].buildings,
+    "numberOfViolations": result[0].number_of_violations
+  }
+);
 
-// TODO: formatNum
-const parseSales = sales => {
-  return sales.map(sale => merge(sale, {salePrice: formatNum(salePrice)}));
+// [] -> []
+// Formats sale.saleprice for better readability
+const formatSales = sales => {
+  return sales.map(sale => merge(sale, {saleprice: format('$,')(sale.saleprice) }));
 };
 
-const wrapSales = sales => ({"recentSales": sales});
+// [] => {}
+// wraps sales array in an object
+const wrapSales = sales => ({"recentSales": formatSales(sales)});
 
 // input: String, String, Function
 // output: Promise
@@ -58,20 +71,23 @@ const processValues = (data, district) => {
   return reduce(data, (acc, val) => merge(acc, val), {cd: district});
 };
 
-//return merge(values, { 'violationsPerUnit': round(values.numberOfViolations / values.unitsres, 2) });
+const calculateViolationsPerUnits = (values) => {
+  return merge(values, { 'violationsPerUnit': round(values.numberOfViolations / values.unitsres, 2) });
+};
+
+//
 // str ->
 // Writes files
 const generateCdHtml = (district) => {
   queriesPromise(district)
     .catch( err => console.error(err) )
-    .then ( values => processValues(values, district))
+    .then( values => processValues(values, district))
+    .then(calculateViolationsPerUnits)
+//    .then ( values => {console.log(values); return values;} )
     .then(cdFn)
     .then( html => fs.writeFileSync(`public/${district}.html`, html));
     
 };
 
 
-
-
-
-
+districts.forEach( d => generateCdHtml(d) );
