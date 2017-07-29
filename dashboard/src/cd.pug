@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    link(rel='stylesheet' href='../node_modules/tachyons/css/tachyons.css')
+    link(rel='stylesheet' href='./tachyons.css')
   body
     h1 info for #{cd}
     div.stats
@@ -14,6 +14,7 @@ html
       p #{resBuildingsWithViolationsPct} of all residential buildings in the district have at last one violation
       p there is an average of #{violationsPerUnit} violations per residential unit in the district
     div.recent-sales
+      h2 Recent Sales
       each sale in recentSales
         div.sale
           p address: #{sale.address}
