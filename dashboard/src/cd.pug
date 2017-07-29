@@ -11,7 +11,8 @@ html
     div.open-violations
       h2 Open HPD Violations
       p #{violationBuildings} buildings have open violations with a total of #{numberOfViolations} violations
-      p An average of #{violationsPerUnit} violations per residential unit in the Borough
+      p #{resBuildingsWithViolationsPct} of all residential buildings in the district have at last one violation
+      p there is an average of #{violationsPerUnit} violations per residential unit in the district
     div.recent-sales
       each sale in recentSales
         div.sale

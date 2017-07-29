@@ -17,6 +17,7 @@ const cdFn = pug.compileFile('./src/cd.pug',{}); // Compile the pug into func
 
 const districts = [ '303', '304'];
 
+// converts array returns by stats.sql query into an object
 const flatMerge = (results, original = {}) => {
   return reduce(results, (acc, val) => merge(acc, { [val.name]: val.d }), original);
 };
@@ -71,8 +72,15 @@ const processValues = (data, district) => {
   return reduce(data, (acc, val) => merge(acc, val), {cd: district});
 };
 
-const calculateViolationsPerUnits = (values) => {
-  return merge(values, { 'violationsPerUnit': round(values.numberOfViolations / values.unitsres, 2) });
+// const calculateViolationsPerUnits = (values) => {
+//   return merge(values, { 'violationsPerUnit': round(values.numberOfViolations / values.unitsres, 2) });
+// };
+
+const calculateViolationStats = (values) => {
+  return merge(values, {
+    "violationsPerUnit": round(values.numberOfViolations / values.unitsres, 2),
+    "resBuildingsWithViolationsPct": format(".1%")((values.violationBuildings / values.buildingsres))
+  });
 };
 
 //
@@ -82,7 +90,7 @@ const generateCdHtml = (district) => {
   queriesPromise(district)
     .catch( err => console.error(err) )
     .then( values => processValues(values, district))
-    .then(calculateViolationsPerUnits)
+    .then(calculateViolationStats)
 //    .then ( values => {console.log(values); return values;} )
     .then(cdFn)
     .then( html => fs.writeFileSync(`public/${district}.html`, html));
