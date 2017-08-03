@@ -82,8 +82,7 @@ hpd_violations () {
 rentstab () {
     printf "Downloading Rent Stabilization Data \n"
     mkdir -p data/rentstab
-    wget https://s3.amazonaws.com/nyc-db/data/rentstab/joined.csv -O data/rentstab/joined.csv
-    # wget http://taxbills.nyc/joined.csv -O data/rentstab/joined.csv
+    wget http://taxbills.nyc/joined.csv -O data/rentstab/joined.csv
 }
 
 if [ "$1" == dobjobs ];then
