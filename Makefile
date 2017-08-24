@@ -1,5 +1,5 @@
 #------------------------#
-# NYC-DB             #
+# NYC-DB                 #
 #------------------------#
 
 # CONNECTION VARIABLES
@@ -40,7 +40,7 @@ default: help
 nyc-db: $(tasks)
 
 verify:
-	python3 ./scripts/check_installation.py -H $(DB_HOST) -U $(DB_USER) -P $(DB_PASSWORD) -D $(DB_DATABASE)
+	python3 ./scripts/nycdb.py -H $(DB_HOST) -U $(DB_USER) -P $(DB_PASSWORD) -D $(DB_DATABASE) --check
 
 download:
 	./scripts/download.sh all
@@ -122,6 +122,9 @@ db-dump:
 
 db-dump-bzip:
 	bzip2 --keep nyc-db*.sql
+
+db-dump-tables:
+	mkdir -v -p dump
 
 clean: remove-venv
 	rm -rf postgres-data
