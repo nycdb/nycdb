@@ -4,16 +4,16 @@ const pug = require('pug');
 const format = require('d3-format').format;
 
 // lodash
+const identity = require('lodash/identity');
 const reduce = require('lodash/reduce');
 const merge = require('lodash/merge');
 const round = require('lodash/round');
 const partial = require('lodash/partial');
-const noop = require('lodash/noop');
+const partialRight = require('lodash/partialRight');
 
 const db = require('./database')();
 const sql = require('./query');
 const cdFn = pug.compileFile('./src/cd.pug',{}); // Compile the pug into func
-
 
 const districts = [ '303', '304'];
 
@@ -35,34 +35,38 @@ const formatSales = sales => {
   return sales.map(sale => merge(sale, {saleprice: format('$,')(sale.saleprice) }));
 };
 
-// [] => {}
-// wraps sales array in an object
-const wrapSales = sales => ({"recentSales": formatSales(sales)});
+// wraps values in an object, and optionally transforms the values
+// example: wrap([1,2,3] ,'numbers', x => x.map(x => x * 2)) => { "numbers": [2,4,6]}
+const wrap = (values, key, transformation = identity) => {
+  return { [key]: transformation(values) };
+};
 
 // input: String, String, Function
 // output: Promise
 // Returns promise for district/ queryName combination
-const query = (district, queryName, thenFunc = noop) => {
+const query = (district, queryName, thenFunc) => {
   let cdObj = {cd: district};
   return db.query(sql[queryName](cdObj)).then(thenFunc);
 };
 
-// str -> array of Promises
-const queries = (district) => {
-  let queryForDistrict = partial(query, district);
+// queries and a callback
+const queries = [
+  [ 'stats', flatMerge ],
+  [ 'openViolations', parseViolations ],
+  [ 'recentSales', (sales) => wrap(sales, 'recentSales', formatSales)  ],
+  [ 'newBuildingJobs', (jobs) => wrap(jobs, 'newBuildingJobs') ]
+];
 
-  return [
-    [ 'stats', flatMerge ],
-    [ 'openViolations', parseViolations ],
-    [ 'recentSales', wrapSales ]
-  ]
-      .map( x => queryForDistrict(...x) );
-  
+
+// str -> array of Promises
+const executeQueries = (district) => {
+  let queryForDistrict = partial(query, district);
+  return queries.map( q => queryForDistrict(...q) );
 };
 
 // str => Promise
 const queriesPromise = (district) => {
-  return Promise.all(queries(district));
+  return Promise.all(executeQueries(district));
 };
 
 // return values by the queries promise
@@ -72,10 +76,6 @@ const processValues = (data, district) => {
   return reduce(data, (acc, val) => merge(acc, val), {cd: district});
 };
 
-// const calculateViolationsPerUnits = (values) => {
-//   return merge(values, { 'violationsPerUnit': round(values.numberOfViolations / values.unitsres, 2) });
-// };
-
 const calculateViolationStats = (values) => {
   return merge(values, {
     "violationsPerUnit": round(values.numberOfViolations / values.unitsres, 2),
@@ -83,7 +83,6 @@ const calculateViolationStats = (values) => {
   });
 };
 
-//
 // str ->
 // Writes files
 const generateCdHtml = (district) => {
@@ -91,11 +90,17 @@ const generateCdHtml = (district) => {
     .catch( err => console.error(err) )
     .then( values => processValues(values, district))
     .then(calculateViolationStats)
-//    .then ( values => {console.log(values); return values;} )
+    // .then( values => {
+    //   console.log(values);
+    //   return values;
+    // })
     .then(cdFn)
     .then( html => fs.writeFileSync(`public/${district}.html`, html));
     
 };
 
+const main = () => {
+  districts.forEach( d => generateCdHtml(d) );
+};
 
-districts.forEach( d => generateCdHtml(d) );
+main();

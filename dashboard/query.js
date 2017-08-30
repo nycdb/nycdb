@@ -2,9 +2,11 @@ const fs = require('fs');
 const template = require('lodash/template');
 
 const sqlFile = file => fs.readFileSync(`sql/${file}.sql`);
+const sqlQuery = file => template(sqlFile(file));
 
 module.exports = {
-  stats: template(sqlFile('stats')),
-  openViolations: template(sqlFile('open_violations')),
-  recentSales: template(sqlFile('recent_sales'))
+  stats: sqlQuery('stats'),
+  openViolations: sqlQuery('open_violations'),
+  recentSales: sqlQuery('recent_sales'),
+  newBuildingJobs: sqlQuery('new_building_jobs')
 };

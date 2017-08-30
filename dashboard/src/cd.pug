@@ -19,3 +19,10 @@ html
         div.sale
           p address: #{sale.address}
           p price: #{sale.saleprice}
+    div.dob-jobs-nb
+      h2 Recent Permit Applications for New Buildings
+      each job in newBuildingJobs
+        div.dob-job
+          p address: #{job.address}
+          p proposed stories: #{job.proposednoofstories}
+          p existing stories: #{job.existingnoofstories}
