@@ -1,8 +1,5 @@
 const fs = require('fs');
 const pug = require('pug');
-
-const format = require('d3-format').format;
-
 // lodash
 const identity = require('lodash/identity');
 const reduce = require('lodash/reduce');
@@ -10,12 +7,15 @@ const merge = require('lodash/merge');
 const round = require('lodash/round');
 const partial = require('lodash/partial');
 const partialRight = require('lodash/partialRight');
-
+// other utils:
+const Promise = require("bluebird");
+const format = require('d3-format').format;
+// helper modules
 const db = require('./database')();
 const sql = require('./query');
 const cdFn = pug.compileFile('./src/cd.pug',{}); // Compile the pug into func
-
-const districts = [ '303', '304'];
+// commmunity board data
+const communityBoards = require('./data/community_boards.json');
 
 // converts array returns by stats.sql query into an object
 const flatMerge = (results, original = {}) => {
@@ -83,24 +83,25 @@ const calculateViolationStats = (values) => {
   });
 };
 
-// str ->
-// Writes files
+// str -> Promise
+// Retrives data for district and generates html document
 const generateCdHtml = (district) => {
-  queriesPromise(district)
+  return queriesPromise(district)
     .catch( err => console.error(err) )
+    .then( values => { console.log(`Processing: ${district}`); return values; })
     .then( values => processValues(values, district))
     .then(calculateViolationStats)
-    // .then( values => {
-    //   console.log(values);
-    //   return values;
-    // })
     .then(cdFn)
     .then( html => fs.writeFileSync(`public/${district}.html`, html));
     
 };
 
 const main = () => {
-  districts.forEach( d => generateCdHtml(d) );
+  let districts = communityBoards.map( communityBoard => communityBoard.cd );
+  Promise
+    .map(districts, generateCdHtml, {concurrency: 2})
+    .catch(() => console.error('something went wrong'))
+    .then(() => console.log('Completed'));
 };
 
 main();

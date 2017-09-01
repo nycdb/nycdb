@@ -11,11 +11,12 @@
   "author": "",
   "license": "GPL-3.0",
   "dependencies": {
+    "bluebird": "^3.5.0",
     "d3": "^4.10.0",
     "http-server": "^0.10.0",
     "lodash": "^4.17.4",
-    "pg-promise": "^6.3.5",
-    "pug": "^2.0.0-rc.2",
-    "tachyons": "^4.7.4"
+    "pg-promise": "^6.5.1",
+    "pug": "^2.0.0-rc.3",
+    "tachyons": "^4.8.1"
   }
 }
