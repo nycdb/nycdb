@@ -2,25 +2,31 @@ const fs = require('fs');
 const path = require('path');
 const pug = require('pug');
 // lodash
+const groupBy = require('lodash/groupBy');
 const identity = require('lodash/identity');
-const reduce = require('lodash/reduce');
-const merge = require('lodash/merge');
-const mapValues = require('lodash/mapValues');
-const toNumber = require('lodash/toNumber');
 const isNumber = require('lodash/isNumber');
-const round = require('lodash/round');
+const mapValues = require('lodash/mapValues');
+const merge = require('lodash/merge');
 const partial = require('lodash/partial');
 const partialRight = require('lodash/partialRight');
+const reduce = require('lodash/reduce');
+const round = require('lodash/round');
+const toNumber = require('lodash/toNumber');
+const toPairs = require('lodash/toPairs');
 // other utils:
 const Promise = require("bluebird");
 const format = require('d3-format').format;
 // helper modules
 const db = require('./database')();
 const sql = require('./query');
-// Compile the pug template into a func
-const communityBoardTemplate = pug.compileFile(path.join(__dirname, 'templates', 'communityBoard.pug'), {}); 
+// Compile the pug templates into a funcs
+const communityBoardTemplate = pug.compileFile(path.join(__dirname, 'templates', 'communityBoard.pug'), {});
+const indexTemplate = pug.compileFile(path.join(__dirname, 'templates', 'index.pug'));
 // commmunity board data
 const communityBoards = require('./community_boards.json');
+
+const OUTPUT_FOLDER = './public';
+
 
 const toN = (n) => isNumber(n) ? n : toNumber(n.replace(',', '').replace('$', ''));
 
@@ -93,8 +99,8 @@ const calculateViolationStats = (values) => {
   });
 };
 
-const saveFile = (district, html, folder) => {
-  fs.writeFileSync(`${folder}/${district}.html`, html);
+const saveFile = (fileName, html, folder) => {
+  fs.writeFileSync(`${folder}/${fileName}.html`, html);
 };
 
 // {} -> Promise
@@ -106,21 +112,30 @@ const generateCdHtml = (district) => {
     .then( values => processValues(values, district))
     .then(calculateViolationStats)
     .then(communityBoardTemplate)
-    .then( html => saveFile(district.cd, html, './public'));
+    .then( html => saveFile(district.cd, html, OUTPUT_FOLDER));
     
 };
+				      
+const generateDistrictPages  = () => {
+  Promise
+    .map(communityBoards, generateCdHtml, {concurrency: 2})
+    .catch((err) => console.error(err) )
+    .then(() => console.log('Completed district pages'));
+};
+
+const index = () => {
+  // data structure: [ 'Bronx'. [ {}, {} ] ]
+  let districtData = { districts: toPairs(groupBy(communityBoards, 'borough')) };
+  let html = indexTemplate(districtData);
+  saveFile('index', html, OUTPUT_FOLDER);
+};
+  
+
 
 const main = () => {
-  let districts = communityBoards
-      .slice(0,2);
-  
-  Promise
-    .map(districts, generateCdHtml, {concurrency: 2})
-    .catch((err) => {
-      console.error('something went wrong');
-      console.error(err);
-    })
-    .then(() => console.log('Completed'));
+  generateDistrictPages();
+  index();
 };
+
 
 module.exports = main;
