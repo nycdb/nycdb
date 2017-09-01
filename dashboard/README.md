@@ -1,6 +1,20 @@
-# Dashboard for Community Districts
+# Community District Dashboard
 
-## information:
+A static site with housing statistics for each community district.
+
+## Developer setup:
+
+- Ensure there is a running version of NYCDB (see the main README for instructions)
+
+- Install node modules: ``` npm install ```
+
+- Build the site: ``` make ```
+
+Requirements:
+  - postgres 
+  - nodejs > 8
+
+### Included information:
 
 **basic stats**:
 
@@ -14,19 +28,15 @@
 - total number of violations
 - violations per residential unit
 
-
 **DOF sales**:
 
-- top 10 high priced residental sales
+- top 10 highest priced residential sales
 
 **DOB Dobs**:
 
 - recent new building permits
 
-**HPD Registrations**:
+**HPD Registrations (FORTHCOMING)**:
 
 - largest corporate landlords
-
-
-
 
