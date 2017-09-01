@@ -5,6 +5,9 @@ const pug = require('pug');
 const identity = require('lodash/identity');
 const reduce = require('lodash/reduce');
 const merge = require('lodash/merge');
+const mapValues = require('lodash/mapValues');
+const toNumber = require('lodash/toNumber');
+const isNumber = require('lodash/isNumber');
 const round = require('lodash/round');
 const partial = require('lodash/partial');
 const partialRight = require('lodash/partialRight');
@@ -19,10 +22,14 @@ const communityBoardTemplate = pug.compileFile(path.join(__dirname, 'templates',
 // commmunity board data
 const communityBoards = require('./community_boards.json');
 
+const toN = (n) => isNumber(n) ? n : toNumber(n.replace(',', ''));
+
 // converts array returns by stats.sql query into an object
 const flatMerge = (results, original = {}) => {
   return reduce(results, (acc, val) => merge(acc, { [val.name]: val.d }), original);
 };
+
+const formatStats = (stats) => mapValues(flatMerge(stats), format(','));
 
 const parseViolations = result => (
   {
@@ -51,9 +58,10 @@ const query = (district, queryName, thenFunc) => {
   return db.query(sql[queryName](cdObj)).then(thenFunc);
 };
 
+
 // queries and a callback
 const queries = [
-  [ 'stats', flatMerge ],
+  [ 'stats', formatStats ],
   [ 'openViolations', parseViolations ],
   [ 'recentSales', (sales) => wrap(sales, 'recentSales', formatSales)  ],
   [ 'newBuildingJobs', (jobs) => wrap(jobs, 'newBuildingJobs') ]
@@ -75,13 +83,13 @@ const queriesPromise = (district) => {
 // in to a single object
 // array, str -> object
 const processValues = (data, district) => {
-  return reduce(data, (acc, val) => merge(acc, val), {cd: district});
+  return reduce(data, (acc, val) => merge(acc, val), district);
 };
 
 const calculateViolationStats = (values) => {
   return merge(values, {
-    "violationsPerUnit": round(values.numberOfViolations / values.unitsres, 2),
-    "resBuildingsWithViolationsPct": format(".1%")((values.violationBuildings / values.buildingsres))
+    "violationsPerUnit": round( toN(values.numberOfViolations) / toN(values.unitsres), 2),
+    "resBuildingsWithViolationsPct": format(".1%")(( toN(values.violationBuildings) / toN(values.buildingsres)))
   });
 };
 
@@ -89,22 +97,22 @@ const saveFile = (district, html, folder) => {
   fs.writeFileSync(`${folder}/${district}.html`, html);
 };
 
-// Str, Str -> Promise
+// {} -> Promise
 // Retrives data for district and generates html document
 const generateCdHtml = (district) => {
-  return queriesPromise(district)
+  return queriesPromise(district.cd)
     .catch( err => console.error(err) )
-    .then( values => { console.log(`Processing: ${district}`); return values; })
+    .then( values => { console.log(`Processing: ${district.name}`); return values; })
     .then( values => processValues(values, district))
     .then(calculateViolationStats)
     .then(communityBoardTemplate)
-    .then( html => saveFile(district, html, './public'));
+    .then( html => saveFile(district.cd, html, './public'));
     
 };
 
 const main = () => {
   let districts = communityBoards
-      .map( communityBoard => communityBoard.cd );
+      .slice(0,2);
   
   Promise
     .map(districts, generateCdHtml, {concurrency: 2})
