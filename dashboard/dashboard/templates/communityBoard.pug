@@ -2,7 +2,7 @@ doctype html
 html
   head
     link(rel='stylesheet' href='./tachyons.css')
-    link(rel='stylesheet' href='./styles.css')
+    // link(rel='stylesheet' href='./styles.css')
   body.courier
     div.title.tc.fl.w-100.pa2.bg-light-blue.bb.b--mid-gray
       h1.f1 #{name}
@@ -10,22 +10,26 @@ html
     div.stats.fl.w-100.tc
       p.f3 
         span #{lots} lots 
-        span.pl5 #{unitsres} residential units</span>
-    div.fl.w-100.open-violations
+        span.pl5 #{unitsres} residential units
+    div.fl.w-100.open-violations.tc
       h2 Open HPD Violations
-      p #{violationBuildings} buildings have open violations with a total of #{numberOfViolations} violations
-      p #{resBuildingsWithViolationsPct} of all residential buildings in the district have at last one violation
-      p there is an average of #{violationsPerUnit} violations per residential unit in the district
-    div.fl.w-100.recent-sales
-      h2.tc.f2 Recent Sales
-      each sale in recentSales
-        div.sale
-          p address: #{sale.address}
-          p price: #{sale.saleprice}
-    div.fl.w-100.dob-jobs-nb
-      h2 Recent Permit Applications for New Buildings
-      each job in newBuildingJobs
-        div.dob-job
-          p address: #{job.address}
-          p proposed stories: #{job.proposednoofstories}
-          p existing stories: #{job.existingnoofstories}
+      p 
+        | <span class="b">#{violationBuildings}</span> buildings have open violations with a total of 
+        | <span class="b">#{numberOfViolations}</span> violations
+      p <span class="b">#{resBuildingsWithViolationsPct}</span> of all residential buildings in the district have at last one violation
+      p There is an average of <span class="b">#{violationsPerUnit} violations</span> per residential unit in the district
+    div.fl.w-100.tc
+      div.fl.w-50.pa5
+        h3.f3 Recent Sales
+        each sale in recentSales
+          div.sale.bb.b--black-20
+            p 
+              span.b--black-30.b #{sale.address}
+            p sold for #{sale.saleprice}
+      div.fl.w-50.pa5
+        h3.f3 Recent new building permits
+        each job in newBuildingJobs
+          div.dob-job.bb.b--black-20
+            p 
+              span.b--black-30.b #{job.address}
+            p proposed stories: #{job.proposednoofstories}  /  existing stories: #{job.existingnoofstories}

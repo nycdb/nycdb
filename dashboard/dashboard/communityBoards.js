@@ -22,7 +22,7 @@ const communityBoardTemplate = pug.compileFile(path.join(__dirname, 'templates',
 // commmunity board data
 const communityBoards = require('./community_boards.json');
 
-const toN = (n) => isNumber(n) ? n : toNumber(n.replace(',', ''));
+const toN = (n) => isNumber(n) ? n : toNumber(n.replace(',', '').replace('$', ''));
 
 // converts array returns by stats.sql query into an object
 const flatMerge = (results, original = {}) => {
@@ -33,8 +33,8 @@ const formatStats = (stats) => mapValues(flatMerge(stats), format(','));
 
 const parseViolations = result => (
   {
-    "violationBuildings": result[0].buildings,
-    "numberOfViolations": result[0].number_of_violations
+    "violationBuildings": format(',')(result[0].buildings),
+    "numberOfViolations": format(',')(result[0].number_of_violations)
   }
 );
 
