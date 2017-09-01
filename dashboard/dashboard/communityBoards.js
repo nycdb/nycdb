@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 const pug = require('pug');
 // lodash
 const identity = require('lodash/identity');
@@ -13,9 +14,10 @@ const format = require('d3-format').format;
 // helper modules
 const db = require('./database')();
 const sql = require('./query');
-const cdFn = pug.compileFile('./src/cd.pug',{}); // Compile the pug into func
+// Compile the pug template into a func
+const communityBoardTemplate = pug.compileFile(path.join(__dirname, 'templates', 'communityBoard.pug'), {}); 
 // commmunity board data
-const communityBoards = require('./data/community_boards.json');
+const communityBoards = require('./community_boards.json');
 
 // converts array returns by stats.sql query into an object
 const flatMerge = (results, original = {}) => {
@@ -83,7 +85,11 @@ const calculateViolationStats = (values) => {
   });
 };
 
-// str -> Promise
+const saveFile = (district, html, folder) => {
+  fs.writeFileSync(`${folder}/${district}.html`, html);
+};
+
+// Str, Str -> Promise
 // Retrives data for district and generates html document
 const generateCdHtml = (district) => {
   return queriesPromise(district)
@@ -91,17 +97,22 @@ const generateCdHtml = (district) => {
     .then( values => { console.log(`Processing: ${district}`); return values; })
     .then( values => processValues(values, district))
     .then(calculateViolationStats)
-    .then(cdFn)
-    .then( html => fs.writeFileSync(`public/${district}.html`, html));
+    .then(communityBoardTemplate)
+    .then( html => saveFile(district, html, './public'));
     
 };
 
 const main = () => {
-  let districts = communityBoards.map( communityBoard => communityBoard.cd );
+  let districts = communityBoards
+      .map( communityBoard => communityBoard.cd );
+  
   Promise
     .map(districts, generateCdHtml, {concurrency: 2})
-    .catch(() => console.error('something went wrong'))
+    .catch((err) => {
+      console.error('something went wrong');
+      console.error(err);
+    })
     .then(() => console.log('Completed'));
 };
 
-main();
+module.exports = main;

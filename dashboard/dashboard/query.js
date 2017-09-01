@@ -1,7 +1,11 @@
 const fs = require('fs');
 const template = require('lodash/template');
+const path = require('path');
 
-const sqlFile = file => fs.readFileSync(`sql/${file}.sql`);
+const sqlFile = file => {
+  return fs.readFileSync(path.join(__dirname, 'sql', `${file}.sql`));
+};
+
 const sqlQuery = file => template(sqlFile(file));
 
 module.exports = {
