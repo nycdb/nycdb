@@ -2,11 +2,11 @@
   "name": "nycdb-dashboard",
   "version": "0.0.1",
   "description": "",
-  "main": "build.js",
+  "main": "dashboard.js",
   "scripts": {
-    "build": "node build.js",
+    "build": "node dashboard.js",
     "clean": "find ./public -name '*.html' -delete",
-    "serve": "http-server ./"
+    "start": "http-server ./public"
   },
   "author": "",
   "license": "GPL-3.0",

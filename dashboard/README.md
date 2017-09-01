@@ -10,8 +10,10 @@ A static site with housing statistics for each community district.
 
 - Build the site: ``` make ```
 
+- View the site: ``` npm start ```
+
 Requirements:
-  - postgres 
+  - postgres
   - nodejs > 8
 
 ### Included information:
