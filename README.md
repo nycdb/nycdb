@@ -20,17 +20,18 @@ NYC-DB builds a postgresql database containing the following datasets:
 Just want a copy of the database?
 
 Here's the latest versions available to download from S3:
+
+- [nyc-db-2017-09-08.sql.bz2](https://s3.amazonaws.com/nyc-db/nyc-db-2017-09-08.sql.bz2)
 - [nyc-db-2017-08-14.sql.bz2](https://s3.amazonaws.com/nyc-db/nyc-db-2017-08-14.sql.bz2)
 - [nyc-db-2017-07-07.sql.bz2](https://s3.amazonaws.com/nyc-db/nyc-db-2017-07-07.sql.bz2)
-- [nyc-db-2017-06-06.sql.bz2](https://s3.amazonaws.com/nyc-db/nyc-db-2017-06-06.sql.bz2)
 
 It's ~1.5gb compressed and ~14gb decompressed..
 
-If you have aws cli installed, you can download it easily this way: ``` aws s3 cp s3://nyc-db/nyc-db-2017-08-14.sql.bz2 ./ ```
+If you have aws cli installed, you can download it easily this way: ``` aws s3 cp s3://nyc-db/nyc-db-2017-09-08.sql.bz2 ./ ```
 
-To decompress: ```  bunzip2 nyc-db-2017-08-14.sql.bz2 ```
+To decompress: ```  bunzip2 nyc-db-2017-09-08.sql.bz2 ```
 
-Load the db: ``` psql -d database-name -f nyc-db-2017-08-14.sql ```
+Load the db: ``` psql -d database-name -f nyc-db-2017-09-08.sql ```
 
 ## Build it yourself!
 
