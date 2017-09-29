@@ -27,6 +27,7 @@ const communityBoards = require('./community_boards.json');
 
 const OUTPUT_FOLDER = './public';
 
+sql.hpdViolations
 
 const toN = (n) => isNumber(n) ? n : toNumber(n.replace(',', '').replace('$', ''));
 
@@ -70,7 +71,8 @@ const queries = [
   [ 'stats', formatStats ],
   [ 'openViolations', parseViolations ],
   [ 'recentSales', (sales) => wrap(sales, 'recentSales', formatSales)  ],
-  [ 'newBuildingJobs', (jobs) => wrap(jobs, 'newBuildingJobs') ]
+  [ 'newBuildingJobs', (jobs) => wrap(jobs, 'newBuildingJobs') ],
+  [ 'hpdViolations', (violations) => wrap(violations, 'hpdViolations') ] 
 ];
 
 
@@ -110,6 +112,7 @@ const generateCdHtml = (district) => {
     .catch( err => console.error(err) )
     .then( values => { console.log(`Processing: ${district.name}`); return values; })
     .then( values => processValues(values, district))
+    //.then (values => { console.log(values.hpdViolations); return values; })
     .then(calculateViolationStats)
     .then(communityBoardTemplate)
     .then( html => saveFile(district.cd, html, OUTPUT_FOLDER));
