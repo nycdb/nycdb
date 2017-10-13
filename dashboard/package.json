@@ -6,7 +6,8 @@
   "scripts": {
     "build": "node dashboard.js",
     "clean": "find ./public -name '*.html' -delete",
-    "start": "http-server ./public"
+    "start": "http-server ./public",
+    "test": "mocha"
   },
   "author": "",
   "license": "GPL-3.0",
@@ -18,5 +19,9 @@
     "pg-promise": "^6.5.1",
     "pug": "^2.0.0-rc.3",
     "tachyons": "^4.8.1"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^4.0.1"
   }
 }
