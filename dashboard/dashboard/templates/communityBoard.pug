@@ -19,6 +19,26 @@ html
       p <span class="b">#{resBuildingsWithViolationsPct}</span> of all residential buildings in the district have at last one violation
       p There is an average of <span class="b">#{violationsPerUnit} violations</span> per residential unit in the district
     div.fl.w-100.tc
+      h2.tl HPD Violations
+      table
+        thead
+          tr
+            th BBL
+            th Address
+            th Class A Violations
+            th Class B Violations
+            th Class C Violations
+            th Total Violations
+        tbody
+        each violation in hpdViolations
+          tr
+            td #{violation.bbl}
+            td #{violation.address}
+            td #{violation.class_a}
+            td #{violation.class_b}
+            td #{violation.class_c}
+            td #{violation.total}
+    div.fl.w-100.tc
       div.fl.w-50.pa5
         h3.f3 Recent Sales
         each sale in recentSales

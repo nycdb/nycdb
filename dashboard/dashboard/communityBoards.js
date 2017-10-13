@@ -27,7 +27,6 @@ const communityBoards = require('./community_boards.json');
 
 const OUTPUT_FOLDER = './public';
 
-
 const toN = (n) => isNumber(n) ? n : toNumber(n.replace(',', '').replace('$', ''));
 
 // converts array returns by stats.sql query into an object
@@ -70,7 +69,8 @@ const queries = [
   [ 'stats', formatStats ],
   [ 'openViolations', parseViolations ],
   [ 'recentSales', (sales) => wrap(sales, 'recentSales', formatSales)  ],
-  [ 'newBuildingJobs', (jobs) => wrap(jobs, 'newBuildingJobs') ]
+  [ 'newBuildingJobs', (jobs) => wrap(jobs, 'newBuildingJobs') ],
+  [ 'hpdViolations', (violations) => wrap(violations, 'hpdViolations') ] 
 ];
 
 
@@ -129,7 +129,6 @@ const index = () => {
   let html = indexTemplate(districtData);
   saveFile('index', html, OUTPUT_FOLDER);
 };
-  
 
 
 const main = () => {
