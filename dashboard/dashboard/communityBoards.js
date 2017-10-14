@@ -1,6 +1,7 @@
 const Promise = require("bluebird");
 const query = require('./query');
 const database = require('./database');
+
 const partial = require('lodash/partial');
 const reduce = require('lodash/reduce');
 const merge = require('lodash/merge');
