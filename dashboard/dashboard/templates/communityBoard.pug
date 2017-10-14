@@ -5,19 +5,19 @@ html
     // link(rel='stylesheet' href='./styles.css')
   body.courier
     div.title.tc.fl.w-100.pa2.bg-light-blue.bb.b--mid-gray
-      h1.f1 #{name}
-      h2.f3.navy #{neighborhoods}
+      h1.f1 #{district.name}
+      h2.f3.navy #{district.neighborhoods}
     div.stats.fl.w-100.tc
       p.f3 
-        span #{lots} lots 
-        span.pl5 #{unitsres} residential units
+        span #{stats.lots} lots 
+        span.pl5 #{stats.unitsres} residential units
     div.fl.w-100.open-violations.tc
       h2 Open HPD Violations
       p 
-        | <span class="b">#{violationBuildings}</span> buildings have open violations with a total of 
-        | <span class="b">#{numberOfViolations}</span> violations
-      p <span class="b">#{resBuildingsWithViolationsPct}</span> of all residential buildings in the district have at last one violation
-      p There is an average of <span class="b">#{violationsPerUnit} violations</span> per residential unit in the district
+        | <span class="b">#{stats.buildingsWithOpenViolations}</span> buildings have open violations with a total of 
+        | <span class="b">#{stats.totalNumberOfOpenViolations}</span> violations
+      p <span class="b">#{stats.resBuildingsWithViolationsPct}</span> of all residential buildings in the district have at last one violation
+      p There is an average of <span class="b">#{stats.openViolationsPerUnit} violations</span> per residential unit in the district
     div.fl.w-100.tc
       h2.tl HPD Violations
       table

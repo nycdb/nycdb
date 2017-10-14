@@ -4,7 +4,8 @@
   "description": "",
   "main": "dashboard.js",
   "bin": {
-    "community-board-json": "./commmunityBoardJson.js"
+    "community-board-json": "./commmunityBoardJson.js",
+    "community-board-pages": "./communityBoardPages.js"
   },
   "scripts": {
     "build": "node dashboard.js",

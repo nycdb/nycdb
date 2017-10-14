@@ -7,17 +7,12 @@ const reduce = require('lodash/reduce');
 const merge = require('lodash/merge');
 const identity = require('lodash/identity');
 const cloneDeep = require('lodash/cloneDeep');
-const isNumber = require('lodash/isNumber');
-const toNumber = require('lodash/toNumber');
-
-
+const toN = require('./toN');
 // commmunity board data
 const communityBoardList = require('./community_boards.json');
 const queries = [ 'stats', 'recentSales','newBuildingJobs', 'hpdViolations' ];
 
 const CONCURRENCY = 3;
-
-const toN = (n) => isNumber(n) ? n : toNumber(n.replace(',', '').replace('$', ''));
 
 /**
  * wraps values in an object, and optionally transforms the values

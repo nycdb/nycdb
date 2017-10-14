@@ -7,7 +7,6 @@ const Promise = require("bluebird");
 const communityBoards = require('../dashboard/communityBoards.js');
 
 describe('wrap', function(){
-
   it('wraps values in an object', function() {
     expect(communityBoards._wrap('numbers', [1,2,3])).to.deep.equal({ "numbers": [1,2,3] });
   });
