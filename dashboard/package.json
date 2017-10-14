@@ -8,12 +8,13 @@
     "community-board-pages": "./communityBoardPages.js"
   },
   "scripts": {
-    "build": "node dashboard.js",
-    "clean": "find ./public -name '*.html' -delete",
+    "json": "./commmunityBoardJson.js > boards.json",
+    "build": "./communityBoardPages.js boards.json",
+    "clean": "rm -rf ./public",
     "start": "http-server ./public",
     "test": "mocha"
   },
-  "author": "",
+  "author": "ziggy",
   "license": "GPL-3.0",
   "dependencies": {
     "bluebird": "^3.5.0",

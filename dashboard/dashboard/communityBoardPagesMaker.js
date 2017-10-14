@@ -14,9 +14,7 @@ const toN = require('./toN');
 // commmunity board data
 const communityBoardsData = require('./community_boards.json');
 
-const DEFAULT_OUTPUT_FOLDER = './public';
-
-const saveFile = (fileName, html, folder = DEFAULT_OUTPUT_FOLDER) => {
+const saveFile = (fileName, html, folder) => {
   fs.writeFileSync(`${folder}/${fileName}.html`, html);
 };
 
@@ -41,25 +39,26 @@ const communityBoardTemplate = pug.compileFile(path.join(__dirname, 'templates',
 const indexTemplate = pug.compileFile(path.join(__dirname, 'templates', 'index.pug'));
 
 
-const index = () => {
+const index = (folder) => {
   // data structure: [ 'Bronx'. [ {}, {} ] ]
   let districtData = { districts: toPairs(groupBy(communityBoardsData, 'borough')) };
   let html = indexTemplate(districtData);
-  saveFile('index', html);
+  saveFile('index', html, folder);
 };
 
 
 /**
  * Turn array of information about community boards and saves them as files
  * @param {Array[Objects]} communityBoardsJson
+ * @param {String]} outputFolder
  */
-const main = (communityBoardsJson) => {
-  index();
+const main = (communityBoardsJson, folder) => {
+  index(folder);
   
   communityBoardsJson
     .map( board => merge(board, {stats: statsPresenter(board.stats) }) )
     .map( board => ( { fileName: board.district.cd, html: communityBoardTemplate(board) } ) )
-    .forEach( ({fileName, html}) => saveFile(fileName, html) );
+    .forEach( ({fileName, html}) => saveFile(fileName, html, folder) );
 };
 
 main._statsPresenter = statsPresenter;
