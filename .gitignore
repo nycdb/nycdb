@@ -21,3 +21,5 @@ server/*.html
 docker/sqlpad
 docker/postgres-data
 postgres-data
+
+modules/hpd-complaints/*.csv
