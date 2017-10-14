@@ -17,5 +17,6 @@ module.exports = {
   stats: sqlQuery('stats'),
   recentSales: sqlQuery('recent_sales'),
   newBuildingJobs: sqlQuery('new_building_jobs'),
-  hpdViolations: sqlQuery('hpd_violations')
+  hpdViolations: sqlQuery('hpd_violations'),
+  dobjobs: sqlQuery('dob_jobs')
 };

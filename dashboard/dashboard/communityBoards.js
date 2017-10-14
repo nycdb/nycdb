@@ -10,7 +10,7 @@ const cloneDeep = require('lodash/cloneDeep');
 const toN = require('./toN');
 // commmunity board data
 const communityBoardList = require('./community_boards.json');
-const queries = [ 'stats', 'recentSales','newBuildingJobs', 'hpdViolations' ];
+const queries = [ 'stats', 'recentSales','newBuildingJobs', 'hpdViolations', 'dobjobs' ];
 
 const CONCURRENCY = 3;
 
