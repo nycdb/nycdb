@@ -27,3 +27,12 @@ describe('queryForDistrict', function() {
   });
 
 });
+
+
+describe('flatMerge', function() {
+  it('reduces array of object where .name is the key and .d is the data', function(){
+    let results = [ {name: 'units', d: '123'}, {name: 'lots', d: '1000'} ];
+    expect(database._flatMerge(results))
+      .to.deep.equal({ "units": '123', "lots": '1000'});
+  });
+});

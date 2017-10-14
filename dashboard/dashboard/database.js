@@ -1,12 +1,15 @@
 const Promise = require('bluebird');
 const pgp = require('pg-promise')({ promiseLib: Promise });
-const defaultConnectionStr = 'postgres://postgres:nycdb@127.0.0.1:5432/postgres';
+const defaultConnectionStr = 'postgres://nycdb:nycdb@127.0.0.1:5432/nycdb';
 const isObjectLike = require('lodash/isObjectLike');
 const toString = require('lodash/toString');
+const reduce = require('lodash/reduce');
+const merge = require('lodash/merge');
+
 
 const query = require('./query');
 
-//const db = database('postgres://nycdb:nycdb@127.0.0.1:5432/nycdb')
+
 /**
  * 
  * @param {Object|String} boardNumberOrObject
@@ -21,6 +24,22 @@ const districtObject = function(boardNumberOrObject) {
 };
 
 
+// 
+// 
+
+
+
+
+/**
+ * Reduces results from stats.sql into a single object
+ * @param {Array[Object]} results from stats query
+ * @returns {Object} 
+ */
+const flatMerge = (results) => {
+  return reduce(results, (acc, val) => merge(acc, { [val.name]: val.d }), {});
+};
+
+
 /**
  * 
  * @param {String} queryName
@@ -31,6 +50,7 @@ const queryForDistrict = function(queryName, district) {
   let dObj =  districtObject(district);
   return query[queryName](dObj);
 };
+
 
 
 /**
@@ -51,7 +71,7 @@ const database = function(connectionStr = defaultConnectionStr) {
 
   return {
     _db: db,
-    stats: (d) => db.query(queryForDistrict('stats', d)),
+    stats: (d) => db.query(queryForDistrict('stats', d)).then(flatMerge).then(Array),
     openViolations: (d) => db.query(queryForDistrict('openViolations', d)),
     hpdViolations: (d) => db.query(queryForDistrict('hpdViolations', d)),
     recentSales: (d) => db.query(queryForDistrict('recentSales', d)),
@@ -64,7 +84,8 @@ const database = function(connectionStr = defaultConnectionStr) {
 // private API for testing
 database._districtObject = districtObject;
 database._queryForDistrict = queryForDistrict;
-  
+database._flatMerge = flatMerge;
+
 module.exports = database;
 
 
