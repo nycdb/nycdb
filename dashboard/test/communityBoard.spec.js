@@ -35,7 +35,6 @@ describe('jsonForBoardPromise', function(){
 
 	expect(values).to.deep.equal({
 	  "stats": [1,2,3],
-	  "openViolations": [1,2,3],
 	  "recentSales": [1,2,3],
 	  "newBuildingJobs": [1,2,3],
 	  "hpdViolations": [1,2,3],

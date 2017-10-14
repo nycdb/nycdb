@@ -24,12 +24,6 @@ const districtObject = function(boardNumberOrObject) {
 };
 
 
-// 
-// 
-
-
-
-
 /**
  * Reduces results from stats.sql into a single object
  * @param {Array[Object]} results from stats query
@@ -71,7 +65,7 @@ const database = function(connectionStr = defaultConnectionStr) {
 
   return {
     _db: db,
-    stats: (d) => db.query(queryForDistrict('stats', d)).then(flatMerge).then(Array),
+    stats: (d) => db.query(queryForDistrict('stats', d)).then(flatMerge),
     openViolations: (d) => db.query(queryForDistrict('openViolations', d)),
     hpdViolations: (d) => db.query(queryForDistrict('hpdViolations', d)),
     recentSales: (d) => db.query(queryForDistrict('recentSales', d)),

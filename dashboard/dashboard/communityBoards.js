@@ -9,8 +9,9 @@ const cloneDeep = require('lodash/cloneDeep');
 
 // commmunity board data
 const communityBoardList = require('./community_boards.json');
+const queries = [ 'stats', 'recentSales','newBuildingJobs', 'hpdViolations' ];
 
-const queries = [ 'stats', 'openViolations', 'recentSales','newBuildingJobs', 'hpdViolations' ];
+const CONCURRENCY = 3;
 
 /**
  * wraps values in an object, and optionally transforms the values
@@ -26,7 +27,8 @@ const wrap = (key, values, transformation = identity) => {
 };
 
 /**
- * Promise for a single community board 
+ * Promise for a single community board
+ * 
  *
  * @param {Database} database instance
  * @param {Object} district
@@ -42,7 +44,6 @@ const jsonForBoardPromise = function(db, district) {
     .then( values => { console.error(`Processed: ${district.cd}`); return values; });
 };
 
-
 /**
  * Returns a promise that, if sucuesfully resolved,
  * will contain the acculated stats for the community board
@@ -52,9 +53,9 @@ const jsonForBoardPromise = function(db, district) {
  */
 const main = function(cs = 'postgres://nycdb:nycdb@127.0.0.1:5432/nycdb') {
   const db = database(cs);
-
+  var boards = communityBoardList; // .slice(0,2);
   return Promise
-    .map(communityBoardList, partial(jsonForBoardPromise, db), { concurrency: 3 });
+    .map(boards, partial(jsonForBoardPromise, db), { concurrency: CONCURRENCY });
 };
 
 module.exports = {

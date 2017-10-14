@@ -3,7 +3,6 @@ const communityBoards = require("./dashboard/communityBoards.js");
 
 const helpCommands = [ 'help', '-help', '--help', '-h'];
 
-
 const help = `
 Community Board Json
    use: community-board-json [PostgresConnectionString]
@@ -21,6 +20,6 @@ if (helpCommands.includes(arg)) {
 } else {
 
   communityBoards.main(arg)
-    .then( results => process.stdout.write(results) );
+    .then( results => process.stdout.write(JSON.stringify(results)));
   
 }
