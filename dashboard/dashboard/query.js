@@ -8,11 +8,11 @@ const sqlFile = file => {
 
 const sqlQuery = file => template(sqlFile(file));
 
-
-// These functions are lodash template that take one argument: a attributes object
-// The come needs to contain the the key 'cd' with the community board number
-// They output a sql string
-// require('query').recentSales({cd: '101'})
+// These functions are lodash template that take one argument: an attributes object
+// The object needs to contain the the key 'cd' with the community board number
+// The functions return a SQL string
+// Example:
+//   require('query').recentSales({cd: '101'})
 module.exports = {
   stats: sqlQuery('stats'),
   recentSales: sqlQuery('recent_sales'),

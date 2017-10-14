@@ -81,6 +81,3 @@ database._queryForDistrict = queryForDistrict;
 database._flatMerge = flatMerge;
 
 module.exports = database;
-
-
-

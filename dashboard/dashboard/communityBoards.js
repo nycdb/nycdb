@@ -7,12 +7,17 @@ const reduce = require('lodash/reduce');
 const merge = require('lodash/merge');
 const identity = require('lodash/identity');
 const cloneDeep = require('lodash/cloneDeep');
+const isNumber = require('lodash/isNumber');
+const toNumber = require('lodash/toNumber');
+
 
 // commmunity board data
 const communityBoardList = require('./community_boards.json');
 const queries = [ 'stats', 'recentSales','newBuildingJobs', 'hpdViolations' ];
 
 const CONCURRENCY = 3;
+
+const toN = (n) => isNumber(n) ? n : toNumber(n.replace(',', '').replace('$', ''));
 
 /**
  * wraps values in an object, and optionally transforms the values
@@ -27,6 +32,21 @@ const wrap = (key, values, transformation = identity) => {
   return { [key]: transformation(values) };
 };
 
+
+/**
+ * Adds additional statistics for the community board
+ *
+ * @param {Object} json
+ * @returns {Object} 
+ */
+const computeStats = function(json) {
+  let stats = {
+    "openViolationsPerUnit": toN(json.stats.totalNumberOfOpenViolations) / toN(json.stats.unitsres),
+    "openViolationsPerBuilding": toN(json.stats.totalNumberOfOpenViolations) / toN(json.stats.buildingsres)
+  };
+  return merge(json, { "stats": stats } );
+};
+
 /**
  * Promise for a single community board
  * 
@@ -36,12 +56,13 @@ const wrap = (key, values, transformation = identity) => {
  * @returns {Promise}
  */
 const jsonForBoardPromise = function(db, district) {
-  return Promise
-    .all(queries.map( queryName => {
-      return db[queryName](district).then( values => wrap(queryName, values) );
-    }))
+  const execQuery = (queryName) => db[queryName](district).then( values => wrap(queryName, values) );
+
+  return Promise 
+    .all(queries.map(execQuery))
     .then( values => values.concat([ wrap('district', district)]) )
     .then( values => reduce(values, (acc, val) => merge(acc, val) ) )
+    .then( values => computeStats(values) )
     .then( values => { console.error(`Processed: ${district.cd}`); return values; });
 };
 
@@ -63,5 +84,6 @@ module.exports = {
   "jsonForBoardPromise": jsonForBoardPromise,
   "_wrap": wrap,
   "main": main,
+  "computeStats": computeStats,
   "queries": () => cloneDeep(queries)
 };
