@@ -70,7 +70,8 @@ describe('jsonForBoardPromise', function(){
       "stats": promiseFor({"unitsres": "100", "buildingsres": "10", "totalNumberOfOpenViolations": "50"}),
       "recentSales": promiseFor([1,2,3]),
       "newBuildingJobs": promiseFor([1,2,3]),
-      "hpdViolations": promiseFor([1,2,3])
+      "hpdViolations": promiseFor([1,2,3]),
+      "dobjobs": promiseFor([1,2,3])
     };
 
     const jsonPromise = communityBoards.jsonForBoardPromise(mockDb, { cd: '101' });
@@ -83,6 +84,7 @@ describe('jsonForBoardPromise', function(){
 	  "recentSales": [1,2,3],
 	  "newBuildingJobs": [1,2,3],
 	  "hpdViolations": [1,2,3],
+	  "dobjobs": [1,2,3],
 	  "district": { "cd": '101' }
 	});
 	
