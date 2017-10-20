@@ -11,7 +11,7 @@ setuptools.setup(
     description="nyc housing database",
     long_description=open('README.rst').read(),
 
-    packages=setuptools.find_packages(),
+    packages=setuptools.find_packages(exclude=('tests', 'docs')),
 
     install_requires=[],
 

@@ -23,6 +23,7 @@ __pycache__
 pip-log.txt
 
 # Unit test / coverage reports
+.cache
 .coverage
 .tox
 nosetests.xml
@@ -34,3 +35,6 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
+
+
+venv

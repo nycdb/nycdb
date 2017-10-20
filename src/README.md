@@ -1,25 +1,26 @@
-nycdb
-=====
+# nycdb
 
-nyc housing database
+Database of Housing Data for NYC
 
-Usage
------
+## Development
 
-Installation
-------------
 
-Requirements
-^^^^^^^^^^^^
+Setup: ``` make ```
 
-Compatibility
--------------
+Run tests: ``` make test ```
 
-Licence: GPLv3
--------
 
+## Requirements
+
+* Python3
+* Postgres
+
+
+## Licence: GPLv3
+
+```
 NYC-DB - Postgres database of NYC housing data
-Copyright (C) 2016  Ziggy Mintz
+Copyright (C) 2017  Ziggy Mintz
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -33,8 +34,5 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
+```
 
-Authors
--------
-
-`nycdb` was written by `ziggy <ziggy@elephant-bird.net>`_.
