@@ -67,4 +67,5 @@ def test_download_file(tmpdir):
     assert dest.check() is True
     assert tmpdir.join('data').check() is True
     assert dest.read() == 'i am a file'
-    
+    # This should return True and not attempt to download the file again:
+    assert nycdb.dataset.download_file('http://localhost:6789/www/file.txt', dest.strpath)
