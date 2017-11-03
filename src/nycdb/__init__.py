@@ -5,3 +5,7 @@ __author__ = 'ziggy <ziggy@elephant-bird.net>'
 __all__ = []
 
 from .database import Database
+from .downloader import Downloader
+from .dataset import Dataset, File, datasets
+
+#datasets = _datasets()

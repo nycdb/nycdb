@@ -1,0 +1,13 @@
+---
+pluto_16v2:
+  files:
+    -
+      url: https://www1.nyc.gov/assets/planning/download/zip/data-maps/open-data/nyc_pluto_16v2%20.zip
+      dest: pluto_16v2.zip
+  
+dobjobs:
+  files:
+    -
+      url: https://data.cityofnewyork.us/api/views/ic3t-wcy2/rows.csv?accessType=DOWNLOAD
+      dest: dobjobs.csv
+  
