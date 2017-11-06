@@ -1,4 +1,14 @@
+import csv
 from zipfile import ZipFile
+from .bbl import bbl
+        
+        
+def merge(x, y):
+    """Given two dicts, merge them into a new dict as a shallow copy."""
+    z = x.copy()
+    z.update(y)
+    return z
+
 
 # String (filepath) -> String
 def extract_csvs_from_zip(file_path):
@@ -20,3 +30,15 @@ def extract_csvs_from_zip(file_path):
                     content += firstline  # get header from first line
                 content += f.read().decode('UTF-8', 'ignore')
     return content
+
+
+def to_csv(file_path):
+    with open(file_path, 'r') as f:
+        headers = f.readline().lower().replace("\n", '').split(',')
+        for row in csv.DictReader(f, fieldnames=headers):
+            yield row
+
+
+def with_bbl(table):
+    for row in table:
+        yield merge(row, {'bbl': bbl(row['borough'], row['block'], row['lot'])})

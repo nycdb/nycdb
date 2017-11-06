@@ -10,4 +10,28 @@ dobjobs:
     -
       url: https://data.cityofnewyork.us/api/views/ic3t-wcy2/rows.csv?accessType=DOWNLOAD
       dest: dobjobs.csv
-  
+
+hpd-complaints:
+  files:
+    -
+      url: https://data.cityofnewyork.us/api/views/uwyv-629c/rows.csv?accessType=DOWNLOAD
+      dest: hpd_complaints.csv
+  schema:
+    fields:
+      ComplaintID: integer
+      BuildingID: integer
+      BoroughID: integer
+      Borough: text
+      HouseNumber: text
+      StreetName: text
+      Zip: text
+      Block: integer
+      Lot: integer
+      Apartment: text
+      CommunityBoard: integer
+      ReceivedDate: date
+      StatusID: integer
+      Status: text
+      StatusDate: date
+      bbl: char(10)
+    date-format: 'mm/dd/yyyy'

@@ -5,6 +5,8 @@ import yaml
 from pathlib import Path
 from functools import lru_cache
 from . import dataset_transformations
+from . import sql
+from .database import Database
 
 def read_yml(file):
     """Reads a yaml file and outputs a Dictionary"""
@@ -80,8 +82,10 @@ class File:
 class Dataset:
     """Information about a dataset"""
 
-    def __init__(self, dataset_name):
+    def __init__(self, dataset_name, args=None):
         self.name = dataset_name
+        self.args = args
+        #self.db = Database(self.args)
         self.dataset = datasets()[dataset_name]
         self.files = self._files()
         self.import_file = None
@@ -106,12 +110,16 @@ class Dataset:
         pass
 
 
+    def create_table(self):
+        self.db.sql(sql.create_table(self.table_name, self.dataset['schema']['fields']))
+    
+
 class Datasets:
     """ All NYCDB datasets """
     
-    def __init__(self):
-        self.datasets = [ Dataset(k) for k in datasets() ]
-
+    def __init__(self, args):
+        self.args = args
+        self.datasets = [ Dataset(k, args=args) for k in datasets() ]
 
     def download_all(self):
         for d in self.datasets:
