@@ -4,6 +4,7 @@ import requests
 import yaml
 from pathlib import Path
 from functools import lru_cache
+from . import dataset_transformations
 
 def read_yml(file):
     """Reads a yaml file and outputs a Dictionary"""
@@ -83,14 +84,26 @@ class Dataset:
         self.name = dataset_name
         self.dataset = datasets()[dataset_name]
         self.files = self._files()
+        self.import_file = None
 
     def _files(self):
         return [ File(file_dict, folder=self.name) for file_dict in self.dataset['files'] ]
 
-
     def download_files(self):
         for f in self.files:
             f.download()
+
+
+    def transform_files(self):
+        """ 
+        Calls the function in dataset_transformation with the same name
+        as the dataset
+        """
+        getattr(dataset_transformations, self.name)(self)
+        
+
+    def db_import(self):
+        pass
 
 
 class Datasets:
@@ -102,4 +115,14 @@ class Datasets:
 
     def download_all(self):
         for d in self.datasets:
-            d.download_Files()
+            d.download_files()
+
+
+    def transform_all(self):
+        for d in self.datasets:
+            d.transfrom_files()
+            
+
+    def import_all(self):
+        for d in self.datasets:
+            d.db_import()

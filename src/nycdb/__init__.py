@@ -7,5 +7,6 @@ __all__ = []
 from .database import Database
 from .downloader import Downloader
 from .dataset import Dataset, File, datasets
+from .transform import *
 
 #datasets = _datasets()
