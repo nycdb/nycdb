@@ -1,4 +1,5 @@
 import nycdb
+import datetime
 from nycdb import typecast
 from unittest.mock import patch
 from types import SimpleNamespace
@@ -20,6 +21,16 @@ def test_boolean():
     assert typecast.boolean('no') is False
     assert typecast.boolean('am i true or false?') is None
 
+def test_date_mm_dd_yyyy():
+    assert typecast.date('05/01/1925') == datetime.date(1925, 5, 1)
+
+def test_date_bad_str():
+    assert typecast.date('01/01/01') is None
+    assert typecast.date('03/04/2015 12:00:00 AM XYZ') is None
+
+def test_date_mm_dd_yyyy_with_timestamp():
+    assert typecast.date('03/04/2015 12:00:00 AM') == datetime.date(2015, 3, 4)
+    
 @patch('nycdb.dataset.Database')
 def test_typecast_init(mock_database):
     t = typecast.Typecast(nycdb.Dataset('hpd_complaints', args=ARGS))

@@ -23,13 +23,20 @@ def char(x, n):
     else:
         return x
 
-# TODO: allow for different date inputs besides mm/dd/yyyy
-def date(x):
-    if len(x) != 10 and len(x.split('/')) != 3:
-        return None
-    month, day, year = map(int, x.split('/'))
+
+def mm_dd_yyyy(date_str):
+    month, day, year = map(int, date_str[0:10].split('/'))
     return datetime.date(year, month, day)
 
+# TODO: allow for different date inputs besides mm/dd/yyyy
+#  03/04/2015 12:00:00 AM
+def date(x):
+    if len(x) == 10 and len(x.split('/')) == 3:
+        return mm_dd_yyyy(x)
+    elif len(x) == 22 and len(x[0:10].split('/')) == 3:
+        return mm_dd_yyyy(x)
+    else:
+        return None
 
 def boolean(x):
     if x in YES_VALUES:

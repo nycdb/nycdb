@@ -29,6 +29,8 @@ tasks = pluto \
 	rentstab \
 	311 \
 	acris \
+	hpd-complaints \
+	dob-complaints \
 	verify
 
 default: help
@@ -101,6 +103,16 @@ rentstab:
 	@echo "**311 Complaints**"
 	cd modules/311 && make && make run
 
+src/venv:
+	cd src && python3 -m venv venv && venv/bin/pip3 install -r requirements.txt
+
+hpd-complaints: src/venv
+	cd src && venv/bin/python3 -m nycdb.cli --download hpd_complaints
+	cd src && venv/bin/python3 -m nycdb.cli --load hpd_complaints -H $(DB_HOST) -U $(DB_USER) -P $(DB_PASSWORD) -D $(DB_DATABASE)
+
+dob-complaints: src/venv
+	cd src && venv/bin/python3 -m nycdb.cli --download dob_complaints
+	cd src && venv/bin/python3 -m nycdb.cli --load dob_complaints -H $(DB_HOST) -U $(DB_USER) -P $(DB_PASSWORD) -D $(DB_DATABASE)
 
 acris: acris-download
 	cd modules/acris-download && make psql_real_complete psql_personal_no_extras psql_index USER=$(DB_USER) PASS=$(DB_PASSWORD) DATABASE=$(DB_DATABASE) PSQLFLAGS="--host=$(DB_HOST)"

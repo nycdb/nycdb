@@ -34,7 +34,7 @@ def extract_csvs_from_zip(file_path):
 
 def to_csv(file_path):
     with open(file_path, 'r') as f:
-        headers = f.readline().lower().replace("\n", '').split(',')
+        headers = f.readline().lower().replace("\n", '').replace(' ', '_').split(',')
         for row in csv.DictReader(f, fieldnames=headers):
             yield row
 

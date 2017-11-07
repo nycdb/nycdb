@@ -9,3 +9,6 @@ def pluto_16v2(dataset):
 def hpd_complaints(dataset):
     return with_bbl(to_csv(dataset.files[0].dest))
 
+
+def dob_complaints(dataset):
+    return to_csv(dataset.files[0].dest)

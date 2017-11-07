@@ -80,13 +80,17 @@ class File:
         return os.path.abspath(os.path.join(self.root_dir, file_path))
 
 
+
+
 class Dataset:
     """Information about a dataset"""
 
     def __init__(self, dataset_name, args=None):
         self.name = dataset_name
         self.args = args
-        self.db = Database(self.args, table_name=self.name)
+        self.db = None
+        #self.db = Database(self.args, table_name=self.name)
+
         self.dataset = datasets()[dataset_name]
         self.typecast = Typecast(self)
         self.files = self._files()
@@ -110,13 +114,17 @@ class Dataset:
         
 
     def db_import(self):
+        self.setup_db()
         self.create_table()
         for row in self.transform():
             self.db.insert(row)
 
     def create_table(self):
         self.db.sql(sql.create_table(self.name, self.dataset['schema']['fields']))
-    
+
+    def setup_db(self):
+        if self.db is None:
+            self.db = Database(self.args, table_name=self.name)
 
 class Datasets:
     """ All NYCDB datasets """

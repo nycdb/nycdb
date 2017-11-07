@@ -14,9 +14,7 @@ def test_datasets():
     assert type(nycdb.datasets()['pluto_16v2']) is dict
 
 
-
-@patch('psycopg2.connect')
-def test_dataset(mock_connect):
+def test_dataset():
     d = nycdb.Dataset('pluto_16v2', args=ARGS)
 
     assert d.name == 'pluto_16v2'
@@ -25,8 +23,15 @@ def test_dataset(mock_connect):
     assert len(d.files) == 1
     assert isinstance(d.files[0], nycdb.File)
 
+@patch('psycopg2.connect')
+def test_setup_db(mock_connect):
+    d = nycdb.Dataset('pluto_16v2', args=ARGS)
+    assert d.db is None
+    d.setup_db()
+    d.setup_db()
     assert isinstance(d.db, nycdb.Database)
     assert mock_connect.call_count == 1
+    
 
 def test_file_constructor_with_dest():
     file_dict = { 'url': 'http://example.com', 'dest': 'example.csv' }
