@@ -1,0 +1,63 @@
+---
+pluto_16v2:
+  files:
+    -
+      url: https://www1.nyc.gov/assets/planning/download/zip/data-maps/open-data/nyc_pluto_16v2%20.zip
+      dest: pluto_16v2.zip
+  schema:
+    fields:
+      block: integer
+      lot: integer
+dobjobs:
+  files:
+    -
+      url: https://data.cityofnewyork.us/api/views/ic3t-wcy2/rows.csv?accessType=DOWNLOAD
+      dest: dobjobs.csv
+
+hpd_complaints:
+  files:
+    -
+      url: https://data.cityofnewyork.us/api/views/uwyv-629c/rows.csv?accessType=DOWNLOAD
+      dest: hpd_complaints.csv
+  schema:
+    fields:
+      ComplaintID: integer
+      BuildingID: integer
+      BoroughID: integer
+      Borough: text
+      HouseNumber: text
+      StreetName: text
+      Zip: text
+      Block: integer
+      Lot: integer
+      Apartment: text
+      CommunityBoard: integer
+      ReceivedDate: date
+      StatusID: integer
+      Status: text
+      StatusDate: date
+      bbl: char(10)
+    date-format: 'mm/dd/yyyy'
+
+dob_complaints:
+  files:
+    -
+      url: https://nycopendata.socrata.com/api/views/eabe-havv/rows.csv?accessType=DOWNLOAD
+      dest: dob_complaints.csv
+  schema:
+    fields:
+      complaint_number: integer
+      status: text
+      date_entered: date
+      house_number: text
+      zip_code: text
+      house_street: text
+      bin: integer
+      community_board: integer
+      special_district: text
+      complaint_category: text
+      unit: text
+      disposition_date: date
+      disposition_code: text
+      inspection_date: date
+      dobrundate: date

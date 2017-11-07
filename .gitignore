@@ -4,6 +4,7 @@ env.sh.backup
 tmp/
 data/
 !dashboard/data
+!src/tests/data
 .env/
 nyc-db*.sql
 ansible/playbook.retry

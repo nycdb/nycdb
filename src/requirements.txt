@@ -1,0 +1,5 @@
+pytest
+PyYAML
+requests
+psycopg2
+
