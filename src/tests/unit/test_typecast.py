@@ -10,6 +10,7 @@ def test_integer():
     assert typecast.integer(10) == 10
     assert typecast.integer('10') == 10
     assert typecast.integer('  10  ') == 10
+    assert typecast.integer('') is None
 
 def test_char():
     assert typecast.char('test', 10) == 'test'

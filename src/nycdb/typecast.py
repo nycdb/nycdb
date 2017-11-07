@@ -11,6 +11,8 @@ def downcase_fields_and_values(d):
 def integer(i):
     if isinstance(i, int):
         return i
+    elif i.strip() == '':
+        return None
     else:
         return int(i.strip())
 
