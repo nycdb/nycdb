@@ -8,7 +8,7 @@ test-unit: test
 
 test-integration:
 	docker run --name nycdb-test -p 7777:5432 -e POSTGRES_PASSWORD=password -d postgres:10
-	./bin/wait-for-pg.sh
+	./scripts/wait-for-pg.sh
 	pytest tests/integration
 	docker stop nycdb-test && docker rm -v nycdb-test
 
