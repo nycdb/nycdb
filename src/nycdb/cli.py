@@ -10,6 +10,7 @@ def parse_args():
     parser.add_argument("-P", "--password", help="Postgres password. default: postgres", default="postgres")
     parser.add_argument("-H", "--host", help="Postgres host: default: 127.0.0.1", default="127.0.0.1")
     parser.add_argument("-D", "--database", help="postgres database: default: postgres", default="postgres")
+    parser.add_argument("--root-dir", help="location of data directory", default="./data")
     return parser.parse_args()
 
 

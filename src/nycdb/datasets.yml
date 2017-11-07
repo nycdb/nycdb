@@ -11,7 +11,7 @@ dobjobs:
       url: https://data.cityofnewyork.us/api/views/ic3t-wcy2/rows.csv?accessType=DOWNLOAD
       dest: dobjobs.csv
 
-hpd-complaints:
+hpd_complaints:
   files:
     -
       url: https://data.cityofnewyork.us/api/views/uwyv-629c/rows.csv?accessType=DOWNLOAD

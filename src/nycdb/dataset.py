@@ -7,6 +7,7 @@ from functools import lru_cache
 from . import dataset_transformations
 from . import sql
 from .database import Database
+from .typecast import Typecast
 
 def read_yml(file):
     """Reads a yaml file and outputs a Dictionary"""
@@ -85,33 +86,36 @@ class Dataset:
     def __init__(self, dataset_name, args=None):
         self.name = dataset_name
         self.args = args
-        #self.db = Database(self.args)
+        self.db = Database(self.args, table_name=self.name)
         self.dataset = datasets()[dataset_name]
+        self.typecast = Typecast(self)
         self.files = self._files()
-        self.import_file = None
+        # self.import_file = None
 
     def _files(self):
-        return [ File(file_dict, folder=self.name) for file_dict in self.dataset['files'] ]
+        return [ File(file_dict, folder=self.name, root_dir=self.args.root_dir) for file_dict in self.dataset['files'] ]
+
 
     def download_files(self):
         for f in self.files:
             f.download()
 
 
-    def transform_files(self):
+    def transform(self):
         """ 
         Calls the function in dataset_transformation with the same name
         as the dataset
         """
-        getattr(dataset_transformations, self.name)(self)
+        return self.typecast.cast_rows(getattr(dataset_transformations, self.name)(self))
         
 
     def db_import(self):
-        pass
-
+        self.create_table()
+        for row in self.transform():
+            self.db.insert(row)
 
     def create_table(self):
-        self.db.sql(sql.create_table(self.table_name, self.dataset['schema']['fields']))
+        self.db.sql(sql.create_table(self.name, self.dataset['schema']['fields']))
     
 
 class Datasets:
