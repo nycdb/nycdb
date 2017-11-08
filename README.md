@@ -7,9 +7,11 @@ Residents, lawyers, tenants, and organizers who want to use data in their strugg
 NYC-DB builds a postgresql database containing the following datasets:
 
 - Department of City Planning's Pluto
-- Department of Building's Job Filings
+- DOB Job Filings
+- DOB Complaints
 - HPD Violations
 - HPD Registrations
+- HPD Complaints
 - Department of Finance Rolling Sales
 - Tax bills - Rent Stabilization Unit Counts (John Krauss's data)
 - 311 Complaints
@@ -19,21 +21,23 @@ NYC-DB builds a postgresql database containing the following datasets:
 
 Just want a copy of the database?
 
-Here's the latest versions available to download from S3:
+Here are the latest versions available to download from S3:
 
+- [nyc-db-2017-11-08.sql.bz2](https://s3.amazonaws.com/nyc-db/nyc-db-2017-11-08.sql.bz2)
 - [nyc-db-2017-10-13.sql.bz2](https://s3.amazonaws.com/nyc-db/nyc-db-2017-10-13.sql.bz2)
 - [nyc-db-2017-09-08.sql.bz2](https://s3.amazonaws.com/nyc-db/nyc-db-2017-09-08.sql.bz2)
-- [nyc-db-2017-08-14.sql.bz2](https://s3.amazonaws.com/nyc-db/nyc-db-2017-08-14.sql.bz2)
 
 It's ~1.8gb compressed and ~16gb decompressed.
 
-If you have aws cli installed, you can download it easily this way: ``` aws s3 cp s3://nyc-db/nyc-db-2017-10-13.sql.bz2 ./ ```
+If you have aws cli installed, you can download it easily this way: ``` aws s3 cp s3://nyc-db/nyc-db-2017-11-08.sql.bz2 ./ ```
 
-To decompress: ```  bunzip2 nyc-db-2017-10-13.sql.bz2 ```
+To decompress: ```  bunzip2 nyc-db-2017-11-08.sql.bz2 ```
 
-Load the db: ``` psql -d database-name -f nyc-db-2017-10-13.sql ```
+Load the db: ``` psql -d database-name -f nyc-db-2017-11-08.sql ```
 
 ## Build it yourself!
+
+**Upgrade in progress**: Work is being done to convert the set of scripts and Makefiles into a single python program. See the ``` src ``` folder for more information.
 
 ###  Installation
 
@@ -63,13 +67,13 @@ make nyc-db DB_HOST=localhost DB_DATABASE=nycdb DB_USER=databaseuser DB_PASSWORD
 
 #### Run options: _Individual datasets_
 
-If you want only one dataset or if you prefer to import the datasets one-at-a-time, you can run the download script with the name of the dataset and then execute the script for the corresponding dataset.
+If you want only one dataset or if you prefer to import the datasets one-at-a-time, you can run the download script (if required) with the name of the dataset and then execute the script for the corresponding dataset.
 
 For example, to import only DOF sales data do: ``` ./download.sh dofsales ``` and ``` make dofsales ```
 
 Notes: 
  - The scripts will drop existing tables of the same name from the database and re-populate them. This means you can re-run the scripts when new data is released.
- - Some indexes are created, but you might want to create additional depending on youre queries.
+ - Some indexes are created, but you might find yourself needing additional indexes.
 
 Some of the scripts are stored in separate repos and are kept as submodules in the _modules_ folder:
 
@@ -111,7 +115,7 @@ Create a fresh debian jessie or ubuntu 16 server and configure your ansible host
 xx.xx.xx.xx ansible_user=root ansible_ssh_private_key_file=/path/to/ssh/key
 ```
 
-then run the playbook: ``` cd ansible && ansible-playbook playbook.yml ```
+Then run the playbook: ``` cd ansible && ansible-playbook playbook.yml ```
 
 After it's done. SSH into the server and run:
 
@@ -128,18 +132,18 @@ make nyc-db
  
 *dob*
   - dobjobs
- 
-*hpd violations*
+  - dob_complaints
+
+*hpd* 
   - hpd_violations
   - hpd_uniq_violations
   - hpd_open_violations
   - hpd_all_violations
-
-*hpd registrations*
   - hpd_contacts
   - hpd_corporate_owners
   - hpd_registrations
   - hpd_registrations_grouped_by_bbl
+  - hpd_complaints
 
 *dof*
   - dof_sales
@@ -174,7 +178,6 @@ make nyc-db
 
 ### Future datasets to add:
 
-- hpd complaints
 - census data
 
 #### LICENSE: GPLv3
