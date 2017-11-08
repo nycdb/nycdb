@@ -80,8 +80,6 @@ class File:
         return os.path.abspath(os.path.join(self.root_dir, file_path))
 
 
-
-
 class Dataset:
     """Information about a dataset"""
 

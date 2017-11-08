@@ -1,8 +1,10 @@
 import re
 import datetime
+from decimal import Decimal, InvalidOperation
 
 YES_VALUES = [ 1, True, 'T', 't', 'true', 'True', 'TRUE', '1', 'y', 'Y', "YES", 'Yes']
 NO_VALUES = [ '0', 0, False, 'False', 'f', 'F', 'false', 'FALSE', 'N', 'n', 'NO', 'No', 'no']
+INTEGER_TYPES = [ 'integer', 'smallint', 'bigint', 'int' ]
 
 def downcase_fields_and_values(d):
     """downcase keys and values in dictionary"""
@@ -11,6 +13,8 @@ def downcase_fields_and_values(d):
 def integer(i):
     if isinstance(i, int):
         return i
+    elif '.' in i:
+        return int(i.split('.')[0])
     elif i.strip() == '':
         return None
     else:
@@ -19,12 +23,18 @@ def integer(i):
 def text(x):
     return x.strip()
 
+
 def char(x, n):
     if len(x) > n:
         return x.strip()[0:n]
     else:
         return x
 
+def numeric(x):
+    try:
+        return Decimal(x)
+    except InvalidOperation:
+        return None
 
 def mm_dd_yyyy(date_str):
     month, day, year = map(int, date_str[0:10].split('/'))
@@ -83,7 +93,7 @@ class Typecast():
             if v[0:4] == 'char':
                 n = int(re.match(r'char\((\d+)\)', v).group(1))
                 d[k] = lambda x: char(x, n)
-            elif v == 'integer':
+            elif v in INTEGER_TYPES:
                 d[k] = lambda x: integer(x)
             elif v == 'text':
                 d[k] = lambda x: text(x)
@@ -91,7 +101,8 @@ class Typecast():
                 d[k] = lambda x: boolean(x)
             elif v == 'date':
                 d[k] = lambda x: date(x)
+            elif v == 'numeric':
+                d[k] = lambda x: numeric(x)
             else:
                 d[k] = lambda x: x
         return d
-
