@@ -76,7 +76,9 @@ TABLES = {
         'real_property_parties',
         'real_property_references',
         'real_property_remarks'
-    ]
+    ],
+    'dob_complaints': ['dob_complaints'],
+    'hpd_complaints': ['hpd_complaints']
 
 }
 
