@@ -18,8 +18,17 @@ def test_to_csv(tmpdir):
     assert output_list[1] == {'name': 'bob', 'borough': 'bronx', 'block': '3', 'lot': '4'}
 
 
+def test_zip_to_csv():
+    test_csv_file = os.path.join(os.path.dirname(__file__), 'cats.zip')
+    out = list(nycdb.transform.to_csv(nycdb.transform.extract_csvs_from_zip(test_csv_file)))
+    assert len(out) == 4
+    assert out[0] == { 'name': 'alice', 'superpower': 'eating' }
+    assert out[1] == { 'name': 'fluffy', 'superpower': 'purring' }
+    assert out[2] == { 'name': 'meowses', 'superpower': 'sitting' }
+
 def test_to_bbl():
     table = [ { 'borough': 'queens', 'block': '1', 'lot': '1' },{ 'borough': 'queens', 'block': '1', 'lot': '2' } ]
     out = list(nycdb.transform.with_bbl(table))
     assert out[0] == { 'borough': 'queens', 'block': '1', 'lot': '1', 'bbl': '4000010001' }
     assert out[1] == { 'borough': 'queens', 'block': '1', 'lot': '2', 'bbl': '4000010002' }
+

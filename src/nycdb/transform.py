@@ -1,4 +1,6 @@
 import csv
+import io
+import types
 from zipfile import ZipFile
 from .bbl import bbl
         
@@ -31,8 +33,21 @@ def extract_csvs_from_zip(file_path):
                     yield line.decode('UTF-8', 'ignore')
 
 
-def to_csv(file_path):
-    with open(file_path, 'r') as f:
+def to_csv(file_path_or_generator):
+    """ 
+    input: String | Generator
+    outs: Generator
+
+    reads firstline as the headers and converts input into a stream of dicts
+    """
+    if isinstance(file_path_or_generator, types.GeneratorType):
+        f = io.StringIO(''.join(list(file_path_or_generator)))
+    elif isinstance(file_path_or_generator, str):
+        f = open(file_path_or_generator, 'r')
+    else:
+        raise ValueError("to_csv accepts Strings or Generators")
+
+    with f:
         headers = f.readline().lower().replace("\n", '').replace(' ', '_').split(',')
         for row in csv.DictReader(f, fieldnames=headers):
             yield row
