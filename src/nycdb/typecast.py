@@ -37,8 +37,11 @@ def numeric(x):
         return None
 
 def mm_dd_yyyy(date_str):
-    month, day, year = map(int, date_str[0:10].split('/'))
-    return datetime.date(year, month, day)
+    try:
+        month, day, year = map(int, date_str[0:10].split('/'))
+        return datetime.date(year, month, day)
+    except ValueError:
+        return None
 
 # TODO: allow for different date inputs besides mm/dd/yyyy
 #  03/04/2015 12:00:00 AM

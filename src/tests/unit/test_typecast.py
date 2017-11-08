@@ -37,6 +37,7 @@ def test_date_mm_dd_yyyy():
 def test_date_bad_str():
     assert typecast.date('01/01/01') is None
     assert typecast.date('03/04/2015 12:00:00 AM XYZ') is None
+    assert typecast.date('01/01/0000') is None
 
 def test_date_mm_dd_yyyy_with_timestamp():
     assert typecast.date('03/04/2015 12:00:00 AM') == datetime.date(2015, 3, 4)
