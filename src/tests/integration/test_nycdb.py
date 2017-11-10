@@ -38,3 +38,12 @@ def test_dob_complaints():
     dob_complaints.db_import()
     assert row_count(conn, 'dob_complaints') == 100
     conn.close()
+
+
+def test_pluto16v2():
+    conn = connection()
+    drop_table(conn, 'pluto_16v2')
+    pluto = nycdb.Dataset('pluto_16v2', args=ARGS)
+    pluto.db_import()
+    assert row_count(conn, 'pluto_16v2') == 500
+    conn.close()

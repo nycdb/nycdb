@@ -82,11 +82,16 @@ class Typecast():
         input: Dict
         output: Dict
         """
-        d = {}
-        for column, val in row.items():
-            d[column] = self.cast[column.lower()](val)
-        return d
-    
+        try:
+            d = {}
+            for column, val in row.items():
+                d[column] = self.cast[column.lower()](val)
+            return d
+        except:
+            # print the row for debugging:
+            print(row)
+            raise
+            
     def generate_cast(self):
         """
         Generates conversation table for dataset schema

@@ -11,6 +11,9 @@ def merge(x, y):
     z.update(y)
     return z
 
+def clean_headers(x):
+    return x.lower().replace("\n", '').replace("\r", '').replace(' ', '_').replace('"', '').split(',')
+
 
 # String (filepath) -> String
 def extract_csvs_from_zip(file_path):
@@ -48,7 +51,7 @@ def to_csv(file_path_or_generator):
         raise ValueError("to_csv accepts Strings or Generators")
 
     with f:
-        headers = f.readline().lower().replace("\n", '').replace(' ', '_').split(',')
+        headers = clean_headers(f.readline())
         for row in csv.DictReader(f, fieldnames=headers):
             yield row
 

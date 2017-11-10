@@ -57,15 +57,15 @@ pluto_16v2:
       LotDepth: numeric
       BldgFront: numeric
       BldgDepth: numeric
-      ExtCode: varchar(2)
+      Ext: text
       ProxCode: char(1)
       IrrLotCode: boolean
       LotType: char(1)
       BsmtCode: char(1)
       AssessLand: bigint
-      AssessTotal: bigint
+      AssessTot: bigint
       ExemptLand: bigint
-      ExemptTotal: bigint
+      ExemptTot: bigint
       YearBuilt: smallint
       YearAlter1: smallint
       YearAlter2: smallint
@@ -78,7 +78,7 @@ pluto_16v2:
       BoroCode: char(1)
       BBL: char(10)
       CondoNo: text
-      Tract2010: text,
+      Tract2010: text
       XCoord: integer
       YCoord: integer
       ZoneMap: text
