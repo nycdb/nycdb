@@ -1,4 +1,4 @@
-init: venv
+init: cython | venv
 	pip3 install -r requirements.txt
 
 test:
@@ -15,4 +15,7 @@ test-integration:
 venv:
 	python3 -m venv venv
 
-.PHONY: init test test-integration test-unit
+cython: venv
+	pip3 install cython
+
+.PHONY: init test test-integration test-unit cython

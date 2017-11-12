@@ -1,7 +1,10 @@
 import csv
 import io
 import types
+import pyproj
 from zipfile import ZipFile
+from pyproj import *
+
 from .bbl import bbl
         
         
@@ -59,3 +62,21 @@ def to_csv(file_path_or_generator):
 def with_bbl(table):
     for row in table:
         yield merge(row, {'bbl': bbl(row['borough'], row['block'], row['lot'])})
+
+
+p4j = '+proj=lcc +lat_1=40.66666666666666 +lat_2=41.03333333333333 +lat_0=40.16666666666666 +lon_0=-74 +x_0=300000 +y_0=0 +datum=NAD83 +units=us-ft +no_defs '
+ny_state_plane = pyproj.Proj(p4j, preserve_units=True)
+wgs84 = pyproj.Proj(init="epsg:4326")
+
+def ny_state_coords_to_lat_lng(xcoord, ycoord):
+    return pyproj.transform(ny_state_plane, wgs84, xcoord, ycoord)
+
+
+def with_geo(table):
+    for row in table:
+        try:
+            coords = ( float(row['xcoord']), float(row['ycoord']) )
+            lng, lat = ny_state_coords_to_lat_lng(*coords)
+            yield merge(row, { 'lng': lng, 'lat': lat })
+        except:
+            yield merge(row, { 'lng': None, 'lat': None })

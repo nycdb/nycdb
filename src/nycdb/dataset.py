@@ -88,6 +88,10 @@ class Dataset:
         self.args = args
         self.db = None
         #self.db = Database(self.args, table_name=self.name)
+        if self.args:
+            self.root_dir = self.args.root_dir
+        else:
+            self.root_dir = './data'
 
         self.dataset = datasets()[dataset_name]
         self.typecast = Typecast(self)
@@ -95,7 +99,7 @@ class Dataset:
         # self.import_file = None
 
     def _files(self):
-        return [ File(file_dict, folder=self.name, root_dir=self.args.root_dir) for file_dict in self.dataset['files'] ]
+        return [ File(file_dict, folder=self.name, root_dir=self.root_dir) for file_dict in self.dataset['files'] ]
 
 
     def download_files(self):
