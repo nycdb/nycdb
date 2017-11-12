@@ -1,3 +1,4 @@
+import copy
 import re
 import datetime
 from decimal import Decimal, InvalidOperation
@@ -100,7 +101,7 @@ class Typecast():
         for k, v in self.fields.items():
             if v[0:4] == 'char':
                 n = int(re.match(r'char\((\d+)\)', v).group(1))
-                d[k] = lambda x: char(x, n)
+                d[k] = lambda x: char(x, copy.copy(n))
             elif v in INTEGER_TYPES:
                 d[k] = lambda x: integer(x)
             elif v == 'text':
