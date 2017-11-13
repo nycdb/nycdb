@@ -1,4 +1,4 @@
-init: venv
+init: cython | venv
 	pip3 install -r requirements.txt
 
 test:
@@ -9,10 +9,13 @@ test-unit: test
 test-integration:
 	docker run --name nycdb-test -p 7777:5432 -e POSTGRES_PASSWORD=password -d postgres:10
 	./scripts/wait-for-pg.sh
-	pytest tests/integration
+	pytest tests/integration || true
 	docker stop nycdb-test && docker rm -v nycdb-test
 
 venv:
 	python3 -m venv venv
 
-.PHONY: init test test-integration test-unit
+cython: venv
+	pip3 install cython
+
+.PHONY: init test test-integration test-unit cython

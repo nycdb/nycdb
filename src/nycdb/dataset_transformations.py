@@ -2,8 +2,7 @@ from .transform import *
 from .typecast import Typecast
 
 def pluto_16v2(dataset):
-    lines = extract_csvs_from_zip(dataset.files[0].dest).split('\n')
-    header = lines[0]
+    return with_geo(to_csv(extract_csvs_from_zip(dataset.files[0].dest)))
     
 
 def hpd_complaints(dataset):

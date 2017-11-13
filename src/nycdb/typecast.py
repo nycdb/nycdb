@@ -1,3 +1,4 @@
+import copy
 import re
 import datetime
 from decimal import Decimal, InvalidOperation
@@ -33,7 +34,7 @@ def char(x, n):
 def numeric(x):
     try:
         return Decimal(x)
-    except InvalidOperation:
+    except (InvalidOperation, TypeError):
         return None
 
 def mm_dd_yyyy(date_str):
@@ -61,6 +62,13 @@ def boolean(x):
     else:
         return None
 
+def char_cast(n):
+    n = copy.copy(n)
+    def to_char(x):
+        return char(x, n)
+
+    return to_char
+    
 class Typecast():
     def __init__(self, dataset):
         self.dataset = dataset
@@ -82,11 +90,16 @@ class Typecast():
         input: Dict
         output: Dict
         """
-        d = {}
-        for column, val in row.items():
-            d[column] = self.cast[column.lower()](val)
-        return d
-    
+        try:
+            d = {}
+            for column, val in row.items():
+                d[column] = self.cast[column.lower()](val)
+            return d
+        except:
+            # print the row for debugging:
+            print(row)
+            raise
+            
     def generate_cast(self):
         """
         Generates conversation table for dataset schema
@@ -95,7 +108,7 @@ class Typecast():
         for k, v in self.fields.items():
             if v[0:4] == 'char':
                 n = int(re.match(r'char\((\d+)\)', v).group(1))
-                d[k] = lambda x: char(x, n)
+                d[k] = char_cast(n)
             elif v in INTEGER_TYPES:
                 d[k] = lambda x: integer(x)
             elif v == 'text':

@@ -23,6 +23,13 @@ def test_dataset():
     assert len(d.files) == 1
     assert isinstance(d.files[0], nycdb.File)
 
+
+def test_correct_bbl_typecast_for_pluto():
+    d = nycdb.Dataset('pluto_16v2', args=ARGS)
+    assert isinstance(d.typecast, nycdb.typecast.Typecast)
+    assert d.typecast.cast['bbl']('1008300028') == '1008300028'
+    assert d.typecast.cast['bbl']('1008300028.00') == '1008300028'
+
 @patch('psycopg2.connect')
 def test_setup_db(mock_connect):
     d = nycdb.Dataset('pluto_16v2', args=ARGS)
