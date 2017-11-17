@@ -1,4 +1,5 @@
 import logging
+import itertools
 import os
 import requests
 import yaml
@@ -8,6 +9,8 @@ from . import dataset_transformations
 from . import sql
 from .database import Database
 from .typecast import Typecast
+
+BATCH_SIZE = 1000
 
 def read_yml(file):
     """Reads a yaml file and outputs a Dictionary"""
@@ -116,10 +119,24 @@ class Dataset:
         
 
     def db_import(self):
+        """
+        inserts the dataset in the postgres
+        output:  True | Throws
+        """
         self.setup_db()
         self.create_table()
-        for row in self.transform():
-            self.db.insert(row)
+
+        rows = self.transform()
+        
+        while True:
+            batch = list(itertools.islice(rows, 0, BATCH_SIZE))
+            if len(batch) == 0:
+                return True
+            else:
+                self.db.insert_rows(batch)
+
+        # for row in self.transform():
+        #     self.db.insert(row)
 
     def create_table(self):
         self.db.sql(sql.create_table(self.name, self.dataset['schema']['fields']))
