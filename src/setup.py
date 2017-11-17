@@ -9,7 +9,7 @@ setuptools.setup(
     author_email="ziggy@elephant-bird.net",
 
     description="nyc housing database",
-    long_description=open('README.rst').read(),
+    long_description=open('README.md').read(),
 
     packages=setuptools.find_packages(exclude=('tests', 'docs')),
 
