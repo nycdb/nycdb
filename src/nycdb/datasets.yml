@@ -160,6 +160,7 @@ hpd_violations:
       Borough: text
       HouseNumber: text
       LowHouseNumber: text
+      HighHouseNumber: text
       StreetName: text 
       StreetCode: text
       Postcode: char(5)
