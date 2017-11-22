@@ -192,3 +192,4 @@ hpd_violations:
       BIN: integer
       BBL: char(10)
       NTA: text
+      

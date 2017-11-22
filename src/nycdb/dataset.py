@@ -135,9 +135,6 @@ class Dataset:
             else:
                 self.db.insert_rows(batch)
 
-        # for row in self.transform():
-        #     self.db.insert(row)
-
     def create_table(self):
         self.db.sql(sql.create_table(self.name, self.dataset['schema']['fields']))
 
