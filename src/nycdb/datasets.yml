@@ -160,6 +160,7 @@ hpd_violations:
       Borough: text
       HouseNumber: text
       LowHouseNumber: text
+      HighHouseNumber: text
       StreetName: text 
       StreetCode: text
       Postcode: char(5)
@@ -192,4 +193,3 @@ hpd_violations:
       BIN: integer
       BBL: char(10)
       NTA: text
-      

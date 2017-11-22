@@ -64,4 +64,10 @@ def test_pluto_insert():
         assert round(rec['lat'], 5) == Decimal('40.74211')
 
     
-    
+def test_hpd_violations():
+    conn = connection()
+    drop_table(conn, 'hpd_violations')
+    hpd_violations = nycdb.Dataset('hpd_violations', args=ARGS)
+    hpd_violations.db_import()
+    assert row_count(conn, 'hpd_violations') == 100
+    conn.close()
