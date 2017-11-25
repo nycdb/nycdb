@@ -131,12 +131,21 @@ class Dataset:
         while True:
             batch = list(itertools.islice(rows, 0, BATCH_SIZE))
             if len(batch) == 0:
-                return True
+                break
             else:
                 self.db.insert_rows(batch)
 
+        self.sql_files()
+
+
     def create_table(self):
         self.db.sql(sql.create_table(self.name, self.dataset['schema']['fields']))
+
+
+    def sql_files(self):
+        if 'sql' in self.dataset:
+            for f in self.dataset['sql']:
+                self.db.execute_sql_file(f)
 
     def setup_db(self):
         if self.db is None:

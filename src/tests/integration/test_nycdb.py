@@ -24,6 +24,11 @@ def row_count(conn, table_name):
         curs.execute('select count(*) from {}'.format(table_name))
         return curs.fetchone()[0]
 
+def has_one_row(conn, query):
+    with conn.cursor() as curs:
+        curs.execute(query)
+        return bool(curs.fetchone())
+
 def test_hpd_complaints():
     conn = connection()
     drop_table(conn, 'hpd_complaints')
@@ -70,4 +75,12 @@ def test_hpd_violations():
     hpd_violations = nycdb.Dataset('hpd_violations', args=ARGS)
     hpd_violations.db_import()
     assert row_count(conn, 'hpd_violations') == 100
+    conn.close()
+
+
+def test_hpd_violations_index():
+    conn = connection()
+    assert has_one_row(conn, "select 1 where to_regclass('public.hpd_violations_bbl_idx') is NOT NULL")
+    assert has_one_row(conn, "select 1 where to_regclass('public.hpd_violations_violationid_idx') is NOT NULL")
+    assert has_one_row(conn, "select 1 where to_regclass('public.hpd_violations_currentstatusid_idx') is NOT NULL")
     conn.close()

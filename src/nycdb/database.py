@@ -1,3 +1,4 @@
+import os
 import psycopg2
 from . import sql
 
@@ -9,6 +10,7 @@ class Database:
         self.table_name = table_name
 
     def sql(self, SQL):
+        """ executes single sql statement """
         with self.conn.cursor() as curs:
             curs.execute(SQL)
         self.conn.commit()
@@ -28,4 +30,12 @@ class Database:
                 curs.execute(sql.insert(self.table_name, row), row)
         self.conn.commit()
                 
+    def execute_sql_file(self, sql_file):
+        """ 
+        Run the provided sql file.
+        Assumes the path is relative to ./sql
+        """
+        file_path = os.path.join(os.path.dirname(__file__), 'sql', sql_file)
     
+        with open(file_path, 'r') as f:
+            self.sql(f.read())

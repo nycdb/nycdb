@@ -151,6 +151,8 @@ hpd_violations:
     - 
       url: https://data.cityofnewyork.us/api/views/wvxf-dwi5/rows.csv?accessType=DOWNLOAD
       dest: hpd_violations.csv
+  sql:
+    - hpd_violations.sql
   schema:
     fields:
       ViolationID: integer
