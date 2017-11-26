@@ -205,17 +205,17 @@ hpd_registrations:
   files:
     -
       url: https://data.cityofnewyork.us/api/views/tesw-yqqr/rows.csv?accessType=DOWNLOAD
-      dest: hpd_registrations.zip
+      dest: hpd_registrations.csv
     -
-      url: https://data.cityofnewyork.us/api/views/feu5-w2e2/rows.csv?accessType=DOWNLOAD/
-      dest: hpd_contacts.zip
+      url: https://data.cityofnewyork.us/api/views/feu5-w2e2/rows.csv?accessType=DOWNLOAD
+      dest: hpd_contacts.csv
   sql:
     - hpd_registrations/address_cleanup.sql
-    - hpd_registrations/registrations_claenup.sql
+    - hpd_registrations/registrations_cleanup.sql
     - hpd_registrations/anyarray_uniq.sql
     - hpd_registrations/anyarray_remove_null.sql
     - hpd_registrations/first_last.sql
-    - hpd_registrations/corporate_owners.sql
+#    - hpd_registrations/corporate_owners.sql
     
   schema:
     -
@@ -242,7 +242,7 @@ hpd_registrations:
       fields:
         registrationcontactID: integer
         registrationID: integer
-        registrationcontacttype: text
+        type: text
         ContactDescription: text
         CorporationName: text
         Title: text

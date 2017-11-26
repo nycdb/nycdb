@@ -47,6 +47,20 @@ class Dataset:
             f.download()
 
 
+    def db_import(self):
+        """
+        inserts the dataset in the postgres
+        output:  True | Throws
+        """
+        self.setup_db()
+        self.create_schema()
+
+        for schema in self.schemas:
+            self.import_schema(schema)
+
+        self.sql_files()
+
+
     def transform(self, schema):
         """ 
         Calls the function in dataset_transformation with the same name
@@ -67,21 +81,6 @@ class Dataset:
                 break
             else:
                 self.db.insert_rows(batch, table_name=schema['table_name'])
-
-
-    def db_import(self):
-        """
-        inserts the dataset in the postgres
-        output:  True | Throws
-        """
-        self.setup_db()
-        self.create_schema()
-
-        for schema in self.schemas:
-            self.import_schema(schema)
-
-        self.sql_files()
-
 
     def create_schema(self):
         create_table = lambda name, fields: self.db.sql(sql.create_table(name, fields))

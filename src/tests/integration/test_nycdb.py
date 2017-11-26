@@ -84,3 +84,13 @@ def test_hpd_violations_index():
     assert has_one_row(conn, "select 1 where to_regclass('public.hpd_violations_violationid_idx') is NOT NULL")
     assert has_one_row(conn, "select 1 where to_regclass('public.hpd_violations_currentstatusid_idx') is NOT NULL")
     conn.close()
+
+
+def test_hpd_registrations():
+    conn = connection()
+    drop_table(conn, 'hpd_registrations')
+    drop_table(conn, 'hpd_contacts')
+    ds = nycdb.Dataset('hpd_registrations', args=ARGS)
+    ds.db_import()
+    assert row_count(conn, 'hpd_registrations') == 100
+    assert row_count(conn, 'hpd_contacts') == 100

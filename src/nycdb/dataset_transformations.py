@@ -14,3 +14,9 @@ def dob_complaints(dataset):
 
 def hpd_violations(dataset):
     return to_csv(dataset.files[0].dest)
+
+def hpd_registrations(dataset):
+    return to_csv(dataset.files[0].dest)
+
+def hpd_contacts(dataset):
+    return to_csv(dataset.files[1].dest)
