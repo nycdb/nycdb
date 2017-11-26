@@ -5,6 +5,7 @@ pluto_16v2:
       url: https://www1.nyc.gov/assets/planning/download/zip/data-maps/open-data/nyc_pluto_16v2%20.zip
       dest: pluto_16v2.zip
   schema:
+    table_name: pluto_16v2
     fields:
       Borough: text
       Block: integer
@@ -92,6 +93,7 @@ pluto_16v2:
       Version: text
       lng: numeric
       lat: numeric
+      
 dobjobs:
   files:
     -
@@ -104,6 +106,7 @@ hpd_complaints:
       url: https://data.cityofnewyork.us/api/views/uwyv-629c/rows.csv?accessType=DOWNLOAD
       dest: hpd_complaints.csv
   schema:
+    table_name: hpd_complaints
     fields:
       ComplaintID: integer
       BuildingID: integer
@@ -129,6 +132,7 @@ dob_complaints:
       url: https://nycopendata.socrata.com/api/views/eabe-havv/rows.csv?accessType=DOWNLOAD
       dest: dob_complaints.csv
   schema:
+    table_name: dob_complaints
     fields:
       complaint_number: integer
       status: text
@@ -154,6 +158,7 @@ hpd_violations:
   sql:
     - hpd_violations.sql
   schema:
+    table_name: hpd_violations
     fields:
       ViolationID: integer
       BuildingID: integer
@@ -195,3 +200,58 @@ hpd_violations:
       BIN: integer
       BBL: char(10)
       NTA: text
+
+hpd_registrations:
+  files:
+    -
+      url: https://data.cityofnewyork.us/api/views/tesw-yqqr/rows.csv?accessType=DOWNLOAD
+      dest: hpd_registrations.zip
+    -
+      url: https://data.cityofnewyork.us/api/views/feu5-w2e2/rows.csv?accessType=DOWNLOAD/
+      dest: hpd_contacts.zip
+  sql:
+    - hpd_registrations/address_cleanup.sql
+    - hpd_registrations/registrations_claenup.sql
+    - hpd_registrations/anyarray_uniq.sql
+    - hpd_registrations/anyarray_remove_null.sql
+    - hpd_registrations/first_last.sql
+    - hpd_registrations/corporate_owners.sql
+    
+  schema:
+    -
+      table_name: hpd_registrations
+      fields:
+        registrationID: integer
+        buildingID: integer
+        boroID: smallint
+        boro: text
+        housenumber: text
+        lowhousenumber: text
+        highhousenumber: text
+        streetname: text
+        streetcode: integer
+        zip: text
+        block: smallint
+        lot: smallint
+        BIN: integer
+        communityboard: smallint
+        lastregistrationdate: date
+        registrationenddate: date
+    -
+      table_name: hpd_contacts
+      fields:
+        registrationcontactID: integer
+        registrationID: integer
+        registrationcontacttype: text
+        ContactDescription: text
+        CorporationName: text
+        Title: text
+        FirstName: text
+        MiddleInitial: text
+        LastName: text
+        BusinessHouseNumber: text
+        BusinessStreetName: text
+        BusinessApartment: text
+        BusinessCity: text
+        BusinessState: text
+        BusinessZip: text

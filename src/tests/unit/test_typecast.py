@@ -42,23 +42,30 @@ def test_date_bad_str():
 def test_date_mm_dd_yyyy_with_timestamp():
     assert typecast.date('03/04/2015 12:00:00 AM') == datetime.date(2015, 3, 4)
     
-@patch('nycdb.dataset.Database')
-def test_typecast_init(mock_database):
-    t = typecast.Typecast(nycdb.Dataset('hpd_complaints', args=ARGS))
-    assert isinstance(t.dataset, nycdb.Dataset)
+
+def test_typecast_init():
+    t = typecast.Typecast(nycdb.datasets()['pluto_16v2']['schema'])
+    
     assert isinstance(t.fields, dict)
     assert t.fields['block'] == 'integer'
     assert isinstance(t.cast, dict)
 
-@patch('nycdb.dataset.Database')
-def test_typecast_generate_cast(mock_db):
-    t = typecast.Typecast(nycdb.Dataset('hpd_complaints', args=ARGS))
+
+def test_typecast_generate_cast():
+    t = typecast.Typecast(nycdb.datasets()['hpd_complaints']['schema'])
     assert t.cast['boroughid']('123') == 123
     assert t.cast['borough'](' test  ') == 'test'
     assert t.cast['bbl']('0123456789X') == '0123456789'
 
-@patch('nycdb.dataset.Database')
-def test_cast_row(mock_db):
-    t = typecast.Typecast(nycdb.Dataset('hpd_complaints', args=ARGS))
+
+def test_cast_row():
+    t = typecast.Typecast(nycdb.datasets()['hpd_complaints']['schema'])
     row = { 'BoroughID': '123', 'Status': 'GOOD' }
     assert t.cast_row(row) == { 'BoroughID': 123, 'Status': 'GOOD' }
+
+
+def test_correct_bbl_typecast_for_pluto():
+    t = typecast.Typecast(nycdb.datasets()['pluto_16v2']['schema'])
+    assert t.cast['bbl']('1008300028') == '1008300028'
+    assert t.cast['bbl']('1008300028.00') == '1008300028'
+    

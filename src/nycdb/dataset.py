@@ -2,7 +2,6 @@ import logging
 import itertools
 import os
 import requests
-import yaml
 from pathlib import Path
 from functools import lru_cache
 from . import dataset_transformations
@@ -10,13 +9,9 @@ from . import sql
 from .database import Database
 from .typecast import Typecast
 
+from .utility import read_yml, mkdir, list_wrap
+
 BATCH_SIZE = 1000
-
-def read_yml(file):
-    """Reads a yaml file and outputs a Dictionary"""
-    with open(file, 'r') as yaml_file:
-        return yaml.load(yaml_file)
-
     
 @lru_cache()
 def datasets():
@@ -26,12 +21,6 @@ def datasets():
 
 class DownloadFailedException(Exception):
     pass
-
-
-def mkdir(file_path):
-    """ Creates directories for the file path"""
-    Path(os.path.dirname(file_path)).mkdir(parents=True, exist_ok=True)
-
     
 def download_file(url, dest):
     """ 
@@ -97,8 +86,10 @@ class Dataset:
             self.root_dir = './data'
 
         self.dataset = datasets()[dataset_name]
-        self.typecast = Typecast(self)
+        # self.typecast = Typecast(self)
         self.files = self._files()
+
+        self.schemas = list_wrap(self.dataset['schema'])
         # self.import_file = None
 
     def _files(self):
@@ -110,13 +101,27 @@ class Dataset:
             f.download()
 
 
-    def transform(self):
+    def transform(self, schema):
         """ 
         Calls the function in dataset_transformation with the same name
         as the dataset
+        input: dict
+        output: generator
         """
-        return self.typecast.cast_rows(getattr(dataset_transformations, self.name)(self))
+        tc = Typecast(schema)
+        return tc.cast_rows(getattr(dataset_transformations, schema['table_name'])(self))
+    
+
+    def import_schema(self, schema):
+        rows = self.transform(schema)
         
+        while True:
+            batch = list(itertools.islice(rows, 0, BATCH_SIZE))
+            if len(batch) == 0:
+                break
+            else:
+                self.db.insert_rows(batch, table_name=schema['table_name'])
+
 
     def db_import(self):
         """
@@ -124,23 +129,19 @@ class Dataset:
         output:  True | Throws
         """
         self.setup_db()
-        self.create_table()
+        self.create_schema()
 
-        rows = self.transform()
-        
-        while True:
-            batch = list(itertools.islice(rows, 0, BATCH_SIZE))
-            if len(batch) == 0:
-                break
-            else:
-                self.db.insert_rows(batch)
+        for schema in self.schemas:
+            self.import_schema(schema)
 
         self.sql_files()
 
 
-    def create_table(self):
-        self.db.sql(sql.create_table(self.name, self.dataset['schema']['fields']))
+    def create_schema(self):
+        create_table = lambda name, fields: self.db.sql(sql.create_table(name, fields))
 
+        for s in self.schemas:
+            create_table(s['table_name'], s['fields'])
 
     def sql_files(self):
         if 'sql' in self.dataset:
@@ -150,6 +151,7 @@ class Dataset:
     def setup_db(self):
         if self.db is None:
             self.db = Database(self.args, table_name=self.name)
+
 
 class Datasets:
     """ All NYCDB datasets """

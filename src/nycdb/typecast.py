@@ -70,11 +70,9 @@ def char_cast(n):
     return to_char
     
 class Typecast():
-    def __init__(self, dataset):
-        self.dataset = dataset
-        self.fields = downcase_fields_and_values(dataset.dataset['schema']['fields'])
+    def __init__(self, schema):
+        self.fields = downcase_fields_and_values(schema['fields'])
         self.cast = self.generate_cast()
-
 
     def cast_rows(self, rows):
         """

@@ -24,12 +24,6 @@ def test_dataset():
     assert isinstance(d.files[0], nycdb.File)
 
 
-def test_correct_bbl_typecast_for_pluto():
-    d = nycdb.Dataset('pluto_16v2', args=ARGS)
-    assert isinstance(d.typecast, nycdb.typecast.Typecast)
-    assert d.typecast.cast['bbl']('1008300028') == '1008300028'
-    assert d.typecast.cast['bbl']('1008300028.00') == '1008300028'
-
 @patch('psycopg2.connect')
 def test_setup_db(mock_connect):
     d = nycdb.Dataset('pluto_16v2', args=ARGS)
@@ -83,7 +77,7 @@ def test_download_file(tmpdir):
     dest = tmpdir.join('data/saved_filed.txt')
     p = server_process(tmpdir.strpath)
     assert dest.check() is False
-    nycdb.dataset.download_file('http://localhost:6789/www/file.txt', dest.strpath)
+    nycdb.dataset.download_file('http://127.0.0.1:6789/www/file.txt', dest.strpath)
     p.terminate()
     assert dest.check() is True
     assert tmpdir.join('data').check() is True

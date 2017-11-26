@@ -23,11 +23,14 @@ class Database:
         self.conn.commit()
         
 
-    def insert_rows(self, rows):
+    def insert_rows(self, rows, table_name=None):
         """ Inserts many row, all in the same transaction"""
+        if table_name is None:
+            table_name = self.table_name
+
         with self.conn.cursor() as curs:
             for row in rows:
-                curs.execute(sql.insert(self.table_name, row), row)
+                curs.execute(sql.insert(table_name, row), row)
         self.conn.commit()
                 
     def execute_sql_file(self, sql_file):
