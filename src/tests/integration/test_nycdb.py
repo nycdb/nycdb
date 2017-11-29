@@ -94,3 +94,14 @@ def test_hpd_registrations():
     ds.db_import()
     assert row_count(conn, 'hpd_registrations') == 100
     assert row_count(conn, 'hpd_contacts') == 100
+    conn.close()
+
+def test_hpd_corporate_owners():
+    conn = connection()
+    assert row_count(conn, 'hpd_corporate_owners') > 10    
+    conn.close()
+
+def test_hpd_registrations_rows():
+    conn = connection()
+    assert has_one_row(conn, "select * from hpd_registrations where bbl = '1017510116'")
+    conn.close()

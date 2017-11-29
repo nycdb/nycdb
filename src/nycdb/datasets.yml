@@ -212,10 +212,11 @@ hpd_registrations:
   sql:
     - hpd_registrations/address_cleanup.sql
     - hpd_registrations/registrations_cleanup.sql
+    - hpd_registrations/add_bbl.sql
     - hpd_registrations/anyarray_uniq.sql
     - hpd_registrations/anyarray_remove_null.sql
     - hpd_registrations/first_last.sql
-#    - hpd_registrations/corporate_owners.sql
+    - hpd_registrations/corporate_owners.sql
     
   schema:
     -
