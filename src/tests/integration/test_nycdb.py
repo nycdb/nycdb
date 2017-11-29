@@ -96,9 +96,12 @@ def test_hpd_registrations():
     assert row_count(conn, 'hpd_contacts') == 100
     conn.close()
 
-def test_hpd_corporate_owners():
+def test_hpd_registrations_derived_tables():
     conn = connection()
-    assert row_count(conn, 'hpd_corporate_owners') > 10    
+    assert row_count(conn, 'hpd_corporate_owners') > 10
+    assert row_count(conn, 'hpd_registrations_grouped_by_bbl') > 10
+    assert row_count(conn, 'hpd_business_addresses') > 10
+    assert row_count(conn, 'hpd_registrations_grouped_by_bbl_with_contacts') > 10
     conn.close()
 
 def test_hpd_registrations_rows():

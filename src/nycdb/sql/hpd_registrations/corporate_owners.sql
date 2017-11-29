@@ -12,7 +12,7 @@ CREATE TABLE  hpd_corporate_owners AS (
        FROM hpd_contacts
        WHERE
                 (BusinessHouseNumber IS NOT NULL AND BusinessStreetName IS NOT NULL AND BusinessZip IS NOT NULL)
-                AND (type = 'CorporateOwner')
+                AND ("type" = 'CorporateOwner')
                 GROUP BY BusinessHouseNumber, BusinessStreetName, BusinessZip, BusinessApartment);
 
 ALTER TABLE hpd_corporate_owners ADD COLUMN id serial;

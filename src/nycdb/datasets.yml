@@ -217,6 +217,12 @@ hpd_registrations:
     - hpd_registrations/anyarray_remove_null.sql
     - hpd_registrations/first_last.sql
     - hpd_registrations/corporate_owners.sql
+    - hpd_registrations/business_addrs.sql
+    - hpd_registrations/registrations_grouped_by_bbl.sql
+    - hpd_registrations/registrations_grouped_by_bbl_with_contacts.sql
+    - hpd_registrations/functions.sql
+    - hpd_registrations/index.sql
+
     
   schema:
     -
