@@ -20,3 +20,7 @@ def hpd_registrations(dataset):
 
 def hpd_contacts(dataset):
     return to_csv(dataset.files[1].dest)
+
+def dof_sales(dataset):
+    xls_files = [ f.dest for f in datasets.files ]
+    
