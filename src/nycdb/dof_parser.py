@@ -13,6 +13,14 @@ def cell_converter(cell):
         return cell.value
 
 
+def item_exists(item):
+    if item is None:
+        return False
+    if isinstance(item, str) and item.strip() == '':
+        return False
+    return True
+
+
 def to_headers(row):
     """ 
     Turns data from excel row into list of lowercase list of string
@@ -24,24 +32,19 @@ def to_headers(row):
     return [ normalize_str(x) for x in map(cell_converter, row) ]
 
 
-class DofParser:
+def parse_dof_file(file_path):
     """ Parse dof rolling sales xls file"""
+    book = xlrd.open_workbook(file_path)
+    sheet = book.sheet_by_index(0)
+    rows = sheet.get_rows()
 
-    def __init__(self, file_path):
-        self.file_path = file_path
-
-    def parse(self):
-        book = xlrd.open_workbook(self.file_path)
-        sheet = book.sheet_by_index(0)
-        rows = sheet.get_rows()
-
-        # remove first 4 row
-        [ next(rows) for x in range(4) ]
-
-        # 5th row is the headers
-        headers = to_headers(next(rows))
+    # remove first 4 row
+    [ next(rows) for x in range(4) ]
+    # 5th row is the headers
+    headers = to_headers(next(rows))
         
-        for row in rows:
-            _row = list(map(cell_converter, row))
-            yield dict(zip(headers, _row))
+    for row in rows:
+        _row = list(map(cell_converter, row))
 
+        if len(list(filter(item_exists, _row))):
+            yield dict(zip(headers, _row))
