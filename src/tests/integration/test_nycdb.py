@@ -108,3 +108,10 @@ def test_hpd_registrations_rows():
     conn = connection()
     assert has_one_row(conn, "select * from hpd_registrations where bbl = '1017510116'")
     conn.close()
+
+def test_dof_sales():
+    conn = connection()
+    drop_table(conn, 'dof_sales')
+    dof_sales = nycdb.Dataset('dof_sales', args=ARGS)
+    dof_sales.db_import()
+    assert row_count(conn, 'dof_sales') == 140

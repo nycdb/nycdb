@@ -14,6 +14,7 @@ def test_integer():
     assert typecast.integer('') is None
 
 def test_integer_with_decimal():
+    assert typecast.integer('.') is None
     assert typecast.integer('1.0') == 1
     assert typecast.integer('25.923432') == 25
 
@@ -21,6 +22,7 @@ def test_char():
     assert typecast.char('test', 10) == 'test'
     assert typecast.char('test', 2) == 'te'
     assert typecast.char(' test', 2) == 'te'
+    assert typecast.char(345, 3) == '345'
 
 def test_boolean():
     assert typecast.boolean('TRUE') is True
@@ -33,6 +35,9 @@ def test_numeric():
 
 def test_date_mm_dd_yyyy():
     assert typecast.date('05/01/1925') == datetime.date(1925, 5, 1)
+
+def test_date_accepts_datetime():
+    assert typecast.date(datetime.date(1925, 5, 1)) == datetime.date(1925, 5, 1)
 
 def test_date_bad_str():
     assert typecast.date('01/01/01') is None
