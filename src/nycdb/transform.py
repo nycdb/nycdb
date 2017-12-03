@@ -8,8 +8,13 @@ from pyproj import *
 from .bbl import bbl
 from .utility import merge
 
-def clean_headers(x):
-    return x.lower().replace("\n", '').replace("\r", '').replace(' ', '_').replace('"', '').split(',')
+invalid_header_chars = [ "\n", "\r", ' ', '-', '#', '.', "'", '"', '_' ]
+
+def clean_headers(headers):
+    s = headers.lower()
+    for char in invalid_header_chars:
+        s = s.replace(char, '')
+    return s.split(',')
 
 
 # String (filepath) -> String

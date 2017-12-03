@@ -115,3 +115,11 @@ def test_dof_sales():
     dof_sales = nycdb.Dataset('dof_sales', args=ARGS)
     dof_sales.db_import()
     assert row_count(conn, 'dof_sales') == 140
+
+
+def test_dobjobs():
+    conn = connection()
+    drop_table(conn, 'dobjobs')
+    dobjobs = nycdb.Dataset('dobjobs', args=ARGS)
+    dobjobs.db_import()
+    assert row_count(conn, 'dobjobs') == 100

@@ -18,6 +18,11 @@ def test_integer_with_decimal():
     assert typecast.integer('1.0') == 1
     assert typecast.integer('25.923432') == 25
 
+def test_integer_money_str():
+    assert typecast.integer('$125') == 125
+    assert typecast.integer('$125.00') == 125
+    assert typecast.integer('$125.75') == 125
+
 def test_char():
     assert typecast.char('test', 10) == 'test'
     assert typecast.char('test', 2) == 'te'
