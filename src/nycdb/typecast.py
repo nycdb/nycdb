@@ -14,6 +14,8 @@ def downcase_fields_and_values(d):
 def integer(i):
     if isinstance(i, int):
         return i
+    elif i.strip() == '.':
+        return None
     elif '.' in i:
         return int(i.split('.')[0])
     elif i.strip() == '':
@@ -22,14 +24,15 @@ def integer(i):
         return int(i.strip())
 
 def text(x):
-    return x.strip()
+    return str(x).strip()
 
 
 def char(x, n):
-    if len(x) > n:
-        return x.strip()[0:n]
+    val = str(x)
+    if len(val) > n:
+        return val.strip()[0:n]
     else:
-        return x
+        return val
 
 def numeric(x):
     try:
@@ -47,6 +50,9 @@ def mm_dd_yyyy(date_str):
 # TODO: allow for different date inputs besides mm/dd/yyyy
 #  03/04/2015 12:00:00 AM
 def date(x):
+    if isinstance(x, datetime.date) or isinstance(x, datetime.datetime):
+        return x
+
     if len(x) == 10 and len(x.split('/')) == 3:
         return mm_dd_yyyy(x)
     elif len(x) == 22 and len(x[0:10].split('/')) == 3:
@@ -70,11 +76,9 @@ def char_cast(n):
     return to_char
     
 class Typecast():
-    def __init__(self, dataset):
-        self.dataset = dataset
-        self.fields = downcase_fields_and_values(dataset.dataset['schema']['fields'])
+    def __init__(self, schema):
+        self.fields = downcase_fields_and_values(schema['fields'])
         self.cast = self.generate_cast()
-
 
     def cast_rows(self, rows):
         """
@@ -106,7 +110,9 @@ class Typecast():
         """
         d = {}
         for k, v in self.fields.items():
-            if v[0:4] == 'char':
+            if 'serial' in v:
+                continue
+            elif v[0:4] == 'char':
                 n = int(re.match(r'char\((\d+)\)', v).group(1))
                 d[k] = char_cast(n)
             elif v in INTEGER_TYPES:

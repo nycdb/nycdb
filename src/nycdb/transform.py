@@ -6,13 +6,7 @@ from zipfile import ZipFile
 from pyproj import *
 
 from .bbl import bbl
-        
-        
-def merge(x, y):
-    """Given two dicts, merge them into a new dict as a shallow copy."""
-    z = x.copy()
-    z.update(y)
-    return z
+from .utility import merge
 
 def clean_headers(x):
     return x.lower().replace("\n", '').replace("\r", '').replace(' ', '_').replace('"', '').split(',')

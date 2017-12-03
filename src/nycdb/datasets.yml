@@ -5,6 +5,7 @@ pluto_16v2:
       url: https://www1.nyc.gov/assets/planning/download/zip/data-maps/open-data/nyc_pluto_16v2%20.zip
       dest: pluto_16v2.zip
   schema:
+    table_name: pluto_16v2
     fields:
       Borough: text
       Block: integer
@@ -92,6 +93,7 @@ pluto_16v2:
       Version: text
       lng: numeric
       lat: numeric
+      
 dobjobs:
   files:
     -
@@ -104,6 +106,7 @@ hpd_complaints:
       url: https://data.cityofnewyork.us/api/views/uwyv-629c/rows.csv?accessType=DOWNLOAD
       dest: hpd_complaints.csv
   schema:
+    table_name: hpd_complaints
     fields:
       ComplaintID: integer
       BuildingID: integer
@@ -129,6 +132,7 @@ dob_complaints:
       url: https://nycopendata.socrata.com/api/views/eabe-havv/rows.csv?accessType=DOWNLOAD
       dest: dob_complaints.csv
   schema:
+    table_name: dob_complaints
     fields:
       complaint_number: integer
       status: text
@@ -151,7 +155,10 @@ hpd_violations:
     - 
       url: https://data.cityofnewyork.us/api/views/wvxf-dwi5/rows.csv?accessType=DOWNLOAD
       dest: hpd_violations.csv
+  sql:
+    - hpd_violations.sql
   schema:
+    table_name: hpd_violations
     fields:
       ViolationID: integer
       BuildingID: integer
@@ -193,3 +200,109 @@ hpd_violations:
       BIN: integer
       BBL: char(10)
       NTA: text
+
+hpd_registrations:
+  files:
+    -
+      url: https://data.cityofnewyork.us/api/views/tesw-yqqr/rows.csv?accessType=DOWNLOAD
+      dest: hpd_registrations.csv
+    -
+      url: https://data.cityofnewyork.us/api/views/feu5-w2e2/rows.csv?accessType=DOWNLOAD
+      dest: hpd_contacts.csv
+  sql:
+    - hpd_registrations/address_cleanup.sql
+    - hpd_registrations/registrations_cleanup.sql
+    - hpd_registrations/add_bbl.sql
+    - hpd_registrations/anyarray_uniq.sql
+    - hpd_registrations/anyarray_remove_null.sql
+    - hpd_registrations/first_last.sql
+    - hpd_registrations/corporate_owners.sql
+    - hpd_registrations/business_addrs.sql
+    - hpd_registrations/registrations_grouped_by_bbl.sql
+    - hpd_registrations/registrations_grouped_by_bbl_with_contacts.sql
+    - hpd_registrations/functions.sql
+    - hpd_registrations/index.sql
+    
+  schema:
+    -
+      table_name: hpd_registrations
+      fields:
+        registrationID: integer
+        buildingID: integer
+        boroID: smallint
+        boro: text
+        housenumber: text
+        lowhousenumber: text
+        highhousenumber: text
+        streetname: text
+        streetcode: integer
+        zip: text
+        block: smallint
+        lot: smallint
+        BIN: integer
+        communityboard: smallint
+        lastregistrationdate: date
+        registrationenddate: date
+    -
+      table_name: hpd_contacts
+      fields:
+        registrationcontactID: integer
+        registrationID: integer
+        type: text
+        ContactDescription: text
+        CorporationName: text
+        Title: text
+        FirstName: text
+        MiddleInitial: text
+        LastName: text
+        BusinessHouseNumber: text
+        BusinessStreetName: text
+        BusinessApartment: text
+        BusinessCity: text
+        BusinessState: text
+        BusinessZip: text
+
+dof_sales:
+  files:
+    -
+      url: http://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/rollingsales_manhattan.xls
+      dest: rollingsales_manhattan.xls
+    -
+      url: http://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/rollingsales_bronx.xls
+      dest: rollingsales_bronx.xls
+    -
+      url: http://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/rollingsales_brooklyn.xls
+      dest: rollingsales_brooklyn.xls
+    -
+      url: http://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/rollingsales_queens.xls
+      dest: rollingsales_queens.xls
+    -
+      url: http://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/rollingsales_statenisland.xls
+      dest: rollingsales_statenisland.xls
+  schema:
+    table_name: dof_sales
+    fields:
+      Borough: char(1)
+      Neighborhood: text
+      BuildingClassCategory: text
+      TaxClassAtPresent: text
+      Block: char(5)
+      Lot: char(4)
+      EaseMent: text
+      BuildingClassAtPresent: text
+      Address: text
+      ApartmentNumber: text
+      ZipCode: char(5)
+      ResidentialUnits: integer
+      CommercialUnits: integer
+      TotalUnits: integer
+      LandSquareFeet: integer
+      GrossSquareFeet: integer
+      YearBuilt: integer
+      TaxClassAtTimeOfSale: text
+      BuildingClassAtTimeOfSale: text
+      SalePrice: bigint
+      SaleDate: date
+      bbl: char(10)
+      id: 'serial PRIMARY KEY'
+            

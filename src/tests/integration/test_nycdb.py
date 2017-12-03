@@ -24,6 +24,11 @@ def row_count(conn, table_name):
         curs.execute('select count(*) from {}'.format(table_name))
         return curs.fetchone()[0]
 
+def has_one_row(conn, query):
+    with conn.cursor() as curs:
+        curs.execute(query)
+        return bool(curs.fetchone())
+
 def test_hpd_complaints():
     conn = connection()
     drop_table(conn, 'hpd_complaints')
@@ -71,3 +76,42 @@ def test_hpd_violations():
     hpd_violations.db_import()
     assert row_count(conn, 'hpd_violations') == 100
     conn.close()
+
+
+def test_hpd_violations_index():
+    conn = connection()
+    assert has_one_row(conn, "select 1 where to_regclass('public.hpd_violations_bbl_idx') is NOT NULL")
+    assert has_one_row(conn, "select 1 where to_regclass('public.hpd_violations_violationid_idx') is NOT NULL")
+    assert has_one_row(conn, "select 1 where to_regclass('public.hpd_violations_currentstatusid_idx') is NOT NULL")
+    conn.close()
+
+
+def test_hpd_registrations():
+    conn = connection()
+    drop_table(conn, 'hpd_registrations')
+    drop_table(conn, 'hpd_contacts')
+    ds = nycdb.Dataset('hpd_registrations', args=ARGS)
+    ds.db_import()
+    assert row_count(conn, 'hpd_registrations') == 100
+    assert row_count(conn, 'hpd_contacts') == 100
+    conn.close()
+
+def test_hpd_registrations_derived_tables():
+    conn = connection()
+    assert row_count(conn, 'hpd_corporate_owners') > 10
+    assert row_count(conn, 'hpd_registrations_grouped_by_bbl') > 10
+    assert row_count(conn, 'hpd_business_addresses') > 10
+    assert row_count(conn, 'hpd_registrations_grouped_by_bbl_with_contacts') > 10
+    conn.close()
+
+def test_hpd_registrations_rows():
+    conn = connection()
+    assert has_one_row(conn, "select * from hpd_registrations where bbl = '1017510116'")
+    conn.close()
+
+def test_dof_sales():
+    conn = connection()
+    drop_table(conn, 'dof_sales')
+    dof_sales = nycdb.Dataset('dof_sales', args=ARGS)
+    dof_sales.db_import()
+    assert row_count(conn, 'dof_sales') == 140
