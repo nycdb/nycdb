@@ -12,6 +12,7 @@ def test_integer():
     assert typecast.integer('10') == 10
     assert typecast.integer('  10  ') == 10
     assert typecast.integer('') is None
+    assert typecast.integer('NOT AN INTEGER') is None
 
 def test_integer_with_decimal():
     assert typecast.integer('.') is None

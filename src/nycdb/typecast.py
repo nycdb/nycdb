@@ -14,15 +14,18 @@ def downcase_fields_and_values(d):
 def integer(i):
     if isinstance(i, int):
         return i
+    try:
+        int_str = i.strip().replace('$', '')
+    
+        if int_str == '.' or int_str == '':
+            return None
+        elif '.' in i:
+            return int(int_str.split('.')[0])
+        else:
+            return int(int_str)
 
-    int_str = i.strip().replace('$', '')
-
-    if int_str == '.' or int_str == '':
+    except ValueError:
         return None
-    elif '.' in i:
-        return int(int_str.split('.')[0])
-    else:
-        return int(int_str)
 
 def text(x):
     return str(x).strip()
