@@ -372,6 +372,8 @@ dof_sales:
     -
       url: http://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/rollingsales_statenisland.xls
       dest: rollingsales_statenisland.xls
+  sql:
+      - dof_sales.sql
   schema:
     table_name: dof_sales
     fields:
@@ -404,6 +406,8 @@ rentstab:
     -
       url: http://taxbills.nyc/joined.csv
       dest: taxbills_joined.csv
+  sql:
+    - rentstab.sql
   schema:
     table_name: rentstab
     fields:
