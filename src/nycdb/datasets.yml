@@ -99,6 +99,11 @@ dobjobs:
     -
       url: https://data.cityofnewyork.us/api/views/ic3t-wcy2/rows.csv?accessType=DOWNLOAD
       dest: dobjobs.csv
+  sql:
+    - dobjobs/add_columns.sql
+    - dobjobs/index.sql
+  index:
+    - dobjobs/full_text.sql
   schema:
     table_name: dobjobs
     fields:

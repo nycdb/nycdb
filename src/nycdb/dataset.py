@@ -60,6 +60,12 @@ class Dataset:
 
         self.sql_files()
 
+    def index(self):
+        if 'index' in self.dataset:
+            for sql_file in self.dataset['index']:
+                self.db.execute_sql_file(sql_file)
+        else:
+            logging.debug('no index files exist for this dataset')
 
     def transform(self, schema):
         """ 
