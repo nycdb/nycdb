@@ -72,6 +72,10 @@ def boolean(x):
     else:
         return None
 
+def text_array(x, sep=","):
+    return x.strip().split(sep)
+    
+
 def char_cast(n):
     n = copy.copy(n)
     def to_char(x):
@@ -129,6 +133,8 @@ class Typecast():
                 d[k] = lambda x: date(x)
             elif v == 'numeric':
                 d[k] = lambda x: numeric(x)
+            elif v == 'text[]':
+                d[k] = lambda x: text_array(x)
             else:
                 d[k] = lambda x: x
         return d

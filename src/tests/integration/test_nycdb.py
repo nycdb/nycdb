@@ -123,3 +123,10 @@ def test_dobjobs():
     dobjobs = nycdb.Dataset('dobjobs', args=ARGS)
     dobjobs.db_import()
     assert row_count(conn, 'dobjobs') == 100
+
+def test_rentstab():
+    conn = connection()
+    drop_table(conn, 'rentstab')
+    rentstab = nycdb.Dataset('rentstab', args=ARGS)
+    rentstab.db_import()
+    assert row_count(conn, 'rentstab') == 100

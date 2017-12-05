@@ -29,3 +29,7 @@ def dof_sales(dataset):
 
 def dobjobs(dataset):
     return with_bbl(to_csv(dataset.files[0].dest))
+
+
+def rentstab(dataset):
+    return to_csv(dataset.files[0].dest)

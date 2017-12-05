@@ -53,6 +53,9 @@ def test_date_bad_str():
 def test_date_mm_dd_yyyy_with_timestamp():
     assert typecast.date('03/04/2015 12:00:00 AM') == datetime.date(2015, 3, 4)
     
+def test_text_array():
+    assert typecast.text_array('  one,two,three  ') == ['one', 'two', 'three']
+    assert typecast.text_array('1|2|3', sep='|') == ['1', '2', '3']
 
 def test_typecast_init():
     t = typecast.Typecast(nycdb.datasets()['pluto_16v2']['schema'])
