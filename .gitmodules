@@ -1,12 +1,3 @@
-[submodule "modules/hpd"]
-	path = modules/hpd
-	url = https://github.com/aepyornis/hpd.git
-[submodule "modules/dof-sales"]
-	path = modules/dof-sales
-	url = https://github.com/aepyornis/dof-sales
-[submodule "modules/hpd-violations"]
-	path = modules/hpd-violations
-	url = https://github.com/aepyornis/hpd-violations.git
 [submodule "modules/acris-download"]
 	path = modules/acris-download
 	url = https://github.com/aepyornis/acris-download.git
