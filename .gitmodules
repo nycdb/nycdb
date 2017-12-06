@@ -1,9 +1,6 @@
 [submodule "modules/pluto"]
 	path = modules/pluto
 	url = https://github.com/aepyornis/pluto.git
-[submodule "modules/dobjobs"]
-	path = modules/dobjobs
-	url = https://github.com/aepyornis/dob-jobs-parser.git
 [submodule "modules/hpd"]
 	path = modules/hpd
 	url = https://github.com/aepyornis/hpd.git
