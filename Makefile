@@ -11,7 +11,6 @@ PGPASSWORD=$(DB_PASSWORD)
 
 # exporting allows these variables
 # to be accessed in the subshells
-# required for template.sh to work
 export DB_HOST
 export DB_DATABASE
 export DB_USER
@@ -20,18 +19,6 @@ export PGPASSWORD
 
 # use BASH as our shell
 SHELL=/bin/bash
-
-tasks = pluto \
-	dobjobs \
-	dofsales \
-	hpd-registrations \
-	hpd-violations \
-	rentstab \
-	311 \
-	acris \
-	hpd-complaints \
-	dob-complaints \
-	verify
 
 default: help
 
@@ -46,7 +33,6 @@ datasets = pluto_16v2 \
 	   dob_complaints \
 	   rentstab
 
-#nyc-db: $(tasks)
 nyc-db: $(datasets) acris | setup
 	make verify
 
@@ -58,10 +44,7 @@ setup:
 	cd src && make init && ./venv/bin/pip3 install -e .
 
 verify:
-	python3 ./scripts/nycdb.py -H $(DB_HOST) -U $(DB_USER) -P $(DB_PASSWORD) -D $(DB_DATABASE) --check
-
-download:
-	./scripts/download.sh all
+	source src/venv/bin/activate && python3 ./scripts/nycdb.py -H $(DB_HOST) -U $(DB_USER) -P $(DB_PASSWORD) -D $(DB_DATABASE) --check
 
 311:
 	@echo "**311 Complaints**"
@@ -74,7 +57,7 @@ acris-download:
 	cd modules/acris-download && make
 
 remove-venv:
-	find ./modules -type d -name 'venv' -print0 | xargs -0 -r rm -r
+	rm -r src/venv
 
 pg-connection-test:
 	@psql -h $(DB_HOST) -U $(DB_USER) -d $(DB_DATABASE) -c "SELECT NOW()" > /dev/null 2>&1 && echo 'CONNECTION IS WORKING' || echo 'COULD NOT CONNECT'
