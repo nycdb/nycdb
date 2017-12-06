@@ -20,14 +20,23 @@ def drop_table(conn, table_name):
     conn.commit()
 
 def row_count(conn, table_name):
-    with conn.cursor() as curs:
-        curs.execute('select count(*) from {}'.format(table_name))
-        return curs.fetchone()[0]
+    with conn:
+        with conn.cursor() as curs:
+            curs.execute('select count(*) from {}'.format(table_name))
+            return curs.fetchone()[0]
 
 def has_one_row(conn, query):
-    with conn.cursor() as curs:
-        curs.execute(query)
-        return bool(curs.fetchone())
+    with conn:
+        with conn.cursor() as curs:
+            curs.execute(query)
+            return bool(curs.fetchone())
+
+def table_columns(conn, table_name):
+    sql ="SELECT column_name FROM information_schema.columns WHERE table_schema = 'public' AND table_name = '{}'".format(table_name)
+    with conn:
+        with conn.cursor() as curs:
+            curs.execute(sql)
+            return [ x[0] for x in curs.fetchall() ]
 
 def test_hpd_complaints():
     conn = connection()
@@ -115,3 +124,32 @@ def test_dof_sales():
     dof_sales = nycdb.Dataset('dof_sales', args=ARGS)
     dof_sales.db_import()
     assert row_count(conn, 'dof_sales') == 140
+    assert has_one_row(conn, "select 1 where to_regclass('public.dof_sales_bbl_idx') is NOT NULL")
+    conn.close()
+    
+def test_dobjobs():
+    conn = connection()
+    drop_table(conn, 'dobjobs')
+    dobjobs = nycdb.Dataset('dobjobs', args=ARGS)
+    dobjobs.db_import()
+    assert row_count(conn, 'dobjobs') == 100
+    columns = table_columns(conn, 'dobjobs')
+    # test for columns add in add_columns.sql
+    assert 'address' in columns
+    assert 'ownername' in columns
+    # full text columns shouldn't be inserted by default
+    assert 'ownername_tsvector' not in columns
+    dobjobs.index()
+    columns = table_columns(conn, 'dobjobs')
+    assert 'ownername_tsvector' in columns
+    assert 'applicantname_tsvector' in columns
+    conn.close()
+
+def test_rentstab():
+    conn = connection()
+    drop_table(conn, 'rentstab')
+    rentstab = nycdb.Dataset('rentstab', args=ARGS)
+    rentstab.db_import()
+    assert row_count(conn, 'rentstab') == 100
+    assert has_one_row(conn, "select 1 where to_regclass('public.rentstab_ucbbl_idx') is NOT NULL")
+    

@@ -14,14 +14,18 @@ def downcase_fields_and_values(d):
 def integer(i):
     if isinstance(i, int):
         return i
-    elif i.strip() == '.':
+    try:
+        int_str = i.strip().replace('$', '')
+    
+        if int_str == '.' or int_str == '':
+            return None
+        elif '.' in i:
+            return int(int_str.split('.')[0])
+        else:
+            return int(int_str)
+
+    except ValueError:
         return None
-    elif '.' in i:
-        return int(i.split('.')[0])
-    elif i.strip() == '':
-        return None
-    else:
-        return int(i.strip())
 
 def text(x):
     return str(x).strip()
@@ -67,6 +71,10 @@ def boolean(x):
         return False
     else:
         return None
+
+def text_array(x, sep=","):
+    return x.strip().split(sep)
+    
 
 def char_cast(n):
     n = copy.copy(n)
@@ -125,6 +133,8 @@ class Typecast():
                 d[k] = lambda x: date(x)
             elif v == 'numeric':
                 d[k] = lambda x: numeric(x)
+            elif v == 'text[]':
+                d[k] = lambda x: text_array(x)
             else:
                 d[k] = lambda x: x
         return d

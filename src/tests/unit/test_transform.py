@@ -32,3 +32,17 @@ def test_to_bbl():
     assert out[0] == { 'borough': 'queens', 'block': '1', 'lot': '1', 'bbl': '4000010001' }
     assert out[1] == { 'borough': 'queens', 'block': '1', 'lot': '2', 'bbl': '4000010002' }
 
+
+
+def test_flip_numbers_nothing_to_flip():
+    # assert nycdb.transform.flip_numbers(['one1', 'two2']) == ['one1', 'two2']
+    assert nycdb.transform.flip_numbers('one1') == 'one1'
+    assert nycdb.transform.flip_numbers('one1234') == 'one1234'
+    assert nycdb.transform.flip_numbers('one1234two') == 'one1234two'
+
+    
+def test_flip_numbers():
+    assert nycdb.transform.flip_numbers('1one') == 'one1'
+    assert nycdb.transform.flip_numbers('123one') == 'one123'
+    # assert nycdb.transform.flip_numbers(['12one', '2two']) == ['one12', 'two2']
+    # assert nycdb.transform.flip_numbers(['12one', '2two']) == ['one12', 'two2']

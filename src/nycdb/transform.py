@@ -1,5 +1,6 @@
 import csv
 import io
+import re
 import types
 import pyproj
 from zipfile import ZipFile
@@ -8,10 +9,40 @@ from pyproj import *
 from .bbl import bbl
 from .utility import merge
 
-def clean_headers(x):
-    return x.lower().replace("\n", '').replace("\r", '').replace(' ', '_').replace('"', '').split(',')
+invalid_header_chars = [ "\n", "\r", ' ', '-', '#', '.', "'", '"', '_' ]
+starts_with_numbers = re.compile('^(\d+)(.*)$')
+only_numbers = re.compile('^\d+$')
 
+def flip_numbers(header):
+    """
+    str -> str
+    If the header starts with numbers, it places 
+    those numbers at the end of the string.
 
+    Columns in SQL cannot start with a number. This function will change
+    a header named '2017values' to 'values2017'
+    """
+    match = starts_with_numbers.match(header)
+    if match:
+        if only_numbers.match(header):
+            raise "Column names cannot be composed of all numbers"
+        else:
+            return (match.group(2) + match.group(1))
+    else:
+        return header
+
+def clean_headers(headers):
+    """
+    str -> [str]
+    turns header line into a list and fixes some commmon
+    issues with column names
+    """
+    s = headers.lower()
+    for char in invalid_header_chars:
+        s = s.replace(char, '')
+    return [ flip_numbers(x) for x in s.split(',') ]
+
+                
 # String (filepath) -> String
 def extract_csvs_from_zip(file_path):
     """

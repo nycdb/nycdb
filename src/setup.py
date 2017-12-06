@@ -11,7 +11,7 @@ setuptools.setup(
     description="nyc housing database",
     long_description=open('README.md').read(),
 
-    packages=setuptools.find_packages(exclude=('tests', 'docs')),
+    packages=setuptools.find_packages(exclude=('tests', 'docs', 'data', 'venv')),
 
     install_requires=[],
 
@@ -19,7 +19,6 @@ setuptools.setup(
         'Development Status :: 2 - Pre-Alpha',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
     ],

@@ -26,3 +26,10 @@ def dof_sales(dataset):
     for f in dataset.files:
         for row in with_bbl(parse_dof_file(f.dest)):
             yield row
+
+def dobjobs(dataset):
+    return with_bbl(to_csv(dataset.files[0].dest))
+
+
+def rentstab(dataset):
+    return to_csv(dataset.files[0].dest)

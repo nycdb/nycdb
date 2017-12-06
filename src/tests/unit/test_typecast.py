@@ -12,11 +12,17 @@ def test_integer():
     assert typecast.integer('10') == 10
     assert typecast.integer('  10  ') == 10
     assert typecast.integer('') is None
+    assert typecast.integer('NOT AN INTEGER') is None
 
 def test_integer_with_decimal():
     assert typecast.integer('.') is None
     assert typecast.integer('1.0') == 1
     assert typecast.integer('25.923432') == 25
+
+def test_integer_money_str():
+    assert typecast.integer('$125') == 125
+    assert typecast.integer('$125.00') == 125
+    assert typecast.integer('$125.75') == 125
 
 def test_char():
     assert typecast.char('test', 10) == 'test'
@@ -47,6 +53,9 @@ def test_date_bad_str():
 def test_date_mm_dd_yyyy_with_timestamp():
     assert typecast.date('03/04/2015 12:00:00 AM') == datetime.date(2015, 3, 4)
     
+def test_text_array():
+    assert typecast.text_array('  one,two,three  ') == ['one', 'two', 'three']
+    assert typecast.text_array('1|2|3', sep='|') == ['1', '2', '3']
 
 def test_typecast_init():
     t = typecast.Typecast(nycdb.datasets()['pluto_16v2']['schema'])

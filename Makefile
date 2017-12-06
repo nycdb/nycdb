@@ -35,11 +35,27 @@ tasks = pluto \
 
 default: help
 
-# The central task that builds the database
-# Most of the individual databases can also be run on their own:
-#    i.e. make hpd-violations
-# However both dobjobs and hpd-registrations require pluto
-nyc-db: $(tasks)
+PY-NYCDB = cd src && ./venv/bin/python3 -m nycdb.cli -D $(DB_DATABASE) -H $(DB_HOST) -U $(DB_USER) -P $(DB_PASSWORD)
+
+datasets = pluto_16v2 \
+	   dobjobs \
+	   dof_sales \
+	   hpd_registrations \
+	   hpd_violations \
+	   hpd_complaints \
+	   dob_complaints \
+	   rentstab
+
+#nyc-db: $(tasks)
+nyc-db: $(datasets) acris | setup
+	make verify
+
+$(datasets):
+	$(PY-NYCDB) --download $@
+	$(PY-NYCDB) --load $@
+
+setup:
+	cd src && make init && ./venv/bin/pip3 install -e .
 
 verify:
 	python3 ./scripts/nycdb.py -H $(DB_HOST) -U $(DB_USER) -P $(DB_PASSWORD) -D $(DB_DATABASE) --check
@@ -47,72 +63,9 @@ verify:
 download:
 	./scripts/download.sh all
 
-download-pluto-all:
-	./scripts/download.sh all --pluto-all
-
-pluto:
-	./scripts/template.sh > ./modules/pluto/pg_setup.sh
-	echo "pluto_root=$(shell pwd)/data/pluto/" >> modules/pluto/pg_setup.sh
-	cd modules/pluto && make && ./pluto16v2.sh
-
-JOB_FILINGS_PATH=$(shell pwd)/data/dobjobs/job_filings.csv
-
-.ONESHELL: dobjobs
-dobjobs:
-	@echo "Inserting DOB data into postgres"
-	set -eu
-	./scripts/template.sh > ./modules/dobjobs/env.sh
-	cd modules/dobjobs
-	make install
-	./venv/bin/dobjobs  --psql -H $(DB_HOST) -U $(DB_USER) -P $(DB_PASSWORD) -D $(DB_DATABASE) "$(JOB_FILINGS_PATH)"
-	@echo "Indexing and Processing DOB Data"
-	source env.sh
-	execute_sql sql/geocode.sql
-	execute_sql sql/add_columns.sql
-	execute_sql sql/index.sql
-	rm env.sh
-
-DOF_SALES_PATH=$(shell pwd)/data/dofsales
-
-dofsales:
-	@echo "***DOF ROLLING SALES***"
-	./scripts/template.sh > ./modules/dof-sales/env.sh
-	cd modules/dof-sales && make && bash to_postgres.sh $(DOF_SALES_PATH)
-
-hpd-registrations:
-	@echo "***HPD Registrations***"
-	./scripts/template.sh > ./modules/hpd/env.sh
-	./scripts/hpd_registrations.sh
-
-hpd-violations:
-	@echo "***HPD Violations***"
-	./scripts/template.sh > ./modules/hpd-violations/pg_setup.sh
-	echo "HPD_VIOLATIONS_DATA_FOLDER=$(shell pwd)/data/hpd_violations/data" >> ./modules/hpd-violations/pg_setup.sh
-	cd modules/hpd-violations && ./unzip.sh && ./to_postgres.sh
-	rm $(shell pwd)/modules/hpd-violations/pg_setup.sh
-
-RENTSTAB_FILE=$(shell pwd)/data/rentstab/joined.csv
-
-rentstab:
-	@echo "**Rent Stabilization Unit Counts**"
-	@echo "NOTICE: The data used for this module is licensed CC-BY-SA by John Krauss (github.com/talos)"
-	@echo "See https://github.com/talos/nyc-stabilization-unit-counts for more information"
-	cd modules/rentstab && python3 rentstab.py -H $(DB_HOST) -U $(DB_USER) -P $(DB_PASSWORD) -D $(DB_DATABASE) "$(RENTSTAB_FILE)"
-
 311:
 	@echo "**311 Complaints**"
 	cd modules/311 && make && make run
-
-src/venv:
-	cd src && python3 -m venv venv && venv/bin/pip3 install -r requirements.txt
-
-hpd-complaints: src/venv
-	cd src && venv/bin/python3 -m nycdb.cli --download hpd_complaints
-	cd src && venv/bin/python3 -m nycdb.cli --load hpd_complaints -H $(DB_HOST) -U $(DB_USER) -P $(DB_PASSWORD) -D $(DB_DATABASE)
-
-dob-complaints: src/venv
-	cd src && venv/bin/python3 -m nycdb.cli --download dob_complaints
-	cd src && venv/bin/python3 -m nycdb.cli --load dob_complaints -H $(DB_HOST) -U $(DB_USER) -P $(DB_PASSWORD) -D $(DB_DATABASE)
 
 acris: acris-download
 	cd modules/acris-download && make psql_real_complete psql_personal_no_extras psql_index USER=$(DB_USER) PASS=$(DB_PASSWORD) DATABASE=$(DB_DATABASE) PSQLFLAGS="--host=$(DB_HOST)"
@@ -162,7 +115,7 @@ help:
 	@echo 'Look at the README or Makefile for additional scripts'
 
 
-.PHONY: $(tasks) nyc-db
-.PHONY: download download-pluto-all acris-download
+.PHONY: $(datasets) nyc-db setup
+.PHONY: download acris acris-download
 .PHONY: db-dump db-dump-bzip pg-connection-test
 .PHONY: clean remove-venv default help
