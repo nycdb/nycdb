@@ -1,6 +1,3 @@
-[submodule "modules/pluto"]
-	path = modules/pluto
-	url = https://github.com/aepyornis/pluto.git
 [submodule "modules/hpd"]
 	path = modules/hpd
 	url = https://github.com/aepyornis/hpd.git
