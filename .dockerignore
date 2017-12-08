@@ -1,0 +1,9 @@
+src/data
+data
+ansible
+.git
+modules
+server
+doc
+src/.cache
+src/venv

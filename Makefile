@@ -17,6 +17,8 @@ export DB_USER
 export DB_PASSWORD
 export PGPASSWORD
 
+DOCKER_VERSION = 0.1.0
+
 # use BASH as our shell
 SHELL=/bin/bash
 
@@ -51,10 +53,10 @@ verify:
 	cd modules/311 && make && make run
 
 acris: acris-download
-	cd modules/acris-download && make psql_real_complete psql_personal_no_extras psql_index USER=$(DB_USER) PASS=$(DB_PASSWORD) DATABASE=$(DB_DATABASE) PSQLFLAGS="--host=$(DB_HOST)"
+	cd modules/acris-download && make psql_real_complete psql_personal_no_extras psql_index USER=$(DB_USER) PASS=$(DB_PASSWORD) DATABASE=$(DB_DATABASE) PSQLFLAGS="--host=$(DB_HOST)" HOST=$(DB_HOST)
 
 acris-download:
-	cd modules/acris-download && make
+	cd modules/acris-download && make 
 
 remove-venv:
 	rm -r src/venv
@@ -78,6 +80,10 @@ clean: remove-venv
 	rm -rf postgres-data
 	type docker-compose > /dev/null 2>&1 && docker-compose rm -f || /bin/true
 
+
+build-docker:
+	docker build -f docker/nycdb.docker --tag aepyornis/nyc-db:$(DOCKER_VERSION) .
+
 help:
 	@echo 'NYC-DB: Postgres database of NYC housing data'
 	@echo 'Copyright (C) 2017 Ziggy Mintz'
@@ -88,8 +94,7 @@ help:
 	@echo '---------------------------------------------------------------'
 	@echo 'USE:'
 	@echo '  1) create a postgres database: createdb nycdb'
-	@echo '  2) download the files: make download'
-	@echo '  3) create the database: make nyc-db DB_USER=YOURPGUSER DB_PASSWORD=YOURPASS'
+	@echo '  2) create the database: make nyc-db DB_USER=YOURPGUSER DB_PASSWORD=YOURPASS'
 	@echo '---------------------------------------------------------------'
 	@echo 'If things get messed up try: '
 	@echo ' $ sudo make remove-venv to clean the python environments'
