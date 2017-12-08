@@ -2,6 +2,8 @@ import logging
 import itertools
 import os
 
+
+from . import verify
 from functools import lru_cache
 from . import dataset_transformations
 from . import sql
@@ -104,3 +106,9 @@ class Dataset:
             self.db = Database(self.args, table_name=self.name)
 
 
+    def verify(self):
+        self.setup_db()
+        verify.check_dataset(self.db, self.name)
+        
+
+        

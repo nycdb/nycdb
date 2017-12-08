@@ -42,3 +42,21 @@ class Database:
     
         with open(file_path, 'r') as f:
             self.sql(f.read())
+
+
+    def execute_and_fetchone(self, query):
+        with self.conn.cursor() as curs:
+            curs.execute(query)
+            return curs.fetchone()[0]
+
+
+    def table_exists(self, table_name):
+        query = "SELECT EXISTS(SELECT 1 FROM information_schema.tables where table_name = '{0}')".format(table_name)
+        return self.execute_and_fetchone(query)
+
+    
+    def row_count(self, table_name):
+        query = "SELECT COUNT(*) from {0}".format(table_name)
+        return self.execute_and_fetchone(query)
+
+    
