@@ -16,6 +16,12 @@ TABLES = {
     'hpd_complaints': { 'hpd_complaints': 1000000 } 
 }
 
+class colors:
+    BLUE = '\033[94m'
+    GREEN = '\033[92m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+
 
 def check_dataset(db, dataset):
     """ input: nycdb.Database, str """
@@ -27,13 +33,14 @@ def check_dataset(db, dataset):
                 print(colors.GREEN + table_name + ' has ' + format(cnt, ',') + ' rows' + colors.ENDC)
             else:
                 if cnt == 0:
-                    print(colors.FAIL + table + ' has no rows!' + colors.ENDC)
+                    print(colors.FAIL + table_name + ' has no rows!' + colors.ENDC)
                 else:
                     has_rows = colors.FAIL + table_name + ' has ' + format(cnt, ',') + ' rows.' + colors.ENDC
                     expecting = colors.FAIL + 'Expecting at least ' + colors.BLUE + format(min_row_count, ',') + colors.ENDC + colors.FAIL + ' rows' + colors.ENDC
                     print(has_rows + expecting)
         else:
-            print(colors.FAIL + table + ' is missing!' + colors.ENDC)
+            print(colors.FAIL + table_name + ' is missing!' + colors.ENDC)
+
 
 # 'acris': [
 #         'country_codes',
