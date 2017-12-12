@@ -33,3 +33,10 @@ def dobjobs(dataset):
 
 def rentstab(dataset):
     return to_csv(dataset.files[0].dest)
+
+def acris(dataset, table_name):
+    dest_file = next(filter(lambda f: table_name in f.dest, dataset.files))
+    return to_csv(dest_file.dest)
+
+
+

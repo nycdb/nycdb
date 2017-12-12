@@ -30,7 +30,11 @@ class Database:
 
         with self.conn.cursor() as curs:
             for row in rows:
-                curs.execute(sql.insert(table_name, row), row)
+                try: 
+                    curs.execute(sql.insert(table_name, row), row)
+                except psycopg2.DataError:
+                    print(row) # useful for debugging
+                    raise
         self.conn.commit()
                 
     def execute_sql_file(self, sql_file):

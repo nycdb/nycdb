@@ -152,4 +152,17 @@ def test_rentstab():
     rentstab.db_import()
     assert row_count(conn, 'rentstab') == 100
     assert has_one_row(conn, "select 1 where to_regclass('public.rentstab_ucbbl_idx') is NOT NULL")
-    
+    conn.close()
+
+def test_acris():
+    conn = connection()
+    drop_table(conn, 'real_property_legals')
+    drop_table(conn, 'real_property_master')
+    drop_table(conn, 'real_property_parties')
+    acris = nycdb.Dataset('acris', args=ARGS)
+    acris.db_import()
+    assert row_count(conn, 'real_property_legals') == 100
+    assert row_count(conn, 'real_property_master') == 100
+    assert row_count(conn, 'real_property_parties') == 100
+
+    conn.close()

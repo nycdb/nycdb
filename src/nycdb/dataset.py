@@ -72,12 +72,22 @@ class Dataset:
     def transform(self, schema):
         """ 
         Calls the function in dataset_transformation with the same name
-        as the dataset
+        as the schema.
+
+        If no function exists with the same name as the schema table, it tries
+        to call the function with the same name as the dataset
+
         input: dict
         output: generator
         """
         tc = Typecast(schema)
-        return tc.cast_rows(getattr(dataset_transformations, schema['table_name'])(self))
+
+        try:
+            rows = getattr(dataset_transformations, schema['table_name'])(self)
+        except AttributeError:
+            rows = getattr(dataset_transformations, self.name)(self, schema['table_name'])
+
+        return tc.cast_rows(rows)
     
 
     def import_schema(self, schema):

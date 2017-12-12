@@ -9,7 +9,8 @@ from pyproj import *
 from .bbl import bbl
 from .utility import merge
 
-invalid_header_chars = [ "\n", "\r", ' ', '-', '#', '.', "'", '"', '_' ]
+invalid_header_chars = [ "\n", "\r", ' ', '-', '#', '.', "'", '"', '_', '/' ]
+replace_header_chars = [ ('%', 'pct') ]
 starts_with_numbers = re.compile('^(\d+)(.*)$')
 only_numbers = re.compile('^\d+$')
 
@@ -40,6 +41,8 @@ def clean_headers(headers):
     s = headers.lower()
     for char in invalid_header_chars:
         s = s.replace(char, '')
+    for old, new in replace_header_chars:
+        s = s.replace(old, new)
     return [ flip_numbers(x) for x in s.split(',') ]
 
                 
