@@ -33,9 +33,10 @@ datasets = pluto_16v2 \
 	   hpd_violations \
 	   hpd_complaints \
 	   dob_complaints \
-	   rentstab
+	   rentstab \
+	   acris
 
-nyc-db: $(datasets) acris | setup
+nyc-db: $(datasets) | setup
 	make verify
 
 $(datasets):
@@ -51,12 +52,6 @@ verify:
 311:
 	@echo "**311 Complaints**"
 	cd modules/311 && make && make run
-
-acris: acris-download
-	cd modules/acris-download && make psql_real_complete psql_personal_no_extras psql_index USER=$(DB_USER) PASS=$(DB_PASSWORD) DATABASE=$(DB_DATABASE) PSQLFLAGS="--host=$(DB_HOST)" HOST=$(DB_HOST)
-
-acris-download:
-	cd modules/acris-download && make 
 
 remove-venv:
 	rm -r src/venv
@@ -81,7 +76,16 @@ clean: remove-venv
 	type docker-compose > /dev/null 2>&1 && docker-compose rm -f || /bin/true
 
 
-build-docker:
+docker-run: docker-pull
+	cd docker && mkdir -p postgres-data
+
+docker-pull:
+	docker pull aepyornis/nyc-db:$(DOCKER_VERSION)
+	docker pull adminer:latest
+	docker pull postgres:9.6
+	docker pull begriffs/postgrest:v0.4.2.0
+
+build-nycdb-docker:
 	docker build -f docker/nycdb.docker --tag aepyornis/nyc-db:$(DOCKER_VERSION) .
 
 help:
@@ -104,6 +108,5 @@ help:
 
 
 .PHONY: $(datasets) nyc-db setup
-.PHONY: download acris acris-download
 .PHONY: db-dump db-dump-bzip pg-connection-test
 .PHONY: clean remove-venv default help
