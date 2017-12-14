@@ -4,16 +4,17 @@ import logging
 from pathlib import Path
 from .utility import mkdir
 
+
 class DownloadFailedException(Exception):
     pass
-    
+
+
 def download_file(url, dest):
-    """ 
+    """
     Downloads a url and saves the result to the destination path
-    
+
     It will creates parent directory of the destination path,
     if they they don't exist.
-    
 
     If the destination file exists and is not empty, it assumes the file has
     already been downloaded and will skip downloading the file accordingly.
@@ -28,14 +29,14 @@ def download_file(url, dest):
         logging.info("Downloading {url} to {dest}".format(url=url, dest=dest))
         r = requests.get(url, stream=True)
         with open(dest, 'wb') as f:
-            for chunk in r.iter_content(chunk_size=(512 * 1024)): 
-                if chunk: 
+            for chunk in r.iter_content(chunk_size=(512 * 1024)):
+                if chunk:
                     f.write(chunk)
         return True
     except:
         raise DownloadFailedException("Could not download: {}".format(url))
 
-    
+
 class File:
     """Wrapper around a file"""
 
@@ -43,7 +44,6 @@ class File:
         self.root_dir = root_dir
         self.url = file_dict['url']
         self.dest = self._dest(file_dict)
-
 
     def download(self):
         download_file(self.url, self.dest)

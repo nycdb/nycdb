@@ -10,10 +10,11 @@ from . import sql
 from .database import Database
 from .typecast import Typecast
 from .file import File
-from .utility import read_yml, mkdir, list_wrap
+from .utility import read_yml, list_wrap
 
 BATCH_SIZE = 1000
-    
+
+
 @lru_cache()
 def datasets():
     """Returns a dictionary with all defined datasets"""
@@ -27,21 +28,18 @@ class Dataset:
         self.name = dataset_name
         self.args = args
         self.db = None
-        #self.db = Database(self.args, table_name=self.name)
+
         if self.args:
             self.root_dir = self.args.root_dir
         else:
             self.root_dir = './data'
 
         self.dataset = datasets()[dataset_name]
-        # self.typecast = Typecast(self)
         self.files = self._files()
-
         self.schemas = list_wrap(self.dataset['schema'])
-        # self.import_file = None
 
     def _files(self):
-        return [ File(file_dict, folder=self.name, root_dir=self.root_dir) for file_dict in self.dataset['files'] ]
+        return [File(file_dict, folder=self.name, root_dir=self.root_dir) for file_dict in self.dataset['files']]
 
 
     def download_files(self):
@@ -70,7 +68,7 @@ class Dataset:
             logging.debug('no index files exist for this dataset')
 
     def transform(self, schema):
-        """ 
+        """
         Calls the function in dataset_transformation with the same name
         as the schema.
 
@@ -88,11 +86,10 @@ class Dataset:
             rows = getattr(dataset_transformations, self.name)(self, schema['table_name'])
 
         return tc.cast_rows(rows)
-    
 
     def import_schema(self, schema):
         rows = self.transform(schema)
-        
+
         while True:
             batch = list(itertools.islice(rows, 0, BATCH_SIZE))
             if len(batch) == 0:
@@ -115,10 +112,6 @@ class Dataset:
         if self.db is None:
             self.db = Database(self.args, table_name=self.name)
 
-
     def verify(self):
         self.setup_db()
         verify.check_dataset(self.db, self.name)
-        
-
-        

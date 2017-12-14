@@ -2,6 +2,7 @@ import os
 import yaml
 from pathlib import Path
 
+
 def read_yml(file):
     """Reads a yaml file and outputs a Dictionary"""
     with open(file, 'r') as yaml_file:
@@ -14,15 +15,15 @@ def mkdir(file_path):
 
 
 def list_wrap(x):
-    """ 
+    """
     Returns input if is an tuple or list,
     otherwise it wraps x in an list
     """
     if isinstance(x, list) or isinstance(x, tuple):
         return x
     else:
-        return [ x ]
-    
+        return [x]
+
 
 def merge(x, y):
     """Given two dicts, merge them into a new dict as a shallow copy."""

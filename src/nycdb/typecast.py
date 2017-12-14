@@ -3,20 +3,22 @@ import re
 import datetime
 from decimal import Decimal, InvalidOperation
 
-YES_VALUES = [ 1, True, 'T', 't', 'true', 'True', 'TRUE', '1', 'y', 'Y', "YES", 'Yes']
-NO_VALUES = [ '0', 0, False, 'False', 'f', 'F', 'false', 'FALSE', 'N', 'n', 'NO', 'No', 'no']
-INTEGER_TYPES = [ 'integer', 'smallint', 'bigint', 'int' ]
+YES_VALUES = [1, True, 'T', 't', 'true', 'True', 'TRUE', '1', 'y', 'Y', "YES", 'Yes']
+NO_VALUES = ['0', 0, False, 'False', 'f', 'F', 'false', 'FALSE', 'N', 'n', 'NO', 'No', 'no']
+INTEGER_TYPES = ['integer', 'smallint', 'bigint', 'int']
+
 
 def downcase_fields_and_values(d):
     """downcase keys and values in dictionary"""
-    return dict((k.lower(), v.strip().lower()) for k,v in d.items())
+    return dict((k.lower(), v.strip().lower()) for k, v in d.items())
+
 
 def integer(i):
     if isinstance(i, int):
         return i
     try:
         int_str = i.strip().replace('$', '')
-    
+
         if int_str == '.' or int_str == '':
             return None
         elif '.' in i:
@@ -26,6 +28,7 @@ def integer(i):
 
     except ValueError:
         return None
+
 
 def text(x):
     return str(x).strip()
@@ -38,11 +41,13 @@ def char(x, n):
     else:
         return val
 
+
 def numeric(x):
     try:
         return Decimal(x)
     except (InvalidOperation, TypeError):
         return None
+
 
 def mm_dd_yyyy(date_str):
     try:
@@ -50,6 +55,7 @@ def mm_dd_yyyy(date_str):
         return datetime.date(year, month, day)
     except ValueError:
         return None
+
 
 # TODO: allow for different date inputs besides mm/dd/yyyy
 #  03/04/2015 12:00:00 AM
@@ -64,6 +70,7 @@ def date(x):
     else:
         return None
 
+
 def boolean(x):
     if x in YES_VALUES:
         return True
@@ -72,17 +79,20 @@ def boolean(x):
     else:
         return None
 
+
 def text_array(x, sep=","):
     return x.strip().split(sep)
-    
+
 
 def char_cast(n):
     n = copy.copy(n)
+
     def to_char(x):
         return char(x, n)
 
     return to_char
-    
+
+
 class Typecast():
     def __init__(self, schema):
         self.fields = downcase_fields_and_values(schema['fields'])
@@ -95,9 +105,9 @@ class Typecast():
         """
         for row in rows:
             yield self.cast_row(row)
-        
+
     def cast_row(self, row):
-        """ 
+        """
         Converts values of dictionary by type of dataset
         input: Dict
         output: Dict
@@ -111,7 +121,7 @@ class Typecast():
             # print the row for debugging:
             print(row)
             raise
-            
+
     def generate_cast(self):
         """
         Generates conversation table for dataset schema

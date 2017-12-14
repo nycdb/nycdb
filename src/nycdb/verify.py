@@ -1,7 +1,7 @@
 TABLES = {
-    'pluto_16v2': { 'pluto_16v2': 800000},
-    'dobjobs': { 'dobjobs': 1000000 },
-    'hpd_violations': { 'hpd_violations': 4000000 },
+    'pluto_16v2': {'pluto_16v2': 800000},
+    'dobjobs': {'dobjobs': 1000000},
+    'hpd_violations': {'hpd_violations': 4000000},
     'hpd_registrations': {
         'hpd_registrations': 150000,
         'hpd_contacts': 600000,
@@ -10,11 +10,12 @@ TABLES = {
         'hpd_registrations_grouped_by_bbl': 130000,
         'hpd_registrations_grouped_by_bbl_with_contacts': 130000
     },
-    'dof_sales': { 'dof_sales': 75000 },
-    'rentstab': { 'rentstab': 45000 },
-    'dob_complaints': { 'dob_complaints': 1000000 },
-    'hpd_complaints': { 'hpd_complaints': 1000000 } 
+    'dof_sales': {'dof_sales': 75000},
+    'rentstab': {'rentstab': 45000},
+    'dob_complaints': {'dob_complaints': 1000000},
+    'hpd_complaints': {'hpd_complaints': 1000000}
 }
+
 
 class colors:
     BLUE = '\033[94m'

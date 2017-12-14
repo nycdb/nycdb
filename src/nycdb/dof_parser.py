@@ -1,5 +1,6 @@
 import xlrd
 
+
 def cell_converter(cell):
     if cell.ctype == 0:
         return ""
@@ -21,15 +22,18 @@ def item_exists(item):
     return True
 
 
+def normalize_header_str(x):
+    return x.lower().replace(' ', '').replace('-', '')
+
+
 def to_headers(row):
-    """ 
+    """
     Turns data from excel row into list of lowercase list of string
     with spaces and dashes removed
     input: [xlrd.sheet.Cell]
     output: [str]
     """
-    normalize_str = lambda x: x.lower().replace(' ', '').replace('-', '')
-    return [ normalize_str(x) for x in map(cell_converter, row) ]
+    return [normalize_header_str(x) for x in map(cell_converter, row)]
 
 
 def parse_dof_file(file_path):
@@ -39,10 +43,10 @@ def parse_dof_file(file_path):
     rows = sheet.get_rows()
 
     # remove first 4 row
-    [ next(rows) for x in range(4) ]
+    [next(rows) for x in range(4)]
     # 5th row is the headers
     headers = to_headers(next(rows))
-        
+
     for row in rows:
         _row = list(map(cell_converter, row))
 
