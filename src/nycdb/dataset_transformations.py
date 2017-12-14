@@ -1,4 +1,4 @@
-from .transform import with_geo, with_bbl, to_csv, extract_csvs_from_zip
+from .transform import with_geo, with_bbl, to_csv, extract_csvs_from_zip, skip_fields
 from .dof_parser import parse_dof_file
 
 
@@ -40,6 +40,10 @@ def rentstab(dataset):
     return to_csv(dataset.files[0].dest)
 
 
-def acris(dataset, table_name):
-    dest_file = next(filter(lambda f: table_name in f.dest, dataset.files))
-    return to_csv(dest_file.dest)
+def acris(dataset, schema):
+    dest_file = next(filter(lambda f: schema['table_name'] in f.dest, dataset.files))
+    _to_csv = to_csv(dest_file.dest)
+    if 'skip' in schema:
+        return skip_fields(_to_csv, [s.lower() for s in schema['skip']])
+    else:
+        return _to_csv

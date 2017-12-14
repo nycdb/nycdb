@@ -111,3 +111,11 @@ def with_geo(table):
             yield merge(row, {'lng': lng, 'lat': lat})
         except:
             yield merge(row, {'lng': None, 'lat': None})
+
+
+def skip_fields(table, fields_to_skip):
+    for row in table:
+        for f in fields_to_skip:
+            if f in row:
+                del row[f]
+        yield row

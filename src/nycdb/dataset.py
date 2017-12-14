@@ -83,7 +83,7 @@ class Dataset:
         try:
             rows = getattr(dataset_transformations, schema['table_name'])(self)
         except AttributeError:
-            rows = getattr(dataset_transformations, self.name)(self, schema['table_name'])
+            rows = getattr(dataset_transformations, self.name)(self, schema)
 
         return tc.cast_rows(rows)
 

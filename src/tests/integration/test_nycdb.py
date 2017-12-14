@@ -159,10 +159,12 @@ def test_acris():
     drop_table(conn, 'real_property_legals')
     drop_table(conn, 'real_property_master')
     drop_table(conn, 'real_property_parties')
+    drop_table(conn, 'real_property_references')
     acris = nycdb.Dataset('acris', args=ARGS)
     acris.db_import()
     assert row_count(conn, 'real_property_legals') == 100
     assert row_count(conn, 'real_property_master') == 100
     assert row_count(conn, 'real_property_parties') == 100
+    assert row_count(conn, 'real_property_references') == 100
 
     conn.close()

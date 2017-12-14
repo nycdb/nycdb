@@ -480,6 +480,9 @@ acris:
     -
       url: https://data.cityofnewyork.us/api/views/636b-3b5g/rows.csv?accessType=DOWNLOAD
       dest: acris_real_property_parties.csv
+    -
+      url: https://data.cityofnewyork.us/api/views/pwkr-dpni/rows.csv?accessType=DOWNLOAD
+      dest: acris_real_property_references.csv
   schema:
     -
       table_name: real_property_legals
@@ -529,3 +532,20 @@ acris:
         STATE: text
         ZIP: text
         GOODTHROUGHDATE: date
+    -
+      table_name: real_property_references
+      fields:
+        DOCUMENTID: text
+        RECORDTYPE: text
+        REFERENCEBYCRFN: text
+        REFERENCEBYDOCID: text
+        REFERENCEBYREELYEAR: smallint
+        REFERENCEBYREELBOROUGH: smallint
+        REFERENCEBYREELNBR: integer
+        REFERENCEBYREELPAGE: integer
+        GOODTHROUGHDATE: date
+      skip:
+        - NOTUSED1
+        - NOTUSED2
+        
+      
