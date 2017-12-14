@@ -1,3 +1,4 @@
+import codecs
 import os
 import requests
 import logging
@@ -7,6 +8,21 @@ from .utility import mkdir
 
 class DownloadFailedException(Exception):
     pass
+
+
+open_str_kwargs = {'mode': 'w', 'encoding': 'utf-8', 'errors': 'replace'}
+open_byte_kwargs = {'mode': 'wb'}
+
+
+def is_csv(dest):
+    return dest[-4:].lower() == '.csv'
+
+
+def open_kwargs(dest):
+    if is_csv(dest):
+        return open_str_kwargs
+    else:
+        return open_byte_kwargs
 
 
 def download_file(url, dest):
@@ -27,11 +43,15 @@ def download_file(url, dest):
 
     try:
         logging.info("Downloading {url} to {dest}".format(url=url, dest=dest))
+        is_csv_file = is_csv(dest)
         r = requests.get(url, stream=True)
-        with open(dest, 'wb') as f:
+        with open(dest, **open_kwargs(dest)) as f:
             for chunk in r.iter_content(chunk_size=(512 * 1024)):
                 if chunk:
-                    f.write(chunk)
+                    if is_csv_file:
+                        f.write(codecs.decode(chunk, encoding='utf-8', errors='replace'))
+                    else:
+                        f.write(chunk)
         return True
     except:
         raise DownloadFailedException("Could not download: {}".format(url))

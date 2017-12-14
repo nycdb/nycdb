@@ -79,7 +79,7 @@ def to_csv(file_path_or_generator):
     if isinstance(file_path_or_generator, types.GeneratorType):
         f = io.StringIO(''.join(list(file_path_or_generator)))
     elif isinstance(file_path_or_generator, str):
-        f = open(file_path_or_generator, 'r')
+        f = open(file_path_or_generator, mode='r', encoding='utf-8', errors='replace')
     else:
         raise ValueError("to_csv accepts Strings or Generators")
 

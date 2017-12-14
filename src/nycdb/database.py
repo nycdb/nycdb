@@ -39,12 +39,12 @@ class Database:
 
     def execute_sql_file(self, sql_file):
         """
-        Run the provided sql file.
+        Executes the provided sql file.
         Assumes the path is relative to ./sql
         """
         file_path = os.path.join(os.path.dirname(__file__), 'sql', sql_file)
 
-        with open(file_path, 'r') as f:
+        with open(file_path, 'r', encoding='utf-8') as f:
             self.sql(f.read())
 
     def execute_and_fetchone(self, query):
