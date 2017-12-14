@@ -47,7 +47,7 @@ setup:
 	cd src && make init && ./venv/bin/pip3 install -e .
 
 verify:
-	source src/venv/bin/activate && python3 ./scripts/nycdb.py -H $(DB_HOST) -U $(DB_USER) -P $(DB_PASSWORD) -D $(DB_DATABASE) --check
+	$(PY-NYCDB) --verify-all
 
 311:
 	@echo "**311 Complaints**"

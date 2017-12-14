@@ -675,7 +675,8 @@ acris:
           RECORDTYPE: char(1)
           PROPERTYTYPE: char(2)
           DESCRIPTION: text
-    - table_name: acris_ucc_collateral_codes
+    -
+      table_name: acris_ucc_collateral_codes
       fields:
           RECORDTYPE: char(1)
           UCCCOLLATERALCODE: char(1)

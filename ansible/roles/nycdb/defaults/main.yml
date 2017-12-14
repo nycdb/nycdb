@@ -8,10 +8,8 @@ nycdb_packages:
   - unzip
   - bzip2
   - git
-  - screen
+  - tmux
   - htop
-  - python
-  - python-pip
   - build-essential
   - python3
   - python3-dev
@@ -21,8 +19,6 @@ nycdb_packages:
   - postgresql
   - postgresql-contrib
   - libpq-dev
-  - ruby
-  - bundler
       
 nycdb_database_host: 127.0.0.1
 
