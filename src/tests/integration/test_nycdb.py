@@ -166,6 +166,10 @@ def test_acris():
     drop_table(conn, 'personal_property_parties')
     drop_table(conn, 'personal_property_references')
     drop_table(conn, 'personal_property_remarks')
+    drop_table(conn, 'acris_country_codes')
+    drop_table(conn, 'acris_document_control_codes')
+    drop_table(conn, 'acris_property_type_codes')
+    drop_table(conn, 'acris_ucc_collateral_codes')
     acris = nycdb.Dataset('acris', args=ARGS)
     acris.db_import()
     assert row_count(conn, 'real_property_legals') == 100
@@ -178,5 +182,8 @@ def test_acris():
     assert row_count(conn, 'personal_property_parties') == 100
     assert row_count(conn, 'personal_property_references') == 10
     assert row_count(conn, 'personal_property_remarks') == 10
-
+    assert row_count(conn, 'acris_country_codes') == 250
+    assert row_count(conn, 'acris_document_control_codes') == 123
+    assert row_count(conn, 'acris_property_type_codes') == 46
+    assert row_count(conn, 'acris_ucc_collateral_codes') == 8
     conn.close()
