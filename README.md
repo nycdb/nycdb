@@ -66,7 +66,7 @@ make nyc-db DB_HOST=localhost DB_DATABASE=nycdb DB_USER=databaseuser DB_PASSWORD
 
 ## NYCDB CLI TOOL
 
-The Makefile is just a convenience for running the nycdb cli program, which will enable you to  customize your installation more, including inserting a subjection of the datasets.  See the README.md in the  ` ./src ` directory.
+The Makefile is just a convenience for running the nycdb cli program, which will enable you to  customize your installation more, such as only importing some of the datasets.  See the README.md in the  ` ./src ` directory.
 
 ## If you like docker:
 
