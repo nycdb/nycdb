@@ -1,25 +1,16 @@
 # nycdb
 
-Database of Housing Data for NYC
+This is a Python library and cli tool for install, updatding and managing NYC-DB, database of Housing Data for NYC.
+
+## Installation
+
+Works on python3.5 or higher: ``` pip3 install -e . ```
 
 ## Development
-
 
 Setup: ``` make ```
 
 Run tests: ``` make test ```
-
-
-## datasets 
-
-- hpd_complaints
-- dob_complaints
-- pluto_16v2
-
-## Requirements
-
-* Python3
-* Postgres
 
 
 ## Licence: GPLv3

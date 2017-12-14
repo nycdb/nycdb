@@ -1,0 +1,12 @@
+src/data
+data
+ansible
+.git
+modules
+server
+doc
+src/.cache
+src/*.egg-info
+src/tests
+src/*.tox
+src/venv

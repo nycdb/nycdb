@@ -9,14 +9,16 @@ from pyproj import *
 from .bbl import bbl
 from .utility import merge
 
-invalid_header_chars = [ "\n", "\r", ' ', '-', '#', '.', "'", '"', '_' ]
+invalid_header_chars = ["\n", "\r", ' ', '-', '#', '.', "'", '"', '_', '/']
+replace_header_chars = [('%', 'pct')]
 starts_with_numbers = re.compile('^(\d+)(.*)$')
 only_numbers = re.compile('^\d+$')
+
 
 def flip_numbers(header):
     """
     str -> str
-    If the header starts with numbers, it places 
+    If the header starts with numbers, it places
     those numbers at the end of the string.
 
     Columns in SQL cannot start with a number. This function will change
@@ -31,6 +33,7 @@ def flip_numbers(header):
     else:
         return header
 
+
 def clean_headers(headers):
     """
     str -> [str]
@@ -40,23 +43,25 @@ def clean_headers(headers):
     s = headers.lower()
     for char in invalid_header_chars:
         s = s.replace(char, '')
-    return [ flip_numbers(x) for x in s.split(',') ]
+    for old, new in replace_header_chars:
+        s = s.replace(old, new)
+    return [flip_numbers(x) for x in s.split(',')]
 
-                
+
 # String (filepath) -> String
 def extract_csvs_from_zip(file_path):
     """
     Combines all content in all CSVs (.csv) in the zip file.
 
-    Uses the header from the first csv file and 
+    Uses the header from the first csv file and
     excludes the header from the rest of the csvs.
-    
+
     Returns generator
     """
     with ZipFile(file_path, 'r') as zip_f:
-        csv_files = [ f for f in zip_f.namelist() if f[-3:].lower() == 'csv' ]
-        for (idx, csv) in enumerate(csv_files):
-            with zip_f.open(csv) as f:
+        csv_files = [f for f in zip_f.namelist() if f[-3:].lower() == 'csv']
+        for (idx, csv_file) in enumerate(csv_files):
+            with zip_f.open(csv_file) as f:
                 firstline = f.readline().decode('UTF-8', 'ignore')
                 if idx == 0:
                     yield firstline
@@ -65,7 +70,7 @@ def extract_csvs_from_zip(file_path):
 
 
 def to_csv(file_path_or_generator):
-    """ 
+    """
     input: String | Generator
     outs: Generator
 
@@ -93,6 +98,7 @@ p4j = '+proj=lcc +lat_1=40.66666666666666 +lat_2=41.03333333333333 +lat_0=40.166
 ny_state_plane = pyproj.Proj(p4j, preserve_units=True)
 wgs84 = pyproj.Proj(init="epsg:4326")
 
+
 def ny_state_coords_to_lat_lng(xcoord, ycoord):
     return pyproj.transform(ny_state_plane, wgs84, xcoord, ycoord)
 
@@ -100,8 +106,16 @@ def ny_state_coords_to_lat_lng(xcoord, ycoord):
 def with_geo(table):
     for row in table:
         try:
-            coords = ( float(row['xcoord']), float(row['ycoord']) )
+            coords = (float(row['xcoord']), float(row['ycoord']))
             lng, lat = ny_state_coords_to_lat_lng(*coords)
-            yield merge(row, { 'lng': lng, 'lat': lat })
+            yield merge(row, {'lng': lng, 'lat': lat})
         except:
-            yield merge(row, { 'lng': None, 'lat': None })
+            yield merge(row, {'lng': None, 'lat': None})
+
+
+def skip_fields(table, fields_to_skip):
+    for row in table:
+        for f in fields_to_skip:
+            if f in row:
+                del row[f]
+        yield row

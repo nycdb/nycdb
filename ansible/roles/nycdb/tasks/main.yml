@@ -27,16 +27,6 @@
     append: yes
     shell: /bin/bash
 
-- name: Installling csvkt
-  pip:
-    executable: /usr/bin/pip2
-    name: csvkit
-    
-- name: Installling psycopg2
-  pip:
-    executable: /usr/bin/pip2
-    name: psycopg2
-
 - name: Setup postgres db
   become: yes
   become_user: postgres
@@ -60,14 +50,12 @@
   postgresql_user:
     name: "{{ nycdb_database_user }}" 
     role_attr_flags: NOSUPERUSER,NOCREATEDB
-
     
 - name: Create /srv/nyc-db
   file:
     path: /srv/nyc-db
     state: directory
     owner: "{{ nycdb_user }}"
-
     
 - name: Clone the nyc-db repo
   become: yes
@@ -75,19 +63,3 @@
   git:
     repo: https://github.com/aepyornis/nyc-db.git
     dest: /srv/nyc-db
-    recursive: yes
-    
-- name: Installing Gems for 311 module
-  become: yes
-  become_user: "{{ nycdb_user }}"
-  bundler:
-    state: present
-    gemfile: /srv/nyc-db/modules/311/Gemfile
-    
-
-- name: Setup env.sh
-  become: yes
-  become_user: "{{ nycdb_user }}"
-  template:
-    src: "env.sh.j2"
-    dest: "/srv/nyc-db/env.sh"

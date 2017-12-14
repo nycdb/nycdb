@@ -17,6 +17,8 @@ export DB_USER
 export DB_PASSWORD
 export PGPASSWORD
 
+DOCKER_VERSION = 0.1.0
+
 # use BASH as our shell
 SHELL=/bin/bash
 
@@ -31,9 +33,10 @@ datasets = pluto_16v2 \
 	   hpd_violations \
 	   hpd_complaints \
 	   dob_complaints \
-	   rentstab
+	   rentstab \
+	   acris
 
-nyc-db: $(datasets) acris | setup
+nyc-db: $(datasets) | setup
 	make verify
 
 $(datasets):
@@ -44,17 +47,11 @@ setup:
 	cd src && make init && ./venv/bin/pip3 install -e .
 
 verify:
-	source src/venv/bin/activate && python3 ./scripts/nycdb.py -H $(DB_HOST) -U $(DB_USER) -P $(DB_PASSWORD) -D $(DB_DATABASE) --check
+	$(PY-NYCDB) --verify-all
 
 311:
 	@echo "**311 Complaints**"
 	cd modules/311 && make && make run
-
-acris: acris-download
-	cd modules/acris-download && make psql_real_complete psql_personal_no_extras psql_index USER=$(DB_USER) PASS=$(DB_PASSWORD) DATABASE=$(DB_DATABASE) PSQLFLAGS="--host=$(DB_HOST)"
-
-acris-download:
-	cd modules/acris-download && make
 
 remove-venv:
 	rm -r src/venv
@@ -78,6 +75,19 @@ clean: remove-venv
 	rm -rf postgres-data
 	type docker-compose > /dev/null 2>&1 && docker-compose rm -f || /bin/true
 
+
+docker-run: docker-pull
+	cd docker && mkdir -p postgres-data
+
+docker-pull:
+	docker pull aepyornis/nyc-db:$(DOCKER_VERSION)
+	docker pull adminer:latest
+	docker pull postgres:9.6
+	docker pull begriffs/postgrest:v0.4.2.0
+
+build-nycdb-docker:
+	docker build -f docker/nycdb.docker --tag aepyornis/nyc-db:$(DOCKER_VERSION) .
+
 help:
 	@echo 'NYC-DB: Postgres database of NYC housing data'
 	@echo 'Copyright (C) 2017 Ziggy Mintz'
@@ -88,8 +98,7 @@ help:
 	@echo '---------------------------------------------------------------'
 	@echo 'USE:'
 	@echo '  1) create a postgres database: createdb nycdb'
-	@echo '  2) download the files: make download'
-	@echo '  3) create the database: make nyc-db DB_USER=YOURPGUSER DB_PASSWORD=YOURPASS'
+	@echo '  2) create the database: make nyc-db DB_USER=YOURPGUSER DB_PASSWORD=YOURPASS'
 	@echo '---------------------------------------------------------------'
 	@echo 'If things get messed up try: '
 	@echo ' $ sudo make remove-venv to clean the python environments'
@@ -99,6 +108,5 @@ help:
 
 
 .PHONY: $(datasets) nyc-db setup
-.PHONY: download acris acris-download
 .PHONY: db-dump db-dump-bzip pg-connection-test
 .PHONY: clean remove-venv default help
