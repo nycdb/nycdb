@@ -8,13 +8,6 @@ DB_DATABASE=nycdb
 DB_USER=nycdb
 DB_PASSWORD=nycdb
 PGPASSWORD=$(DB_PASSWORD)
-
-# exporting allows these variables
-# to be accessed in the subshells
-export DB_HOST
-export DB_DATABASE
-export DB_USER
-export DB_PASSWORD
 export PGPASSWORD
 
 DOCKER_VERSION = 0.1.0
@@ -36,7 +29,7 @@ datasets = pluto_16v2 \
 	   rentstab \
 	   acris
 
-nyc-db: $(datasets) | setup
+nyc-db: $(datasets)
 	make verify
 
 $(datasets):
@@ -48,10 +41,6 @@ setup:
 
 verify:
 	$(PY-NYCDB) --verify-all
-
-311:
-	@echo "**311 Complaints**"
-	cd modules/311 && make && make run
 
 remove-venv:
 	rm -r src/venv
@@ -68,13 +57,9 @@ db-dump:
 db-dump-bzip:
 	bzip2 --keep nyc-db*.sql
 
-db-dump-tables:
-	mkdir -v -p dump
-
 clean: remove-venv
 	rm -rf postgres-data
 	type docker-compose > /dev/null 2>&1 && docker-compose rm -f || /bin/true
-
 
 docker-run: docker-pull
 	cd docker && mkdir -p postgres-data

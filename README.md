@@ -16,7 +16,7 @@ NYC-DB builds a postgresql database containing the following datasets:
 - Tax bills - Rent Stabilization Unit Counts (John Krauss's data)
 - ACRIS
 
-NYC-DB is a python3 command line program that downloads and loads datasets in to postgres.
+NYC-DB is a python3 command line program that downloads and loads datasets into postgres.
 
 ## Get a copy
 
@@ -42,7 +42,7 @@ Load the db: ``` psql -d database-name -f nyc-db-2017-11-08.sql ```
 
 *Requirements*
 
-Postgres and Python. I recommend using Ansible or Docker if you can. See the ``` Dockerfile ``` for a list of required packages for Debian or Ubuntu. As of right now, Postgres 10 is not compatible. Please sure postgres 9.6 until
+Postgres and Python. I recommend using Ansible or Docker if you can. See the ``` Dockerfile ``` for a list of required packages for Debian or Ubuntu. As of right now, Postgres 10 is not compatible. Please be sure to postgres 9.6 until those issues are fixed.
 
 *Setup*
 
@@ -109,7 +109,6 @@ make nyc-db
 
 ### Acknowledgments
 
-- [@jordanderson](https://github.com/jordanderson) for a [very useful ruby library for geocoding NYC addresses](https://github.com/jordanderson/nyc_geosupport).
 - [Heatseek](https://heatseek.org/) for ongoing support of the project and for their amazing work.
 - [@talos](https://github.com/talos) for his [tax bill scrapping](https://github.com/talos/nyc-stabilization-unit-counts) to get counts of rent-stabilization units
 
