@@ -24,10 +24,10 @@ TABLES = {
         'personal_property_master': 1000000,
         'personal_property_parties': 1000000,
         'personal_property_references': 1000000,
-        'personal_property_remarks': 1000000,
+        'personal_property_remarks': 400000,
         'acris_country_codes': 250,
         'acris_document_control_codes': 123,
-        'acris_property_type_codes': 56,
+        'acris_property_type_codes': 46,
         'acris_ucc_collateral_codes': 8
     }
 }
