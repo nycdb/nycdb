@@ -24,17 +24,17 @@ Just want a copy of the database?
 
 Here are the latest versions available to download from S3:
 
+- [nyc-db-2017-12-15.sql.bz2](https://s3.amazonaws.com/nyc-db/nyc-db-2017-12-15.sql.bz2)
 - [nyc-db-2017-11-08.sql.bz2](https://s3.amazonaws.com/nyc-db/nyc-db-2017-11-08.sql.bz2)
 - [nyc-db-2017-10-13.sql.bz2](https://s3.amazonaws.com/nyc-db/nyc-db-2017-10-13.sql.bz2)
-- [nyc-db-2017-09-08.sql.bz2](https://s3.amazonaws.com/nyc-db/nyc-db-2017-09-08.sql.bz2)
 
 It's ~1.8gb compressed and ~16gb decompressed.
 
-If you have aws cli installed, you can download it easily this way: ``` aws s3 cp s3://nyc-db/nyc-db-2017-11-08.sql.bz2 ./ ```
+If you have aws cli installed, you can download it easily this way: ``` aws s3 cp s3://nyc-db/nyc-db-2017-12-15.sql.bz2 ./ ```
 
-To decompress: ```  bunzip2 nyc-db-2017-11-08.sql.bz2 ```
+To decompress: ```  bunzip2 nyc-db-2017-12-15.sql.bz2 ```
 
-Load the db: ``` psql -d database-name -f nyc-db-2017-11-08.sql ```
+Load the db: ``` psql -d database-name -f nyc-db-2017-12-15.sql ```
 
 ## Build it yourself!
 
