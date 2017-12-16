@@ -7,26 +7,6 @@
   notify:
     - restart postgresql
 
-- name: Make sure we have a nycdb group
-  group:
-    name: nycdb
-    state: present
-
-- name: Allow nycdb group to have passwordless sudo
-  lineinfile:
-    dest: /etc/sudoers
-    state: present
-    regexp: '^%nycdb'
-    line: '%nycdb ALL=(ALL) NOPASSWD: ALL'
-    validate: visudo -cf %s
-
-- name: Add nycdb user to nycdb group
-  user:
-    name: "{{ nycdb_user }}"
-    groups: nycdb
-    append: yes
-    shell: /bin/bash
-
 - name: Setup postgres db
   become: yes
   become_user: postgres
@@ -63,3 +43,4 @@
   git:
     repo: https://github.com/aepyornis/nyc-db.git
     dest: /srv/nyc-db
+    version: master

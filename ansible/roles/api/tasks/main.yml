@@ -1,0 +1,92 @@
+---
+- name: get certs with lets encrypt
+  become: yes
+  import_role:
+    name: geerlingguy.certbot
+  tags: certs
+
+- name: Setup postgres users
+  import_tasks: psql.yml
+  tags: psql
+
+- name: Create api group
+  group:
+    name: api
+    state: present
+
+- name: Create api user
+  user:
+    name: api
+    group: api
+    shell: /bin/false
+
+- name: Download postgrest binary
+  unarchive:
+    src: "{{ postgrest_release_url }}"
+    dest: /usr/local/bin
+    mode: 0755
+    owner: root
+    group: root
+    remote_src: yes
+    creates: /usr/local/bin/postgrest
+  tags: postgrest
+
+- name: Create postgres.conf file
+  template:
+    src: postgrest.conf.j2
+    dest: /home/api/postgrest.conf
+    owner: api
+    group: api
+    mode: 0644
+  tags: postgrest
+
+- name: Install nycdb systemd unit file
+  template:
+    src: nycdb_service.j2
+    dest: /etc/systemd/system/nycdb.service
+  tags: postgrest
+      
+- name: start nycdb service
+  systemd:
+    state: started
+    name: nycdb
+    daemon_reload: yes
+  tags: postgrest
+
+- name: Create /var/www/nycdb
+  file:
+    path: /var/www/nycdb
+    state: directory
+    owner: nycdb
+    group: nycdb
+    mode: 0755
+  tags: docs
+
+- name: Build docs
+  import_tasks: docs.yml
+  tags: docs
+
+
+- name: Create /etc/nginx
+  file:
+    path: /etc/nginx
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  tags: nginx
+
+- name: Copy nginx cors config
+  copy:
+    src: cors.conf
+    dest: /etc/nginx/cors.conf
+    owner: root
+    group: root
+    mode: 0755
+  tags: nginx
+
+- name: Setup nginx
+  import_role:
+    name: jdauphant.nginx
+  tags: nginx
+

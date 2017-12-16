@@ -7,12 +7,9 @@ data/
 !src/tests/integration/data
 .env/
 nyc-db*.sql
-ansible/playbook.retry
-modules/311/.cache/
-modules/311/311.csv
-modules/311/Gemfile.lock
-modules/311/*.zip
-modules/311/version-17a_17.1/
+ansible/*.retry
+ansible/credentials
+
 
 server/postgrest
 server/*.tar.xz

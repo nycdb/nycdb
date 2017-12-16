@@ -1,0 +1,11 @@
+[Unit]
+Description=nycdb server
+
+[Service]
+ExecStart=/usr/local/bin/postgrest /home/api/postgrest.conf
+Restart=always
+User=api
+Group=api
+
+[Install]
+WantedBy=multi-user.target

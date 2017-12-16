@@ -1,0 +1,32 @@
+---
+- name: Make sure we have a nycdb group
+  group:
+    name: nycdb
+    state: present
+
+- name: Allow nycdb group to have passwordless sudo
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: '^%nycdb'
+    line: '%nycdb ALL=(ALL) NOPASSWD: ALL'
+    validate: visudo -cf %s
+
+- name: Add nycdb user to nycdb group
+  user:
+    name: "{{ nycdb_user }}"
+    groups: nycdb
+    append: yes
+    shell: /bin/bash
+
+- fail: msg="no ssh_public_key_file defined"
+  when: ssh_public_key_file is undefined
+   
+- name: Set authorized key for nycdb
+  authorized_key:
+    user: nycdb
+    state: present
+    key: "{{ lookup('file', ssh_public_key_file) }}"
+  
+- name: ssh hardening
+  import_role: name=dev-sec.ssh-hardening

@@ -1,0 +1,21 @@
+####################################
+# postgrest.conf for NYC-db
+####################################
+
+# change to match your database, username, and password
+db-uri       = "postgres://{{ nycdb_database_user }}:{{ nycdb_database_password }}@{{ nycdb_database_host }}:5432/{{ nycdb_database_name }}"
+
+# The name of which database schema to expose to REST clients
+db-schema    = "public"
+
+# The database role to use when no client authentication is provided.
+# Can (and probably should) differ from user in db-uri
+#
+# This role needs to be created. See user.sql
+db-anon-role = "{{ anon_db_user }}"
+
+db-pool = 10
+
+server-port = {{ postgrest_server_port }}
+
+max-rows = {{ postgrest_max_rows }}
