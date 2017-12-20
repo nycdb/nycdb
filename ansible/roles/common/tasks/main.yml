@@ -1,4 +1,10 @@
 ---
+- name: Install sudo
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+    name: sudo 
+    
 - name: Make sure we have a nycdb group
   group:
     name: nycdb
@@ -29,4 +35,23 @@
     key: "{{ lookup('file', ssh_public_key_file) }}"
   
 - name: ssh hardening
-  import_role: name=dev-sec.ssh-hardening
+  import_role:
+    name: dev-sec.ssh-hardening
+  vars:
+    ssh_permit_tunnel: yes
+    ssh_allow_groups: nycdb
+    ssh_max_auth_retries: 5
+
+
+- name: Check if nycdb user is locked
+  become: yes
+  command: grep -q "nycdb:!:" /etc/shadow
+  register: check_user_lock
+  ignore_errors: True
+  changed_when: False
+
+- name: Unlock nycdb
+  become: yes
+  command: usermod -p "*" nycdb
+  when: check_user_lock.rc == 0
+  
