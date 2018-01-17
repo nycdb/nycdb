@@ -48,10 +48,10 @@ def dispatch(args):
 
 
 def main():
+    logging.basicConfig(level=logging.DEBUG)
     args = parse_args()
     dispatch(args)
 
 
 if __name__ == '__main__':
-    logging.basicConfig(level=logging.DEBUG)
     main()
