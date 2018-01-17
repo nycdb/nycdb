@@ -6,20 +6,31 @@ setuptools.setup(
     url="https://github.com/aepyornis/nyc-db",
 
     author="ziggy",
-    author_email="ziggy@elephant-bird.net",
+    author_email="nycdb@riseup.net",
 
-    description="nyc housing database",
+    license='GPL',
+
+    description="database of nyc housing data",
     long_description=open('README.md').read(),
 
-    packages=setuptools.find_packages(exclude=('tests', 'docs', 'data', 'venv')),
+    packages=['nycdb'],
 
-    install_requires=[],
+    python_requires='>=3',
+
+    install_requires=[
+        'Cython>=0.27',
+        'PyYAML>=3',
+        'requests>=2.18',
+        'xlrd>=1.1.0',
+        'pyproj>=1.9.5',
+        'psycopg2>=2.7'
+    ],
 
     classifiers=[
-        'Development Status :: 2 - Pre-Alpha',
-        'Programming Language :: Python',
-        'Programming Language :: Python :: 3',
+        'Development Status :: 3 - Alpha',
+        'License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)',
+        'Programming Language :: Python :: 3 :: Only',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
-    ],
+    ]
 )
