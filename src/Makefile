@@ -1,3 +1,6 @@
+VERSION := $(shell python3 setup.py --fullname)
+GPG_KEYID :=  0xB95EC83A0D72CBA1
+
 init: cython | venv
 	./venv/bin/pip3 install -r requirements.txt
 
@@ -19,4 +22,21 @@ cython: venv
 	./venv/bin/pip3 install cython
 
 
-.PHONY: init test test-integration test-unit cython
+clean:
+	rm -rf dist build nycdb.egg-info
+
+build-requirements:
+	pip3 install wheel twine
+
+
+build:
+	python3 setup.py sdist bdist_wheel
+	gpg --detach-sign --local-user $(GPG_KEYID) -a dist/$(VERSION).tar.gz
+	gpg --detach-sign --local-user $(GPG_KEYID) -a dist/$(VERSION)-py3-none-any.whl
+
+
+upload:
+	twine upload dist/$(VERSION).tar.gz dist/$(VERSION).tar.gz.asc
+	twine upload dist/$(VERSION)-py3-none-any.whl dist/$(VERSION)-py3-none-any.whl.asc
+
+.PHONY: init test test-integration test-unit cython build clean
