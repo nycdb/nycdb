@@ -31,6 +31,8 @@ build-requirements:
 
 build:
 	python3 setup.py sdist bdist_wheel
+
+sign:
 	gpg --detach-sign --local-user $(GPG_KEYID) -a dist/$(VERSION).tar.gz
 	gpg --detach-sign --local-user $(GPG_KEYID) -a dist/$(VERSION)-py3-none-any.whl
 

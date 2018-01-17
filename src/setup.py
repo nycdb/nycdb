@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name="nycdb",
-    version="0.1.1",
+    version="0.1.2",
     url="https://github.com/aepyornis/nyc-db",
 
     author="ziggy",
@@ -21,6 +21,16 @@ setuptools.setup(
     },
 
     packages=['nycdb'],
+
+    package_data={
+        'nycdb': [
+            'datasets.yml',
+            'sql/*.sql',
+            'sql/**/*.sql'
+        ]
+    },
+
+    include_package_data=True,
 
     python_requires='>=3',
 
