@@ -44,7 +44,7 @@ def parse_dof_file(file_path):
 
     # remove first 3 row
     [next(rows) for x in range(3)]
-    # 5th row is the headers
+    # 4th row is the headers
     headers = to_headers(next(rows))
 
     for row in rows:
