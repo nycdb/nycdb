@@ -77,6 +77,15 @@ def test_pluto_insert():
         assert round(rec['lng'], 5) == Decimal('-73.98434')
         assert round(rec['lat'], 5) == Decimal('40.74211')
 
+
+def test_pluto17v1():
+    conn = connection()
+    drop_table(conn, 'pluto_17v1')
+    pluto = nycdb.Dataset('pluto_17v1', args=ARGS)
+    pluto.db_import()
+    assert row_count(conn, 'pluto_17v1') == 500
+    conn.close()
+
     
 def test_hpd_violations():
     conn = connection()
