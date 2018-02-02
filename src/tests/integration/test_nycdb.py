@@ -123,10 +123,11 @@ def test_dof_sales():
     drop_table(conn, 'dof_sales')
     dof_sales = nycdb.Dataset('dof_sales', args=ARGS)
     dof_sales.db_import()
-    assert row_count(conn, 'dof_sales') == 140
+    assert row_count(conn, 'dof_sales') == 70
     assert has_one_row(conn, "select 1 where to_regclass('public.dof_sales_bbl_idx') is NOT NULL")
     conn.close()
-    
+
+    10 + 20 + 10 + 10 + 20
 def test_dobjobs():
     conn = connection()
     drop_table(conn, 'dobjobs')

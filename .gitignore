@@ -21,3 +21,5 @@ docker/postgres-data
 postgres-data
 
 modules/hpd-complaints/*.csv
+
+src/.pytest_cache/
