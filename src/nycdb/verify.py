@@ -1,5 +1,6 @@
 TABLES = {
     'pluto_16v2': {'pluto_16v2': 800000},
+    'pluto_17v1': {'pluto_17v1': 800000},
     'dobjobs': {'dobjobs': 1000000},
     'hpd_violations': {'hpd_violations': 4000000},
     'hpd_registrations': {
