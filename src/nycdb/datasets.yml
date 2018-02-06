@@ -191,7 +191,7 @@ pluto_16v2:
       Version: text
       lng: numeric
       lat: numeric
-      
+
 dobjobs:
   files:
     -
@@ -290,7 +290,7 @@ dobjobs:
         bbl: char(10)
         id: 'serial PRIMARY KEY'
 
-      
+
 hpd_complaints:
   files:
     -
@@ -343,7 +343,7 @@ dob_complaints:
 
 hpd_violations:
   files:
-    - 
+    -
       url: https://data.cityofnewyork.us/api/views/wvxf-dwi5/rows.csv?accessType=DOWNLOAD
       dest: hpd_violations.csv
   sql:
@@ -359,7 +359,7 @@ hpd_violations:
       HouseNumber: text
       LowHouseNumber: text
       HighHouseNumber: text
-      StreetName: text 
+      StreetName: text
       StreetCode: text
       Postcode: char(5)
       Apartment: text
@@ -368,14 +368,14 @@ hpd_violations:
       Lot: integer
       Class: char(1)
       InspectionDate: date
-      ApprovedDate: date 
+      ApprovedDate: date
       OriginalCertifyByDate: date
       OriginalCorrectByDate: date
       NewCertifyByDate: date
       NewCorrectByDate: date
       CertifiedDate: date
       OrderNumber: text
-      NOVID: integer 
+      NOVID: integer
       NOVDescription: text
       NOVIssuedDate: date
       CurrentStatusID: smallint
@@ -413,7 +413,7 @@ hpd_registrations:
     - hpd_registrations/registrations_grouped_by_bbl_with_contacts.sql
     - hpd_registrations/functions.sql
     - hpd_registrations/index.sql
-    
+
   schema:
     -
       table_name: hpd_registrations
@@ -780,4 +780,26 @@ acris:
           UCCCOLLATERALCODE: char(1)
           DESCRIPTION: text
 
-
+evictions:
+  files:
+    -
+      url: https://s3.amazonaws.com/justfix-data/evictions_geocoded.csv
+      dest: evictions_geocoded.csv
+  schema:
+    table_name: evictions
+    fields:
+      bin: integer
+      bbl: text
+      boro: text
+      address: text
+      zip: text
+      neighborhood: text
+      corpowner: text
+      corpownerpropublica: text
+      headofficer: text
+      evictions: integer
+      subsidy421a: boolean
+      subsidy421g: boolean
+      subsidyJ51: boolean
+      lat: numeric
+      lng: numeric
