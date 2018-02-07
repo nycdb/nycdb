@@ -1,19 +1,24 @@
 DROP TABLE IF EXISTS hpd_business_addresses;
 
 CREATE TABLE  hpd_business_addresses AS (
-       SELECT BusinessHouseNumber,
-              BusinessStreetName,
-              BusinessZip,
-              BusinessApartment,
-              count (*) as numberOfContacts,
-              anyarray_remove_null(array_agg(CorporationName)) as corporationnames,
-              anyarray_remove_null(array_agg(concat(firstname, ' ', lastname))) as ownernames,
-              array_agg(registrationID) as regids,
-              anyarray_uniq(array_agg(registrationID)) as uniqregids
-       FROM hpd_contacts
-       WHERE
-                (BusinessHouseNumber IS NOT NULL AND BusinessStreetName IS NOT NULL AND  BusinessZip IS NOT NULL)
-                GROUP BY BusinessHouseNumber, BusinessStreetName, BusinessZip, BusinessApartment);
+     SELECT businesshousenumber,
+            businessstreetname,
+            businesszip,
+            businessapartment,
+            count(*) as numberOfContacts,
+            anyarray_remove_null(array_agg(corporationname)) as corporationnames,
+            anyarray_remove_null(array_agg(concat(firstname, ' ', lastname))) as ownernames,
+            array_agg(registrationid) as regids,
+            anyarray_uniq(array_agg(registrationid)) as uniqregids
+      FROM hpd_contacts
+      -- This will ensure that these three fields all contain something and arent null or empty
+      WHERE (
+          (businesshousenumber <> '') IS TRUE AND
+          (businessstreetname <> '') IS TRUE AND
+          (businesszip <> '') IS TRUE
+        )
+      GROUP BY businesshousenumber, businessstreetname, businesszip, businessapartment
+    );
 
 ALTER TABLE hpd_business_addresses ADD COLUMN id serial;
 UPDATE hpd_business_addresses SET id = DEFAULT;
