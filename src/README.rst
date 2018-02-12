@@ -28,14 +28,19 @@ You'll be able to use the program `nycdb` to import a database.
 
 For example to load all of hpd violations:
 
-
 .. code-block:: bash
 
     nycdb --download hpd_violations
     nycdb --load hpd_violations -P YOUR_PG_PASSWORD -D YOUR_DATABASE
 
+To see all possible datasets:
 
+.. code-block:: bash
+
+   nycdb --list-datasets
+
+
+By default the downloaded data files are stores in './data'. Use --root-dir to change the location of the data directory.
 
 To see more options run: `nycdb --help`
-
 
