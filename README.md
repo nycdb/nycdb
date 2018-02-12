@@ -39,59 +39,35 @@ Load the db: ``` psql -d database-name -f nyc-db-2018-02-04.sql.bz2 ```
 
 ## Build it yourself!
 
-###  Installation
+###  Installation via pypi and using the nycdb cli tool
 
 *Requirements*
 
-Postgres and Python. I recommend using Ansible or Docker if you can. See the ``` Dockerfile ``` for a list of required packages for Debian or Ubuntu. As of right now, Postgres 10 is not compatible. Please be sure to postgres 9.6 until those issues are fixed.
+Postgres and Python3. As of right now, Postgres 10 is not compatible. Please be sure to Postgres 9.6 until those issues are fixed.
 
 *Setup*
 
-Clone the repo: ``` git clone https://github.com/aepyornis/nyc-db.git --recursive ```
+Install the nycdb package using pip: ```pip3 install nycdb ``` This will install the program ` nycdb `.
 
-Create a pg database if you don't have one setup already: ``` createdb nycdb```
+To download a dataset use: ``` nycdb --download [dataset-name] ```
 
-### Quickly create the whole database:
+To insert a dataset into postgres: ``` nycdb --load [dataset-name] -U [pg-user] -P [pg-dataset] -D [pg-database] ```
 
-These must be run from the root of the repo. Expect this whole process to take a few hours.
+see ` src/README.rst ` for more information on the CLI program.
 
-Download the data files: ``` make download ```
+### Using the Makefile to build the database
 
-Build the database: ``` make nyc-db ```
-
-There are 4 connection variables that you can pass to configure the postgres connection. For instance:
+As a convenience you can create the database in one go using this command:
 
 ```
 make nyc-db DB_HOST=localhost DB_DATABASE=nycdb DB_USER=databaseuser DB_PASSWORD=mypassword
 ```
 
-## NYCDB CLI TOOL
+## Ansible playbook
 
-The Makefile is just a convenience for running the nycdb cli program, which will enable you to  customize your installation more, such as only importing some of the datasets.  See the README.md in the  ` ./src ` directory.
+In the ` /ansible ` folder there are two playbooks. playbook.yml setups a server ready to install the database at /srv/nycdb. api.yml runs the public api at https://api.nycdb.info
 
-## If you like docker:
-
-Clone the repo: ``` git clone https://github.com/aepyornis/nyc-db.git ```
-
-_In root of repo:_
-
-Setup docker:  ```  make docker-setup ```
-
-Download the data files: ``` make download ```
-
-Create the database: ``` make docker-run ```
-
-_After the database is built:_
-
-Enter a psql shell: ``` make docker-shell ```
-
-Make database dump: ``` make docker-dump ```
-
-Run the database standalone: ``` make docker-db-standalone ``` 
-
-## If you like ansible:
-
-Create a fresh debian stretch or ubuntu 16 server and configure your ansible hosts file. It might end up looking something like this:
+To use, create a fresh debian stretch or ubuntu 16 server and configure your ansible hosts file. It might end up looking something like this:
 
 ```
 [nycdb]
@@ -104,7 +80,6 @@ After it's done. SSH into the server and run:
 
 ``` bash
 cd /srv/nyc-db
-make download
 make nyc-db
 ```
 
