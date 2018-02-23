@@ -42,9 +42,9 @@ def parse_dof_file(file_path):
     sheet = book.sheet_by_index(0)
     rows = sheet.get_rows()
 
-    # remove first 3 row
-    [next(rows) for x in range(3)]
-    # 4th row is the headers
+    # remove first 4 row
+    [next(rows) for x in range(4)]
+    # 5th row is the headers
     headers = to_headers(next(rows))
 
     for row in rows:
