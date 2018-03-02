@@ -1,7 +1,7 @@
 VERSION := $(shell python3 setup.py --fullname)
 GPG_KEYID :=  0xB95EC83A0D72CBA1
 
-init: cython | venv
+init: venv requirements.txt
 	./venv/bin/pip3 install -r requirements.txt
 
 test:
@@ -17,10 +17,6 @@ test-integration:
 
 venv:
 	python3 -m venv venv
-
-cython: venv
-	./venv/bin/pip3 install cython
-
 
 clean:
 	rm -rf dist build nycdb.egg-info
