@@ -3,72 +3,100 @@ Functions to standardize address strings
 in HPD contacts data
 """
 import re
-# import functools
-
 
 STREETS = [
-    ( ('AVENUE', 'AVE'), 'AVENUE' ),
-    ( (' STREET', ' STR', ' ST\.?'), ' STREET' ),
-    ( ('PLACE', 'PL'), 'PLACE' ),
-    ( ('ROAD', '(?<!\d)RD'), 'ROAD'),
-    ( ('LANE', 'LN'), 'LANE' ),
-    ( ('BOULEVARD', 'BLVD'), 'BOULEVARD')
+    ( '(?<= )AVE(NUE)?', 'AVENUE' ),
+    ( '(?<= )(STREET|STR|(ST\.?))', 'STREET' ),
+    ( '(?<= )PL(ACE)?', 'PLACE'),
+    ( '(?<= )(ROAD|(?<!\d)RD\.?)', 'ROAD' ),
+    ( '(?<= )(LA(NE)?|LN)', 'LANE'),
+    ( '(?<= )CT', 'COURT'),
+    ( '(?<= )DR', 'DRIVE'),
+    ( '(?<= )(BOULEVARD|BLVD)', 'BOULEVARD' ),
+    ( '(?<= )(PKWY|PARKWY)', 'PARKWAY' ),
+    ( '(^|(?<= ))(BDWAY|BDWY|BROAD WAY)', 'BROADWAY' )
 ]
 
-# 123 E. SECOND AVE
-
-# These have spaces at the end to avoid
-# replace letters in the middle of words
-# and named aveneues such as "Avenue W"
 DIRECTIONS = [
-    ( ('EAST ', '(^E\.? )'), 'EAST ' ),
-    ( ('WEST ', '(^W\.? )'), 'WEST ' ),
-    ( ('NORTH ', '(^N\.? )'), 'NORTH ' ),
-    ( ('SOUTH ', '(^S\.? )'), 'SOUTH ' ),
-    ( (' EAST ', '((?<!AVENUE)( E\.? ))'), ' EAST ' ),
-    ( (' WEST ', '((?<!AVENUE)( W\.? ))'), ' WEST ' ),
-    ( (' NORTH ', '((?<!AVENUE)( N\.? ))'), ' NORTH ' ),
-    ( (' SOUTH ', '((?<!AVENUE)( S\.? ))'), ' SOUTH ' )
+    ( "(^|(?<=[ ]))N\.?((?=[ ])|$)", 'NORTH'),
+    ( "(^|(?<=[ ]))SO?\.?((?=[ ])|$)", 'SOUTH'),
+    ( "(^|(?<=[ ]))E\.?((?=[ ])|$)", 'EAST'),
+    ( "(^|(?<=[ ]))W\.?((?=[ ])|$)", 'WEST')
 ]
 
-
-NUMBERS = [
-    ( ('^1(ST)? ', ), 'FIRST '),
-    ( ('^2(ND)? ', ), 'SECOND '),
-    ( ('^3(RD)? ', ), 'THIRD '),
-    ( ('^4(TH)? ', ), 'FOURTH '),
-    ( ('^5(TH)? ', ), 'FIFTH '),
-    ( ('^6(TH)? ', ), 'SIXTH '),
-    ( ('^7(TH)? ', ), 'SEVENTH '),
-    ( ('^8(TH)? ', ), 'EIGHTH '),
-    ( ('^9(TH)? ', ), 'NINTH '),
-    ( ('^10(TH)? ', ), 'TENTH '),
-    ( (' 1(ST)? ',), ' FIRST '),
-    ( (' 2(ND)? ',), ' SECOND '),
-    ( (' 3(RD)? ',), ' THIRD '),
-    ( (' 4(TH)? ',), ' FOURTH '),
-    ( (' 5(TH)? ',), ' FIFTH '),
-    ( (' 6(TH)? ',), ' SIXTH '),
-    ( (' 7(TH)? ',), ' SEVENTH '),
-    ( (' 8(TH)? ',), ' EIGHTH '),
-    ( (' 9(TH)? ',), ' NINTH '),
-    ( (' 10(TH)? ',), ' TENTH ')
+REMOVE = [
+    ( '(BKLYN|BROOKLYN|QUEENS|BRONX|MANHATTAN|NEW YORK|NYC|SI)$', ''),
+    ( 'BENSONHURST$', ''),
+    ( '\(.+\)$', '')
 ]
 
+REGEX_REPLACEMENTS = STREETS + DIRECTIONS + REMOVE
 
-REGEX_REPLACEMENTS = STREETS + DIRECTIONS + NUMBERS
+WORD_NUMBERS = [ 'ZEROTH', 'FIRST', 'SECOND', 'THIRD',
+                 'FOURTH', 'FIFTH', 'SIXTH', 'SEVENTH',
+                 'EIGHTH', 'NINTH', 'TENTH' ]
+SUFFIXES = {
+    '0': 'TH',
+    '1': 'ST', 
+    '2': 'ND', 
+    '3': 'RD',
+    '4': 'TH',
+    '5': 'TH',
+    '6': 'TH',
+    '7': 'TH',
+    '8': 'TH',
+    '9': 'TH',
+}
 
-# Iter, Str -> Lambda
-def replace_func(patterns, replacement):
-    pattern = ('|').join(patterns)
+
+def format_number(matchobj):
+    n = matchobj.group('number')
+    rest = matchobj.group('rest')
+    if int(n) < 11:
+        return WORD_NUMBERS[int(n)] + rest
+    else:
+        tens_digit = str(n)[-2:-1]
+
+        if tens_digit == '1':
+            return str(n) + 'TH' + rest
+        else:
+            return n + SUFFIXES[n[-1]] + rest
+
+
+def replace_number(str):
+    return re.sub("(^|(?<=[ ]))(?P<number>\d+)(TH|ST|ND|RD)?(?P<rest>(\b|[ ]).*)", format_number, str)
+
+
+# Str, Str -> Lambda
+def replace_func(pattern, replacement):
     return lambda s: re.sub(pattern, replacement, s)
 
-REGEX_FUNCS = list(map(lambda x: replace_func(x[0], x[1]), REGEX_REPLACEMENTS))
 
 
+
+HOLY_SAINTS = [
+    'JOSEPH',
+    'MARKS',
+    'LAWRENCE',
+    'JAMES',
+    'NICHOLAS',
+    'HOLLIS',
+    'JOHNS',
+    "JOHN's"
+]
+
+# 
+# St. JOSEPH
+# ST. MARKS
+# ST LAWRENCE
+# ST JAMES
+# ST. NICHOLAS
+# HOLLIS
 def saints(s):
     re.search("(ST.|SAINT)(\w+)()")
 
+
+REGEX_FUNCS = list(map(lambda x: replace_func(*x), REGEX_REPLACEMENTS)) + [replace_number]
 
 # list(of functions), str -> str
 def func_chain(funcs, val):
@@ -77,35 +105,13 @@ def func_chain(funcs, val):
     else:
         return func_chain(funcs[1:],funcs[0](val))
 
+
+def remove_extra_spaces(s):
+    return ' '.join([x for x in s.split(' ') if x != ''])
+
+def prepare(s):
+    return remove_extra_spaces(s).strip().upper().replace('"', '').replace('-', '')
+
+
 def normalize_street(street):
-    s = street.strip().upper()
-    return func_chain(REGEX_FUNCS, s)
-
-# def normalize_street(street):
-#     pass
-
-# def street_name(s):
-#     for regex, street in STREET_NAMES:
-#         if regex.match(s):
-#             return street
-#     return s
-
-
-
-
-# def normalize_street(street):
-#     out = []
-#     split = tuple(map(lambda x: x.strip(), clean(street).split(' ')))
-#     # print(split)
-#     for x in split:
-#         if x in directions:
-#             out.append(directions[x])
-#         else:
-#             street = street_name(x)
-#             if street in NORMALIZED_STREETS:
-#                 out.append(street)
-#             else:
-#                 out.append(street)
-                
-
-#     return ' '.join(out)
+    return func_chain(REGEX_FUNCS, prepare(s)).replace('.', '')    
