@@ -3,6 +3,7 @@ Functions to standardize address strings
 in HPD contacts data
 """
 import re
+# from collections import namedtuple
 
 STREETS = [
     ( '(?<= )AVE(NUE)?', 'AVENUE' ),
@@ -10,7 +11,7 @@ STREETS = [
     ( '(?<= )PL(ACE)?', 'PLACE'),
     ( '(?<= )(ROAD|(?<!\d)RD\.?)', 'ROAD' ),
     ( '(?<= )(LA(NE)?|LN)', 'LANE'),
-    ( '(?<= )CT', 'COURT'),
+    ( '(?<= )CT|CRT', 'COURT'),
     ( '(?<= )DR', 'DRIVE'),
     ( '(?<= )(BOULEVARD|BLVD)', 'BOULEVARD' ),
     ( '(?<= )(PKWY|PARKWY)', 'PARKWAY' ),
@@ -32,6 +33,12 @@ REMOVE = [
 
 REGEX_REPLACEMENTS = STREETS + DIRECTIONS + REMOVE
 
+# Str, Str -> Lambda
+def replace_func(pattern, replacement):
+    return lambda s: re.sub(pattern, replacement, s)
+
+REGEX_FUNCS = list(map(lambda x: replace_func(*x), REGEX_REPLACEMENTS))
+
 WORD_NUMBERS = [ 'ZEROTH', 'FIRST', 'SECOND', 'THIRD',
                  'FOURTH', 'FIFTH', 'SIXTH', 'SEVENTH',
                  'EIGHTH', 'NINTH', 'TENTH' ]
@@ -45,7 +52,7 @@ SUFFIXES = {
     '6': 'TH',
     '7': 'TH',
     '8': 'TH',
-    '9': 'TH',
+    '9': 'TH'
 }
 
 
@@ -67,36 +74,17 @@ def replace_number(str):
     return re.sub("(^|(?<=[ ]))(?P<number>\d+)(TH|ST|ND|RD)?(?P<rest>(\b|[ ]).*)", format_number, str)
 
 
-# Str, Str -> Lambda
-def replace_func(pattern, replacement):
-    return lambda s: re.sub(pattern, replacement, s)
+HOLY_SAINTS = [ 'JOSEPH', 'MARKS', 'LAWRENCE','JAMES',
+                'NICHOLAS','HOLLIS', 'JOHNS',"JOHN's"]
 
+SAINTS_REGEX = "ST\.?[ ](?P<street_name>({}))".format('|'.join(HOLY_SAINTS))
 
-
-
-HOLY_SAINTS = [
-    'JOSEPH',
-    'MARKS',
-    'LAWRENCE',
-    'JAMES',
-    'NICHOLAS',
-    'HOLLIS',
-    'JOHNS',
-    "JOHN's"
-]
-
-# 
-# St. JOSEPH
-# ST. MARKS
-# ST LAWRENCE
-# ST JAMES
-# ST. NICHOLAS
-# HOLLIS
 def saints(s):
-    re.search("(ST.|SAINT)(\w+)()")
+    repl = lambda matchobj: "SAINT " + matchobj.group('street_name')
+    return re.sub(SAINTS_REGEX, repl, s)
 
 
-REGEX_FUNCS = list(map(lambda x: replace_func(*x), REGEX_REPLACEMENTS)) + [replace_number]
+STREET_FUNCS = [replace_number, saints] + REGEX_FUNCS 
 
 # list(of functions), str -> str
 def func_chain(funcs, val):
@@ -112,6 +100,5 @@ def remove_extra_spaces(s):
 def prepare(s):
     return remove_extra_spaces(s).strip().upper().replace('"', '').replace('-', '')
 
-
 def normalize_street(street):
-    return func_chain(REGEX_FUNCS, prepare(s)).replace('.', '')    
+    return func_chain(STREET_FUNCS, prepare(street)).replace('.', '').strip()

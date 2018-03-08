@@ -20,7 +20,6 @@ class TestNormalizeStreet(object):
     def test_remove(self):
         assert normalize_street('78TH ST - BENSONHURST') == '78TH STREET'
 
-
     def test_part(self):
         assert normalize_street('VAN CORTLANDT PK SO') == 'VAN CORTLANDT PK SOUTH'
 
@@ -37,3 +36,9 @@ class TestNormalizeStreet(object):
 
     def test_blvd(self):
         assert normalize_street('queens BLVD') == 'QUEENS BOULEVARD'
+
+
+    def test_saints(self):
+        assert normalize_street('ST. MARKS') == 'SAINT MARKS'
+        assert normalize_street('W. ST JAMES ST.') == 'WEST SAINT JAMES STREET'
+        
