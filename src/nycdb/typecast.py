@@ -31,10 +31,18 @@ def integer(i):
 
 
 def text(x):
-    return str(x).strip()
+    if x is None:
+        return None
+    s = str(x).strip()
+    if s == '':
+        return None
+    else:
+        return s
 
 
 def char(x, n):
+    if x is None:
+        return None
     val = str(x)
     if len(val) > n:
         return val.strip()[0:n]
