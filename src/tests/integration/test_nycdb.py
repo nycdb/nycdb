@@ -196,4 +196,5 @@ def test_acris():
     assert row_count(conn, 'acris_document_control_codes') == 123
     assert row_count(conn, 'acris_property_type_codes') == 46
     assert row_count(conn, 'acris_ucc_collateral_codes') == 8
+    assert has_one_row(conn, "select * from real_property_legals where bbl = '4131600009'")
     conn.close()

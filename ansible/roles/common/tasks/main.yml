@@ -33,7 +33,11 @@
     user: nycdb
     state: present
     key: "{{ lookup('file', ssh_public_key_file) }}"
-  
+
+- name: os hardening
+  import_role:
+     name: dev-sec.os-hardening
+
 - name: ssh hardening
   import_role:
     name: dev-sec.ssh-hardening

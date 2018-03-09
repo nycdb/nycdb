@@ -43,7 +43,7 @@ Load the db: ``` psql -d database-name -f nyc-db-2018-02-04.sql.bz2 ```
 
 *Requirements*
 
-Postgres and Python3. As of right now, Postgres 10 is not compatible. Please be sure to Postgres 9.6 until those issues are fixed.
+Postgres and Python3. 
 
 *Setup*
 

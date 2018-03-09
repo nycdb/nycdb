@@ -1,11 +1,25 @@
 ---
-- name: Install Required packages
+- name: Install required packages
   apt:
     update_cache: yes
     name: "{{ item }}"
   with_items: "{{ nycdb_packages }}"
-  notify:
-    - restart postgresql
+
+- name: Add postgres signing key
+  apt_key:
+    data: "{{ lookup('file', 'ACCC4CF8.asc') }}"
+    state: present
+
+- name: Add postgres apt
+  apt_repository:
+    repo: "{{ postgres_apt_repository }}"
+    state: present
+
+- name: Install postgres packages
+  apt:
+    update_cache: yes
+    name: "{{ item }}"
+  with_items: "{{ nycdb_packages }}"
 
 - name: Setup postgres db
   become: yes
@@ -23,7 +37,6 @@
     encrypted: yes
     priv: ALL
 
-    
 - name: Ensure database user does not have unnecessary privileges
   become: yes
   become_user: postgres
@@ -44,3 +57,16 @@
     repo: https://github.com/aepyornis/nyc-db.git
     dest: /srv/nyc-db
     version: master
+
+- name: install python3 packages
+  become: yes
+  pip:
+    requirements: /srv/nyc-db/src/requirements.txt
+    executable: /usr/bin/pip3
+    extra_args: --no-binary psycopg2
+
+- name: install nycdb
+  become: yes
+  pip:
+    name: file:///srv/nyc-db/src
+

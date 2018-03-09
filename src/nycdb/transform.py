@@ -6,6 +6,7 @@ import pyproj
 from zipfile import ZipFile
 from pyproj import *
 
+from .address import normalize_street, normalize_street_number, normalize_apartment
 from .bbl import bbl
 from .utility import merge
 
@@ -118,4 +119,23 @@ def skip_fields(table, fields_to_skip):
         for f in fields_to_skip:
             if f in row:
                 del row[f]
+        yield row
+
+
+##
+# standardize addresses in hpd contact and registration:
+#
+
+def hpd_registrations_address_cleanup(rows):
+    for row in rows:
+        row['housenumber'] = normalize_street_number(row['housenumber'])
+        row['streetname'] = normalize_street(row['streetname'])
+        yield row
+
+
+def hpd_contacts_address_cleanup(rows):
+    for row in rows:
+        row['businesshousenumber'] = normalize_street_number(row['businesshousenumber'])
+        row['businessstreetname'] = normalize_street(row['businessstreetname'])
+        row['businessapartment'] = normalize_apartment(row['businessapartment'])
         yield row
