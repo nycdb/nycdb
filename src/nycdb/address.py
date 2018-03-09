@@ -16,6 +16,7 @@ STREETS = [
     ( '(?<= )(BOULEVARD|BLVD)', 'BOULEVARD' ),
     ( '(?<= )(PKWY|PARKWY)', 'PARKWAY' ),
     ( '(?<= )(PK)', 'PARK' ),
+    ( '(?<= )(BCH)', 'BEACH' ),
     ( '(?<= )(TERR)', 'TERRACE' ),
     ( '(^|(?<= ))(BDWAY|BDWY|BROAD WAY)', 'BROADWAY' )
 ]
@@ -119,3 +120,41 @@ def prepare(s):
 def normalize_street(street):
     return func_chain(STREET_FUNCS, prepare(street)).replace('.', '').strip()
 
+
+# remove dashes or spaces...sorry Queens!
+def normalize_street_number(number):
+    return re.sub('(?<=\d)(-|[ ])(?=\d)', '', number).replace('-', '').strip()
+
+
+APT_STRINGS_TO_REMOVE = [ '.', '_', '#', '{', '}', '/' ]
+
+def clean_apt_str(s):
+    s = prepare(s)
+    for char_to_remove in APT_STRINGS_TO_REMOVE:
+        s = s.replace(char_to_remove, '')
+    return s
+
+
+APT_NUM = '(?<=\d)(ST|TH|ND|RD)'
+# 12F becomes 12F
+# 12TH F becomes 12FLOOR
+EDGE_CASE_FLOOR = APT_NUM + '[ ]F$'
+FLOOR_REGEX = '(?<=\d)[ ]?((FL(OOR|O|R)?)|FW)$'
+
+def normalize_apartment(string):
+    if string is None:
+        return None
+
+    s = clean_apt_str(string)
+
+    if s == '':
+        return None
+    
+    s = re.sub(EDGE_CASE_FLOOR, 'FLOOR', s)
+    s = re.sub(APT_NUM, '', s)
+    s = re.sub(FLOOR_REGEX, 'FLOOR', s)
+    
+    
+    return s.replace(' ', '')
+    
+    

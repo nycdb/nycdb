@@ -1,4 +1,4 @@
-from nycdb.address import normalize_street
+from nycdb.address import normalize_street, normalize_street_number, normalize_apartment
 
 class TestNormalizeStreet(object):
 
@@ -57,4 +57,43 @@ class TestNormalizeStreet(object):
         assert normalize_street('CO-OP CITY') == 'COOP CITY'
         
 
-        
+def test_normalize_street_number():
+    assert normalize_street_number('24') == '24'
+    assert normalize_street_number('101-23') == '10123'
+    assert normalize_street_number('30-80') == '3080'
+
+
+def test_normalize_apartment_returns_nil():
+    assert normalize_apartment(None) is None
+    assert normalize_apartment('') is None
+    assert normalize_apartment('    ') is None
+    assert normalize_apartment('-') is None
+
+
+def test_normalize_apartment_simple():
+    assert normalize_apartment('123') == '123'
+    assert normalize_apartment('28X') == '28X'
+    assert normalize_apartment('28-X') == '28X'
+    assert normalize_apartment('28 x') == '28X'
+    assert normalize_apartment('#17G') == '17G'
+
+
+def test_normalize_apartment_floor():
+    assert normalize_apartment('2FW') == "2FLOOR"
+    assert normalize_apartment('12FL') == "12FLOOR"
+    assert normalize_apartment('12 FL') == "12FLOOR"
+    assert normalize_apartment('12-FL') == "12FLOOR"
+    assert normalize_apartment('12-FLOOR') == "12FLOOR"
+    assert normalize_apartment('12 FLOOR') == "12FLOOR"
+    assert normalize_apartment('12TH FLOOR') == "12FLOOR"
+    assert normalize_apartment('12 FL.') == "12FLOOR"
+    assert normalize_apartment('12THFL') == "12FLOOR"
+    assert normalize_apartment('12 FLO') == "12FLOOR"
+    assert normalize_apartment('12 FLO.') == "12FLOOR"
+    assert normalize_apartment('12 FLR') == "12FLOOR"
+
+    assert normalize_apartment('3RD FL.') == "3FLOOR"
+    assert normalize_apartment('3RDFL') == "3FLOOR"
+
+    assert normalize_apartment('10F') == '10F'
+    assert normalize_apartment('10TH F') == '10FLOOR'
