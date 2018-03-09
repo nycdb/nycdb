@@ -15,19 +15,36 @@ STREETS = [
     ( '(?<= )DR', 'DRIVE'),
     ( '(?<= )(BOULEVARD|BLVD)', 'BOULEVARD' ),
     ( '(?<= )(PKWY|PARKWY)', 'PARKWAY' ),
+    ( '(?<= )(PK)', 'PARK' ),
+    ( '(?<= )(TERR)', 'TERRACE' ),
     ( '(^|(?<= ))(BDWAY|BDWY|BROAD WAY)', 'BROADWAY' )
 ]
 
+
+# Look for the start of the string or a space, but NOT 'AVENUE '
+# this is to avoid lettered avenued such as "AVENUE W"
+DIR_START = "(^|(?<=[ ]))(?<!AVENUE )"
+DIR_END = "((?=[ ])|$)"
+
+dir_regex = lambda x: DIR_START + x + DIR_END
+
 DIRECTIONS = [
-    ( "(^|(?<=[ ]))N\.?((?=[ ])|$)", 'NORTH'),
-    ( "(^|(?<=[ ]))SO?\.?((?=[ ])|$)", 'SOUTH'),
-    ( "(^|(?<=[ ]))E\.?((?=[ ])|$)", 'EAST'),
-    ( "(^|(?<=[ ]))W\.?((?=[ ])|$)", 'WEST')
+    ( dir_regex('N\.?'), 'NORTH'),
+    ( dir_regex('SO?\.?'), 'SOUTH'),
+    ( dir_regex('E\.?'), 'EAST'),
+    ( dir_regex('W\.?'), 'WEST')
+]
+
+ALIASES = [
+    ( 'ADAM CLAYTON POWELL( JR)?( (BLVD|BOULEVARD))?', 'ADAM CLAYTON POWELL JR BOULEVARD' ),
+    ( 'AVENUE OF( THE)? AMERICAS',  'AVENUE OF THE AMERICAS' ),
+    ( 'COLLEGE PT\.? (BLVD|BOULEVARD)', 'COLLEGE POINT BOULEVARD'),
+    ( 'CO-OP CITY', 'COOP CITY')
 ]
 
 REMOVE = [
     ( '(BKLYN|BROOKLYN|QUEENS|BRONX|MANHATTAN|NEW YORK|NYC|SI)$', ''),
-    ( 'BENSONHURST$', ''),
+    ( '(BENSONHURST|CORONA)$', ''),
     ( '\(.+\)$', '')
 ]
 
@@ -37,6 +54,7 @@ REGEX_REPLACEMENTS = STREETS + DIRECTIONS + REMOVE
 def replace_func(pattern, replacement):
     return lambda s: re.sub(pattern, replacement, s)
 
+ALIASES_FUNCS = list(map(lambda x: replace_func(*x), ALIASES))
 REGEX_FUNCS = list(map(lambda x: replace_func(*x), REGEX_REPLACEMENTS))
 
 WORD_NUMBERS = [ 'ZEROTH', 'FIRST', 'SECOND', 'THIRD',
@@ -83,8 +101,7 @@ def saints(s):
     repl = lambda matchobj: "SAINT " + matchobj.group('street_name')
     return re.sub(SAINTS_REGEX, repl, s)
 
-
-STREET_FUNCS = [replace_number, saints] + REGEX_FUNCS 
+STREET_FUNCS = ALIASES_FUNCS + [replace_number, saints] + REGEX_FUNCS
 
 # list(of functions), str -> str
 def func_chain(funcs, val):
@@ -92,7 +109,6 @@ def func_chain(funcs, val):
         return val
     else:
         return func_chain(funcs[1:],funcs[0](val))
-
 
 def remove_extra_spaces(s):
     return ' '.join([x for x in s.split(' ') if x != ''])
@@ -102,3 +118,4 @@ def prepare(s):
 
 def normalize_street(street):
     return func_chain(STREET_FUNCS, prepare(street)).replace('.', '').strip()
+
