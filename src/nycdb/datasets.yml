@@ -609,6 +609,8 @@ acris:
     -
       url: https://data.cityofnewyork.us/api/views/q9kp-jvxv/rows.csv?accessType=DOWNLOAD
       dest: acris_ucc_collateral_codes.csv
+  sql:
+    - acris.sql
   schema:
     -
       table_name: real_property_legals
