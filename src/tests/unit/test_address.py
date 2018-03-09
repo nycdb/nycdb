@@ -75,6 +75,7 @@ def test_normalize_apartment_simple():
     assert normalize_apartment('28X') == '28X'
     assert normalize_apartment('28-X') == '28X'
     assert normalize_apartment('28 x') == '28X'
+    assert normalize_apartment('28_x') == '28X'
     assert normalize_apartment('#17G') == '17G'
 
 

@@ -3,7 +3,6 @@ Functions to standardize address strings
 in HPD contacts data
 """
 import re
-# from collections import namedtuple
 
 STREETS = [
     ( '(?<= )AVE(NUE)?', 'AVENUE' ),
@@ -22,8 +21,8 @@ STREETS = [
 ]
 
 
-# Look for the start of the string or a space, but NOT 'AVENUE '
-# this is to avoid lettered avenued such as "AVENUE W"
+# Look for direction abbrivation as the start of the string or a space, but NOT 'AVENUE '
+# this is to avoid lettered avenues such as "AVENUE W"
 DIR_START = "(^|(?<=[ ]))(?<!AVENUE )"
 DIR_END = "((?=[ ])|$)"
 
@@ -118,11 +117,21 @@ def prepare(s):
     return remove_extra_spaces(s).strip().upper().replace('"', '').replace('-', '')
 
 def normalize_street(street):
-    return func_chain(STREET_FUNCS, prepare(street)).replace('.', '').strip()
+    if street is None:
+        return None
+    
+    s = prepare(street)
+    
+    if s == '':
+        return None
+    
+    return func_chain(STREET_FUNCS, s).replace('.', '').strip()
 
 
 # remove dashes or spaces...sorry Queens!
 def normalize_street_number(number):
+    if number is None or number == '':
+        return None
     return re.sub('(?<=\d)(-|[ ])(?=\d)', '', number).replace('-', '').strip()
 
 
@@ -136,8 +145,8 @@ def clean_apt_str(s):
 
 
 APT_NUM = '(?<=\d)(ST|TH|ND|RD)'
-# 12F becomes 12F
-# 12TH F becomes 12FLOOR
+# "12F" becomes 12F
+# "12TH F" becomes 12FLOOR
 EDGE_CASE_FLOOR = APT_NUM + '[ ]F$'
 FLOOR_REGEX = '(?<=\d)[ ]?((FL(OOR|O|R)?)|FW)$'
 
@@ -149,12 +158,9 @@ def normalize_apartment(string):
 
     if s == '':
         return None
-    
+
     s = re.sub(EDGE_CASE_FLOOR, 'FLOOR', s)
     s = re.sub(APT_NUM, '', s)
     s = re.sub(FLOOR_REGEX, 'FLOOR', s)
     
-    
     return s.replace(' ', '')
-    
-    
