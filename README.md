@@ -67,7 +67,7 @@ make nyc-db DB_HOST=localhost DB_DATABASE=nycdb DB_USER=databaseuser DB_PASSWORD
 
 In the ` /ansible ` folder there are two playbooks. playbook.yml setups a server ready to install the database at /srv/nycdb. api.yml runs the public api at https://api.nycdb.info
 
-To use, create a fresh debian stretch or ubuntu 16 server and configure your ansible hosts file. It might end up looking something like this:
+To use, create a fresh debian stretch server and configure your ansible hosts file. It might end up looking something like this:
 
 ```
 [nycdb]
@@ -80,7 +80,8 @@ After it's done. SSH into the server and run:
 
 ``` bash
 cd /srv/nyc-db
-make nyc-db
+make -j 2 nyc-db DB_PASSWORD=[password from /ansible/credentials/nycdb_psql_pass]
+
 ```
 
 ### Acknowledgments
