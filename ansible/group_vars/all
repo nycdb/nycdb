@@ -10,6 +10,9 @@ nycdb_database_password: "{{ lookup('password', 'credentials/nycdb_psql_pass len
 anon_db_user: anon
 anon_db_password: "{{ lookup('password', 'credentials/anon_psql_pass length=20 chars=ascii_letters,digits') }}"
 
+swapfile_size: 2G
+swapfile_location: /swapfile
+
 certbot_create_if_missing: yes
 certbot_create_method: standalone
 

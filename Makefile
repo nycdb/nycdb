@@ -14,8 +14,7 @@ default: help
 
 NYCDB = nycdb -D $(DB_DATABASE) -H $(DB_HOST) -U $(DB_USER) -P $(DB_PASSWORD)
 
-datasets = pluto_16v2 \
-           pluto_17v1 \
+datasets = pluto_17v1 \
 	   dobjobs \
 	   dof_sales \
 	   hpd_registrations \
@@ -23,6 +22,7 @@ datasets = pluto_16v2 \
 	   hpd_complaints \
 	   dob_complaints \
 	   rentstab \
+	   pluto_16v2 \
 	   acris
 
 nyc-db: $(datasets)
