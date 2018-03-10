@@ -10,12 +10,9 @@ DB_PASSWORD=nycdb
 PGPASSWORD=$(DB_PASSWORD)
 export PGPASSWORD
 
-# use BASH as our shell
-SHELL=/bin/bash
-
 default: help
 
-PY-NYCDB = ./venv/bin/nycdb -D $(DB_DATABASE) -H $(DB_HOST) -U $(DB_USER) -P $(DB_PASSWORD)
+NYCDB = nycdb -D $(DB_DATABASE) -H $(DB_HOST) -U $(DB_USER) -P $(DB_PASSWORD)
 
 datasets = pluto_16v2 \
            pluto_17v1 \
@@ -32,18 +29,11 @@ nyc-db: $(datasets)
 	make verify
 
 $(datasets):
-	$(PY-NYCDB) --download $@
-	$(PY-NYCDB) --load $@
-
-setup: venv src/requirements.txt
-	./venv/bin/pip3 install -r src/requirements.txt --no-binary psycopg2
-	./venv/bin/pip3 install -e ./src
-
-venv:
-	python3 -m venv venv
+	$(NYCDB) --download $@
+	$(NYCDB) --load $@
 
 verify:
-	$(PY-NYCDB) --verify-all
+	$(NYCDB) --verify-all
 
 pg-connection-test:
 	@psql -h $(DB_HOST) -U $(DB_USER) -d $(DB_DATABASE) -c "SELECT NOW()" > /dev/null 2>&1 && echo 'CONNECTION IS WORKING' || echo 'COULD NOT CONNECT'

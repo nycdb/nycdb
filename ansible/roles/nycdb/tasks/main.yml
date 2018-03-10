@@ -19,7 +19,14 @@
   apt:
     update_cache: yes
     name: "{{ item }}"
-  with_items: "{{ nycdb_packages }}"
+  with_items: "{{ postgres_packages }}"
+
+- name: Install psycopg2
+  become: yes
+  pip:
+    name: psycopg2
+    executable: /usr/bin/pip3
+    extra_args: --no-binary psycopg2
 
 - name: Setup postgres db
   become: yes
