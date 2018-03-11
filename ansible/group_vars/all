@@ -29,7 +29,7 @@ certbot_certs:
       - api.nycdb.info
 
 
-postgrest_release_url: https://github.com/begriffs/postgrest/releases/download/v0.4.3.0/postgrest-v0.4.3.0-ubuntu.tar.xz
+postgrest_release_url: https://github.com/begriffs/postgrest/releases/download/v0.4.4.0/postgrest-v0.4.4.0-ubuntu.tar.xz
 
 postgrest_server_port: 4000
 postgrest_max_rows: 5000
@@ -60,7 +60,6 @@ nginx_sites:
     - ssl_stapling on
     - ssl_stapling_verify on
     - ssl_trusted_certificate /etc/letsencrypt/live/{{ root_domain }}/chain.pem
-    - resolver 8.8.4.4 8.8.8.8
     - server_name {{ root_domain }}
     - root /var/www/nycdb
     - location / { try_files /index.html =404; }

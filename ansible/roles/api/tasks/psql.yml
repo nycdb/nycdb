@@ -21,6 +21,7 @@
     name: "{{ anon_db_user }}"
     password: "{{ anon_db_password }}"
     priv: CONNECT
+    encrypted: yes
     role_attr_flags: NOSUPERUSER,NOCREATEDB
 
 - name: grant usage on schema public
