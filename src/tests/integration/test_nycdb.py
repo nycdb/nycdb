@@ -19,11 +19,13 @@ def drop_table(conn, table_name):
         curs.execute('DROP TABLE IF EXISTS {};'.format(table_name))
     conn.commit()
 
+
 def row_count(conn, table_name):
     with conn:
         with conn.cursor() as curs:
             curs.execute('select count(*) from {}'.format(table_name))
             return curs.fetchone()[0]
+
 
 def has_one_row(conn, query):
     with conn:
@@ -31,12 +33,14 @@ def has_one_row(conn, query):
             curs.execute(query)
             return bool(curs.fetchone())
 
+
 def table_columns(conn, table_name):
-    sql ="SELECT column_name FROM information_schema.columns WHERE table_schema = 'public' AND table_name = '{}'".format(table_name)
+    sql = "SELECT column_name FROM information_schema.columns WHERE table_schema = 'public' AND table_name = '{}'".format(table_name)
     with conn:
         with conn.cursor() as curs:
             curs.execute(sql)
-            return [ x[0] for x in curs.fetchall() ]
+            return [x[0] for x in curs.fetchall()]
+
 
 def test_hpd_complaints():
     conn = connection()
@@ -68,7 +72,6 @@ def test_pluto16v2():
 def test_pluto_insert():
     conn = connection()
     with conn.cursor(cursor_factory=psycopg2.extras.DictCursor) as curs:
-        #import pdb; pdb.set_trace()
         curs.execute("select * from pluto_16v2 WHERE bbl = '1008820003'")
         rec = curs.fetchone()
         assert rec is not None
@@ -114,6 +117,7 @@ def test_hpd_registrations():
     assert row_count(conn, 'hpd_contacts') == 100
     conn.close()
 
+
 def test_hpd_registrations_derived_tables():
     conn = connection()
     assert row_count(conn, 'hpd_corporate_owners') > 10
@@ -122,10 +126,12 @@ def test_hpd_registrations_derived_tables():
     assert row_count(conn, 'hpd_registrations_grouped_by_bbl_with_contacts') > 10
     conn.close()
 
+
 def test_hpd_registrations_rows():
     conn = connection()
     assert has_one_row(conn, "select * from hpd_registrations where bbl = '1017510116'")
     conn.close()
+
 
 def test_dof_sales():
     conn = connection()
@@ -155,6 +161,7 @@ def test_dobjobs():
     assert 'applicantname_tsvector' in columns
     conn.close()
 
+
 def test_rentstab():
     conn = connection()
     drop_table(conn, 'rentstab')
@@ -163,6 +170,7 @@ def test_rentstab():
     assert row_count(conn, 'rentstab') == 100
     assert has_one_row(conn, "select 1 where to_regclass('public.rentstab_ucbbl_idx') is NOT NULL")
     conn.close()
+
 
 def test_acris():
     conn = connection()
