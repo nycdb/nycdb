@@ -287,6 +287,20 @@ dobjobs:
         OwnersPhone: text
         JobDescription: text
         DOBRunDate: date
+        JOBS1NO: integer
+        TotalConstructionFloorArea: integer
+        WithdrawalFlag: smallint
+        SignoffDate: date
+        SpecialActionStatus: char(1)
+        SpecialActionDate: date
+        BuildingClass: text
+        JobNoGoodCount: smallint
+        GISLATITUDE: numeric
+        GISLONGITUDE: numeric
+        GISCOUNCILDISTRICT: smallint
+        GISCENSUSTRACT: text
+        GISNTANAME: text
+        GISBIN: integer
         bbl: char(10)
         id: 'serial PRIMARY KEY'
 
