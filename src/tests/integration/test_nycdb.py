@@ -136,7 +136,7 @@ def test_dof_sales():
     assert has_one_row(conn, "select 1 where to_regclass('public.dof_sales_bbl_idx') is NOT NULL")
     conn.close()
 
-    10 + 20 + 10 + 10 + 20
+
 def test_dobjobs():
     conn = connection()
     drop_table(conn, 'dobjobs')
