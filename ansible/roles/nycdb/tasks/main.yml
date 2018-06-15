@@ -31,12 +31,16 @@
 - name: Setup postgres db
   become: yes
   become_user: postgres
+  vars:
+    ansible_ssh_pipelining: true
   postgresql_db:
       name: "{{ nycdb_database_name }}"
       
 - name: Create database user
   become: yes
   become_user: postgres
+  vars:
+    ansible_ssh_pipelining: true
   postgresql_user: 
     db: "{{ nycdb_database_name}}"
     name: "{{ nycdb_database_user }}" 
@@ -47,6 +51,8 @@
 - name: Ensure database user does not have unnecessary privileges
   become: yes
   become_user: postgres
+  vars:
+    ansible_ssh_pipelining: true
   postgresql_user:
     name: "{{ nycdb_database_user }}" 
     role_attr_flags: NOSUPERUSER,NOCREATEDB
@@ -60,6 +66,8 @@
 - name: Clone the nyc-db repo
   become: yes
   become_user: "{{ nycdb_user }}"
+  vars:
+    ansible_ssh_pipelining: true
   git:
     repo: https://github.com/aepyornis/nyc-db.git
     dest: /srv/nyc-db
@@ -76,4 +84,3 @@
   become: yes
   pip:
     name: file:///srv/nyc-db/src
-
