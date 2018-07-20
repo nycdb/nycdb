@@ -33,15 +33,19 @@
     user: nycdb
     state: present
     key: "{{ lookup('file', ssh_public_key_file) }}"
-  
+
+- name: os hardening
+  import_role:
+     name: dev-sec.os-hardening
+
 - name: ssh hardening
   import_role:
     name: dev-sec.ssh-hardening
   vars:
+    ssh_allow_tcp_forwarding: yes
     ssh_permit_tunnel: yes
     ssh_allow_groups: nycdb
     ssh_max_auth_retries: 5
-
 
 - name: Check if nycdb user is locked
   become: yes
@@ -55,3 +59,25 @@
   command: usermod -p "*" nycdb
   when: check_user_lock.rc == 0
   
+
+- name: Write swapfile
+  command: fallocate -l {{ swapfile_size }} {{ swapfile_location }} creates={{ swapfile_location }}
+  register: write_swapfile
+  when: swapfile_size != false
+
+- name: Set swapfile permissions
+  file: path={{ swapfile_location }} mode=600
+  when: swapfile_size != false
+
+- name: Create swapfile
+  command: mkswap {{ swapfile_location }}
+  register: create_swapfile
+  when: swapfile_size != false and write_swapfile.changed
+
+- name: Enable swapfile
+  command: swapon {{ swapfile_location }}
+  when: swapfile_size != false and create_swapfile.changed
+
+- name: Add swapfile to /etc/fstab
+  lineinfile: dest=/etc/fstab line="{{ swapfile_location }}   none    swap    sw    0   0" state=present
+  when: swapfile_size != false

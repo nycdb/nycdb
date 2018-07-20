@@ -10,16 +10,11 @@ DB_PASSWORD=nycdb
 PGPASSWORD=$(DB_PASSWORD)
 export PGPASSWORD
 
-DOCKER_VERSION = 0.1.0
-
-# use BASH as our shell
-SHELL=/bin/bash
-
 default: help
 
-PY-NYCDB = cd src && ./venv/bin/python3 -m nycdb.cli -D $(DB_DATABASE) -H $(DB_HOST) -U $(DB_USER) -P $(DB_PASSWORD)
+NYCDB = nycdb -D $(DB_DATABASE) -H $(DB_HOST) -U $(DB_USER) -P $(DB_PASSWORD)
 
-datasets = pluto_16v2 \
+datasets = pluto_17v1 \
 	   dobjobs \
 	   dof_sales \
 	   hpd_registrations \
@@ -27,23 +22,18 @@ datasets = pluto_16v2 \
 	   hpd_complaints \
 	   dob_complaints \
 	   rentstab \
+	   pluto_16v2 \
 	   acris
 
 nyc-db: $(datasets)
 	make verify
 
 $(datasets):
-	$(PY-NYCDB) --download $@
-	$(PY-NYCDB) --load $@
-
-setup:
-	cd src && make init && ./venv/bin/pip3 install -e .
+	$(NYCDB) --download $@
+	$(NYCDB) --load $@
 
 verify:
-	$(PY-NYCDB) --verify-all
-
-remove-venv:
-	rm -r src/venv
+	$(NYCDB) --verify-all
 
 pg-connection-test:
 	@psql -h $(DB_HOST) -U $(DB_USER) -d $(DB_DATABASE) -c "SELECT NOW()" > /dev/null 2>&1 && echo 'CONNECTION IS WORKING' || echo 'COULD NOT CONNECT'
@@ -57,21 +47,9 @@ db-dump:
 db-dump-bzip:
 	bzip2 --keep nyc-db*.sql
 
-clean: remove-venv
-	rm -rf postgres-data
-	type docker-compose > /dev/null 2>&1 && docker-compose rm -f || /bin/true
 
-docker-run: docker-pull
-	cd docker && mkdir -p postgres-data
-
-docker-pull:
-	docker pull aepyornis/nyc-db:$(DOCKER_VERSION)
-	docker pull adminer:latest
-	docker pull postgres:9.6
-	docker pull begriffs/postgrest:v0.4.2.0
-
-build-nycdb-docker:
-	docker build -f docker/nycdb.docker --tag aepyornis/nyc-db:$(DOCKER_VERSION) .
+launch-docker:
+	docker run --name nycdb -p 5432:5432 -e POSTGRES_PASSWORD=postgres -d postgres:10.3
 
 help:
 	@echo 'NYC-DB: Postgres database of NYC housing data'
@@ -92,6 +70,6 @@ help:
 	@echo 'Look at the README or Makefile for additional scripts'
 
 
-.PHONY: $(datasets) nyc-db setup
-.PHONY: db-dump db-dump-bzip pg-connection-test
-.PHONY: clean remove-venv default help
+.PHONY: $(datasets) nyc-db setup verify
+.PHONY: db-dump db-dump-bzip pg-connection-test db-shell launch-docker
+.PHONY: default help

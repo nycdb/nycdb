@@ -1,10 +1,4 @@
 ---
-- name: get certs with lets encrypt
-  become: yes
-  import_role:
-    name: geerlingguy.certbot
-  tags: certs
-
 - name: Setup postgres users
   import_tasks: psql.yml
   tags: psql
@@ -76,6 +70,15 @@
     mode: 0755
   tags: nginx
 
+- name: Create /etc/nginx/certs
+  file:
+    dest: /etc/nginx/certs
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  tags: nginx
+
 - name: Copy nginx cors config
   copy:
     src: cors.conf
@@ -84,6 +87,27 @@
     group: root
     mode: 0755
   tags: nginx
+  
+- name: Copy TLS Cert
+  copy:
+    content: "{{ tls_certificate }}"
+    dest: /etc/nginx/certs/certificate.pem
+    owner: root
+    group: root
+    mode: 0600
+  no_log: true
+  tags: nginx
+
+- name: Copy TLS Key
+  copy:
+    content: "{{ tls_key }}"
+    dest: /etc/nginx/certs/key.pem
+    owner: root
+    group: root
+    mode: 0600
+  no_log: true
+  tags: nginx
+
 
 - name: Setup nginx
   import_role:

@@ -287,6 +287,20 @@ dobjobs:
         OwnersPhone: text
         JobDescription: text
         DOBRunDate: date
+        JOBS1NO: integer
+        TotalConstructionFloorArea: integer
+        WithdrawalFlag: smallint
+        SignoffDate: date
+        SpecialActionStatus: char(1)
+        SpecialActionDate: date
+        BuildingClass: text
+        JobNoGoodCount: smallint
+        GISLATITUDE: numeric
+        GISLONGITUDE: numeric
+        GISCOUNCILDISTRICT: smallint
+        GISCENSUSTRACT: text
+        GISNTANAME: text
+        GISBIN: integer
         bbl: char(10)
         id: 'serial PRIMARY KEY'
 
@@ -401,8 +415,6 @@ hpd_registrations:
       url: https://data.cityofnewyork.us/api/views/feu5-w2e2/rows.csv?accessType=DOWNLOAD
       dest: hpd_contacts.csv
   sql:
-    - hpd_registrations/address_cleanup.sql
-    - hpd_registrations/registrations_cleanup.sql
     - hpd_registrations/add_bbl.sql
     - hpd_registrations/anyarray_uniq.sql
     - hpd_registrations/anyarray_remove_null.sql
@@ -611,6 +623,8 @@ acris:
     -
       url: https://data.cityofnewyork.us/api/views/q9kp-jvxv/rows.csv?accessType=DOWNLOAD
       dest: acris_ucc_collateral_codes.csv
+  sql:
+    - acris.sql
   schema:
     -
       table_name: real_property_legals

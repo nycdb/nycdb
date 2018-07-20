@@ -1,4 +1,5 @@
 from .transform import with_geo, with_bbl, to_csv, extract_csvs_from_zip, skip_fields
+from .transform import hpd_registrations_address_cleanup, hpd_contacts_address_cleanup
 from .dof_parser import parse_dof_file
 
 
@@ -23,11 +24,11 @@ def hpd_violations(dataset):
 
 
 def hpd_registrations(dataset):
-    return to_csv(dataset.files[0].dest)
+    return hpd_registrations_address_cleanup(to_csv(dataset.files[0].dest))
 
 
 def hpd_contacts(dataset):
-    return to_csv(dataset.files[1].dest)
+    return hpd_contacts_address_cleanup(to_csv(dataset.files[1].dest))
 
 
 def dof_sales(dataset):

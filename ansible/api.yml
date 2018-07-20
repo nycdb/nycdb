@@ -3,6 +3,14 @@
   hosts: nycdb
   become: yes
 
+  pre_tasks:
+    - name: load secret vars from ~/nycdb.yml
+      include_vars:
+        file: ~/nycdb.yml
+      tags: always
+
   roles:
-    - common
-    - api
+   - common
+   - api
+   - sqlpad
+
