@@ -14,7 +14,10 @@ TABLES = {
     'dof_sales': {'dof_sales': 75000},
     'rentstab': {'rentstab': 45000},
     'dob_complaints': {'dob_complaints': 1000000},
-    'hpd_complaints': {'hpd_complaints': 1000000},
+    'hpd_complaints': {
+        'hpd_complaints': 1000000,
+        'hpd_complaint_problems': 2000000
+    },
     'acris': {
         'real_property_remarks': 1000000,
         'real_property_legals': 1000000,
