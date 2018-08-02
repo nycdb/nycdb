@@ -42,8 +42,18 @@ def table_columns(conn, table_name):
             return [x[0] for x in curs.fetchall()]
 
 
+def test_hpd_complaint_problems():
+    conn = connection()
+    drop_table(conn, 'hpd_complaint_problems')
+    drop_table(conn, 'hpd_complaints')
+    hpd_complaints = nycdb.Dataset('hpd_complaints', args=ARGS)
+    hpd_complaints.db_import()
+    assert row_count(conn, 'hpd_complaint_problems') == 9
+    conn.close()
+
 def test_hpd_complaints():
     conn = connection()
+    drop_table(conn, 'hpd_complaint_problems')
     drop_table(conn, 'hpd_complaints')
     hpd_complaints = nycdb.Dataset('hpd_complaints', args=ARGS)
     hpd_complaints.db_import()
