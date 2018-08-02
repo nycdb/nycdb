@@ -44,7 +44,7 @@ def table_columns(conn, table_name):
 
 def test_hpd_complaint_problems():
     conn = connection()
-    drop_table(conn, 'hpd_complaint_problembs')
+    drop_table(conn, 'hpd_complaint_problems')
     drop_table(conn, 'hpd_complaints')
     hpd_complaints = nycdb.Dataset('hpd_complaints', args=ARGS)
     hpd_complaints.db_import()
