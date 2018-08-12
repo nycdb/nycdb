@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name="nycdb",
-    version="0.1.6",
+    version="0.1.7",
     url="https://github.com/aepyornis/nyc-db",
 
     author="ziggy",
@@ -12,7 +12,6 @@ setuptools.setup(
 
     description="database of nyc housing data",
     long_description=open('README.rst').read(),
-
 
     entry_points={
         'console_scripts': [
