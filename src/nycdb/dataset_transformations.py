@@ -11,6 +11,10 @@ def pluto_17v1(dataset):
     return with_geo(to_csv(extract_csvs_from_zip(dataset.files[0].dest)))
 
 
+def pluto_18v1(dataset):
+    return with_geo(to_csv(extract_csvs_from_zip(dataset.files[0].dest)))
+
+
 def hpd_complaints(dataset):
     return with_bbl(to_csv(dataset.files[0].dest))
 
