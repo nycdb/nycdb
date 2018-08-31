@@ -28,6 +28,9 @@ Here are the latest versions available to download from S3:
 - [nyc-db-2018-06-18.sql.bz2](https://s3.amazonaws.com/nyc-db/nyc-db-2018-06-18.sql.bz2)
 
 
+[![License: CC BY-NC-SA 4.0](https://licensebuttons.net/l/by-nc-sa/4.0/80x15.png)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+
+
 It's ~2.5gb compressed and ~14gb decompressed.
 
 If you have aws cli installed, you can download it easily this way: ``` aws s3 cp s3://nyc-db/nyc-db-2018-08-05.sql.bz2 ./ ```
@@ -84,3 +87,5 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ```
+
+The database files provided on this page are licensed [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode).
