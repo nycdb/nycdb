@@ -13,6 +13,9 @@ For more background information on this project, the api, and to download the fu
 How to use
 **********
 
+**Requirements**:  Postgres and Python3
+
+
 After installing via pip:
 
 .. code-block:: bash
@@ -21,6 +24,7 @@ After installing via pip:
 
 
 You'll be able to use the program `nycdb` to import a database.
+
 
 For example to load all of hpd violations:
 

@@ -26,7 +26,6 @@ Here are the latest versions available to download from S3:
 
 - [nyc-db-2018-08-05.sql.bz2](https://s3.amazonaws.com/nyc-db/nyc-db-2018-08-05.sql.bz2)
 - [nyc-db-2018-06-18.sql.bz2](https://s3.amazonaws.com/nyc-db/nyc-db-2018-06-18.sql.bz2)
-- [nyc-db-2018-05-20.sql.bz2](https://s3.amazonaws.com/nyc-db/nyc-db-2018-05-20.sql.bz2)
 
 
 It's ~2.5gb compressed and ~14gb decompressed.
@@ -39,21 +38,11 @@ Load the db: ``` psql -d database-name -f nyc-db-2018-08-05.sql ```
 
 ## Build it yourself!
 
-###  Installation via pypi and using the nycdb cli tool
+### nycdb cli
 
-*Requirements*
+To manage and create copies of the database yourself, you can see the nycdb command line tool available on pypi: ` pip3 install nycdb `
 
-Postgres and Python3. 
-
-*Setup*
-
-Install the nycdb package using pip: ```pip3 install nycdb ``` This will install the program ` nycdb `.
-
-To download a dataset use: ``` nycdb --download [dataset-name] ```
-
-To insert a dataset into postgres: ``` nycdb --load [dataset-name] -U [pg-user] -P [pg-dataset] -D [pg-database] ```
-
-see ` src/README.rst ` for more information on the CLI program.
+see `src/README.rst` for more information on using the command line tool.
 
 ### Using the Makefile to build the database
 
@@ -63,26 +52,9 @@ As a convenience you can create the database in one go using this command:
 make nyc-db DB_HOST=localhost DB_DATABASE=nycdb DB_USER=databaseuser DB_PASSWORD=mypassword
 ```
 
-## Ansible playbook
+### Setup the database and API on a cloud server
 
-In the ` /ansible ` folder there are two playbooks. playbook.yml setups a server ready to install the database at /srv/nycdb. api.yml runs the public api at https://api.nycdb.info
-
-To use, create a fresh debian stretch server and configure your ansible hosts file. It might end up looking something like this:
-
-```
-[nycdb]
-xx.xx.xx.xx ansible_user=root ansible_ssh_private_key_file=/path/to/ssh/key
-```
-
-Then run the playbook: ``` cd ansible && ansible-playbook playbook.yml ```
-
-After it's done. SSH into the server and run:
-
-``` bash
-cd /srv/nyc-db
-make -j 2 nyc-db DB_PASSWORD=[password from /ansible/credentials/nycdb_psql_pass]
-
-```
+See the folder `/ansible` for ansible playbooks to setup the database on a sever.
 
 ### Acknowledgments
 
@@ -97,7 +69,7 @@ make -j 2 nyc-db DB_PASSWORD=[password from /ansible/credentials/nycdb_psql_pass
 
 ```
 NYC-DB - Postgres database of NYC housing data
-Copyright (C) 2016-2017 Ziggy Mintz
+Copyright (C) 2016-2018 Ziggy Mintz
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
