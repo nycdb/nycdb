@@ -4,6 +4,9 @@ GPG_KEYID :=  0xB95EC83A0D72CBA1
 init: venv requirements.txt
 	./venv/bin/pip3 install -r requirements.txt --no-binary psycopg2
 
+install:
+	./venv/bin/pip3 install -e .
+
 test:
 	pytest tests/unit/
 
