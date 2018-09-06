@@ -35,6 +35,7 @@ TABLES = {
         'acris_property_type_codes': 46,
         'acris_ucc_collateral_codes': 8
     }
+    'evictions': {'evictions': 37000}
 }
 
 

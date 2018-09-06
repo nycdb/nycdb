@@ -60,3 +60,6 @@ def acris(dataset, schema):
         return skip_fields(_to_csv, [s.lower() for s in schema['skip']])
     else:
         return _to_csv
+
+def evictions(dataset):
+    return to_csv(dataset.files[0].dest)
