@@ -42,8 +42,18 @@ def table_columns(conn, table_name):
             return [x[0] for x in curs.fetchall()]
 
 
+def test_hpd_complaint_problems():
+    conn = connection()
+    drop_table(conn, 'hpd_complaint_problems')
+    drop_table(conn, 'hpd_complaints')
+    hpd_complaints = nycdb.Dataset('hpd_complaints', args=ARGS)
+    hpd_complaints.db_import()
+    assert row_count(conn, 'hpd_complaint_problems') == 9
+    conn.close()
+
 def test_hpd_complaints():
     conn = connection()
+    drop_table(conn, 'hpd_complaint_problems')
     drop_table(conn, 'hpd_complaints')
     hpd_complaints = nycdb.Dataset('hpd_complaints', args=ARGS)
     hpd_complaints.db_import()
@@ -89,7 +99,16 @@ def test_pluto17v1():
     assert row_count(conn, 'pluto_17v1') == 500
     conn.close()
 
-    
+
+def test_pluto18v1():
+    conn = connection()
+    drop_table(conn, 'pluto_18v1')
+    pluto = nycdb.Dataset('pluto_18v1', args=ARGS)
+    pluto.db_import()
+    assert row_count(conn, 'pluto_18v1') == 50
+    conn.close()
+
+
 def test_hpd_violations():
     conn = connection()
     drop_table(conn, 'hpd_violations')

@@ -1,16 +1,19 @@
-sudo: required
+sudo: true
+dist: xenial
 
 language: python
 python:
   - 3.5
   - 3.6
+  - 3.7
+  
   
 services:
   - docker
 
 before_install:
-  - docker pull postgres:10.3
-  - docker run -p 127.0.0.1:7777:5432 -e POSTGRES_PASSWORD=password -d postgres:10.3
+  - docker pull postgres:10.4
+  - docker run -p 127.0.0.1:7777:5432 -e POSTGRES_PASSWORD=password -d postgres:10.4
   - ./src/scripts/wait-for-pg.sh
 
 install:
@@ -18,3 +21,8 @@ install:
 
 script:
   - cd src && pytest
+
+
+matrix:
+  allow_failures:
+  - python: 3.7

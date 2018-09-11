@@ -4,13 +4,16 @@ GPG_KEYID :=  0xB95EC83A0D72CBA1
 init: venv requirements.txt
 	./venv/bin/pip3 install -r requirements.txt --no-binary psycopg2
 
+install:
+	./venv/bin/pip3 install -e .
+
 test:
 	pytest tests/unit/
 
 test-unit: test
 
 test-integration:
-	docker run --name nycdb-test -p 7777:5432 -e POSTGRES_PASSWORD=password -d postgres:10.3
+	docker run --name nycdb-test -p 7777:5432 -e POSTGRES_PASSWORD=password -d postgres:10.4
 	./scripts/wait-for-pg.sh
 	./venv/bin/pytest tests/integration || true
 	docker stop nycdb-test && docker rm -v nycdb-test
