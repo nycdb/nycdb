@@ -34,7 +34,8 @@ TABLES = {
         'acris_document_control_codes': 123,
         'acris_property_type_codes': 46,
         'acris_ucc_collateral_codes': 8
-    }
+    },
+    'marshal_evictions_17': {'marshal_evictions_17': 17000} 
 }
 
 
