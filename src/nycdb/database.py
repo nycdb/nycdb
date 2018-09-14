@@ -9,6 +9,13 @@ class Database:
     def __init__(self, args, table_name=None):
         self.conn = psycopg2.connect(user=args.user, password=args.password, host=args.host, database=args.database, port=args.port)
         self.table_name = table_name
+        self.connection_params = {
+            'user': args.user,
+            'password': args.password,
+            'host': args.host,
+            'database': args.database,
+            'port': args.port
+        }
 
     def sql(self, SQL):
         """ executes single sql statement """
@@ -60,3 +67,6 @@ class Database:
     def row_count(self, table_name):
         query = "SELECT COUNT(*) from {0}".format(table_name)
         return self.execute_and_fetchone(query)
+
+    def password_file_contents(self):
+        return "{host}:{port}:{database}:{user}:{password}".format(**self.connection_params)
