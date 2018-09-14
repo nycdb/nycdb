@@ -1,16 +1,17 @@
+import datetime
 import logging
 import itertools
 import os
-
+import subprocess
+from functools import lru_cache
 
 from . import verify
-from functools import lru_cache
 from . import dataset_transformations
 from . import sql
 from .database import Database
 from .typecast import Typecast
 from .file import File
-from .utility import read_yml, list_wrap
+from .utility import read_yml, list_wrap, merge
 
 BATCH_SIZE = 1000
 
@@ -115,3 +116,21 @@ class Dataset:
     def verify(self):
         self.setup_db()
         verify.check_dataset(self.db, self.name)
+
+    def dump(self):
+        """Creates .sql dump file of the datasets"""
+        tables = ['--table={}'.format(s['table_name']) for s in self.schemas]
+        file_arg = '--file=./{}-{}.sql'.format(self.name, datetime.date.today().isoformat())
+        cmd = ["pg_dump", "--no-owner", "--clean", "--if-exists", "-w"] + tables + [file_arg]
+        subprocess.run(cmd, env=self.pg_env(), check=True)
+
+    def pg_env(self):
+        return merge(
+            os.environ.copy(),
+            {
+                'PGHOST': self.args.host,
+                'PGPORT': self.args.port,
+                'PGUSER': self.args.user,
+                'PGDATABASE': self.args.database,
+                'PGPASSWORD': self.args.password
+            })
