@@ -6,7 +6,7 @@ Residents, lawyers, tenants, and organizers who want to use data in their strugg
 
 NYC-DB builds a postgresql database containing the following datasets:
 
-- Department of City Planning's Pluto: versions 16v2 and 17v1
+- Department of City Planning's Pluto: versions 16v2, 17v1, and 18v1
 - DOB Job Filings
 - DOB Complaints
 - HPD Violations
@@ -15,6 +15,7 @@ NYC-DB builds a postgresql database containing the following datasets:
 - Department of Finance Rolling Sales
 - Tax bills - Rent Stabilization Unit Counts (John Krauss's data)
 - ACRIS
+- 2017 Marshal Evictions
 
 NYC-DB is a python3 command line program that downloads and loads datasets into postgres.
 
@@ -68,7 +69,7 @@ See the folder `/ansible` for ansible playbooks to setup the database on a sever
 
 - census data
 
-#### LICENSE: GPLv3
+#### LICENSE: AGPLv3
 
 ```
 NYC-DB - Postgres database of NYC housing data
