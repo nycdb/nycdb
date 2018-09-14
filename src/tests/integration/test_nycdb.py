@@ -225,3 +225,16 @@ def test_acris():
     assert row_count(conn, 'acris_ucc_collateral_codes') == 8
     assert has_one_row(conn, "select * from real_property_legals where bbl = '4131600009'")
     conn.close()
+
+
+def test_marshal_evictions_17():
+    conn = connection()
+    evictions = nycdb.Dataset('marshal_evictions_17', args=ARGS)
+    evictions.db_import()
+    assert row_count(conn, 'marshal_evictions_17') == 10
+    test_id = '60479/177111610280'
+    with conn.cursor(cursor_factory=psycopg2.extras.DictCursor) as curs:
+        curs.execute("select * from marshal_evictions_17 WHERE uniqueid = '{}'".format(test_id))
+        rec = curs.fetchone()
+        assert rec is not None
+        assert rec['lat'] == Decimal('40.71081')

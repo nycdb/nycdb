@@ -12,8 +12,8 @@ services:
   - docker
 
 before_install:
-  - docker pull postgres:10.4
-  - docker run -p 127.0.0.1:7777:5432 -e POSTGRES_PASSWORD=password -d postgres:10.4
+  - docker pull postgres:10.5
+  - docker run -p 127.0.0.1:7777:5432 -e POSTGRES_PASSWORD=password -d postgres:10.5
   - ./src/scripts/wait-for-pg.sh
 
 install:
