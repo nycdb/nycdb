@@ -8,7 +8,7 @@ ARGS = SimpleNamespace(user='postgres', password='password', host='127.0.0.1', d
 @patch('psycopg2.connect')
 def test_init(psycopg2_connect_mock):
     db = nycdb.Database(ARGS, 'test_table')
-    psycopg2_connect_mock.assert_called_once()
+    assert psycopg2_connect_mock.call_count == 1
 
     assert db.table_name == 'test_table'
 
