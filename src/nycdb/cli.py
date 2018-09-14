@@ -14,10 +14,10 @@ def parse_args():
     parser.add_argument('--list-datasets', action='store_true', help='lists all datasets')
     parser.add_argument('--verify-all', action='store_true', help='verifies all datasets')
     # DB CONNECTION
-    parser.add_argument("-U", "--user", help="Postgres user. default: postgres", default="postgres")
-    parser.add_argument("-P", "--password", help="Postgres password. default: postgres", default="postgres")
+    parser.add_argument("-U", "--user", help="Postgres user. default: nycdb", default="nycdb")
+    parser.add_argument("-P", "--password", help="Postgres password. default: nycdb", default="nycdb")
     parser.add_argument("-H", "--host", help="Postgres host: default: 127.0.0.1", default="127.0.0.1")
-    parser.add_argument("-D", "--database", help="postgres database: default: postgres", default="postgres")
+    parser.add_argument("-D", "--database", help="postgres database: default: nycdb", default="nycdb")
     parser.add_argument("--port", help="Postgres port: default: 5432", default="5432")
     # change location of data dir
     parser.add_argument("--root-dir", help="location of data directory", default="./data")
