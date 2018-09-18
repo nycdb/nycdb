@@ -52,6 +52,8 @@ def dobjobs(dataset):
 def rentstab(dataset):
     return to_csv(dataset.files[0].dest)
 
+def rentstab_summary(dataset):
+    return to_csv(dataset.files[0].dest)
 
 def acris(dataset, schema):
     dest_file = next(filter(lambda f: schema['table_name'] in f.dest, dataset.files))
