@@ -91,10 +91,9 @@ def to_csv(file_path_or_generator):
             yield row
 
 
-def with_bbl(table):
+def with_bbl(table, borough_key):
     for row in table:
-        borough = 'boro' if 'boro' in row else 'borough'
-        yield merge(row, {'bbl': bbl(row[borough], row['block'], row['lot'])})
+        yield merge(row, {'bbl': bbl(row[borough_key], row['block'], row['lot'])})
 
 
 def text_to_date(table, date_columns):
