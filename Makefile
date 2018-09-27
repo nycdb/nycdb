@@ -14,7 +14,8 @@ default: help
 
 NYCDB = nycdb -D $(DB_DATABASE) -H $(DB_HOST) -U $(DB_USER) -P $(DB_PASSWORD)
 
-datasets = pluto_17v1 \
+datasets = acris \
+	   pluto_18v1 \
 	   dobjobs \
 	   dof_sales \
 	   hpd_registrations \
@@ -22,8 +23,7 @@ datasets = pluto_17v1 \
 	   hpd_complaints \
 	   dob_complaints \
 	   rentstab \
-	   pluto_16v2 \
-	   acris
+	   marshal_evictions_17
 
 nyc-db: $(datasets)
 	make verify
