@@ -4,7 +4,7 @@ from .dof_parser import parse_dof_file
 
 
 def dob_violations(dataset):
-    return text_to_date(['issuedate'], with_bbl(to_csv(dataset.files[0].dest)))
+    return text_to_date(['issuedate', 'dispositiondate'], with_bbl(to_csv(dataset.files[0].dest)))
 
 
 def pluto_16v2(dataset):

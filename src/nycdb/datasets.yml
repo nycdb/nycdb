@@ -8,24 +8,24 @@ dob_violations:
     table_name: dob_violations
     fields:
       BBL: char(10)
+      IsnDobBisViol: text
       boro: char(1)
+      Bin: text
       block: text
       lot: text
-      Bin: text
-      EcbNumber: text
       IssueDate: date
-      Number: text
-      DeviceNumber: text
-      HouseNumber: text
-      Description: text
-      ViolationType: text
-      IsnDobBisViol: text
+      ViolationTypeCode: text
       ViolationNumber: text
+      HouseNumber: text
       Street: text
       DispositionDate: date
       DispositionComments: text
-      ViolationTypeCode: text
+      DeviceNumber: text
+      Description: text
+      EcbNumber: text
+      Number: text
       ViolationCategory: text
+      ViolationType: text
   sql:
     - dob_violations.sql
 
