@@ -98,6 +98,10 @@ def with_bbl(table):
 
 
 def text_to_date(date_columns, table):
+    """
+    Transforms date columns that were stored as text ("19991231")
+    into an actual datetime object
+    """
     for row in table:
         for date_column in date_columns:
             try:

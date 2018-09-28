@@ -26,6 +26,8 @@ dob_violations:
       DispositionComments: text
       ViolationTypeCode: text
       ViolationCategory: text
+  sql:
+    - dob_violations.sql
 
 pluto_18v1:
   files:
