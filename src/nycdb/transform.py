@@ -91,8 +91,9 @@ def to_csv(file_path_or_generator):
             yield row
 
 
-def with_bbl(table, borough_key):
+def with_bbl(table):
     for row in table:
+        borough_key = 'boro' if 'boro' in row else 'borough'
         yield merge(row, {'bbl': bbl(row[borough_key], row['block'], row['lot'])})
 
 

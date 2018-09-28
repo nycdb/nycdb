@@ -4,7 +4,7 @@ from .dof_parser import parse_dof_file
 
 
 def dob_violations(dataset):
-    return text_to_date(with_bbl(to_csv(dataset.files[0].dest), 'boro'), ['issuedate'])
+    return text_to_date(with_bbl(to_csv(dataset.files[0].dest)), ['issuedate'])
 
 
 def pluto_16v2(dataset):
@@ -20,7 +20,7 @@ def pluto_18v1(dataset):
 
 
 def hpd_complaints(dataset):
-    return with_bbl(to_csv(dataset.files[0].dest), 'borough')
+    return with_bbl(to_csv(dataset.files[0].dest))
 
 
 def hpd_complaint_problems(dataset):
@@ -45,12 +45,12 @@ def hpd_contacts(dataset):
 
 def dof_sales(dataset):
     for f in dataset.files:
-        for row in with_bbl(parse_dof_file(f.dest), 'borough'):
+        for row in with_bbl(parse_dof_file(f.dest)):
             yield row
 
 
 def dobjobs(dataset):
-    return with_bbl(to_csv(dataset.files[0].dest), 'borough')
+    return with_bbl(to_csv(dataset.files[0].dest))
 
 
 def rentstab(dataset):
