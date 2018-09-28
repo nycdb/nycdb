@@ -97,7 +97,7 @@ def with_bbl(table):
         yield merge(row, {'bbl': bbl(row[borough_key], row['block'], row['lot'])})
 
 
-def text_to_date(table, date_columns):
+def text_to_date(date_columns, table):
     for row in table:
         for date_column in date_columns:
             try:

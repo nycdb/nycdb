@@ -4,7 +4,7 @@ from .dof_parser import parse_dof_file
 
 
 def dob_violations(dataset):
-    return text_to_date(with_bbl(to_csv(dataset.files[0].dest)), ['issuedate'])
+    return text_to_date(['issuedate'], with_bbl(to_csv(dataset.files[0].dest)))
 
 
 def pluto_16v2(dataset):
@@ -64,6 +64,7 @@ def acris(dataset, schema):
         return skip_fields(_to_csv, [s.lower() for s in schema['skip']])
     else:
         return _to_csv
+
 
 def marshal_evictions_17(dataset):
     return to_csv(dataset.files[0].dest)
