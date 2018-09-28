@@ -1,11 +1,13 @@
 import nycdb
 import os
+from datetime import datetime
 
 
 def test_extract_csvs_from_zip():
     test_csv_file = os.path.join(os.path.dirname(__file__), 'cats.zip')
     csv_content = nycdb.transform.extract_csvs_from_zip(test_csv_file)
-    result = ["name,superpower\n", "alice,eating\n", "fluffy,purring\n", "meowses,sitting\n", "pickles,looking out the window\n"]
+    result = ["name,superpower\n", "alice,eating\n", "fluffy,purring\n",
+              "meowses,sitting\n", "pickles,looking out the window\n"]
     assert list(csv_content) == result
 
 
@@ -22,16 +24,33 @@ def test_zip_to_csv():
     test_csv_file = os.path.join(os.path.dirname(__file__), 'cats.zip')
     out = list(nycdb.transform.to_csv(nycdb.transform.extract_csvs_from_zip(test_csv_file)))
     assert len(out) == 4
-    assert out[0] == { 'name': 'alice', 'superpower': 'eating' }
-    assert out[1] == { 'name': 'fluffy', 'superpower': 'purring' }
-    assert out[2] == { 'name': 'meowses', 'superpower': 'sitting' }
+    assert out[0] == {'name': 'alice', 'superpower': 'eating'}
+    assert out[1] == {'name': 'fluffy', 'superpower': 'purring'}
+    assert out[2] == {'name': 'meowses', 'superpower': 'sitting'}
 
 
-def test_to_bbl():
-    table = [ { 'borough': 'queens', 'block': '1', 'lot': '1' },{ 'borough': 'queens', 'block': '1', 'lot': '2' } ]
+def test_to_bbl_with_borough_field():
+    table = [{'borough': 'queens', 'block': '1', 'lot': '1'}, {'borough': 'queens', 'block': '1', 'lot': '2'}]
     out = list(nycdb.transform.with_bbl(table))
-    assert out[0] == { 'borough': 'queens', 'block': '1', 'lot': '1', 'bbl': '4000010001' }
-    assert out[1] == { 'borough': 'queens', 'block': '1', 'lot': '2', 'bbl': '4000010002' }
+    assert out[0] == {'borough': 'queens', 'block': '1', 'lot': '1', 'bbl': '4000010001'}
+    assert out[1] == {'borough': 'queens', 'block': '1', 'lot': '2', 'bbl': '4000010002'}
+
+
+def test_to_bbl_with_boro_field():
+    table = [{'boro': 'queens', 'block': '1', 'lot': '1'}, {'boro': 'queens', 'block': '1', 'lot': '2'}]
+    out = list(nycdb.transform.with_bbl(table))
+    assert out[0] == {'boro': 'queens', 'block': '1', 'lot': '1', 'bbl': '4000010001'}
+    assert out[1] == {'boro': 'queens', 'block': '1', 'lot': '2', 'bbl': '4000010002'}
+
+
+def test_text_to_date():
+    table = [{'issuedate': '19991231', 'anotherdatefield': '20000101'},
+             {'issuedate': 'malformed', 'anotherdatefield': '20000101'}]
+    out = list(nycdb.transform.text_to_date(['issuedate', 'anotherdatefield'], table))
+
+    assert out[0] == {'issuedate': datetime(
+        1999, 12, 31, 0, 0), 'anotherdatefield': datetime(2000, 1, 1, 0, 0)}
+    assert out[1] == {'issuedate': datetime(1, 1, 1, 0, 0), 'anotherdatefield': datetime(2000, 1, 1, 0, 0)}
 
 
 def test_flip_numbers_nothing_to_flip():
@@ -50,4 +69,4 @@ def test_skip_fields():
     table = [{'a': 1, 'b': 2, 'c': 3}, {'a': 'x', 'b': 'y', 'c': 'y'}]
     fields_to_skip = frozenset(['c'])
     out = list(nycdb.transform.skip_fields(table, fields_to_skip))
-    assert out == [{'a': 1, 'b': 2 }, {'a': 'x', 'b': 'y'}]
+    assert out == [{'a': 1, 'b': 2}, {'a': 'x', 'b': 'y'}]
