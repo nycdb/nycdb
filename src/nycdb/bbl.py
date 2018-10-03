@@ -1,4 +1,5 @@
 """ create BBL  """
+import re
 
 manhattan_values = [ 'manhattan', 'mn', '1', 1 ]
 bronx_values = [ 'bronx', 'the bronx', 'bx', '2', 2 ]
@@ -12,7 +13,7 @@ def boro_to_code(boro):
         b = boro.strip().lower()
     else:
         b = boro
-        
+
     if b in manhattan_values:
         code = '1'
     elif b in bronx_values:
@@ -38,8 +39,21 @@ def lot_length_helper(lot):
         # print(lot + " is more than 5 chars long!")
         return '0000'
 
+def is_empty(i):
+    """
+    Determines if i is empty
+    """
+    if isinstance(i, int):
+        return False
+
+    if isinstance(i, str) and re.match(r'^\d+$', i.strip()):
+        return False
+
+    return True
+
+
 def bbl(boro, block, lot):
-    if boro is None or block is None or lot is None:
+    if boro is None or is_empty(block) or is_empty(lot):
         return None
-    else:
-        return boro_to_code(boro) + str(block).zfill(5) + lot_length_helper(str(lot))
+
+    return boro_to_code(boro) + str(block).zfill(5) + lot_length_helper(str(lot))

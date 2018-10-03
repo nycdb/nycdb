@@ -1061,3 +1061,4 @@ oath_hearings:
       Charge10CodeSection: text
       Charge10CodeDescription: text
       Charge10InfractionAmount: numeric
+      BBL: char(10)

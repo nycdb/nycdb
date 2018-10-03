@@ -90,10 +90,11 @@ def to_csv(file_path_or_generator):
             yield row
 
 
-def with_bbl(table):
+
+def with_bbl(table, borough='borough', block='block', lot='lot'):
     for row in table:
-        borough_key = 'boro' if 'boro' in row else 'borough'
-        yield merge(row, {'bbl': bbl(row[borough_key], row['block'], row['lot'])})
+        yield merge(row, {'bbl': bbl(row[borough], row[block], row[lot])})
+
 
 
 p4j = '+proj=lcc +lat_1=40.66666666666666 +lat_2=41.03333333333333 +lat_0=40.16666666666666 +lon_0=-74 +x_0=300000 +y_0=0 +datum=NAD83 +units=us-ft +no_defs '

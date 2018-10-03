@@ -4,7 +4,7 @@ from .dof_parser import parse_dof_file
 
 
 def dob_violations(dataset):
-    return with_bbl(to_csv(dataset.files[0].dest))
+    return with_bbl(to_csv(dataset.files[0].dest), borough='boro')
 
 
 def pluto_16v2(dataset):
@@ -71,4 +71,7 @@ def marshal_evictions_17(dataset):
 
 
 def oath_hearings(dataset):
-    return to_csv(dataset.files[0].dest)
+    return with_bbl(to_csv(dataset.files[0].dest),
+                    borough='violationlocationborough',
+                    block='violationlocationblockno',
+                    lot='violationlocationlotno')
