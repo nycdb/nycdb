@@ -68,3 +68,7 @@ def acris(dataset, schema):
 
 def marshal_evictions_17(dataset):
     return to_csv(dataset.files[0].dest)
+
+
+def oath_hearings(dataset):
+    return to_csv(dataset.files[0].dest)

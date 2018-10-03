@@ -238,3 +238,11 @@ def test_marshal_evictions_17():
         rec = curs.fetchone()
         assert rec is not None
         assert rec['lat'] == Decimal('40.71081')
+
+
+def test_oath_hearings():
+    conn = connection()
+    drop_table(conn, 'oath_hearings')
+    oath_hearings = nycdb.Dataset('oath_hearings', args=ARGS)
+    oath_hearings.db_import()
+    assert row_count(conn, 'oath_hearings') == 100
