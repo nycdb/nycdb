@@ -1,10 +1,10 @@
-from .transform import with_geo, with_bbl, to_csv, extract_csvs_from_zip, skip_fields, text_to_date
+from .transform import with_geo, with_bbl, to_csv, extract_csvs_from_zip, skip_fields
 from .transform import hpd_registrations_address_cleanup, hpd_contacts_address_cleanup
 from .dof_parser import parse_dof_file
 
 
 def dob_violations(dataset):
-    return text_to_date(['issuedate', 'dispositiondate'], with_bbl(to_csv(dataset.files[0].dest)))
+    return with_bbl(to_csv(dataset.files[0].dest))
 
 
 def pluto_16v2(dataset):

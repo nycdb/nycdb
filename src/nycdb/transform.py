@@ -97,20 +97,6 @@ def with_bbl(table):
         yield merge(row, {'bbl': bbl(row[borough_key], row['block'], row['lot'])})
 
 
-def text_to_date(date_columns, table):
-    """
-    Transforms date columns that were stored as text ("19991231")
-    into an actual datetime object
-    """
-    for row in table:
-        for date_column in date_columns:
-            try:
-                row[date_column] = datetime.strptime(row[date_column], '%Y%m%d')
-            except ValueError:
-                row[date_column] = datetime.min
-        yield row
-
-
 p4j = '+proj=lcc +lat_1=40.66666666666666 +lat_2=41.03333333333333 +lat_0=40.16666666666666 +lon_0=-74 +x_0=300000 +y_0=0 +datum=NAD83 +units=us-ft +no_defs '
 ny_state_plane = pyproj.Proj(p4j, preserve_units=True)
 wgs84 = pyproj.Proj(init="epsg:4326")

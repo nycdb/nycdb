@@ -43,16 +43,6 @@ def test_to_bbl_with_boro_field():
     assert out[1] == {'boro': 'queens', 'block': '1', 'lot': '2', 'bbl': '4000010002'}
 
 
-def test_text_to_date():
-    table = [{'issuedate': '19991231', 'anotherdatefield': '20000101'},
-             {'issuedate': 'malformed', 'anotherdatefield': '20000101'}]
-    out = list(nycdb.transform.text_to_date(['issuedate', 'anotherdatefield'], table))
-
-    assert out[0] == {'issuedate': datetime(
-        1999, 12, 31, 0, 0), 'anotherdatefield': datetime(2000, 1, 1, 0, 0)}
-    assert out[1] == {'issuedate': datetime(1, 1, 1, 0, 0), 'anotherdatefield': datetime(2000, 1, 1, 0, 0)}
-
-
 def test_flip_numbers_nothing_to_flip():
     # assert nycdb.transform.flip_numbers(['one1', 'two2']) == ['one1', 'two2']
     assert nycdb.transform.flip_numbers('one1') == 'one1'
