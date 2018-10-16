@@ -3,7 +3,6 @@ import io
 import re
 import types
 import pyproj
-from datetime import datetime
 from zipfile import ZipFile
 from pyproj import *
 

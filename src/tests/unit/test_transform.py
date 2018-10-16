@@ -1,6 +1,5 @@
 import nycdb
 import os
-from datetime import datetime
 
 
 def test_extract_csvs_from_zip():
