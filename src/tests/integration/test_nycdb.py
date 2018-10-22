@@ -238,3 +238,30 @@ def test_marshal_evictions_17():
         rec = curs.fetchone()
         assert rec is not None
         assert rec['lat'] == Decimal('40.71081')
+
+
+def test_oath_hearings():
+    conn = connection()
+    drop_table(conn, 'oath_hearings')
+    oath_hearings = nycdb.Dataset('oath_hearings', args=ARGS)
+    oath_hearings.db_import()
+    assert row_count(conn, 'oath_hearings') == 100
+    with conn.cursor(cursor_factory=psycopg2.extras.DictCursor) as curs:
+        curs.execute("select * from oath_hearings WHERE bbl = '{}'".format('1020260001'))
+        rec = curs.fetchone()
+        assert rec is not None
+        assert rec['totalviolationamount'] == Decimal('40000.00')
+
+
+def test_dob_violations():
+    conn = connection()
+    drop_table(conn, 'dob_violations')
+    dob_violations = nycdb.Dataset('dob_violations', args=ARGS)
+    dob_violations.db_import()
+    assert row_count(conn, 'dob_violations') == 100
+    #3028850001
+    with conn.cursor(cursor_factory=psycopg2.extras.DictCursor) as curs:
+        curs.execute("select * from dob_violations WHERE bbl = '{}'".format('3028850001'))
+        rec = curs.fetchone()
+        assert rec is not None
+        assert rec['violationtypecode'] == 'LL6291'

@@ -37,7 +37,7 @@ def test_to_bbl_with_borough_field():
 
 def test_to_bbl_with_boro_field():
     table = [{'boro': 'queens', 'block': '1', 'lot': '1'}, {'boro': 'queens', 'block': '1', 'lot': '2'}]
-    out = list(nycdb.transform.with_bbl(table))
+    out = list(nycdb.transform.with_bbl(table, borough='boro'))
     assert out[0] == {'boro': 'queens', 'block': '1', 'lot': '1', 'bbl': '4000010001'}
     assert out[1] == {'boro': 'queens', 'block': '1', 'lot': '2', 'bbl': '4000010002'}
 

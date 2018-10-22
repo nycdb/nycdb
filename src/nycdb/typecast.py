@@ -1,3 +1,12 @@
+"""
+Typecasting for NYCDB
+
+All values are converted into a suitable python class before
+being passed to psycopg2 to be inserted into postgres.
+See http://initd.org/psycopg/docs/usage.html#adaptation-of-python-values-to-sql-types
+for how psycopg2 converts python types into postgres types
+"""
+
 import copy
 import re
 import datetime
@@ -85,6 +94,20 @@ def date(x):
         return None
 
 
+def time(x):
+    """
+    Converts string into datetime.time
+    Example input: 13:01:00
+    """
+    if isinstance(x, datetime.time):
+        return x
+    if isinstance(x, str) and re.match('^\d{2}:\d{2}:\d{2}$', x.strip()):
+        try:
+            return datetime.time(*map(int, x.strip().split(':')))
+        except ValueError:
+            return None
+
+
 def boolean(x):
     if x in YES_VALUES:
         return True
@@ -155,6 +178,8 @@ class Typecast():
                 d[k] = lambda x: boolean(x)
             elif v == 'date':
                 d[k] = lambda x: date(x)
+            elif 'time' in v:
+                d[k] = lambda x: time(x)
             elif v == 'numeric':
                 d[k] = lambda x: numeric(x)
             elif v == 'text[]':
