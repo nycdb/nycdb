@@ -3,6 +3,7 @@ TABLES = {
     'pluto_17v1': {'pluto_17v1': 800000},
     'pluto_18v1': {'pluto_18v1': 800000},
     'dobjobs': {'dobjobs': 1000000},
+    'dob_violations': {'dob_violations': 2000000},
     'hpd_violations': {'hpd_violations': 4000000},
     'hpd_registrations': {
         'hpd_registrations': 150000,

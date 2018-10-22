@@ -3,6 +3,10 @@ from .transform import hpd_registrations_address_cleanup, hpd_contacts_address_c
 from .dof_parser import parse_dof_file
 
 
+def dob_violations(dataset):
+    return with_bbl(to_csv(dataset.files[0].dest))
+
+
 def pluto_16v2(dataset):
     return with_geo(to_csv(extract_csvs_from_zip(dataset.files[0].dest)))
 
@@ -60,6 +64,7 @@ def acris(dataset, schema):
         return skip_fields(_to_csv, [s.lower() for s in schema['skip']])
     else:
         return _to_csv
+
 
 def marshal_evictions_17(dataset):
     return to_csv(dataset.files[0].dest)
