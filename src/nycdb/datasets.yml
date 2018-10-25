@@ -572,6 +572,7 @@ hpd_registrations:
     - hpd_registrations/anyarray_uniq.sql
     - hpd_registrations/anyarray_remove_null.sql
     - hpd_registrations/first_last.sql
+    - hpd_registrations/contacts_cleanup.sql
     - hpd_registrations/corporate_owners.sql
     - hpd_registrations/business_addrs.sql
     - hpd_registrations/registrations_grouped_by_bbl.sql
