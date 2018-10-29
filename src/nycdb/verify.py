@@ -15,6 +15,7 @@ TABLES = {
     },
     'dof_sales': {'dof_sales': 75000},
     'rentstab': {'rentstab': 45000},
+    'rentstab_summary': {'rentstab_summary': 45000},
     'dob_complaints': {'dob_complaints': 1000000},
     'hpd_complaints': {
         'hpd_complaints': 1000000,
@@ -36,7 +37,7 @@ TABLES = {
         'acris_property_type_codes': 46,
         'acris_ucc_collateral_codes': 8
     },
-    'marshal_evictions_17': {'marshal_evictions_17': 17000} 
+    'marshal_evictions_17': {'marshal_evictions_17': 17000}
 }
 
 
