@@ -319,7 +319,7 @@ pluto_16v2:
       Version: text
       lng: numeric
       lat: numeric
-      
+
 dobjobs:
   files:
     -
@@ -432,7 +432,7 @@ dobjobs:
         bbl: char(10)
         id: 'serial PRIMARY KEY'
 
-      
+
 hpd_complaints:
   files:
     -
@@ -510,7 +510,7 @@ dob_complaints:
 
 hpd_violations:
   files:
-    - 
+    -
       url: https://data.cityofnewyork.us/api/views/wvxf-dwi5/rows.csv?accessType=DOWNLOAD
       dest: hpd_violations.csv
   sql:
@@ -526,7 +526,7 @@ hpd_violations:
       HouseNumber: text
       LowHouseNumber: text
       HighHouseNumber: text
-      StreetName: text 
+      StreetName: text
       StreetCode: text
       Postcode: char(5)
       Apartment: text
@@ -535,14 +535,14 @@ hpd_violations:
       Lot: integer
       Class: char(1)
       InspectionDate: date
-      ApprovedDate: date 
+      ApprovedDate: date
       OriginalCertifyByDate: date
       OriginalCorrectByDate: date
       NewCertifyByDate: date
       NewCorrectByDate: date
       CertifiedDate: date
       OrderNumber: text
-      NOVID: integer 
+      NOVID: integer
       NOVDescription: text
       NOVIssuedDate: date
       CurrentStatusID: smallint
@@ -578,7 +578,7 @@ hpd_registrations:
     - hpd_registrations/registrations_grouped_by_bbl_with_contacts.sql
     - hpd_registrations/functions.sql
     - hpd_registrations/index.sql
-    
+
   schema:
     -
       table_name: hpd_registrations
@@ -727,6 +727,41 @@ rentstab:
       numfloors: numeric
       unitsres: integer
       unitstotal: integer
+      yearbuilt: smallint
+      condono: smallint
+      lon: numeric
+      lat: numeric
+
+rentstab_summary:
+  files:
+    -
+      url: http://taxbills.nyc/changes-summary.csv
+      dest: changes-summary.csv
+  schema:
+    table_name: rentstab_summary
+    fields:
+      ucbbl: char(10)
+      unitstotal: integer
+      unitsstab2007: integer
+      unitsstab2016: integer
+      diff: integer
+      percentchange: numeric
+      j51: text
+      a421: text
+      scrie: text
+      drie: text
+      c420: text
+      cd: smallint
+      ct2010: text
+      cb2010: text
+      council: integer
+      zipcode: char(5)
+      address: text
+      ownername: text
+      numbldgs: smallint
+      numfloors: numeric
+      unitsres: integer
+      unitstotalpluto: integer
       yearbuilt: smallint
       condono: smallint
       lon: numeric
@@ -951,7 +986,7 @@ marshal_evictions_17:
   files:
     -
       url: https://s3.amazonaws.com/justfix-data/marshal_evictions_2017.csv
-      dest: marshal_evictions_17.csv 
+      dest: marshal_evictions_17.csv
   schema:
     table_name: marshal_evictions_17
     fields:
