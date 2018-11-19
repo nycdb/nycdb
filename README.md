@@ -60,7 +60,7 @@ make nyc-db DB_HOST=localhost DB_DATABASE=nycdb DB_USER=databaseuser DB_PASSWORD
 
 You can also use Docker to both use and develop nycdb. This can be useful because
 you only need to install Docker--you don't need to worry about installing the proper
-version of Python 3, Postgres, or any other tools.
+version of Python, Postgres, or any other tools.
 
 To proceed, first [install Docker][] and then run:
 
@@ -87,7 +87,7 @@ To develop on nycdb itself:
 
 * You can run `pytest` to run the test suite.
 * Any changes you make to the tool's source code will automatically be reflected
-  in future invocations to `nycdb` and/or the test suite.
+  in future invocations of `nycdb` and/or the test suite.
 * If you don't have a desktop Postgres client, you can always run
   `nycdb --dbshell` to interactively inspect the database with [`psql`][].
 
