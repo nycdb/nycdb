@@ -5,6 +5,8 @@ from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 import os
 from types import SimpleNamespace
 from decimal import Decimal
+import subprocess
+import sys
 import pytest
 
 import nycdb
@@ -289,3 +291,45 @@ def test_dob_violations(conn):
         rec = curs.fetchone()
         assert rec is not None
         assert rec['violationtypecode'] == 'LL6291'
+
+
+def run_cli(args, input):
+    full_args = [
+        sys.executable, "-m", "nycdb.cli",
+        "--user", ARGS.user,
+        "--password", ARGS.password,
+        "--host", ARGS.host,
+        "--database", ARGS.database,
+        "--port", ARGS.port,
+        "--root-dir", ARGS.root_dir,
+        *args
+    ]
+
+    print("Running '{}'...".format(' '.join(full_args)))
+
+    proc = subprocess.Popen(
+        full_args,
+        stdin=subprocess.PIPE,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        universal_newlines=True,
+        encoding='ascii'
+    )
+
+    try:
+        outs, errs = proc.communicate(input, timeout=10)
+    except subprocess.TimeoutExpired as e:
+        proc.kill()
+        outs, errs = proc.communicate()
+
+    if proc.returncode != 0:
+        sys.stdout.write(outs)
+        sys.stderr.write(errs)
+        raise Exception('Subprocess failed, see stdout/stderr')
+
+    return outs, errs
+
+
+def test_dbshell(db):
+    outs, errs = run_cli(["--dbshell"], input="\\copyright")
+    assert 'PostgreSQL' in outs
