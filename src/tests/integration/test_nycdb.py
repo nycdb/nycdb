@@ -1,17 +1,75 @@
 import psycopg2
 import psycopg2.extras
+import time
+from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 import os
 from types import SimpleNamespace
 from decimal import Decimal
+import subprocess
+import sys
+import pytest
+
 import nycdb
 
 data_dir = os.path.join(os.path.dirname(__file__), 'data')
 
-ARGS = SimpleNamespace(user='postgres', password='password', host='127.0.0.1', database='postgres', port='7777', root_dir=data_dir)
+ARGS = SimpleNamespace(
+    user=os.environ.get('NYCDB_TEST_POSTGRES_USER', 'postgres'),
+    password=os.environ.get('NYCDB_TEST_POSTGRES_PASSWORD', 'password'),
+    host=os.environ.get('NYCDB_TEST_POSTGRES_HOST', '127.0.0.1'),
+    database=os.environ.get('NYCDB_TEST_POSTGRES_DB', 'postgres'),
+    port=os.environ.get('NYCDB_TEST_POSTGRES_PORT', '7777'),
+    root_dir=data_dir
+)
+
+CONNECT_ARGS = dict(
+    user=ARGS.user,
+    password=ARGS.password,
+    host=ARGS.host,
+    database=ARGS.database,
+    port=ARGS.port
+)
 
 
-def connection():
-    return psycopg2.connect(user=ARGS.user, password=ARGS.password, host=ARGS.host, database=ARGS.database, port=ARGS.port)
+def create_db(dbname):
+    args = CONNECT_ARGS.copy()
+    del args['database']
+    conn = psycopg2.connect(**args)
+    conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
+    with conn.cursor() as curs:
+        curs.execute('CREATE DATABASE ' + dbname)
+    conn.close()
+
+
+@pytest.fixture(scope="session")
+def db():
+    """
+    Attempt to connect to the database, retrying if necessary, and also
+    creating the database if it doesn't already exist.
+    """
+
+    retries_left = 5
+
+    while True:
+        try:
+            psycopg2.connect(**CONNECT_ARGS).close()
+            return
+        except psycopg2.OperationalError as e:
+            if 'database "{}" does not exist'.format(ARGS.database) in str(e):
+                create_db(ARGS.database)
+                retries_left -= 1
+            elif retries_left:
+                # It's possible the database is still starting up.
+                time.sleep(2)
+                retries_left -= 1
+            else:
+                raise e
+
+
+@pytest.fixture
+def conn(db):
+    with psycopg2.connect(**CONNECT_ARGS) as conn:
+        yield conn
 
 
 def drop_table(conn, table_name):
@@ -42,45 +100,37 @@ def table_columns(conn, table_name):
             return [x[0] for x in curs.fetchall()]
 
 
-def test_hpd_complaint_problems():
-    conn = connection()
+def test_hpd_complaint_problems(conn):
     drop_table(conn, 'hpd_complaint_problems')
     drop_table(conn, 'hpd_complaints')
     hpd_complaints = nycdb.Dataset('hpd_complaints', args=ARGS)
     hpd_complaints.db_import()
     assert row_count(conn, 'hpd_complaint_problems') == 9
-    conn.close()
 
-def test_hpd_complaints():
-    conn = connection()
+
+def test_hpd_complaints(conn):
     drop_table(conn, 'hpd_complaint_problems')
     drop_table(conn, 'hpd_complaints')
     hpd_complaints = nycdb.Dataset('hpd_complaints', args=ARGS)
     hpd_complaints.db_import()
     assert row_count(conn, 'hpd_complaints') == 100
-    conn.close()
 
 
-def test_dob_complaints():
-    conn = connection()
+def test_dob_complaints(conn):
     drop_table(conn, 'dob_complaints')
     dob_complaints = nycdb.Dataset('dob_complaints', args=ARGS)
     dob_complaints.db_import()
     assert row_count(conn, 'dob_complaints') == 100
-    conn.close()
 
 
-def test_pluto16v2():
-    conn = connection()
+def test_pluto16v2(conn):
     drop_table(conn, 'pluto_16v2')
     pluto = nycdb.Dataset('pluto_16v2', args=ARGS)
     pluto.db_import()
     assert row_count(conn, 'pluto_16v2') == 500
-    conn.close()
 
 
-def test_pluto_insert():
-    conn = connection()
+def test_pluto_insert(conn):
     with conn.cursor(cursor_factory=psycopg2.extras.DictCursor) as curs:
         curs.execute("select * from pluto_16v2 WHERE bbl = '1008820003'")
         rec = curs.fetchone()
@@ -91,79 +141,62 @@ def test_pluto_insert():
         assert round(rec['lat'], 5) == Decimal('40.74211')
 
 
-def test_pluto17v1():
-    conn = connection()
+def test_pluto17v1(conn):
     drop_table(conn, 'pluto_17v1')
     pluto = nycdb.Dataset('pluto_17v1', args=ARGS)
     pluto.db_import()
     assert row_count(conn, 'pluto_17v1') == 500
-    conn.close()
 
 
-def test_pluto18v1():
-    conn = connection()
+def test_pluto18v1(conn):
     drop_table(conn, 'pluto_18v1')
     pluto = nycdb.Dataset('pluto_18v1', args=ARGS)
     pluto.db_import()
     assert row_count(conn, 'pluto_18v1') == 50
-    conn.close()
 
 
-def test_hpd_violations():
-    conn = connection()
+def test_hpd_violations(conn):
     drop_table(conn, 'hpd_violations')
     hpd_violations = nycdb.Dataset('hpd_violations', args=ARGS)
     hpd_violations.db_import()
     assert row_count(conn, 'hpd_violations') == 100
-    conn.close()
 
 
-def test_hpd_violations_index():
-    conn = connection()
+def test_hpd_violations_index(conn):
     assert has_one_row(conn, "select 1 where to_regclass('public.hpd_violations_bbl_idx') is NOT NULL")
     assert has_one_row(conn, "select 1 where to_regclass('public.hpd_violations_violationid_idx') is NOT NULL")
     assert has_one_row(conn, "select 1 where to_regclass('public.hpd_violations_currentstatusid_idx') is NOT NULL")
-    conn.close()
 
 
-def test_hpd_registrations():
-    conn = connection()
+def test_hpd_registrations(conn):
     drop_table(conn, 'hpd_registrations')
     drop_table(conn, 'hpd_contacts')
     ds = nycdb.Dataset('hpd_registrations', args=ARGS)
     ds.db_import()
     assert row_count(conn, 'hpd_registrations') == 100
     assert row_count(conn, 'hpd_contacts') == 100
-    conn.close()
 
 
-def test_hpd_registrations_derived_tables():
-    conn = connection()
+def test_hpd_registrations_derived_tables(conn):
     assert row_count(conn, 'hpd_corporate_owners') > 10
     assert row_count(conn, 'hpd_registrations_grouped_by_bbl') > 10
     assert row_count(conn, 'hpd_business_addresses') > 10
     assert row_count(conn, 'hpd_registrations_grouped_by_bbl_with_contacts') > 10
-    conn.close()
 
 
-def test_hpd_registrations_rows():
-    conn = connection()
+def test_hpd_registrations_rows(conn):
     assert has_one_row(conn, "select * from hpd_registrations where bbl = '1017510116'")
-    conn.close()
 
 
-def test_dof_sales():
-    conn = connection()
+def test_dof_sales(conn):
     drop_table(conn, 'dof_sales')
     dof_sales = nycdb.Dataset('dof_sales', args=ARGS)
     dof_sales.db_import()
     assert row_count(conn, 'dof_sales') == 70
     assert has_one_row(conn, "select 1 where to_regclass('public.dof_sales_bbl_idx') is NOT NULL")
-    conn.close()
 
 
-def test_dobjobs():
-    conn = connection()
+def test_dobjobs(conn):
     drop_table(conn, 'dobjobs')
     dobjobs = nycdb.Dataset('dobjobs', args=ARGS)
     dobjobs.db_import()
@@ -178,21 +211,17 @@ def test_dobjobs():
     columns = table_columns(conn, 'dobjobs')
     assert 'ownername_tsvector' in columns
     assert 'applicantname_tsvector' in columns
-    conn.close()
 
 
-def test_rentstab():
-    conn = connection()
+def test_rentstab(conn):
     drop_table(conn, 'rentstab')
     rentstab = nycdb.Dataset('rentstab', args=ARGS)
     rentstab.db_import()
     assert row_count(conn, 'rentstab') == 100
     assert has_one_row(conn, "select 1 where to_regclass('public.rentstab_ucbbl_idx') is NOT NULL")
-    conn.close()
 
 
-def test_acris():
-    conn = connection()
+def test_acris(conn):
     drop_table(conn, 'real_property_legals')
     drop_table(conn, 'real_property_master')
     drop_table(conn, 'real_property_parties')
@@ -224,11 +253,10 @@ def test_acris():
     assert row_count(conn, 'acris_property_type_codes') == 46
     assert row_count(conn, 'acris_ucc_collateral_codes') == 8
     assert has_one_row(conn, "select * from real_property_legals where bbl = '4131600009'")
-    conn.close()
 
 
-def test_marshal_evictions_17():
-    conn = connection()
+def test_marshal_evictions_17(conn):
+    drop_table(conn, 'marshal_evictions_17')
     evictions = nycdb.Dataset('marshal_evictions_17', args=ARGS)
     evictions.db_import()
     assert row_count(conn, 'marshal_evictions_17') == 10
@@ -240,8 +268,7 @@ def test_marshal_evictions_17():
         assert rec['lat'] == Decimal('40.71081')
 
 
-def test_oath_hearings():
-    conn = connection()
+def test_oath_hearings(conn):
     drop_table(conn, 'oath_hearings')
     oath_hearings = nycdb.Dataset('oath_hearings', args=ARGS)
     oath_hearings.db_import()
@@ -253,8 +280,7 @@ def test_oath_hearings():
         assert rec['totalviolationamount'] == Decimal('40000.00')
 
 
-def test_dob_violations():
-    conn = connection()
+def test_dob_violations(conn):
     drop_table(conn, 'dob_violations')
     dob_violations = nycdb.Dataset('dob_violations', args=ARGS)
     dob_violations.db_import()
@@ -265,3 +291,44 @@ def test_dob_violations():
         rec = curs.fetchone()
         assert rec is not None
         assert rec['violationtypecode'] == 'LL6291'
+
+
+def run_cli(args, input):
+    full_args = [
+        sys.executable, "-m", "nycdb.cli",
+        "--user", ARGS.user,
+        "--password", ARGS.password,
+        "--host", ARGS.host,
+        "--database", ARGS.database,
+        "--port", ARGS.port,
+        "--root-dir", ARGS.root_dir,
+        *args
+    ]
+
+    print("Running '{}'...".format(' '.join(full_args)))
+
+    proc = subprocess.Popen(
+        full_args,
+        stdin=subprocess.PIPE,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        universal_newlines=True,
+    )
+
+    try:
+        outs, errs = proc.communicate(input, timeout=10)
+    except subprocess.TimeoutExpired as e:
+        proc.kill()
+        outs, errs = proc.communicate()
+
+    if proc.returncode != 0:
+        sys.stdout.write(outs)
+        sys.stderr.write(errs)
+        raise Exception('Subprocess failed, see stdout/stderr')
+
+    return outs, errs
+
+
+def test_dbshell(db):
+    outs, errs = run_cli(["--dbshell"], input="\\copyright")
+    assert 'PostgreSQL' in outs

@@ -1,0 +1,24 @@
+version: '2'
+services:
+  app:
+    build: .
+    volumes:
+      - .:/nycdb
+    working_dir: /nycdb
+    environment:
+      - NYCDB_POSTGRES_HOST=db
+      - NYCDB_TEST_POSTGRES_HOST=db
+      - NYCDB_TEST_POSTGRES_DB=nycdb_test
+      - NYCDB_TEST_POSTGRES_USER=nycdb
+      - NYCDB_TEST_POSTGRES_PASSWORD=nycdb
+      - NYCDB_TEST_POSTGRES_PORT=5432
+    links:
+      - db
+  db:
+    image: postgres:10.5
+    environment:
+      - POSTGRES_PASSWORD=nycdb
+      - POSTGRES_USER=nycdb
+      - POSTGRES_DB=nycdb
+    ports:
+      - 7777:5432
