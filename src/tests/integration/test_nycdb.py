@@ -313,7 +313,6 @@ def run_cli(args, input):
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         universal_newlines=True,
-        encoding='ascii'
     )
 
     try:
