@@ -51,3 +51,7 @@ After a dataset has been loaded you can verify it with "--verify"
 By default the downloaded data files are stores in './data'. Use --root-dir to change the location of the data directory.
 
 To see more options run: `nycdb --help`
+
+Adding New Datasets
+**********
+[Guide Here](./ADDING_NEW_DATASETS.rst)

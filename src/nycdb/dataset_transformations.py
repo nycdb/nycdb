@@ -3,6 +3,10 @@ from .transform import hpd_registrations_address_cleanup, hpd_contacts_address_c
 from .dof_parser import parse_dof_file
 
 
+def ecb_violations(dataset):
+    return with_bbl(to_csv(dataset.files[0].dest), borough='boro')
+
+
 def dob_violations(dataset):
     return with_bbl(to_csv(dataset.files[0].dest), borough='boro')
 
@@ -56,8 +60,10 @@ def dobjobs(dataset):
 def rentstab(dataset):
     return to_csv(dataset.files[0].dest)
 
+
 def rentstab_summary(dataset):
     return to_csv(dataset.files[0].dest)
+
 
 def acris(dataset, schema):
     dest_file = next(filter(lambda f: schema['table_name'] in f.dest, dataset.files))
