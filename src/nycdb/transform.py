@@ -12,8 +12,8 @@ from .utility import merge
 
 invalid_header_chars = ["\n", "\r", ' ', '-', '#', '.', "'", '"', '_', '/', '(', ')', ':']
 replace_header_chars = [('%', 'pct')]
-starts_with_numbers = re.compile('^(\d+)(.*)$')
-only_numbers = re.compile('^\d+$')
+starts_with_numbers = re.compile(r'^(\d+)(.*)$')
+only_numbers = re.compile(r'^\d+$')
 
 
 def flip_numbers(header):

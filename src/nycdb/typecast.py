@@ -101,7 +101,7 @@ def time(x):
     """
     if isinstance(x, datetime.time):
         return x
-    if isinstance(x, str) and re.match('^\d{2}:\d{2}:\d{2}$', x.strip()):
+    if isinstance(x, str) and re.match(r'^\d{2}:\d{2}:\d{2}$', x.strip()):
         try:
             return datetime.time(*map(int, x.strip().split(':')))
         except ValueError:
