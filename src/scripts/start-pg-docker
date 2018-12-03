@@ -5,5 +5,5 @@ docker run --name ${NYCDB_DOCKER_NAME:-nycdb} \
        -e POSTGRES_DB=${POSTGRES_PASSWORD:-nycdb} \
        -e POSTGRES_USER=${POSTGRES_PASSWORD:-nycdb} \
        -p 127.0.0.1:${NYCDB_DOCKER_PORT:-5432}:5432 \
-       -d postgres:10
+       -d postgres:11
 
