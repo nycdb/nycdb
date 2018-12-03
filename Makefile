@@ -12,18 +12,9 @@ export PGPASSWORD
 
 default: help
 
-NYCDB = nycdb -D $(DB_DATABASE) -H $(DB_HOST) -U $(DB_USER) -P $(DB_PASSWORD)
+NYCDB := nycdb -D $(DB_DATABASE) -H $(DB_HOST) -U $(DB_USER) -P $(DB_PASSWORD)
 
-datasets = acris \
-	   pluto_18v1 \
-	   dobjobs \
-	   dof_sales \
-	   hpd_registrations \
-	   hpd_violations \
-	   hpd_complaints \
-	   dob_complaints \
-	   rentstab \
-	   marshal_evictions_17
+datasets := $(shell nycdb --list-datasets | egrep -v 'pluto_(17v1|16v2)')
 
 nyc-db: $(datasets)
 	make verify
