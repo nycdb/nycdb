@@ -4,6 +4,7 @@ import itertools
 import os
 import subprocess
 from functools import lru_cache
+from tqdm import tqdm
 
 from . import verify
 from . import dataset_transformations
@@ -91,12 +92,15 @@ class Dataset:
     def import_schema(self, schema):
         rows = self.transform(schema)
 
+        pbar = tqdm(unit='rows')
         while True:
             batch = list(itertools.islice(rows, 0, BATCH_SIZE))
             if len(batch) == 0:
                 break
             else:
+                pbar.update(len(batch))
                 self.db.insert_rows(batch, table_name=schema['table_name'])
+        pbar.close()
 
     def create_schema(self):
         create_table = lambda name, fields: self.db.sql(sql.create_table(name, fields))

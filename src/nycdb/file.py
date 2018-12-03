@@ -3,6 +3,7 @@ import os
 import requests
 import logging
 from pathlib import Path
+from tqdm import tqdm
 from .utility import mkdir
 
 
@@ -25,6 +26,18 @@ def open_kwargs(dest):
         return open_byte_kwargs
 
 
+def safe_int(value):
+    """
+    Attempt to convert the given value to an integer,
+    returning None on failure.
+    """
+
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return None
+
+
 def download_file(url, dest):
     """
     Downloads a url and saves the result to the destination path
@@ -45,13 +58,17 @@ def download_file(url, dest):
         logging.info("Downloading {url} to {dest}".format(url=url, dest=dest))
         is_csv_file = is_csv(dest)
         r = requests.get(url, stream=True)
+        total_bytes = safe_int(r.headers.get('content-length'))
+        pbar = tqdm(total=total_bytes, unit='B', unit_scale=True, unit_divisor=1024)
         with open(dest, **open_kwargs(dest)) as f:
             for chunk in r.iter_content(chunk_size=(512 * 1024)):
                 if chunk:
+                    pbar.update(len(chunk))
                     if is_csv_file:
                         f.write(codecs.decode(chunk, encoding='utf-8', errors='replace'))
                     else:
                         f.write(chunk)
+        pbar.close()
         return True
     except:
         raise DownloadFailedException("Could not download: {}".format(url))
