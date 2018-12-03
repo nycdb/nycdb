@@ -1,5 +1,4 @@
 ---
-
 nycdb_packages:
   - sudo
   - wget
@@ -18,10 +17,10 @@ nycdb_packages:
   - python3-venv
 
 #  - python3-psycopg2
-postgres_apt_repository: "deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main"
+postgres_apt_repository: "deb http://apt.postgresql.org/pub/repos/apt/ bionic-pgdg main"
 
 postgres_packages:
-  - postgresql-10
-  - postgresql-client-10
-  - postgresql-contrib-10
+  - postgresql-11
+  - postgresql-client-11
+  - postgresql-contrib-11
   - libpq-dev
