@@ -77,13 +77,14 @@ def mm_dd_yyyy(date_str):
 # TODO: allow for different date inputs besides mm/dd/yyyy
 #  03/04/2015 12:00:00 AM
 def date(x):
-    if isinstance(x, datetime.date) or isinstance(x, datetime.datetime):
+    if isinstance(x, (datetime.date, datetime.datetime)):
         return x
-
     # checks for 20181231 date input
     if re.match(r'[0-9]{8}', x):
-        date = datetime.datetime.strptime(x, '%Y%m%d')
-        return datetime.date(date.year, date.month, date.day)
+        try:
+            return datetime.datetime.strptime(x, '%Y%m%d').date()
+        except ValueError:
+            return None
     # checks for 12/31/2018 date input
     elif len(x) == 10 and len(x.split('/')) == 3:
         return mm_dd_yyyy(x)
