@@ -81,16 +81,19 @@ def date(x):
         return x
 
     # checks for 20181231 date input
-    if re.match(r'[0-9]{8}', x):
-        date = datetime.datetime.strptime(x, '%Y%m%d')
-        return datetime.date(date.year, date.month, date.day)
-    # checks for 12/31/2018 date input
-    elif len(x) == 10 and len(x.split('/')) == 3:
-        return mm_dd_yyyy(x)
-    # checks for 12/31/2018 12:00:00 AM date input
-    elif len(x) == 22 and len(x[0:10].split('/')) == 3:
-        return mm_dd_yyyy(x)
-    else:
+    try:
+        if re.match(r'[0-9]{8}', x):
+            date = datetime.datetime.strptime(x, '%Y%m%d')
+            return datetime.date(date.year, date.month, date.day)
+        # checks for 12/31/2018 date input
+        elif len(x) == 10 and len(x.split('/')) == 3:
+            return mm_dd_yyyy(x)
+        # checks for 12/31/2018 12:00:00 AM date input
+        elif len(x) == 22 and len(x[0:10].split('/')) == 3:
+            return mm_dd_yyyy(x)
+        else:
+            return None
+    except ValueError:
         return None
 
 
