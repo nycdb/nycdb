@@ -221,6 +221,13 @@ def test_rentstab(conn):
     assert has_one_row(conn, "select 1 where to_regclass('public.rentstab_ucbbl_idx') is NOT NULL")
 
 
+def test_rentstab_summary(conn):
+    drop_table(conn, 'rentstab_summary')
+    rentstab_summary = nycdb.Dataset('rentstab_summary', args=ARGS)
+    rentstab_summary.db_import()
+    assert row_count(conn, 'rentstab_summary') == 100
+
+
 def test_acris(conn):
     drop_table(conn, 'real_property_legals')
     drop_table(conn, 'real_property_master')

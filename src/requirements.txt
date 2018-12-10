@@ -3,5 +3,6 @@ PyYAML
 requests
 psycopg2
 pyproj
+tqdm
 xlrd
 

@@ -1,4 +1,5 @@
 import nycdb
+from nycdb.file import safe_int
 
 import time
 import http.server
@@ -42,3 +43,10 @@ def test_download_file(tmpdir):
     assert dest.read() == 'i am a file'
     # This should return True and not attempt to download the file again:
     assert nycdb.file.download_file('http://localhost:6789/www/file.txt', dest.strpath)
+
+
+def test_safe_int():
+    assert safe_int(None) is None
+    assert safe_int('') is None
+    assert safe_int('blaah') is None
+    assert safe_int('15') == 15
