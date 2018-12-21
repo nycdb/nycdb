@@ -14,10 +14,10 @@ import nycdb
 data_dir = os.path.join(os.path.dirname(__file__), 'data')
 
 ARGS = SimpleNamespace(
-    user=os.environ.get('NYCDB_TEST_POSTGRES_USER', 'postgres'),
-    password=os.environ.get('NYCDB_TEST_POSTGRES_PASSWORD', 'password'),
+    user=os.environ.get('NYCDB_TEST_POSTGRES_USER', 'nycdb'),
+    password=os.environ.get('NYCDB_TEST_POSTGRES_PASSWORD', 'nycdb'),
     host=os.environ.get('NYCDB_TEST_POSTGRES_HOST', '127.0.0.1'),
-    database=os.environ.get('NYCDB_TEST_POSTGRES_DB', 'postgres'),
+    database=os.environ.get('NYCDB_TEST_POSTGRES_DB', 'nycdb_test'),
     port=os.environ.get('NYCDB_TEST_POSTGRES_PORT', '7777'),
     root_dir=data_dir
 )
@@ -93,11 +93,19 @@ def has_one_row(conn, query):
 
 
 def table_columns(conn, table_name):
-    sql = "SELECT column_name FROM information_schema.columns WHERE table_schema = 'public' AND table_name = '{}'".format(table_name)
+    sql = "SELECT column_name FROM information_schema.columns WHERE table_schema = 'public' AND table_name = '{}'".format(
+        table_name)
     with conn:
         with conn.cursor() as curs:
             curs.execute(sql)
             return [x[0] for x in curs.fetchall()]
+
+
+def test_ecb_violations(conn):
+    drop_table(conn, 'ecb_violations')
+    ecb_violations = nycdb.Dataset('ecb_violations', args=ARGS)
+    ecb_violations.db_import()
+    assert row_count(conn, 'ecb_violations') == 5
 
 
 def test_hpd_complaint_problems(conn):
@@ -292,7 +300,7 @@ def test_dob_violations(conn):
     dob_violations = nycdb.Dataset('dob_violations', args=ARGS)
     dob_violations.db_import()
     assert row_count(conn, 'dob_violations') == 100
-    #3028850001
+    # 3028850001
     with conn.cursor(cursor_factory=psycopg2.extras.DictCursor) as curs:
         curs.execute("select * from dob_violations WHERE bbl = '{}'".format('3028850001'))
         rec = curs.fetchone()

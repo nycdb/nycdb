@@ -192,7 +192,7 @@ sql:
 - `pip setup.py install` (from inside of the `src` directory)
 
 
-#### Step 7 - test
+#### Step 7 - verify
 
 To see if your dataset registers:
 
@@ -202,6 +202,64 @@ Then download and load the dataset into your database. When that's done, query i
 
 - `nycdb --download ecb_violations`
 - `nycdb --load ecb_violations`
+
+You also need to add an estimated count of the # of rows into the file called `verify.py`
+
+Count the number of rows that exist in your new dataset
+
+With SQL, this is:
+```
+SELECT COUNT(*) FROM <dataset_table_name>
+```
+
+and then add a key to `verify.py` with a rounded number thats below the true count:
+
+```
+'ecb_violations': {'ecb_violations': 1300000},
+```
+
+Now, when you run the terminal command `nycdb --verify ecb_violations`, it should say your data is verified.
+
+
+#### Step 8 - write an integration test!
+
+Integration tests are a way to ensure that all the code works without having to manually download and check everything (which would take hours!)
+
+Find the file `test_nycdb.py` inside of `tests/integration` and look at this example for how to write a test here:
+
+```
+def test_hpd_complaint_problems(conn):
+    drop_table(conn, 'hpd_complaint_problems')
+    ecb_violations = nycdb.Dataset('ecb_violations', args=ARGS)
+    ecb_violations.db_import()
+    assert row_count(conn, 'ecb_violations') == 5
+```
+
+What this test does is insert a series of fake records into a testing database and then tests to see if all the rows were successfully inserted.
+
+We need to create some fake data first! Go to `tests/integation/data` and create a file named after your dataset, or `ecb_violations.csv` in this case.
+
+Then, in terminal, print a few lines from the data file you downloaded for this dataset_table_name
+```
+# This will print the headers and the first 5 rows of the CSV file.
+head -6 data/ecb_violations.csv
+```
+
+Copy and paste the results from the terminal into the fake data file.
+
+Now, to run the tests, make sure you have the docker container setup:
+
+```
+docker-compose up
+```
+
+and run the command:
+
+```
+pytest
+```
+
+if it says all the tests passed, you passed! If it says a test failed, you'll have to debug.
 
 
 #### Conclusion
