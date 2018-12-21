@@ -77,23 +77,21 @@ def mm_dd_yyyy(date_str):
 # TODO: allow for different date inputs besides mm/dd/yyyy
 #  03/04/2015 12:00:00 AM
 def date(x):
-    if isinstance(x, datetime.date) or isinstance(x, datetime.datetime):
+    if isinstance(x, (datetime.date, datetime.datetime)):
         return x
-
     # checks for 20181231 date input
-    try:
-        if re.match(r'[0-9]{8}', x):
-            date = datetime.datetime.strptime(x, '%Y%m%d')
-            return datetime.date(date.year, date.month, date.day)
-        # checks for 12/31/2018 date input
-        elif len(x) == 10 and len(x.split('/')) == 3:
-            return mm_dd_yyyy(x)
-        # checks for 12/31/2018 12:00:00 AM date input
-        elif len(x) == 22 and len(x[0:10].split('/')) == 3:
-            return mm_dd_yyyy(x)
-        else:
+    if re.match(r'[0-9]{8}', x):
+        try:
+            return datetime.datetime.strptime(x, '%Y%m%d').date()
+        except ValueError:
             return None
-    except ValueError:
+    # checks for 12/31/2018 date input
+    elif len(x) == 10 and len(x.split('/')) == 3:
+        return mm_dd_yyyy(x)
+    # checks for 12/31/2018 12:00:00 AM date input
+    elif len(x) == 22 and len(x[0:10].split('/')) == 3:
+        return mm_dd_yyyy(x)
+    else:
         return None
 
 
@@ -104,7 +102,7 @@ def time(x):
     """
     if isinstance(x, datetime.time):
         return x
-    if isinstance(x, str) and re.match('^\d{2}:\d{2}:\d{2}$', x.strip()):
+    if isinstance(x, str) and re.match(r'^\d{2}:\d{2}:\d{2}$', x.strip()):
         try:
             return datetime.time(*map(int, x.strip().split(':')))
         except ValueError:

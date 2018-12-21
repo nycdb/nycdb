@@ -776,6 +776,10 @@ rentstab:
       est2016: boolean
       dhcr2016: boolean
       abat2016: text[]
+      uc2017: integer
+      est2017: boolean
+      dhcr2017: boolean
+      abat2017: text[]
       cd: smallint
       ct2010: text
       cb2010: text
@@ -803,7 +807,7 @@ rentstab_summary:
       ucbbl: char(10)
       unitstotal: integer
       unitsstab2007: integer
-      unitsstab2016: integer
+      unitsstab2017: integer
       diff: integer
       percentchange: numeric
       j51: text
@@ -1091,13 +1095,13 @@ oath_hearings:
       ViolationLocationHouse: text
       ViolationLocationStreetName: text
       ViolationLocationFloor: text
-      ViolationLocationCity: text 
+      ViolationLocationCity: text
       ViolationLocationZipCode: char(5)
       ViolationLocationStateName: text
       RespondentAddressBorough: text
       RespondentAddressHouse: text
       RespondentAddressStreetName: text
-      RespondentAddressCity: text 
+      RespondentAddressCity: text
       RespondentAddressZipCode: char(5)
       RespondentAddressStateName: text
       HearingStatus: text
@@ -1115,17 +1119,17 @@ oath_hearings:
       PaidAmount: numeric
       AdditionalPenaltiesorLateFees: numeric
       ComplianceStatus: text
-      ViolationDescription: text 
+      ViolationDescription: text
       Charge1Code: text
       Charge1CodeSection: text
       Charge1CodeDescription: text
       Charge1InfractionAmount: numeric
       Charge2Code: text
-      Charge2CodeSection: text 
+      Charge2CodeSection: text
       Charge2CodeDescription: text
       Charge2InfractionAmount: numeric
       Charge3Code: text
-      Charge3CodeSection: text 
+      Charge3CodeSection: text
       Charge3CodeDescription: text
       Charge3InfractionAmount: numeric
       Charge4Code: text

@@ -2,8 +2,7 @@
 - name: Install required packages
   apt:
     update_cache: yes
-    name: "{{ item }}"
-  with_items: "{{ nycdb_packages }}"
+    name: "{{ nycdb_packages }}"
 
 - name: Add postgres signing key
   apt_key:
@@ -18,8 +17,7 @@
 - name: Install postgres packages
   apt:
     update_cache: yes
-    name: "{{ item }}"
-  with_items: "{{ postgres_packages }}"
+    name: "{{ postgres_packages }}"
 
 - name: Install psycopg2
   become: yes
@@ -71,6 +69,7 @@
   git:
     repo: https://github.com/aepyornis/nyc-db.git
     dest: /srv/nyc-db
+    force: true
     version: master
 
 - name: install python3 packages
