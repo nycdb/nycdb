@@ -1,10 +1,10 @@
-FROM python:3.5
+FROM python:3.6-stretch
 
-RUN apt-get update \
-  && apt-get install -y \
-    postgresql-client \
-  && rm -rf /var/lib/apt/lists/* \
-  && rm -rf /src/*.deb
+RUN echo 'deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main' > /etc/apt/sources.list.d/pgdg.list
+RUN curl -sSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
+RUN apt-get update && apt-get install -y \
+	postgresql-client-11 \
+        libpq-dev
 
 COPY src/requirements.txt /nycdb/src/requirements.txt
 

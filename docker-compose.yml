@@ -21,4 +21,4 @@ services:
       - POSTGRES_USER=nycdb
       - POSTGRES_DB=nycdb
     ports:
-      - 7777:5432
+      - 127.0.0.1:7777:5432
