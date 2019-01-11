@@ -1,4 +1,16 @@
+import os
 import setuptools
+
+MY_DIR = os.path.abspath(os.path.dirname(__file__))
+
+TEST_DATA_RELATIVE_DIR = os.path.join('tests', 'integration', 'data')
+
+TEST_DATA_DIR = os.path.join(MY_DIR, TEST_DATA_RELATIVE_DIR)
+
+TEST_DATA_FILES = [
+    os.path.join(TEST_DATA_RELATIVE_DIR, filename)
+    for filename in os.listdir(TEST_DATA_DIR)
+]
 
 setuptools.setup(
     name="nycdb",
@@ -28,6 +40,10 @@ setuptools.setup(
             'sql/**/*.sql'
         ]
     },
+
+    data_files=[
+        ('nycdb_test_data', TEST_DATA_FILES),
+    ],
 
     include_package_data=True,
 
