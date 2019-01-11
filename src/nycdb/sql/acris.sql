@@ -7,4 +7,14 @@ UPDATE personal_property_legals SET bbl = cast(borough as text) || lpad(cast(blo
 CREATE INDEX real_property_legals_bbl_idx on real_property_legals (bbl);
 CREATE INDEX personal_property_legals_bbl_idx on personal_property_legals (bbl);
 
+CREATE INDEX on real_property_legals(documentid);
 CREATE INDEX on real_property_master(documentid);
+CREATE INDEX on real_property_parties(documentid);
+CREATE INDEX on real_property_references(documentid);
+CREATE INDEX on real_property_remarks(documentid);
+
+CREATE INDEX on personal_property_legals(documentid);
+CREATE INDEX on personal_property_master(documentid);
+CREATE INDEX on personal_property_parties(documentid);
+CREATE INDEX on personal_property_references(documentid);
+CREATE INDEX on personal_property_remarks(documentid);
