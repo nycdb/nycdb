@@ -39,8 +39,8 @@ To decompress: ```  bunzip2 nyc-db-2019-01-13.sql.bz2 ```
 Load the db: ``` psql -d database-name -f nyc-db-2019-01-13.sql.bz2 ```
 
 ## Adding New Datasets
-**********
-[Guide Here](nycdb/ADDING_NEW_DATASETS.md)
+
+[Guide Here](src/ADDING_NEW_DATASETS.md)
 
 ## Build it yourself!
 
@@ -48,7 +48,7 @@ Load the db: ``` psql -d database-name -f nyc-db-2019-01-13.sql.bz2 ```
 
 To manage and create copies of the database yourself, you can see the nycdb command line tool available on pypi: ` pip3 install nycdb `
 
-see `src/README.rst` for more information on using the command line tool.
+see `src/README.md` for more information on using the command line tool.
 
 ### Using the Makefile to build the database
 

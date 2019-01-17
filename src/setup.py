@@ -11,7 +11,7 @@ setuptools.setup(
     license='AGPL-3.0-or-later',
 
     description="database of nyc housing data",
-    long_description=open('README.rst').read(),
+    long_description=open('README.md').read(),
 
     entry_points={
         'console_scripts': [
