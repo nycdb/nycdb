@@ -52,6 +52,6 @@ By default the downloaded data files are stores in './data'. Use --root-dir to c
 
 To see more options run: `nycdb --help`
 
-Adding New Datasets
+## Adding New Datasets
 **********
-[Guide Here](./ADDING_NEW_DATASETS.rst)
+[Guide Here](ADDING_NEW_DATASETS.md)
