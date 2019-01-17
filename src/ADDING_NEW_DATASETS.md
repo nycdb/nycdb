@@ -4,7 +4,7 @@ This can be tricky depending on the dataset - some might require you to write co
 
 This guide will cover adding a dataset from NYC Open Data.
 
-#### Step 1 - find the raw `.csv` download url
+### Step 1 - find the raw `.csv` download url
 
 
 For the DOB ECB Violations (the dataset we're adding in this example), when you visit the [NY Open Data page](https://data.cityofnewyork.us/Housing-Development/DOB-ECB-Violations/6bgk-3dad) for this dataset, the url you get is:
@@ -25,7 +25,7 @@ This link will automatically initiate a download of the entire dataset, which is
 For any other NY Open Data dataset, you'll need to use the link above but replace the dataset ID code with the correct one.
 
 
-#### Step 2 - tell NYCDB how to manage the files
+### Step 2 - tell NYCDB how to manage the files
 
 
 Go to `datasets.yml` in `nycdb`
@@ -50,7 +50,7 @@ The first line is where you name your dataset - this is the name that `nycdb` co
 `nycdb` will automatically handle the downloading and saving of this file from here.
 
 
-#### Step 3 - tell NYCDB how to parse / understand the data
+### Step 3 - tell NYCDB how to parse / understand the data
 
 
 For the next part, you'll need to tell NYCDB what all of the columns are and what do they contain - do they contain text, numbers, dates? etc.
@@ -79,7 +79,7 @@ Here's a list of the column types you can use:
 **************
 
 
-** NOTE **
+#### ** NOTE **
 
 You might have found a table in the NY Open Data portal [like this for example](https://data.cityofnewyork.us/Housing-Development/DOB-ECB-Violations/6bgk-3dad) that lists of the columns in the dataset and their data type. Even if a column says "Text" here, if the column can be parsed as a `date`, then `nycdb` *might* by smart enough to know how to convert this "text" into a "date". I know this is vague, but if you check in the `typecast.py` file, you might be able to see how `nycdb` formats the different column types you define in this `.yml` file.
 
@@ -145,12 +145,12 @@ ecb_violations:
       certification_status: text
 ```
 
-** NOTE **
+#### ** NOTE **
 
 If the dataset does not include a `BBL` column, but has `boro` (or `borough`), `block`, and `lot` columns, you can add a `bbl` column in manually and we'll add use `nycdb` construct the value in the next step.
 
 
-#### Step 4 - apply custom transformations to the data
+### Step 4 - apply custom transformations to the data
 
 Each dataset needs a method defined in `dataset_transformations.py` (which shares the same name as the dataset).
 
@@ -162,7 +162,7 @@ def ecb_violations(dataset):
     return with_bbl(to_csv(dataset.files[0].dest), borough='boro')
 ```
 
-#### Step 5 (optional) - add indexes to the database to speed up search
+### Step 5 (optional) - add indexes to the database to speed up search
 
 You can add raw SQL commands to the `--load` process by adding a file named `ecb_violations.sql` into the `sql` directory.
 
@@ -186,13 +186,13 @@ sql:
 ```
 
 
-#### Step 6 - re-install nycdb to register the new dataset
+### Step 6 - re-install nycdb to register the new dataset
 
 - `pip uninstall nycdb`
 - `pip setup.py install` (from inside of the `src` directory)
 
 
-#### Step 7 - verify
+### Step 7 - verify
 
 To see if your dataset registers:
 
@@ -221,7 +221,7 @@ and then add a key to `verify.py` with a rounded number thats below the true cou
 Now, when you run the terminal command `nycdb --verify ecb_violations`, it should say your data is verified.
 
 
-#### Step 8 - write an integration test!
+### Step 8 - write an integration test!
 
 Integration tests are a way to ensure that all the code works without having to manually download and check everything (which would take hours!)
 
@@ -262,6 +262,6 @@ pytest
 if it says all the tests passed, you passed! If it says a test failed, you'll have to debug.
 
 
-#### Conclusion
+### Conclusion
 
 This was an oversimplified guide to adding datasets and it may not cover every scenario you'll run into. Be sure to test your dataset after downloading and loading it to ensure that it appears the way you'd expect it to.
