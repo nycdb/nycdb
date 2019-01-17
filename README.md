@@ -1,6 +1,6 @@
 # nyc-db
 
-Let's research the landlord! New York City is in a housing crisis. Some [landlords](https://youtu.be/o1SzKHXz8tU) leave their buildings in despair and let their tenants suffer without heat in winter. Others evict their tenants, legally or illegally, in order to flip buildings and profit off of gentrification. Affordable housing is a scarce resource. 
+Let's research the landlord! New York City is in a housing crisis. Some [landlords](https://youtu.be/o1SzKHXz8tU) leave their buildings in despair and let their tenants suffer without heat in winter. Others evict their tenants, legally or illegally, in order to flip buildings and profit off of gentrification. Affordable housing is a scarce resource.
 
 Residents, lawyers, tenants, and organizers who want to use data in their struggle turn to proprietary databases and resources, like PropertyShark, designed for real estate or contend with CSV and printouts from city websites. NYC-DB aims to give technologists and researchers who want to volunteer their time helping community groups who are defending the city against the real estate industry a leg up by providing a ready-to-use database filled with housing data.
 
@@ -37,6 +37,10 @@ It's ~3gb compressed and ~20gb decompressed.
 To decompress: ```  bunzip2 nyc-db-2019-01-13.sql.bz2 ```
 
 Load the db: ``` psql -d database-name -f nyc-db-2019-01-13.sql.bz2 ```
+
+## Adding New Datasets
+**********
+[Guide Here](nycdb/ADDING_NEW_DATASETS.md)
 
 ## Build it yourself!
 
