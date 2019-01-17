@@ -39,7 +39,7 @@ To decompress: ```  bunzip2 nyc-db-2018-12-05.sql.bz2 ```
 Load the db: ``` psql -d database-name -f nyc-db-2018-12-05.sql.bz2 ```
 
 ## Adding New Datasets
-**********
+
 [Guide Here](src/ADDING_NEW_DATASETS.md)
 
 ## Build it yourself!
