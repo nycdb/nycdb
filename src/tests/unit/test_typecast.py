@@ -36,6 +36,8 @@ def test_char():
 
 def test_boolean():
     assert typecast.boolean('TRUE') is True
+    assert typecast.boolean('x') is True
+    assert typecast.boolean('X') is True
     assert typecast.boolean('no') is False
     assert typecast.boolean('am i true or false?') is None
 
