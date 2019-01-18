@@ -6,21 +6,19 @@ This guide will cover adding a dataset from NYC Open Data.
 
 ### Step 1 - find the raw `.csv` download url
 
+We need to find a URL that will trigger an automatic download of the dataset when we visit it.
 
 For the DOB ECB Violations (the dataset we're adding in this example), when you visit the [NY Open Data page](https://data.cityofnewyork.us/Housing-Development/DOB-ECB-Violations/6bgk-3dad) for this dataset, the url you get is:
 
 `https://data.cityofnewyork.us/Housing-Development/DOB-ECB-Violations/6bgk-3dad`
 
 
-Make note of the last part of this path - `6bgk-3dad` - this is the dataset's ID code
+Make note of the last part of this path - `6bgk-3dad` - this is the dataset's ID code.
 
 
 The raw `.csv` download link for this the entire dataset is `https://data.cityofnewyork.us/api/views/6bgk-3dad/rows.csv?accessType=DOWNLOAD`
 
 Note how the code `6bgk-3dad` was included after the part of the url that says `views`
-
-This link will automatically initiate a download of the entire dataset, which is what NYCDB needs. Other URLs may only give you 1000 lines at a time or not initiate a download.
-
 
 For any other NY Open Data dataset, you'll need to use the link above but replace the dataset ID code with the correct one.
 
@@ -81,9 +79,9 @@ Here's a list of the column types you can use:
 
 #### ** NOTE **
 
-You might have found a table in the NY Open Data portal [like this for example](https://data.cityofnewyork.us/Housing-Development/DOB-ECB-Violations/6bgk-3dad) that lists of the columns in the dataset and their data type. Even if a column says "Text" here, if the column can be parsed as a `date`, then `nycdb` *might* by smart enough to know how to convert this "text" into a "date". I know this is vague, but if you check in the `typecast.py` file, you might be able to see how `nycdb` formats the different column types you define in this `.yml` file.
+You might have found a table in the NY Open Data portal [like this for example](https://data.cityofnewyork.us/Housing-Development/DOB-ECB-Violations/6bgk-3dad) that lists out the columns in the dataset and their data type. Even if a column says "Text" there, if the column can be parsed as a `date`, then `nycdb` *might* by smart enough to know how to convert this "text" into a "date". If you check in the `typecast.py` file, you can see from the "date" method that NYCDB can parse dates in a variety of formats (like "20000131" and "12/31/2018 12:00:00 AM", for example).
 
-It's also *essential* to note that while columns might appear `snake_cased` in the open data portal, you need to convert these column names to `PascalCase` in the `datasets.yml` file.
+It's also **essential** to note that while columns might appear `snake_cased` in the open data portal, you need to convert these column names to `PascalCase` in the `datasets.yml` file.
 
 For this example, we'll fill out the rest of the `datasets.yml` configuration for `ecb_violations`
 
@@ -96,53 +94,53 @@ ecb_violations:
   schema:
     table_name: ecb_violations
     fields:
-      isn_dob_bis_extract: text
-      ecb_violation_number: text
-      ecb_violation_number: text
-      dob_violation_number: text
+      IsnDobBisExtract: text
+      EcbViolationNumber: text
+      EcbViolationStatus: text
+      DobViolationNumber: text
       bin: text
       boro: char(1)
       block: char(5)
       lot: char(4)
       bbl: char(10)
-      hearing_date: date
-      hearing_time: text
-      served_date: date
-      issue_date: date
+      HearingDate: date
+      HearingTime: text
+      ServedDate: date
+      IssueDate: date
       severity: text
-      violation_type: text
-      respondent_name: text
-      respondent_house_number: text
-      respondent_street: text
-      respondent_city: text
-      respondent_zip: char(5)
-      violation_description: text
-      penality_imposed: numeric # yes, 'penality' - the typo is theirs
-      amount_paid: numeric
-      balance_due: numeric
-      infraction_code1: text
-      section_law_description1: text
-      infraction_code2: text
-      section_law_description2: text
-      infraction_code3: text
-      section_law_description3: text
-      infraction_code4: text
-      section_law_description4: text
-      infraction_code5: text
-      section_law_description5: text
-      infraction_code6: text
-      section_law_description6: text
-      infraction_code7: text
-      section_law_description7: text
-      infraction_code8: text
-      section_law_description8: text
-      infraction_code9: text
-      section_law_description9: text
-      infraction_code10: text
-      section_law_description10: text
-      aggravated_level: text
-      hearing_status: text
-      certification_status: text
+      ViolationType: text
+      RespondentName: text
+      RespondentHouseNumber: text
+      RespondentStreet: text
+      RespondentCity: text
+      RespondentZip: char(5)
+      ViolationDescription: text
+      PenalityImposed: numeric # Yes, they misspelled "penalty"
+      AmountPaid: numeric
+      BalanceDue: numeric
+      InfractionCode1: text
+      SectionLawDescription1: text
+      InfractionCode2: text
+      SectionLawDescription2: text
+      InfractionCode3: text
+      SectionLawDescription3: text
+      InfractionCode4: text
+      SectionLawDescription4: text
+      InfractionCode5: text
+      SectionLawDescription5: text
+      InfractionCode6: text
+      SectionLawDescription6: text
+      InfractionCode7: text
+      SectionLawDescription7: text
+      InfractionCode8: text
+      SectionLawDescription8: text
+      InfractionCode9: text
+      SectionLawDescription9: text
+      InfractionCode10: text
+      SectionLawDescription10: text
+      AggravatedLevel: text
+      HearingStatus: text
+      CertificationStatus: text
 ```
 
 #### ** NOTE **
@@ -167,7 +165,6 @@ def ecb_violations(dataset):
 You can add raw SQL commands to the `--load` process by adding a file named `ecb_violations.sql` into the `sql` directory.
 
 It's always helpful to add indexes to help speed up search.
-
 
 In mine, I added a couple unique and non-unique indexes on fields that may be heavily queried.
 
@@ -264,4 +261,4 @@ if it says all the tests passed, you passed! If it says a test failed, you'll ha
 
 ### Conclusion
 
-This was an oversimplified guide to adding datasets and it may not cover every scenario you'll run into. Be sure to test your dataset after downloading and loading it to ensure that it appears the way you'd expect it to.
+This was an oversimplified guide for a complicated procedure and it may not cover every scenario you'll run into. Be sure to test your dataset after downloading and loading it to ensure that it appears the way you'd expect it to.
