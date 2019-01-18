@@ -1,5 +1,6 @@
 import os
 import psycopg2
+import psycopg2.extras
 from . import sql
 
 
@@ -40,9 +41,15 @@ class Database:
             table_name = self.table_name
 
         with self.conn.cursor() as curs:
-            big_sql = sql.insert_many(table_name, rows, curs)
+            sql_str, template = sql.insert_many(table_name, rows)
             try:
-                curs.execute(big_sql)
+                psycopg2.extras.execute_values(
+                    curs,
+                    sql_str,
+                    rows,
+                    template=template,
+                    page_size=len(rows)
+                )
             except psycopg2.DataError:
                 print("An error occurred. Inserting the rows one-by-one, ")
                 print("which should provide more helpful information.")

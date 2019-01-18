@@ -19,20 +19,21 @@ def insert(table_name, row):
     return sql.format(table_name=table_name, fields=fields, values=placeholders)
 
 
-def insert_many(table_name, rows, cursor):
+def insert_many(table_name, rows):
     '''
-    Generate a literal postgres string that inserts the given rows as
-    a single SQL statement. Note that this should be passed as a
-    single argument to cursor.execute(): no second argument needs to
-    be passed, as the string returned by this function does not include
-    placeholders, for reasons of efficiency [1].
+    Given a table name and a list of dictionaries representing
+    rows, generate a (sql, template) tuple of strings that can be
+    passed to psycopg2.extras.execute_values() [1] to bulk insert all the
+    values for improved efficiency [2].
 
-    [1]: https://stackoverflow.com/a/10147451
+    [1]: http://initd.org/psycopg/docs/extras.html#psycopg2.extras.execute_values
+    [2]: https://stackoverflow.com/a/30985541
     '''
 
     field_names = list(rows[0].keys())
     fields = ', '.join(field_names)
     placeholders = ', '.join(["%({})s".format(k) for k in field_names])
-    actual_values = b', '.join(cursor.mogrify('(' + placeholders + ')', row) for row in rows)
-    sql = f"INSERT INTO {table_name} ({fields}) VALUES ".encode('ascii')
-    return sql + actual_values
+    template = f"({placeholders})"
+    sql = f"INSERT INTO {table_name} ({fields}) VALUES %s"
+
+    return sql, template
