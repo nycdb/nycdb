@@ -1079,6 +1079,8 @@ oath_hearings:
     -
       url: https://data.cityofnewyork.us/api/views/jz4z-kudi/rows.csv?accessType=DOWNLOAD
       dest: oath_hearings.csv
+  sql:
+    - oath_hearings.sql
   schema:
     table_name: oath_hearings
     fields:
