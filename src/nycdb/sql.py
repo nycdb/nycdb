@@ -12,6 +12,11 @@ def insert_many(table_name, rows):
     passed to psycopg2.extras.execute_values() [1] to bulk insert all the
     values for improved efficiency [2].
 
+    For example:
+
+        >>> insert_many('boop', [{'foo': 1, 'bar': 2}])
+        ('INSERT INTO boop (foo, bar) VALUES %s', '(%(foo)s, %(bar)s)')
+
     [1]: http://initd.org/psycopg/docs/extras.html#psycopg2.extras.execute_values
     [2]: https://stackoverflow.com/a/30985541
     '''
