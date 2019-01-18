@@ -24,13 +24,6 @@ class Database:
             curs.execute(SQL)
         self.conn.commit()
 
-    def insert(self, row):
-        """ Inserts one row in a transaction"""
-        SQL = sql.insert(self.table_name, row)
-        with self.conn.cursor() as curs:
-            curs.execute(SQL, row)
-        self.conn.commit()
-
     def insert_rows(self, rows, table_name=None):
         """
         Inserts many rows, all in the same transaction.

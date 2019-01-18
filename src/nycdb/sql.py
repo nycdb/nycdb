@@ -5,20 +5,6 @@ def create_table(table_name, fields):
     return sql
 
 
-def insert(table_name, row):
-    '''
-    Generate a psycopg2-friendly string that uses placeholders to
-    insert the given row into the database.  This can be passed to
-    cursor.execute() as its first parameter; you'll want to pass the
-    row itself as the second parameter.
-    '''
-
-    fields = ', '.join(row.keys())
-    placeholders = ', '.join(["%({})s".format(k) for k in row.keys()])
-    sql = "INSERT INTO {table_name} ({fields}) VALUES ({values});"
-    return sql.format(table_name=table_name, fields=fields, values=placeholders)
-
-
 def insert_many(table_name, rows):
     '''
     Given a table name and a list of dictionaries representing
