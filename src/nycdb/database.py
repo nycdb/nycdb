@@ -31,10 +31,9 @@ class Database:
             curs.execute(SQL, row)
         self.conn.commit()
 
-    def insert_rows_quickly(self, rows, table_name=None):
+    def insert_rows(self, rows, table_name=None):
         """
-        Inserts many row, all in the same transaction, as one big
-        SQL statement.
+        Inserts many rows, all in the same transaction.
         """
 
         if table_name is None:
@@ -51,28 +50,8 @@ class Database:
                     page_size=len(rows)
                 )
             except psycopg2.DataError:
-                print("An error occurred. Inserting the rows one-by-one, ")
-                print("which should provide more helpful information.")
-                # This should throw an exception, but with more helpful
-                # logging.
-                self.insert_rows(rows, table_name)
-                # If we still get to this point, that's unexpected, but
-                # just raise our original exception.
+                print(rows) # useful for debugging
                 raise
-        self.conn.commit()
-
-    def insert_rows(self, rows, table_name=None):
-        """ Inserts many row, all in the same transaction"""
-        if table_name is None:
-            table_name = self.table_name
-
-        with self.conn.cursor() as curs:
-            for row in rows:
-                try: 
-                    curs.execute(sql.insert(table_name, row), row)
-                except psycopg2.DataError:
-                    print(row) # useful for debugging
-                    raise
         self.conn.commit()
 
     def execute_sql_file(self, sql_file):
