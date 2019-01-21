@@ -1,5 +1,6 @@
 import os
 import psycopg2
+import psycopg2.extras
 from . import sql
 
 
@@ -23,25 +24,27 @@ class Database:
             curs.execute(SQL)
         self.conn.commit()
 
-    def insert(self, row):
-        """ Inserts one row in a transaction"""
-        SQL = sql.insert(self.table_name, row)
-        with self.conn.cursor() as curs:
-            curs.execute(SQL, row)
-        self.conn.commit()
-
     def insert_rows(self, rows, table_name=None):
-        """ Inserts many row, all in the same transaction"""
+        """
+        Inserts many rows, all in the same transaction.
+        """
+
         if table_name is None:
             table_name = self.table_name
 
         with self.conn.cursor() as curs:
-            for row in rows:
-                try: 
-                    curs.execute(sql.insert(table_name, row), row)
-                except psycopg2.DataError:
-                    print(row) # useful for debugging
-                    raise
+            sql_str, template = sql.insert_many(table_name, rows)
+            try:
+                psycopg2.extras.execute_values(
+                    curs,
+                    sql_str,
+                    rows,
+                    template=template,
+                    page_size=len(rows)
+                )
+            except psycopg2.DataError:
+                print(rows) # useful for debugging
+                raise
         self.conn.commit()
 
     def execute_sql_file(self, sql_file):
