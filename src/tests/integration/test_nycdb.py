@@ -221,6 +221,19 @@ def test_dobjobs(conn):
     assert 'applicantname_tsvector' in columns
 
 
+def test_dobjobs_work_types(conn):
+    drop_table(conn, 'dobjobs')
+    dobjobs = nycdb.Dataset('dobjobs', args=ARGS)
+    dobjobs.db_import()
+
+    with conn.cursor(cursor_factory=psycopg2.extras.DictCursor) as curs:
+        curs.execute("select * from dobjobs WHERE job = '{}'".format('310077591'))
+        rec = curs.fetchone()
+        assert rec['landmarked'] is False
+        assert rec['loftboard'] is None
+        assert rec['pcfiled'] is True
+        assert rec['mechanical'] is True
+
 def test_rentstab(conn):
     drop_table(conn, 'rentstab')
     rentstab = nycdb.Dataset('rentstab', args=ARGS)

@@ -12,7 +12,7 @@ import re
 import datetime
 from decimal import Decimal, InvalidOperation
 
-YES_VALUES = [1, True, 'T', 't', 'true', 'True', 'TRUE', '1', 'y', 'Y', "YES", 'Yes']
+YES_VALUES = [1, True, 'T', 't', 'true', 'True', 'TRUE', '1', 'y', 'Y', "YES", 'Yes', 'x', 'X']
 NO_VALUES = ['0', 0, False, 'False', 'f', 'F', 'false', 'FALSE', 'N', 'n', 'NO', 'No', 'no']
 INTEGER_TYPES = ['integer', 'smallint', 'bigint', 'int']
 
