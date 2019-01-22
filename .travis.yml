@@ -20,8 +20,3 @@ install:
 
 script:
   - cd src && pytest
-
-
-matrix:
-  allow_failures:
-  - python: 3.7
