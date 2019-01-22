@@ -30,13 +30,7 @@ build-requirements:
 build:
 	python3 setup.py sdist bdist_wheel
 
-sign:
-	gpg --detach-sign --local-user $(GPG_KEYID) -a dist/$(VERSION).tar.gz
-	gpg --detach-sign --local-user $(GPG_KEYID) -a dist/$(VERSION)-py3-none-any.whl
-
-
 upload:
-	twine upload dist/$(VERSION).tar.gz dist/$(VERSION).tar.gz.asc
-	twine upload dist/$(VERSION)-py3-none-any.whl dist/$(VERSION)-py3-none-any.whl.asc
+	twine upload --sign --identity $(GPG_KEYID) dist/*
 
 .PHONY: init test test-integration test-unit cython build clean launch-docker
