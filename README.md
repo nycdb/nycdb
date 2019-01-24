@@ -6,7 +6,7 @@ Residents, lawyers, tenants, and organizers who want to use data in their strugg
 
 NYC-DB builds a postgresql database containing the following datasets:
 
-- Department of City Planning's Pluto: versions 16v2, 17v1, and 18v1
+- Department of City Planning's Pluto: versions 16v2, 17v1, 18v1, and 18v2
 - DOB Job Filings
 - DOB Complaints
 - HPD Violations

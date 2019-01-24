@@ -2,6 +2,7 @@ TABLES = {
     'pluto_16v2': {'pluto_16v2': 800000},
     'pluto_17v1': {'pluto_17v1': 800000},
     'pluto_18v1': {'pluto_18v1': 800000},
+    'pluto_18v2': {'pluto_18v2': 800000},
     'dobjobs': {'dobjobs': 1000000},
     'dob_violations': {'dob_violations': 2000000},
     'ecb_violations': {'ecb_violations': 1300000},

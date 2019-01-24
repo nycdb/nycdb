@@ -11,16 +11,35 @@ def dob_violations(dataset):
     return with_bbl(to_csv(dataset.files[0].dest), borough='boro')
 
 
+def _pluto(dataset):
+    """
+    Handles importing of all pluto versions,
+    optionally allowing for skipped fields in some versions.
+    It assumes there is only one schema for each pluto dataset.
+    """
+    pluto_generator = with_geo(to_csv(extract_csvs_from_zip(dataset.files[0].dest)))
+    pluto_fields_to_skip = dataset.schemas[0].get('skip')
+
+    if pluto_fields_to_skip:
+        return skip_fields(pluto_generator, [s.lower() for s in pluto_fields_to_skip])
+
+    return pluto_generator
+
+
 def pluto_16v2(dataset):
-    return with_geo(to_csv(extract_csvs_from_zip(dataset.files[0].dest)))
+    return _pluto(dataset)
 
 
 def pluto_17v1(dataset):
-    return with_geo(to_csv(extract_csvs_from_zip(dataset.files[0].dest)))
+    return _pluto(dataset)
 
 
 def pluto_18v1(dataset):
-    return with_geo(to_csv(extract_csvs_from_zip(dataset.files[0].dest)))
+    return _pluto(dataset)
+
+
+def pluto_18v2(dataset):
+    return _pluto(dataset)
 
 
 def hpd_complaints(dataset):
