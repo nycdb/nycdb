@@ -163,6 +163,13 @@ def test_pluto18v1(conn):
     assert row_count(conn, 'pluto_18v1') == 50
 
 
+def test_pluto18v2(conn):
+    drop_table(conn, 'pluto_18v2')
+    pluto = nycdb.Dataset('pluto_18v2', args=ARGS)
+    pluto.db_import()
+    assert row_count(conn, 'pluto_18v2') == 10
+
+
 def test_hpd_violations(conn):
     drop_table(conn, 'hpd_violations')
     hpd_violations = nycdb.Dataset('hpd_violations', args=ARGS)
