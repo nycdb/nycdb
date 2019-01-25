@@ -1,0 +1,23 @@
+---
+files:
+  -
+    url: https://nycopendata.socrata.com/api/views/eabe-havv/rows.csv?accessType=DOWNLOAD
+    dest: dob_complaints.csv
+schema:
+  table_name: dob_complaints
+  fields:
+    complaintnumber: integer
+    status: text
+    dateentered: date
+    housenumber: text
+    zipcode: text
+    housestreet: text
+    bin: integer
+    communityboard: integer
+    specialdistrict: text
+    complaintcategory: text
+    unit: text
+    dispositiondate: date
+    dispositioncode: text
+    inspectiondate: date
+    dobrundate: date

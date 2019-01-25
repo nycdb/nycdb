@@ -1,0 +1,57 @@
+---
+files:
+  -
+    url: https://data.cityofnewyork.us/api/views/6bgk-3dad/rows.csv?accessType=DOWNLOAD
+    dest: ecb_violations.csv
+sql:
+  - ecb_violations.sql
+schema:
+  table_name: ecb_violations
+  fields:
+    IsnDobBisExtract: text
+    EcbViolationNumber: text
+    EcbViolationStatus: text
+    DobViolationNumber: text
+    bin: text
+    boro: char(1)
+    block: char(5)
+    lot: char(4)
+    bbl: char(10)
+    HearingDate: date
+    HearingTime: text
+    ServedDate: date
+    IssueDate: date
+    severity: text
+    ViolationType: text
+    RespondentName: text
+    RespondentHouseNumber: text
+    RespondentStreet: text
+    RespondentCity: text
+    RespondentZip: char(5)
+    ViolationDescription: text
+    PenalityImposed: numeric
+    AmountPaid: numeric
+    BalanceDue: numeric
+    InfractionCode1: text
+    SectionLawDescription1: text
+    InfractionCode2: text
+    SectionLawDescription2: text
+    InfractionCode3: text
+    SectionLawDescription3: text
+    InfractionCode4: text
+    SectionLawDescription4: text
+    InfractionCode5: text
+    SectionLawDescription5: text
+    InfractionCode6: text
+    SectionLawDescription6: text
+    InfractionCode7: text
+    SectionLawDescription7: text
+    InfractionCode8: text
+    SectionLawDescription8: text
+    InfractionCode9: text
+    SectionLawDescription9: text
+    InfractionCode10: text
+    SectionLawDescription10: text
+    AggravatedLevel: text
+    HearingStatus: text
+    CertificationStatus: text

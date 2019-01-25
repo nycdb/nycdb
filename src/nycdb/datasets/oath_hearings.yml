@@ -1,0 +1,89 @@
+---
+files:
+  -
+    url: https://data.cityofnewyork.us/api/views/jz4z-kudi/rows.csv?accessType=DOWNLOAD
+    dest: oath_hearings.csv
+sql:
+  - oath_hearings.sql
+schema:
+  table_name: oath_hearings
+  fields:
+    TicketNumber: text
+    ViolationDate: date
+    ViolationTime: 'time without time zone'
+    IssuingAgency: text
+    RespondentFirstName: text
+    RespondentLastName: text
+    BalanceDue: numeric
+    ViolationLocationBorough: text
+    ViolationLocationBlockNo: integer
+    ViolationLocationLotNo: integer
+    ViolationLocationHouse: text
+    ViolationLocationStreetName: text
+    ViolationLocationFloor: text
+    ViolationLocationCity: text
+    ViolationLocationZipCode: char(5)
+    ViolationLocationStateName: text
+    RespondentAddressBorough: text
+    RespondentAddressHouse: text
+    RespondentAddressStreetName: text
+    RespondentAddressCity: text
+    RespondentAddressZipCode: char(5)
+    RespondentAddressStateName: text
+    HearingStatus: text
+    HearingResult: text
+    ScheduledHearingLocation: text
+    HearingDate: date
+    HearingTime: 'time without time zone'
+    DecisionLocationBorough: text
+    DecisionDate: date
+    TotalViolationAmount: numeric
+    ViolationDetails: text
+    DateJudgmentDocketed: date
+    RespondentAddressorFacilityNumberForFDNYandDOBTickets: text
+    PenaltyImposed: numeric
+    PaidAmount: numeric
+    AdditionalPenaltiesorLateFees: numeric
+    ComplianceStatus: text
+    ViolationDescription: text
+    Charge1Code: text
+    Charge1CodeSection: text
+    Charge1CodeDescription: text
+    Charge1InfractionAmount: numeric
+    Charge2Code: text
+    Charge2CodeSection: text
+    Charge2CodeDescription: text
+    Charge2InfractionAmount: numeric
+    Charge3Code: text
+    Charge3CodeSection: text
+    Charge3CodeDescription: text
+    Charge3InfractionAmount: numeric
+    Charge4Code: text
+    Charge4CodeSection: text
+    Charge4CodeDescription: text
+    Charge4InfractionAmount: numeric
+    Charge5Code: text
+    Charge5CodeSection: text
+    Charge5CodeDescription: text
+    Charge5InfractionAmount: numeric
+    Charge6Code: text
+    Charge6CodeSection: text
+    Charge6CodeDescription: text
+    Charge6InfractionAmount: numeric
+    Charge7Code: text
+    Charge7CodeSection: text
+    Charge7CodeDescription: text
+    Charge7InfractionAmount: numeric
+    Charge8Code: text
+    Charge8CodeSection: text
+    Charge8CodeDescription: text
+    Charge8InfractionAmount: numeric
+    Charge9Code: text
+    Charge9CodeSection: text
+    Charge9CodeDescription: text
+    Charge9InfractionAmount: numeric
+    Charge10Code: text
+    Charge10CodeSection: text
+    Charge10CodeDescription: text
+    Charge10InfractionAmount: numeric
+    BBL: char(10)

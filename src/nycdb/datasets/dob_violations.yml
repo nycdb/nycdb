@@ -1,0 +1,29 @@
+---
+files:
+  -
+    url: https://data.cityofnewyork.us/api/views/3h2n-5cm9/rows.csv?accessType=DOWNLOAD
+    dest: dob_violations.csv
+schema:
+  table_name: dob_violations
+  fields:
+    BBL: char(10)
+    IsnDobBisViol: text
+    boro: char(1)
+    Bin: text
+    block: text
+    lot: text
+    IssueDate: date
+    ViolationTypeCode: text
+    ViolationNumber: text
+    HouseNumber: text
+    Street: text
+    DispositionDate: date
+    DispositionComments: text
+    DeviceNumber: text
+    Description: text
+    EcbNumber: text
+    Number: text
+    ViolationCategory: text
+    ViolationType: text
+sql:
+  - dob_violations.sql

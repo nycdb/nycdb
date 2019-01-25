@@ -1,0 +1,58 @@
+---
+files:
+  -
+    url: https://data.cityofnewyork.us/api/views/tesw-yqqr/rows.csv?accessType=DOWNLOAD
+    dest: hpd_registrations.csv
+  -
+    url: https://data.cityofnewyork.us/api/views/feu5-w2e2/rows.csv?accessType=DOWNLOAD
+    dest: hpd_contacts.csv
+sql:
+  - hpd_registrations/add_bbl.sql
+  - hpd_registrations/anyarray_uniq.sql
+  - hpd_registrations/anyarray_remove_null.sql
+  - hpd_registrations/first_last.sql
+  - hpd_registrations/contacts_cleanup.sql
+  - hpd_registrations/corporate_owners.sql
+  - hpd_registrations/business_addrs.sql
+  - hpd_registrations/registrations_grouped_by_bbl.sql
+  - hpd_registrations/registrations_grouped_by_bbl_with_contacts.sql
+  - hpd_registrations/functions.sql
+  - hpd_registrations/index.sql
+schema:
+  -
+    table_name: hpd_registrations
+    fields:
+      registrationID: integer
+      buildingID: integer
+      boroID: smallint
+      boro: text
+      housenumber: text
+      lowhousenumber: text
+      highhousenumber: text
+      streetname: text
+      streetcode: integer
+      zip: text
+      block: smallint
+      lot: smallint
+      BIN: integer
+      communityboard: smallint
+      lastregistrationdate: date
+      registrationenddate: date
+  -
+    table_name: hpd_contacts
+    fields:
+      registrationcontactID: integer
+      registrationID: integer
+      type: text
+      ContactDescription: text
+      CorporationName: text
+      Title: text
+      FirstName: text
+      MiddleInitial: text
+      LastName: text
+      BusinessHouseNumber: text
+      BusinessStreetName: text
+      BusinessApartment: text
+      BusinessCity: text
+      BusinessState: text
+      BusinessZip: text

@@ -23,7 +23,7 @@ setuptools.setup(
 
     package_data={
         'nycdb': [
-            'datasets.yml',
+            'datasets/*.yml',
             'sql/*.sql',
             'sql/**/*.sql'
         ]
