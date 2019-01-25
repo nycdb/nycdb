@@ -1,0 +1,50 @@
+---
+files:
+  -
+    url: https://data.cityofnewyork.us/api/views/wvxf-dwi5/rows.csv?accessType=DOWNLOAD
+    dest: hpd_violations.csv
+sql:
+  - hpd_violations.sql
+schema:
+  table_name: hpd_violations
+  fields:
+    ViolationID: integer
+    BuildingID: integer
+    RegistrationID: integer
+    BoroID: char(1)
+    Borough: text
+    HouseNumber: text
+    LowHouseNumber: text
+    HighHouseNumber: text
+    StreetName: text
+    StreetCode: text
+    Postcode: char(5)
+    Apartment: text
+    Story: text
+    Block: integer
+    Lot: integer
+    Class: char(1)
+    InspectionDate: date
+    ApprovedDate: date
+    OriginalCertifyByDate: date
+    OriginalCorrectByDate: date
+    NewCertifyByDate: date
+    NewCorrectByDate: date
+    CertifiedDate: date
+    OrderNumber: text
+    NOVID: integer
+    NOVDescription: text
+    NOVIssuedDate: date
+    CurrentStatusID: smallint
+    CurrentStatus: text
+    CurrentStatusDate: date
+    NovType: text
+    ViolationStatus: text
+    Latitude: numeric
+    Longitude: numeric
+    CommunityBoard: text
+    CouncilDistrict: smallint
+    CensusTract: text
+    BIN: integer
+    BBL: char(10)
+    NTA: text

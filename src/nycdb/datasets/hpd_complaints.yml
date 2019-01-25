@@ -1,0 +1,49 @@
+---
+files:
+  -
+    url: https://data.cityofnewyork.us/api/views/uwyv-629c/rows.csv?accessType=DOWNLOAD
+    dest: hpd_complaints.csv
+  -
+    url: https://data.cityofnewyork.us/api/views/a2nx-4u46/rows.csv?accessType=DOWNLOAD
+    dest: hpd_complaint_problems.csv
+schema:
+  -
+    table_name: hpd_complaints
+    fields:
+      ComplaintID: integer
+      BuildingID: integer
+      BoroughID: integer
+      Borough: text
+      HouseNumber: text
+      StreetName: text
+      Zip: text
+      Block: integer
+      Lot: integer
+      Apartment: text
+      CommunityBoard: integer
+      ReceivedDate: date
+      StatusID: integer
+      Status: text
+      StatusDate: date
+      bbl: char(10)
+  -
+    table_name: hpd_complaint_problems
+    fields:
+      ProblemID: integer
+      ComplaintID: integer
+      UnitTypeID: smallint
+      UnitType: text
+      SpaceTypeID: smallint
+      SpaceType: text
+      TypeID: smallint
+      Type: text
+      MajorCategoryID: smallint
+      MajorCategory: text
+      MinorCategoryID: smallint
+      MinorCategory: text
+      CodeID: smallint
+      Code: text
+      StatusID: smallint
+      Status: text
+      StatusDate: date
+      StatusDescription: text

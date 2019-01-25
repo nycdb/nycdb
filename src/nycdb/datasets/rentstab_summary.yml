@@ -1,0 +1,34 @@
+---
+files:
+  -
+    url: http://taxbills.nyc/changes-summary.csv
+    dest: changes-summary.csv
+schema:
+  table_name: rentstab_summary
+  fields:
+    ucbbl: char(10)
+    unitstotal: integer
+    unitsstab2007: integer
+    unitsstab2017: integer
+    diff: integer
+    percentchange: numeric
+    j51: text
+    a421: text
+    scrie: text
+    drie: text
+    c420: text
+    cd: smallint
+    ct2010: text
+    cb2010: text
+    council: integer
+    zipcode: char(5)
+    address: text
+    ownername: text
+    numbldgs: smallint
+    numfloors: numeric
+    unitsres: integer
+    unitstotalpluto: integer
+    yearbuilt: smallint
+    condono: smallint
+    lon: numeric
+    lat: numeric

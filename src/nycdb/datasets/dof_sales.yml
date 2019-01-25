@@ -1,0 +1,45 @@
+---
+files:
+  -
+    url: http://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/rollingsales_manhattan.xls
+    dest: rollingsales_manhattan.xls
+  -
+    url: http://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/rollingsales_bronx.xls
+    dest: rollingsales_bronx.xls
+  -
+    url: http://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/rollingsales_brooklyn.xls
+    dest: rollingsales_brooklyn.xls
+  -
+    url: http://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/rollingsales_queens.xls
+    dest: rollingsales_queens.xls
+  -
+    url: http://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/rollingsales_statenisland.xls
+    dest: rollingsales_statenisland.xls
+sql:
+  - dof_sales.sql
+schema:
+  table_name: dof_sales
+  fields:
+    Borough: char(1)
+    Neighborhood: text
+    BuildingClassCategory: text
+    TaxClassAtPresent: text
+    Block: char(5)
+    Lot: char(4)
+    EaseMent: text
+    BuildingClassAtPresent: text
+    Address: text
+    ApartmentNumber: text
+    ZipCode: char(5)
+    ResidentialUnits: integer
+    CommercialUnits: integer
+    TotalUnits: integer
+    LandSquareFeet: integer
+    GrossSquareFeet: integer
+    YearBuilt: integer
+    TaxClassAtTimeOfSale: text
+    BuildingClassAtTimeOfSale: text
+    SalePrice: bigint
+    SaleDate: date
+    bbl: char(10)
+    id: 'serial PRIMARY KEY'
