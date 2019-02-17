@@ -24,7 +24,7 @@ nyc-db: $(datasets)
 nyc-db-all: $(all_datasets)
 	make verify
 
-$(datasets):
+$(all_datasets):
 	$(NYCDB) --download $@
 	$(NYCDB) --load $@
 
