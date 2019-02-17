@@ -26,6 +26,10 @@ def _pluto(dataset):
     return pluto_generator
 
 
+def pluto_15v1(dataset):
+    return _pluto(dataset)
+
+
 def pluto_16v2(dataset):
     return _pluto(dataset)
 

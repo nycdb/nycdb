@@ -1,4 +1,5 @@
 TABLES = {
+    'pluto_15v1': {'pluto_15v1': 800000},
     'pluto_16v2': {'pluto_16v2': 800000},
     'pluto_17v1': {'pluto_17v1': 800000},
     'pluto_18v1': {'pluto_18v1': 800000},
@@ -69,20 +70,3 @@ def check_dataset(db, dataset):
                     print(has_rows + expecting)
         else:
             print(colors.FAIL + table_name + ' is missing!' + colors.ENDC)
-
-
-# 'acris': [
-#         'country_codes',
-#         'document_control_codes',
-#         'ucc_collateral_codes',
-#         'personal_property_legals',
-#         'personal_property_master',
-#         'personal_property_parties',
-# #       'personal_property_references',
-# #       'personal_property_remarks',
-#         'real_property_legals',
-#         'real_property_master',
-#         'real_property_parties',
-#         'real_property_references',
-#         'real_property_remarks'
-# ],
