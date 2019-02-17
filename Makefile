@@ -16,7 +16,12 @@ NYCDB := nycdb -D $(DB_DATABASE) -H $(DB_HOST) -U $(DB_USER) -P $(DB_PASSWORD)
 
 datasets := $(shell nycdb --list-datasets | egrep -v 'pluto_(17v1|16v2|18v1)')
 
+all_datasets := $(shell nycdb --list-datasets)
+
 nyc-db: $(datasets)
+	make verify
+
+nyc-db-all: $(all_datasets)
 	make verify
 
 $(datasets):
