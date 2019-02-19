@@ -6,7 +6,7 @@ Residents, lawyers, tenants, and organizers who want to use data in their strugg
 
 NYC-DB builds a postgresql database containing the following datasets:
 
-- Department of City Planning's Pluto: versions 16v2, 17v1, 18v1, and 18v2
+- Department of City Planning's Pluto: versions 15v1, 16v2, 17v1, 18v1, and 18v2
 - DOB Job Filings
 - DOB Complaints
 - HPD Violations
@@ -26,17 +26,17 @@ Just want a copy of the database?
 
 Here are the latest versions available to download:
 
+- [nyc-db-2019-02-18.sql.bz2](https://s3.amazonaws.com/nyc-db/nyc-db-2019-02-18.sql.bz2)
 - [nyc-db-2019-01-13.sql.bz2](https://s3.amazonaws.com/nyc-db/nyc-db-2019-01-13.sql.bz2)
-- [nyc-db-2018-12-05.sql.bz2](https://s3.amazonaws.com/nyc-db/nyc-db-2018-12-05.sql.bz2)
 
 
 [![License: CC BY-NC-SA 4.0](https://licensebuttons.net/l/by-nc-sa/4.0/80x15.png)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 
 It's ~3gb compressed and ~20gb decompressed.
 
-To decompress: ```  bunzip2 nyc-db-2019-01-13.sql.bz2 ```
+To decompress: ```  bunzip2 nyc-db-2019-02-18.sql.bz2 ```
 
-Load the db: ``` psql -d database-name -f nyc-db-2019-01-13.sql.bz2 ```
+Load the db: ``` psql -d database-name -f nyc-db-2019-02-18.sql.bz2 ```
 
 ## Adding New Datasets
 
