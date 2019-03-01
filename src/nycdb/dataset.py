@@ -3,9 +3,8 @@ import logging
 import itertools
 import os
 import subprocess
-from functools import lru_cache
 from tqdm import tqdm
-from pathlib import Path
+
 
 from . import verify
 from . import dataset_transformations
@@ -13,22 +12,10 @@ from . import sql
 from .database import Database
 from .typecast import Typecast
 from .file import File
-from .utility import read_yml, list_wrap, merge
+from .utility import list_wrap, merge
+from .datasets import datasets
 
 BATCH_SIZE = 1000
-
-
-@lru_cache()
-def datasets():
-    """
-    Returns a dictionary with all defined datasets.
-    """
-    dataset_dictionary = {}
-
-    for yaml_file in Path(os.path.dirname(__file__)).absolute().glob('./datasets/*.yml'):
-        dataset_dictionary[yaml_file.stem] = read_yml(yaml_file)
-
-    return dataset_dictionary
 
 
 class Dataset:
