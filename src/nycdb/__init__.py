@@ -6,7 +6,8 @@ __author__ = 'ziggy <ziggy@elephant-bird.net>'
 
 from . import typecast, sql, transform, bbl, dof_parser, address
 from .database import Database
-from .dataset import Dataset, datasets
+from .dataset import Dataset
+from .datasets import datasets
 from .file import File
 
 

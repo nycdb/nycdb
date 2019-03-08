@@ -1,7 +1,7 @@
 from .transform import with_geo, with_bbl, to_csv, extract_csvs_from_zip, skip_fields
 from .transform import hpd_registrations_address_cleanup, hpd_contacts_address_cleanup
 from .dof_parser import parse_dof_file
-
+from .datasets import datasets
 
 def ecb_violations(dataset):
     return with_bbl(to_csv(dataset.files[0].dest), borough='boro')
@@ -25,26 +25,13 @@ def _pluto(dataset):
 
     return pluto_generator
 
-
-def pluto_15v1(dataset):
+# Creates a function for each pluto version
+# same as doing def pluto_15v1() ... def pluto_16v2 ... etc
+for pluto_version in filter(lambda x: x[0:5] == 'pluto', datasets().keys()):
+    exec(f'''
+def {pluto_version}(dataset):
     return _pluto(dataset)
-
-
-def pluto_16v2(dataset):
-    return _pluto(dataset)
-
-
-def pluto_17v1(dataset):
-    return _pluto(dataset)
-
-
-def pluto_18v1(dataset):
-    return _pluto(dataset)
-
-
-def pluto_18v2(dataset):
-    return _pluto(dataset)
-
+''')
 
 def hpd_complaints(dataset):
     return with_bbl(to_csv(dataset.files[0].dest))
