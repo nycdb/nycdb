@@ -77,3 +77,7 @@ def oath_hearings(dataset):
                     borough='violationlocationborough',
                     block='violationlocationblockno',
                     lot='violationlocationlotno')
+
+def j51_exemptions(dataset):
+    return with_bbl(to_csv(dataset.files[0].dest), borough='boroughcode')
+
