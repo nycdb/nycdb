@@ -335,6 +335,18 @@ def test_dob_violations(conn):
         assert rec['violationtypecode'] == 'LL6291'
 
 
+def test_j51_exemptions(conn):
+    drop_table(conn, 'j51_exemptions')
+    j51_exemptions = nycdb.Dataset('j51_exemptions', args=ARGS)
+    j51_exemptions.db_import()
+    assert row_count(conn, 'j51_exemptions') == 100
+    with conn.cursor(cursor_factory=psycopg2.extras.DictCursor) as curs:
+        curs.execute("select * from j51_exemptions WHERE bbl = '1000151001'")
+        rec = curs.fetchone()
+        assert rec is not None
+        assert rec['taxyear'] == 2001
+
+
 def run_cli(args, input):
     full_args = [
         sys.executable, "-m", "nycdb.cli",
