@@ -16,9 +16,9 @@ For the DOB ECB Violations (the dataset we're adding in this example), when you 
 Make note of the last part of this path - `6bgk-3dad` - this is the dataset's ID code.
 
 
-The raw `.csv` download link for this the entire dataset is `https://data.cityofnewyork.us/api/views/6bgk-3dad/rows.csv?accessType=DOWNLOAD`
+The raw `.csv` download link for this the entire dataset is `https://data.cityofnewyork.us/api/views/6bgk-3dad/rows.csv?accessType=DOWNLOAD`.
 
-Note how the code `6bgk-3dad` was included after the part of the url that says `views`
+Note how the code `6bgk-3dad` was included after the part of the url that says `views`.
 
 For any other NY Open Data dataset, you'll need to use the link above but replace the dataset ID code with the correct one.
 
@@ -26,24 +26,21 @@ For any other NY Open Data dataset, you'll need to use the link above but replac
 ### Step 2 - tell NYCDB how to manage the files
 
 
-Go to `datasets.yml` in `nycdb`
-
-
-At the top of the file, add your new dataset following the strict formatting of the other datasets as an example.
+Make a new file in `src/nycdb/datasets` called `ecb_violations.yml` and paste the following into it:
 
 ```yml
-ecb_violations:
-  files:
-    -
-      url: https://data.cityofnewyork.us/api/views/6bgk-3dad/rows.csv?accessType=DOWNLOAD
-      dest: ecb_violations.csv
+---
+files:
+  -
+    url: https://data.cityofnewyork.us/api/views/6bgk-3dad/rows.csv?accessType=DOWNLOAD
+    dest: ecb_violations.csv
 ```
 
-The first line is where you name your dataset - this is the name that `nycdb` commands like `nycdb --download` and `nycdb --load` will look for. This configuration will allow you to run commands like `nycdb --download ecb_violations`
+The name of the file without its `.yml` extension is the name that `nycdb` commands like `nycdb --download` and `nycdb --load` will look for. Since we've called the file `ecb_violations.yml`, it means you can run commands like `nycdb --download ecb_violations`.
 
-`url:` is where you put the download link
+`url:` is where you put the download link.
 
-`dest:` is where you name the file when it's downloaded
+`dest:` is where you name the file when it's downloaded. Try to name it after the name of your dataset if possible--in our example, for instance, our dataset is named `ecb_violations` and our `dest` is `ecb_violations.csv`.  This isn't required, but it's a nice convention that makes it easier to know what dataset a CSV is for when looking through one's downloads.
 
 `nycdb` will automatically handle the downloading and saving of this file from here.
 
@@ -79,74 +76,82 @@ Here's a list of the column types you can use:
 
 #### ** NOTE **
 
-You might have found a table in the NY Open Data portal [like this for example](https://data.cityofnewyork.us/Housing-Development/DOB-ECB-Violations/6bgk-3dad) that lists out the columns in the dataset and their data type. Even if a column says "Text" there, if the column can be parsed as a `date`, then `nycdb` *might* by smart enough to know how to convert this "text" into a "date". If you check in the `typecast.py` file, you can see from the "date" method that NYCDB can parse dates in a variety of formats (like "20000131" and "12/31/2018 12:00:00 AM", for example).
+You might have found a table in the NY Open Data portal [like this for example](https://data.cityofnewyork.us/Housing-Development/DOB-ECB-Violations/6bgk-3dad) that lists out the columns in the dataset and their data type. Even if a column says "Text" there, if the column can be parsed as a `date`, then `nycdb` *might* be smart enough to know how to convert this "text" into a "date". If you check in the `typecast.py` file, you can see from the "date" method that NYCDB can parse dates in a variety of formats (like "20000131" and "12/31/2018 12:00:00 AM", for example).
 
-It's also **essential** to note that while columns might appear `snake_cased` in the open data portal, you need to convert these column names to `PascalCase` in the `datasets.yml` file.
+It's also **essential** to note that while columns might appear `snake_cased` in the open data portal, you need to convert these column names to `CamelCase` in the `ecb_violations.yml` file. So
+if a column is called `ECB_VIOLATION_NUMBER` in the CSV, it
+should be called `EcbViolationNumber` in the YML file.
 
-For this example, we'll fill out the rest of the `datasets.yml` configuration for `ecb_violations`
+For this example, we'll fill out the rest of the `ecb_violations.yml` configuration.
 
 ```yml
-ecb_violations:
-  files:
-    -
-      url: https://data.cityofnewyork.us/api/views/6bgk-3dad/rows.csv?accessType=DOWNLOAD
-      dest: ecb_violations.csv
-  schema:
-    table_name: ecb_violations
-    fields:
-      IsnDobBisExtract: text
-      EcbViolationNumber: text
-      EcbViolationStatus: text
-      DobViolationNumber: text
-      bin: text
-      boro: char(1)
-      block: char(5)
-      lot: char(4)
-      bbl: char(10)
-      HearingDate: date
-      HearingTime: text
-      ServedDate: date
-      IssueDate: date
-      severity: text
-      ViolationType: text
-      RespondentName: text
-      RespondentHouseNumber: text
-      RespondentStreet: text
-      RespondentCity: text
-      RespondentZip: char(5)
-      ViolationDescription: text
-      PenalityImposed: numeric # Yes, they misspelled "penalty"
-      AmountPaid: numeric
-      BalanceDue: numeric
-      InfractionCode1: text
-      SectionLawDescription1: text
-      InfractionCode2: text
-      SectionLawDescription2: text
-      InfractionCode3: text
-      SectionLawDescription3: text
-      InfractionCode4: text
-      SectionLawDescription4: text
-      InfractionCode5: text
-      SectionLawDescription5: text
-      InfractionCode6: text
-      SectionLawDescription6: text
-      InfractionCode7: text
-      SectionLawDescription7: text
-      InfractionCode8: text
-      SectionLawDescription8: text
-      InfractionCode9: text
-      SectionLawDescription9: text
-      InfractionCode10: text
-      SectionLawDescription10: text
-      AggravatedLevel: text
-      HearingStatus: text
-      CertificationStatus: text
+---
+files:
+  -
+    url: https://data.cityofnewyork.us/api/views/6bgk-3dad/rows.csv?accessType=DOWNLOAD
+    dest: ecb_violations.csv
+schema:
+  table_name: ecb_violations
+  fields:
+    IsnDobBisExtract: text
+    EcbViolationNumber: text
+    EcbViolationStatus: text
+    DobViolationNumber: text
+    bin: text
+    boro: char(1)
+    block: char(5)
+    lot: char(4)
+    bbl: char(10)
+    HearingDate: date
+    HearingTime: text
+    ServedDate: date
+    IssueDate: date
+    severity: text
+    ViolationType: text
+    RespondentName: text
+    RespondentHouseNumber: text
+    RespondentStreet: text
+    RespondentCity: text
+    RespondentZip: char(5)
+    ViolationDescription: text
+    PenalityImposed: numeric # Yes, they misspelled "penalty"
+    AmountPaid: numeric
+    BalanceDue: numeric
+    InfractionCode1: text
+    SectionLawDescription1: text
+    InfractionCode2: text
+    SectionLawDescription2: text
+    InfractionCode3: text
+    SectionLawDescription3: text
+    InfractionCode4: text
+    SectionLawDescription4: text
+    InfractionCode5: text
+    SectionLawDescription5: text
+    InfractionCode6: text
+    SectionLawDescription6: text
+    InfractionCode7: text
+    SectionLawDescription7: text
+    InfractionCode8: text
+    SectionLawDescription8: text
+    InfractionCode9: text
+    SectionLawDescription9: text
+    InfractionCode10: text
+    SectionLawDescription10: text
+    AggravatedLevel: text
+    HearingStatus: text
+    CertificationStatus: text
 ```
 
 #### ** NOTE **
 
-If the dataset does not include a `BBL` column, but has `boro` (or `borough`), `block`, and `lot` columns, you can add a `bbl` column in manually and we'll add use `nycdb` construct the value in the next step.
+If the dataset does not include a `BBL` column, but has `boro` (or `borough`), `block`, and `lot` columns, you can add a `bbl` column in manually and we'll add use `nycdb` construct the value in the next step:
 
+```diff
+     AggravatedLevel: text
+     HearingStatus: text
+     CertificationStatus: text
++    bbl: char(10)
+```
 
 ### Step 4 - apply custom transformations to the data
 
@@ -160,13 +165,14 @@ def ecb_violations(dataset):
     return with_bbl(to_csv(dataset.files[0].dest), borough='boro')
 ```
 
+
 ### Step 5 (optional) - add indexes to the database to speed up search
 
 You can add raw SQL commands to the `--load` process by adding a file named `ecb_violations.sql` into the `sql` directory.
 
 It's always helpful to add indexes to help speed up search.
 
-In mine, I added a couple unique and non-unique indexes on fields that may be heavily queried.
+For `ecb_violations`, we can add a couple unique and non-unique indexes on fields that may be heavily queried.
 
 ```sql
 CREATE INDEX ecb_violations_bbl_idx on ecb_violations (bbl);
@@ -175,8 +181,12 @@ CREATE INDEX ecb_violations_dob_violation_number_idx on ecb_violations (DobViola
 CREATE UNIQUE INDEX ecb_violations_isndobbisviol_idx on ecb_violations (EcbViolationNumber);
 ```
 
+At the very least, when in doubt, you should at least try adding
+and index on your dataset's `bbl` column, since it's a field that
+people will frequently want to join on.
 
-In your `datasets.yml` file, add a reference to the sql file to the end of the dataset object. (make sure it lines up with the `fields` and 'files' keys!)
+In your `ecb_violations.yml` file, add a reference to the sql file to the end of the dataset object. (make sure it lines up with the `fields` and 'files' keys!)
+
 ```
 sql:
   - ecb_violations.sql
@@ -256,7 +266,24 @@ and run the command:
 pytest
 ```
 
-if it says all the tests passed, you passed! If it says a test failed, you'll have to debug.
+If it says all the tests passed, you passed! If it says a test failed, you'll have to debug.
+
+#### Running a failing test faster
+
+It might be the case that the new test you added is the only one that's failing.
+If that's the case, you can re-run *only* that test via command-line options like this:
+
+```
+pytest src/tests/integration/test_nycdb.py -k test_hpd_complaint_problems
+```
+
+This allows you to debug and iterate on your code faster.
+
+
+### Step 9 - Update the documentation
+
+Now just update [`README.md`](../README.md) to list your dataset in the list of datasets, so
+future users know it's in NYCDB.
 
 
 ### Conclusion
