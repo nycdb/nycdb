@@ -17,6 +17,7 @@ NYC-DB builds a postgresql database containing the following datasets:
 - ACRIS
 - 2017 Marshal Evictions
 - ECB / Oath Hearings
+- J-51 Exemptions
 
 NYC-DB is a python3 command line program that downloads and loads datasets into postgres.
 
