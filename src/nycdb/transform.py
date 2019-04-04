@@ -71,6 +71,12 @@ def extract_csvs_from_zip(file_path):
 
 
 def extract_csv_from_zip(file_path, csv_file_path):
+    """
+    Returns a generator that iterates through all the rows
+    in the given CSV file in the given ZIP file, including
+    the header row.
+    """
+
     with ZipFile(file_path, 'r') as zip_f:
         with zip_f.open(csv_file_path) as f:
             for line in f:
