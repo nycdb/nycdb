@@ -70,6 +70,13 @@ def extract_csvs_from_zip(file_path):
                     yield line.decode('UTF-8', 'ignore')
 
 
+def extract_csv_from_zip(file_path, csv_file_path):
+    with ZipFile(file_path, 'r') as zip_f:
+        with zip_f.open(csv_file_path) as f:
+            for line in f:
+                yield line.decode('UTF-8', 'ignore')
+
+
 def to_csv(file_path_or_generator):
     """
     input: String | Generator

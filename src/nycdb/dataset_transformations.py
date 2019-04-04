@@ -1,4 +1,4 @@
-from .transform import with_geo, with_bbl, to_csv, extract_csvs_from_zip, skip_fields
+from .transform import with_geo, with_bbl, to_csv, extract_csvs_from_zip, extract_csv_from_zip, skip_fields
 from .transform import hpd_registrations_address_cleanup, hpd_contacts_address_cleanup
 from .dof_parser import parse_dof_file
 from .datasets import datasets
@@ -93,3 +93,12 @@ def oath_hearings(dataset):
                     borough='violationlocationborough',
                     block='violationlocationblockno',
                     lot='violationlocationlotno')
+
+
+def pad(dataset):
+    pad_generator = with_bbl(to_csv(extract_csv_from_zip(
+        dataset.files[0].dest, 'bobaadr.txt')), borough='boro')
+
+    pad_fields_to_skip = dataset.schemas[0].get('skip')
+
+    return skip_fields(pad_generator, [s.lower() for s in pad_fields_to_skip])
