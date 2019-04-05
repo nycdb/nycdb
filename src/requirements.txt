@@ -2,7 +2,7 @@ pytest
 PyYAML
 requests
 psycopg2
-pyproj
+pyproj==1.9.6
 tqdm
 xlrd
 

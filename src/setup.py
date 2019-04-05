@@ -37,7 +37,7 @@ setuptools.setup(
         'PyYAML>=3',
         'requests>=2.18',
         'xlrd>=1.1.0',
-        'pyproj>=1.9.5',
+        'pyproj>=1.9.5,<2',
         'psycopg2>=2.7',
         'tqdm>=4.28.1'
     ],
