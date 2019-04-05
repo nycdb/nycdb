@@ -18,7 +18,27 @@ NYC-DB builds a postgresql database containing the following datasets:
 - 2017 Marshal Evictions
 - ECB / Oath Hearings
 
-NYC-DB is a python3 command line program that downloads and loads datasets into postgres.
+NYC-DB includes a python3 command line program that downloads the data and loads datasets into postgres.
+
+While loading data into postgres, it also transforms the raw data in various ways: by cleaning up bad data, formatting it more consistently, creating indexes on frequently-used columns, and more.
+
+## Database structure
+
+The datasets in NYC-DB come from disparate sources, but almost all of them can be
+linked together through a single identifier: the **Borough Block Lot (BBL) number**.
+From the [NYC Open Data Glossary][glossary]:
+
+> **Borough Block Lot (BBL) number:** A combination of three numeric codes -- a 1-digit borough number, a block number (up to 5 digits) and a lot number (up to 4 digits) -- designated and modified by the Department of Finance (DOF). BBLs are used by various city agencies to identify real estate for taxes, zoning, construction, and other purposes.
+
+The BBL isn't ideal in many ways: sometimes, for example, multiple buildings can exist on the same lot. However, it's an identifier that's been around for a very long time, and one that almost every existing dataset already contains, in one form or another. One of the key goals behind NYC-DB is to ensure that as many datasets as possible have a consistently-formatted ten-digit `bbl` column, so that joins can be made between tables as easily and reliably as possible.
+
+For more details on common data types you'll see in NYC-DB's datasets, see:
+
+* **A Survey of Unique Identifiers in NYC Open Data** ([video](https://www.youtube.com/watch?v=Dhuc4fdIBqc&feature=youtu.be) | [slides](https://speakerdeck.com/pichot/survey-of-unique-ids-in-nyc-open-data-joins-sorrows-and-surprises)) is an amazing 45-minute talk by Jonathan Pichot of NYC Planning Labs that dives deep into BBLs, BINs, addresses, and Street Segment IDs. It also covers relevant web-based tools that may be of use alongside NYC-DB.
+
+* [NYC Public Data: A primer on property data](http://blog.davidelner.com/nyc-property-data-primer/) is a great blog post by David Elner that covers some of the same material as Pichot's talk; it's particularly useful for those who prefer the written word over video presentations.
+
+[glossary]: https://docs.google.com/document/d/1yWlTwMxqYrZPZ5pZxrUwuBTNJ1LqFJyr3haM7m-bvfc/edit
 
 ## Get a copy
 
