@@ -47,6 +47,11 @@ def test_numeric():
     assert typecast.numeric('') is None
 
 
+def test_to_float():
+    assert typecast.to_float(12.5) == 12.5
+    assert typecast.to_float('12.5') == 12.5
+    assert typecast.to_float('not a number') is None
+
 def test_date_yyyymmdd_string():
     assert typecast.date('19250501') == datetime.date(1925, 5, 1)
 

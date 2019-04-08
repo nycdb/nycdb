@@ -90,5 +90,6 @@ schema:
     APPDate: date
     PLUTOMapID: char(1)
     Version: text
-    lng: numeric
-    lat: numeric
+    lng: 'double precision'
+    lat: 'double precision'
+    
