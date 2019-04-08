@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name="nycdb",
-    version="0.1.19",
+    version="0.1.20",
     url="https://github.com/aepyornis/nyc-db",
 
     author="ziggy",
@@ -37,7 +37,7 @@ setuptools.setup(
         'PyYAML>=3',
         'requests>=2.18',
         'xlrd>=1.1.0',
-        'pyproj>=1.9.5',
+        'pyproj>=2.1.3',
         'psycopg2>=2.7',
         'tqdm>=4.28.1'
     ],
