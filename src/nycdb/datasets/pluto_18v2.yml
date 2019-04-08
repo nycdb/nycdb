@@ -96,8 +96,8 @@ schema:
     Firm07Flag: char(1)
     pfirm15flag: char(1)
     geom: text
-    lng: numeric
-    lat: numeric
+    lng: 'double precision'
+    lat: 'double precision'
   skip:
     - mapplutof
     - rpaddate
