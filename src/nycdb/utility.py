@@ -6,7 +6,7 @@ from pathlib import Path
 def read_yml(file):
     """Reads a yaml file and outputs a Dictionary"""
     with open(file, 'r') as yaml_file:
-        return yaml.load(yaml_file)
+        return yaml.load(yaml_file, Loader=yaml.FullLoader)
 
 
 def mkdir(file_path):
