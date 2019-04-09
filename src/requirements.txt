@@ -1,5 +1,5 @@
 pytest
-PyYAML
+PyYAML>=5.1
 requests
 psycopg2
 pyproj>=2.1.3
