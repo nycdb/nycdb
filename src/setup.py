@@ -34,7 +34,7 @@ setuptools.setup(
     python_requires='>=3',
 
     install_requires=[
-        'PyYAML>=3',
+        'PyYAML>=5.1',
         'requests>=2.18',
         'xlrd>=1.1.0',
         'pyproj>=2.1.3',
