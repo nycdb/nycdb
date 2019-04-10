@@ -386,3 +386,10 @@ def run_cli(args, input):
 def test_dbshell(db):
     outs, errs = run_cli(["--dbshell"], input="\\copyright")
     assert 'PostgreSQL' in outs
+
+
+def test_marshal_evictions_18(conn):
+    drop_table(conn, 'marshal_evictions_18')
+    dataset = nycdb.Dataset('marshal_evictions_18', args=ARGS)
+    dataset.db_import()
+    assert row_count(conn, 'marshal_evictions_18') == 100

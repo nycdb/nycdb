@@ -96,3 +96,7 @@ def oath_hearings(dataset):
 
 def j51_exemptions(dataset):
     return with_bbl(to_csv(dataset.files[0].dest), borough='boroughcode')
+
+
+def marshal_evictions_18(dataset):
+    return to_csv(dataset.files[0].dest)
