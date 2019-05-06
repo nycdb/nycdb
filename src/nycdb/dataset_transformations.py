@@ -84,10 +84,6 @@ def acris(dataset, schema):
         return _to_csv
 
 
-def marshal_evictions_17(dataset):
-    return to_csv(dataset.files[0].dest)
-
-
 def oath_hearings(dataset):
     return with_bbl(to_csv(dataset.files[0].dest),
                     borough='violationlocationborough',
@@ -96,3 +92,9 @@ def oath_hearings(dataset):
 
 def j51_exemptions(dataset):
     return with_bbl(to_csv(dataset.files[0].dest), borough='boroughcode')
+
+
+def marshal_evictions(dataset, schema):
+    dest_file = next(filter(lambda f: schema['table_name'] in f.dest, dataset.files))
+    _to_csv = to_csv(dest_file.dest)
+    return _to_csv

@@ -297,10 +297,12 @@ def test_acris(conn):
     assert has_one_row(conn, "select * from real_property_legals where bbl = '4131600009'")
 
 
-def test_marshal_evictions_17(conn):
+def test_marshal_evictions(conn):
     drop_table(conn, 'marshal_evictions_17')
-    evictions = nycdb.Dataset('marshal_evictions_17', args=ARGS)
+    drop_table(conn, 'marshal_evictions_18')
+    evictions = nycdb.Dataset('marshal_evictions', args=ARGS)
     evictions.db_import()
+
     assert row_count(conn, 'marshal_evictions_17') == 10
     test_id = '60479/177111610280'
     with conn.cursor(cursor_factory=psycopg2.extras.DictCursor) as curs:
@@ -308,6 +310,8 @@ def test_marshal_evictions_17(conn):
         rec = curs.fetchone()
         assert rec is not None
         assert rec['lat'] == Decimal('40.71081')
+
+    assert row_count(conn, 'marshal_evictions_18') == 100
 
 
 def test_oath_hearings(conn):

@@ -1,0 +1,57 @@
+---
+files:
+  -
+    url: https://s3.amazonaws.com/justfix-data/marshal_evictions_2017.csv
+    dest: marshal_evictions_17.csv
+  -
+    url: https://s3.amazonaws.com/justfix-data/marshal_evictions_2018.csv
+    dest: marshal_evictions_18.csv
+sql:
+  - marshal_evictions.sql
+schema:
+  -
+    table_name: marshal_evictions_17
+    fields:
+      boro: text
+      courtindex: text
+      docketnumber: text
+      evictionaddress: text
+      apt: text
+      zip: text
+      uniqueid: text
+      executeddate: date
+      marshalfirstname: text
+      marshallastname: text
+      evictiontype: text
+      scheduledstatus: text
+      cleanedaddress1: text
+      lat: numeric
+      lng: numeric
+      geocoder: text
+      cleanedaddress2: text
+      bbl: char(10)
+  -
+    table_name: marshal_evictions_18
+    fields:
+      UniqueId: text
+      CourtIndexNumber: text
+      DocketNumber: text
+      CleanHouseNum: text
+      CleanStreet: text
+      CleanAddress: text
+      EvictionAddress: text
+      EvictionAptNum: text
+      EvictionZip: text
+      Borough: text
+      BoroCode: char(1)
+      ExecutedDate: date
+      Year: smallint
+      ResidentialCommercialInd: text
+      MarshalFirstName: text
+      MarshalLastName: text
+      ScheduleStatus: text
+      Bbl: char(10)
+      Geocoder: text
+      GeosearchableAddress: text
+      GeosearchableAddress2: text
+      GeosearchFound: text
