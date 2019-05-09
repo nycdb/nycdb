@@ -47,3 +47,5 @@ schema:
       Status: text
       StatusDate: date
       StatusDescription: text
+sql:
+  - hpd_complaints.sql
