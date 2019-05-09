@@ -1,5 +1,7 @@
 -- bbl
 create index on dobjobs (bbl);
+-- bin
+create index on dobjobs (bin);
 -- Latest Action Date 
 create index on dobjobs (LatestActionDate DESC NULLS LAST);
 create index on dobjobs (LatestActionDate DESC);	
