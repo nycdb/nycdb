@@ -18,6 +18,7 @@ NYC-DB builds a postgresql database containing the following datasets:
 - 2017 Marshal Evictions
 - ECB / Oath Hearings
 - Property Address Directory
+- J-51 Exemptions
 
 NYC-DB is a python3 command line program that downloads and loads datasets into postgres.
 
@@ -27,17 +28,15 @@ Just want a copy of the database?
 
 Here are the latest versions available to download:
 
-- [nyc-db-2019-02-18.sql.bz2](https://s3.amazonaws.com/nyc-db/nyc-db-2019-02-18.sql.bz2)
-- [nyc-db-2019-01-13.sql.bz2](https://s3.amazonaws.com/nyc-db/nyc-db-2019-01-13.sql.bz2)
-
+- [nyc-db-2019-06-17.sql.bz2](https://s3.amazonaws.com/nyc-db/nyc-db-2019-06-17.sql.bz2)
+- [nyc-db-2019-05-14.sql.bz2](https://s3.amazonaws.com/nyc-db/nyc-db-2019-05-14.sql.bz2)
+- [nyc-db-2019-04-09.sql.bz2](https://s3.amazonaws.com/nyc-db/nyc-db-2019-04-09.sql.bz2)
 
 [![License: CC BY-NC-SA 4.0](https://licensebuttons.net/l/by-nc-sa/4.0/80x15.png)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 
 It's ~3gb compressed and ~20gb decompressed.
 
-To decompress: ```  bunzip2 nyc-db-2019-02-18.sql.bz2 ```
-
-Load the db: ``` psql -d database-name -f nyc-db-2019-02-18.sql.bz2 ```
+Load the db: ``` bzcat nyc-db-2019-06-17.sql.bz2 | psql -d database-name ```
 
 ## Adding New Datasets
 

@@ -66,6 +66,18 @@ def numeric(x):
         return None
 
 
+def to_float(x):
+    if x is None:
+        return None
+    
+    if isinstance(x, float):
+        return x
+
+    try:
+        return float(x)
+    except ValueError:
+        return None
+
 def mm_dd_yyyy(date_str):
     try:
         month, day, year = map(int, date_str[0:10].split('/'))
@@ -181,6 +193,8 @@ class Typecast():
                 d[k] = lambda x: date(x)
             elif 'time' in v:
                 d[k] = lambda x: time(x)
+            elif v in ['real', 'double precision']:
+                d[k] = lambda x: to_float(x)
             elif v == 'numeric':
                 d[k] = lambda x: numeric(x)
             elif v == 'text[]':

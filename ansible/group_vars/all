@@ -16,7 +16,7 @@ sqlpad_db_password: "{{ lookup('password', 'credentials/sqlpad_psql_pass length=
 swapfile_size: 2G
 swapfile_location: /swapfile
 
-postgrest_release_url: https://github.com/begriffs/postgrest/releases/download/v0.4.4.0/postgrest-v0.4.4.0-ubuntu.tar.xz
+postgrest_release_url: https://github.com/PostgREST/postgrest/releases/download/v5.2.0/postgrest-v5.2.0-ubuntu.tar.xz
 
 postgrest_server_port: 4000
 postgrest_max_rows: 5000

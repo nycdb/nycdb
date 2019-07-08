@@ -23,6 +23,7 @@
     priv: CONNECT
     encrypted: yes
     role_attr_flags: NOSUPERUSER,NOCREATEDB
+  tags: grant
 
 - name: grant usage on schema public
   become: yes
@@ -36,6 +37,7 @@
     state: present
     privs: USAGE
     objs: public
+  tags: grant
 
 - name: grant select privilages for anon PG user
   become: yes
@@ -49,6 +51,7 @@
     state: present
     privs: SELECT
     objs: ALL_IN_SCHEMA
+  tags: grant
 
 - name: grant anon to nycdb
   become: yes
@@ -60,6 +63,7 @@
     type: group
     objs: "{{ anon_db_user }}"
     roles: "{{ nycdb_database_user }}"
+  tags: grant
 
 - name: ensure anon does not have write permissions
   become: yes
@@ -73,3 +77,4 @@
     privs: INSERT,UPDATE,DELETE,TRUNCATE
     type: table
     objs: ALL_IN_SCHEMA
+  tags: grant

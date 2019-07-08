@@ -1,0 +1,26 @@
+---
+files:
+  - 
+    url: https://data.cityofnewyork.us/api/views/y7az-s7wc/rows.csv?accessType=DOWNLOAD
+    dest: j51_exemptions.csv
+schema:
+  table_name: j51_exemptions
+  fields:
+    BoroughCode: integer
+    Block: integer
+    Lot: integer
+    Easement: text
+    InitYear: integer
+    Qtr: text
+    ExYears: integer
+    ABPct: numeric
+    TaxYear: integer
+    ExemptAmt: numeric
+    CostOfAlt: numeric
+    AbateGrant: numeric
+    AmtRemain: numeric
+    TotalTax: numeric
+    Abatement: numeric
+    BBL: char(10)
+sql:
+  - j51_exemptions.sql

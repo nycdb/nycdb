@@ -152,8 +152,8 @@ def test_pluto_insert(conn):
         assert rec is not None
         assert rec['address'] == '369 PARK AVENUE SOUTH'
         assert rec['lotarea'] == 8032
-        assert round(rec['lng'], 5) == Decimal('-73.98434')
-        assert round(rec['lat'], 5) == Decimal('40.74211')
+        assert round(rec['lng'], 12) == -73.984339547978
+        assert round(rec['lat'], 12) == 40.742121844634
 
 
 def test_pluto17v1(conn):
@@ -297,10 +297,12 @@ def test_acris(conn):
     assert has_one_row(conn, "select * from real_property_legals where bbl = '4131600009'")
 
 
-def test_marshal_evictions_17(conn):
+def test_marshal_evictions(conn):
     drop_table(conn, 'marshal_evictions_17')
-    evictions = nycdb.Dataset('marshal_evictions_17', args=ARGS)
+    drop_table(conn, 'marshal_evictions_18')
+    evictions = nycdb.Dataset('marshal_evictions', args=ARGS)
     evictions.db_import()
+
     assert row_count(conn, 'marshal_evictions_17') == 10
     test_id = '60479/177111610280'
     with conn.cursor(cursor_factory=psycopg2.extras.DictCursor) as curs:
@@ -308,6 +310,8 @@ def test_marshal_evictions_17(conn):
         rec = curs.fetchone()
         assert rec is not None
         assert rec['lat'] == Decimal('40.71081')
+
+    assert row_count(conn, 'marshal_evictions_18') == 100
 
 
 def test_oath_hearings(conn):
@@ -345,6 +349,18 @@ def test_pad(conn):
         rec = curs.fetchone()
         assert rec is not None
         assert rec['bbl'] == '1000010010'
+
+
+def test_j51_exemptions(conn):
+    drop_table(conn, 'j51_exemptions')
+    j51_exemptions = nycdb.Dataset('j51_exemptions', args=ARGS)
+    j51_exemptions.db_import()
+    assert row_count(conn, 'j51_exemptions') == 100
+    with conn.cursor(cursor_factory=psycopg2.extras.DictCursor) as curs:
+        curs.execute("select * from j51_exemptions WHERE bbl = '1000151001'")
+        rec = curs.fetchone()
+        assert rec is not None
+        assert rec['taxyear'] == 2001
 
 
 def run_cli(args, input):
