@@ -63,5 +63,5 @@ def test_skip_fields():
 
 def test_ny_state_coords_to_lat_lng():
     coords = [988590, 209649]
-    result = (-73.98433954797815, 40.742121844633694)
+    result = (-73.98433810462848, 40.74211358173024)
     assert nycdb.transform.ny_state_coords_to_lat_lng(*coords) == result
