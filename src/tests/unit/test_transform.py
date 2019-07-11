@@ -59,9 +59,3 @@ def test_skip_fields():
     fields_to_skip = frozenset(['c'])
     out = list(nycdb.transform.skip_fields(table, fields_to_skip))
     assert out == [{'a': 1, 'b': 2}, {'a': 'x', 'b': 'y'}]
-
-
-def test_ny_state_coords_to_lat_lng():
-    coords = [988590, 209649]
-    result = (-73.98433954797815, 40.742121844633694)
-    assert nycdb.transform.ny_state_coords_to_lat_lng(*coords) == result

@@ -152,8 +152,8 @@ def test_pluto_insert(conn):
         assert rec is not None
         assert rec['address'] == '369 PARK AVENUE SOUTH'
         assert rec['lotarea'] == 8032
-        assert round(rec['lng'], 12) == -73.984339547978
-        assert round(rec['lat'], 12) == 40.742121844634
+        assert round(rec['lng'], 5) == -73.98434
+        assert round(rec['lat'], 5) == 40.74211
 
 
 def test_pluto17v1(conn):

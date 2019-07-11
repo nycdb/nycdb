@@ -2,12 +2,12 @@ import csv
 import io
 import re
 import types
-import pyproj
 from zipfile import ZipFile
 
 from .address import normalize_street, normalize_street_number, normalize_apartment
 from .bbl import bbl
 from .utility import merge
+from .geo import ny_state_coords_to_lat_lng
 
 invalid_header_chars = ["\n", "\r", ' ', '-', '#', '.', "'", '"', '_', '/', '(', ')', ':']
 replace_header_chars = [('%', 'pct')]
@@ -38,6 +38,7 @@ def clean_headers(headers):
     """
     str -> [str]
     turns header line into a list and fixes some commmon
+
     issues with column names
     """
     s = headers.lower()
@@ -102,20 +103,9 @@ def to_csv(file_path_or_generator):
             yield row
 
 
-
 def with_bbl(table, borough='borough', block='block', lot='lot'):
     for row in table:
         yield merge(row, {'bbl': bbl(row[borough], row[block], row[lot])})
-
-
-
-p4j = '+proj=lcc +lat_1=40.66666666666666 +lat_2=41.03333333333333 +lat_0=40.16666666666666 +lon_0=-74 +x_0=300000 +y_0=0 +datum=NAD83 +units=us-ft +no_defs '
-ny_state_plane = pyproj.Proj(p4j, preserve_units=True)
-wgs84 = pyproj.Proj(init="epsg:4326")
-transformer = pyproj.Transformer.from_proj(ny_state_plane, wgs84)
-
-def ny_state_coords_to_lat_lng(xcoord, ycoord):
-    return transformer.transform(xcoord, ycoord)
 
 
 def with_geo(table):
