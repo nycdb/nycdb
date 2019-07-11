@@ -6,6 +6,8 @@ RUN apt-get update && apt-get install -y \
 	postgresql-client-11 \
         libpq-dev
 
+RUN pip install --upgrade setuptools pip
+
 COPY src/requirements.txt /nycdb/src/requirements.txt
 
 WORKDIR /nycdb/src
