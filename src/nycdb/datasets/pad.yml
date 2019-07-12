@@ -6,7 +6,7 @@ files:
 sql:
   - pad.sql
 schema:
-  table_name: pad
+  table_name: pad_adr
   fields:
     Boro: char(1)
     Block: char(5)

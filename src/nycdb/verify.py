@@ -24,7 +24,7 @@ TABLES = {
         'hpd_complaints': 1000000,
         'hpd_complaint_problems': 2000000
     },
-    'pad': {'pad': 1000000},
+    'pad': {'pad_adr': 1000000},
     'acris': {
         'real_property_remarks': 1000000,
         'real_property_legals': 1000000,

@@ -90,7 +90,7 @@ def oath_hearings(dataset):
                     block='violationlocationblockno',
                     lot='violationlocationlotno')
 
-def pad(dataset):
+def pad_adr(dataset):
     pad_generator = with_bbl(to_csv(extract_csv_from_zip(
         dataset.files[0].dest, 'bobaadr.txt')), borough='boro')
 
