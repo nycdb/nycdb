@@ -1,51 +1,51 @@
 TABLES = {
-    'pluto_15v1': {'pluto_15v1': 800000},
-    'pluto_16v2': {'pluto_16v2': 800000},
-    'pluto_17v1': {'pluto_17v1': 800000},
-    'pluto_18v1': {'pluto_18v1': 800000},
-    'pluto_18v2': {'pluto_18v2': 800000},
-    'dobjobs': {'dobjobs': 1000000},
-    'dob_violations': {'dob_violations': 2000000},
-    'ecb_violations': {'ecb_violations': 1300000},
-    'hpd_violations': {'hpd_violations': 4000000},
+    'pluto_15v1': {'pluto_15v1': 800_000},
+    'pluto_16v2': {'pluto_16v2': 800_000},
+    'pluto_17v1': {'pluto_17v1': 800_000},
+    'pluto_18v1': {'pluto_18v1': 800_000},
+    'pluto_18v2': {'pluto_18v2': 800_000},
+    'dobjobs': {'dobjobs': 1_000_000},
+    'dob_violations': {'dob_violations': 2_000_000},
+    'ecb_violations': {'ecb_violations': 1_300_000},
+    'hpd_violations': {'hpd_violations': 4_000_000},
     'hpd_registrations': {
-        'hpd_registrations': 150000,
-        'hpd_contacts': 600000,
-        'hpd_corporate_owners': 30000,
-        'hpd_business_addresses': 130000,
-        'hpd_registrations_grouped_by_bbl': 130000,
-        'hpd_registrations_grouped_by_bbl_with_contacts': 130000
+        'hpd_registrations': 150_000,
+        'hpd_contacts': 600_000,
+        'hpd_corporate_owners': 30_000,
+        'hpd_business_addresses': 130_000,
+        'hpd_registrations_grouped_by_bbl': 130_000,
+        'hpd_registrations_grouped_by_bbl_with_contacts': 130_000
     },
-    'dof_sales': {'dof_sales': 75000},
-    'rentstab': {'rentstab': 45000},
-    'rentstab_summary': {'rentstab_summary': 45000},
-    'dob_complaints': {'dob_complaints': 1000000},
+    'dof_sales': {'dof_sales': 75_000},
+    'rentstab': {'rentstab': 45_000},
+    'rentstab_summary': {'rentstab_summary': 45_000},
+    'dob_complaints': {'dob_complaints': 1_000_000},
     'hpd_complaints': {
-        'hpd_complaints': 1000000,
-        'hpd_complaint_problems': 2000000
+        'hpd_complaints': 1_000_000,
+        'hpd_complaint_problems': 2_000_000
     },
     'pad': {'pad_adr': 1000000},
     'acris': {
-        'real_property_remarks': 1000000,
-        'real_property_legals': 1000000,
-        'real_property_master': 1000000,
-        'real_property_parties': 1000000,
-        'real_property_references': 1000000,
-        'personal_property_legals': 1000000,
-        'personal_property_master': 1000000,
-        'personal_property_parties': 1000000,
-        'personal_property_references': 1000000,
-        'personal_property_remarks': 400000,
+        'real_property_remarks': 1_000_000,
+        'real_property_legals': 1_000_000,
+        'real_property_master': 1_000_000,
+        'real_property_parties': 1_000_000,
+        'real_property_references': 1_000_000,
+        'personal_property_legals': 1_000_000,
+        'personal_property_master': 1_000_000,
+        'personal_property_parties': 1_000_000,
+        'personal_property_references': 1_000_000,
+        'personal_property_remarks': 400_000,
         'acris_country_codes': 250,
         'acris_document_control_codes': 123,
         'acris_property_type_codes': 46,
         'acris_ucc_collateral_codes': 8
     },
     'marshal_evictions': {
-        'marshal_evictions_17': 17000,
-        'marshal_evictions_18': 19000
+        'marshal_evictions_17': 17_000,
+        'marshal_evictions_18': 19_000
     },
-    'oath_hearings': {'oath_hearings': 10000000}
+    'oath_hearings': {'oath_hearings': 10_000_000}
 }
 
 
