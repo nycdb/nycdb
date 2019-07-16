@@ -339,6 +339,18 @@ def test_dob_violations(conn):
         assert rec['violationtypecode'] == 'LL6291'
 
 
+def test_pad(conn):
+    drop_table(conn, 'pad_adr')
+    pad = nycdb.Dataset('pad', args=ARGS)
+    pad.db_import()
+    assert row_count(conn, 'pad_adr') == 100
+    with conn.cursor(cursor_factory=psycopg2.extras.DictCursor) as curs:
+        curs.execute("select * from pad_adr WHERE bin = '1086410'")
+        rec = curs.fetchone()
+        assert rec is not None
+        assert rec['bbl'] == '1000010010'
+
+
 def test_j51_exemptions(conn):
     drop_table(conn, 'j51_exemptions')
     j51_exemptions = nycdb.Dataset('j51_exemptions', args=ARGS)

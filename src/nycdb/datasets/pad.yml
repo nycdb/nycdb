@@ -1,0 +1,38 @@
+---
+files:
+  -
+    url: https://data.cityofnewyork.us/download/bc8t-ecyu/application%2Fzip
+    dest: pad.zip
+sql:
+  - pad.sql
+schema:
+  table_name: pad_adr
+  fields:
+    Boro: char(1)
+    Block: char(5)
+    Lot: char(4)
+    Bin: char(7)
+    Lhnd: char(12)
+    Lhns: char(11)
+    Lcontpar: char(1)
+    Lsos: char(1)
+    Hhnd: char(12)
+    Hhns: char(11)
+    Hcontpar: char(1)
+    Hsos: char(1)
+    Scboro: char(1)
+    Sc5: char(5)
+    Sclgc: char(2)
+    Stname: char(32)
+    Addrtype: char(1)
+    Realb7sc: char(8)
+    Validlgcs: char(8)
+    Parity: char(1)
+    B10sc: char(11)
+    Segid: char(7)
+    Zipcode: char(5)
+    Bbl: char(10)
+  skip:
+    - dapsflag
+    - naubflag
+    - physicalid
