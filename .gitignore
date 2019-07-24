@@ -9,7 +9,7 @@ data/
 nyc-db*.sql
 ansible/*.retry
 ansible/credentials
-
+ansible/hosts
 
 server/postgrest
 server/*.tar.xz
