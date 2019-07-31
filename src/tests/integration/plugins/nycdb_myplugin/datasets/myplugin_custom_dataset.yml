@@ -1,0 +1,13 @@
+---
+files:
+  -
+    url:
+    dest: myplugin_custom_dataset.csv
+sql:
+  - myplugin_custom_dataset.sql
+schema:
+  table_name: myplugin_custom_dataset
+  fields:
+    bin: int
+    bbl: char(10)
+    evictions: int

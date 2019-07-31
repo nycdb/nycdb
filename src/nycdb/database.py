@@ -1,7 +1,8 @@
 import os
+from pathlib import Path
 import psycopg2
 import psycopg2.extras
-from . import sql
+from . import sql, plugins
 
 
 class Database:
@@ -52,7 +53,7 @@ class Database:
         Executes the provided sql file.
         Assumes the path is relative to ./sql
         """
-        file_path = os.path.join(os.path.dirname(__file__), 'sql', sql_file)
+        file_path = find_sql_file(sql_file)
 
         with open(file_path, 'r', encoding='utf-8') as f:
             self.sql(f.read())
@@ -73,3 +74,11 @@ class Database:
 
     def password_file_contents(self):
         return "{host}:{port}:{database}:{user}:{password}".format(**self.connection_params)
+
+
+def find_sql_file(filename: str) -> Path:
+    for plugin in plugins.iter_plugins():
+        fullpath = plugin.root_dir / 'sql' / filename
+        if fullpath.exists():
+            return fullpath
+    raise Exception(f"Unable to find SQL file {filename}")

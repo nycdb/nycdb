@@ -11,7 +11,9 @@ import pytest
 
 import nycdb
 
-data_dir = os.path.join(os.path.dirname(__file__), 'data')
+my_dir = os.path.dirname(__file__)
+
+data_dir = os.path.join(my_dir, 'data')
 
 ARGS = SimpleNamespace(
     user=os.environ.get('NYCDB_TEST_POSTGRES_USER', 'nycdb'),
@@ -361,6 +363,28 @@ def test_j51_exemptions(conn):
         rec = curs.fetchone()
         assert rec is not None
         assert rec['taxyear'] == 2001
+
+
+@pytest.fixture
+def myplugin():
+    import sys
+    from nycdb.datasets import datasets
+
+    plugins_dir = os.path.join(my_dir, 'plugins')
+    datasets.cache_clear()
+    sys.path.append(plugins_dir)
+
+    yield
+
+    sys.path.remove(plugins_dir)
+    datasets.cache_clear()
+
+
+def test_myplugin_custom_dataset(conn, myplugin):
+    drop_table(conn, 'myplugin_custom_dataset')
+    dataset = nycdb.Dataset('myplugin_custom_dataset', args=ARGS)
+    dataset.db_import()
+    assert row_count(conn, 'myplugin_custom_dataset') == 6
 
 
 def run_cli(args, input):
