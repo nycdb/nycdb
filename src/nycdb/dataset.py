@@ -81,7 +81,7 @@ class Dataset:
             if rows is not None:
                 return rows
 
-        table = schema['table_name']
+        table_name = schema['table_name']
         raise Exception(
             f"Unable to find transformer for dataset {self.name}, "
             f"table {table_name}. Please define {table_name}(dataset) or "
