@@ -81,7 +81,12 @@ class Dataset:
             if rows is not None:
                 return rows
 
-        return None
+        table = schema['table_name']
+        raise Exception(
+            f"Unable to find transformer for dataset {self.name}, "
+            f"table {table_name}. Please define {table_name}(dataset) or "
+            f"{self.name}(dataset, schema) in dataset_transformations."
+        )
 
     def transform(self, schema):
         """
@@ -97,14 +102,6 @@ class Dataset:
         tc = Typecast(schema)
 
         rows = self._get_transformed_dataset_rows(schema)
-
-        if rows is None:
-            table = schema['table_name']
-            raise Exception(
-                f"Unable to find transformer for dataset {self.name}, "
-                f"table {table_name}. Please define {table_name}(dataset) or "
-                f"{self.name}(dataset, schema) in dataset_transformations."
-            )
 
         return tc.cast_rows(rows)
 
