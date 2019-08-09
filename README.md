@@ -22,7 +22,7 @@ NYC-DB builds a postgresql database containing the following datasets:
 
 NYC-DB is a python3 command line program that downloads and loads datasets into postgres.
 
-## Get a copy
+## (Easy) Get a copy
 
 Just want a copy of the database?
 
@@ -37,11 +37,27 @@ It's ~3gb compressed and ~25gb decompressed.
 
 Load the db: ``` bzcat nyc-db-2019-07-24.sql.bz2 | psql -d database-name ```
 
-## Adding New Datasets
+## (Easy) Use our copy of the database
+
+The Housing Data Coalition host our own copy ("instance") of nycdb.
+
+If you are not a member of HDC, please contact housingdatacoalition@gmail.com
+
+If you are a member of HDC, access credentials are in the description at the top of the Slack channel "nycdb-hackers". Take note of the hostname, user, and password. You will be using the base "nycdb". Make sure that you do NOT have "http://" in front of the hostname.
+
+The easiest way is to use a graphical interface like Postico, DBeaver, or Falcon SQL. You will be "connecting to a server". If you have the option, select Postgresql-- this is the specific kind of SQL database that we are using.
+
+Another option is to connect by command line. After installing Postgresql, you gain access to the command line tool "psql". This is how you would use it-- replace "hostname" and "user" with the actual credentials. 
+```
+psql -h hostname -U user -t nycdb
+```
+It will prompt you for the password.
+
+## Adding New Datasets (Advanced)
 
 [Guide Here](src/ADDING_NEW_DATASETS.md)
 
-## Build it yourself!
+## Build it yourself! (Advanced)
 
 ### nycdb cli
 
