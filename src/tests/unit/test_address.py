@@ -38,9 +38,9 @@ class TestNormalizeStreet(object):
         assert normalize_street('RIVERSIDE DRIVE') == 'RIVERSIDE DRIVE'
         assert normalize_street('RIVERSIDE DR E') == 'RIVERSIDE DRIVE EAST'
         assert normalize_street('CAMPBELL DR.') == 'CAMPBELL DRIVE'
-        
-
-
+        assert normalize_street('SOME TERRACE') == 'SOME TERRACE'
+        assert normalize_street('SOME PLAZA') == 'SOME PLAZA'
+        assert normalize_street('SOME ST STATION') == 'SOME STREET STATION'
 
     def test_ave(self):
         assert normalize_street('AVENUE W') == 'AVENUE W'

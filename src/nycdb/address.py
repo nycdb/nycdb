@@ -5,18 +5,18 @@ in HPD contacts data
 import re
 
 STREETS = [
-    (r'(?<= )AVE(NUE)?', 'AVENUE'),
+    (r'(?<= )AVE(?= |$)', 'AVENUE'),
     (r'(?<= )(STREET|STR|(ST\.?))(?= |$)', 'STREET'),
-    (r'(?<= )PL(ACE)?(?= |$)', 'PLACE'),
+    (r'(?<= )PL(?= |$)', 'PLACE'),
     (r'(?<= )(ROAD|(?<!\d)RD\.?)', 'ROAD'),
-    (r'(?<= )(LA(NE)?|LN)(?= |$)', 'LANE'),
+    (r'(?<= )(LA|LN)(?= |$)', 'LANE'),
     (r'(?<= )CT|CRT', 'COURT'),
     (r'(?<= )DR\.?(?= |$)', 'DRIVE'),
     (r'(?<= )(BOULEVARD|BLVD)', 'BOULEVARD'),
     (r'(?<= )(PKWY|PARKWY)', 'PARKWAY'),
     (r'(?<= )(PK)', 'PARK'),
     (r'(?<= )(BCH)', 'BEACH'),
-    (r'(?<= )TERR(ACE)(?= |$)', 'TERRACE'),
+    (r'(?<= )TERR(?= |$)', 'TERRACE'),
     (r'(^|(?<= ))(BDWAY|BDWY|BROAD WAY)', 'BROADWAY')
 ]
 
