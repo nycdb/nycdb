@@ -26,7 +26,7 @@ class TestNormalizeStreet(object):
     def test_place_lane(self):
         assert normalize_street('313 PL N.') == '313TH PLACE NORTH'
         assert normalize_street('302 LN') == '302ND LANE'
-        
+
     def test_street(self):
         assert normalize_street('102nd ST') == '102ND STREET'
         assert normalize_street('E 102nd ST') == 'EAST 102ND STREET'
@@ -34,6 +34,13 @@ class TestNormalizeStreet(object):
         assert normalize_street('W 3rd ST.') == 'WEST THIRD STREET'
         assert normalize_street('S 3rd ST') == 'SOUTH THIRD STREET'
         assert normalize_street('North 10 ST') == 'NORTH TENTH STREET'
+
+        assert normalize_street('RIVERSIDE DRIVE') == 'RIVERSIDE DRIVE'
+        assert normalize_street('RIVERSIDE DR E') == 'RIVERSIDE DRIVE EAST'
+        assert normalize_street('CAMPBELL DR.') == 'CAMPBELL DRIVE'
+        
+
+
 
     def test_ave(self):
         assert normalize_street('AVENUE W') == 'AVENUE W'
@@ -45,7 +52,7 @@ class TestNormalizeStreet(object):
     def test_saints(self):
         assert normalize_street('ST. MARKS') == 'SAINT MARKS'
         assert normalize_street('W. ST JAMES ST.') == 'WEST SAINT JAMES STREET'
-        
+
     def test_aliases(self):
         result = 'ADAM CLAYTON POWELL JR BOULEVARD'
         assert normalize_street('ADAM CLAYTON POWELL') == result
@@ -55,7 +62,7 @@ class TestNormalizeStreet(object):
         assert normalize_street('COLLEGE PT BLVD') == 'COLLEGE POINT BOULEVARD'
         assert normalize_street('COLLEGE PT. BLVD') == 'COLLEGE POINT BOULEVARD'
         assert normalize_street('CO-OP CITY') == 'COOP CITY'
-        
+
 
 def test_normalize_street_number():
     assert normalize_street_number('24') == '24'
