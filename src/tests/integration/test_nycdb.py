@@ -363,6 +363,18 @@ def test_j51_exemptions(conn):
         assert rec['taxyear'] == 2001
 
 
+def test_hpd_vacateorders(conn):
+    drop_table(conn, 'hpd_vacateorders')
+    dataset = nycdb.Dataset('hpd_vacateorders', args=ARGS)
+    dataset.db_import()
+    assert row_count(conn, 'hpd_vacateorders') == 100
+    with conn.cursor(cursor_factory=psycopg2.extras.DictCursor) as curs:
+        curs.execute("select * from hpd_vacateorders WHERE vacateordernumber = 100282")
+        rec = curs.fetchone()
+        assert rec is not None
+        assert rec['bbl'] == '3013480010'
+
+
 def run_cli(args, input):
     full_args = [
         sys.executable, "-m", "nycdb.cli",
