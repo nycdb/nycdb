@@ -1,0 +1,28 @@
+---
+files:
+  -
+    url: https://data.cityofnewyork.us/api/views/tb8q-a3ar/rows.csv?accessType=DOWNLOAD
+    dest: hpd_vacateorders.csv
+schema:
+  table_name: hpd_vacateorders
+  fields:
+    BuildingId: integer
+    RegistrationId: integer
+    Borough: text
+    Number: text
+    Street: text
+    VacateOrderNumber: integer
+    PrimaryVacateReason: text
+    VacateType: text
+    VacateEffectiveDate: date
+    RescindDate: date
+    NumberOfVacatedUnits: integer
+    Postcode: text
+    Latitude: numeric
+    Longitude: numeric
+    CommunityBoard: integer
+    CouncilDistrict: integer
+    CensusTract: text
+    bin: char(7)
+    bbl: char(10)
+    nta: text

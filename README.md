@@ -12,6 +12,7 @@ NYC-DB builds a postgresql database containing the following datasets:
 - HPD Violations
 - HPD Registrations
 - HPD Complaints
+- HPD Repair and Vacate Orders
 - Department of Finance Rolling Sales
 - Tax bills - Rent Stabilization Unit Counts (John Krauss's data)
 - ACRIS
