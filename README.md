@@ -8,16 +8,18 @@ NYC-DB builds a postgresql database containing the following datasets:
 
 - Department of City Planning's Pluto: versions 15v1, 16v2, 17v1, 18v1, 18v2, and 19v1
 - DOB Job Filings
-- DOB Complaints
-- HPD Violations
+- [DOB Complaints](https://github.com/nycdb/nycdb/wiki/Dataset:-DOB-Complaints)
+- [DOB Violations](https://github.com/nycdb/nycdb/wiki/Dataset:-DOB-Violations)
+- [HPD Violations](https://github.com/nycdb/nycdb/wiki/Dataset:-HPD-Violations)
 - HPD Registrations
-- HPD Complaints
-- HPD Repair and Vacate Orders
+- [HPD Complaints](https://github.com/nycdb/nycdb/wiki/Dataset:-HPD-Complaints)
+- [HPD Repair and Vacate Orders](https://github.com/nycdb/nycdb/wiki/Dataset:-HPD-Vacate-Orders)
 - Department of Finance Rolling Sales
 - Tax bills - Rent Stabilization Unit Counts (John Krauss's data)
-- ACRIS
+- [ACRIS](https://github.com/nycdb/nycdb/wiki/Dataset:-ACRIS)
 - 2017 Marshal Evictions
-- ECB / Oath Hearings
+- [ECB Violations](https://github.com/nycdb/nycdb/wiki/Dataset:-ECB-Violations)
+- [Oath Hearings](https://github.com/nycdb/nycdb/wiki/Dataset:-OATH-Hearings)
 - Property Address Directory
 - J-51 Exemptions
 
