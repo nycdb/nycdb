@@ -33,15 +33,15 @@
     ansible_ssh_pipelining: true
   postgresql_db:
       name: "{{ nycdb_database_name }}"
-      
+
 - name: Create database user
   become: yes
   become_user: postgres
   vars:
     ansible_ssh_pipelining: true
-  postgresql_user: 
+  postgresql_user:
     db: "{{ nycdb_database_name}}"
-    name: "{{ nycdb_database_user }}" 
+    name: "{{ nycdb_database_user }}"
     password: "{{ nycdb_database_password }}"
     encrypted: yes
     priv: ALL
@@ -52,15 +52,15 @@
   vars:
     ansible_ssh_pipelining: true
   postgresql_user:
-    name: "{{ nycdb_database_user }}" 
+    name: "{{ nycdb_database_user }}"
     role_attr_flags: NOSUPERUSER,NOCREATEDB
-    
+
 - name: Create /srv/nyc-db
   file:
     path: /srv/nyc-db
     state: directory
     owner: "{{ nycdb_user }}"
-    
+
 - name: Clone the nyc-db repo
   become: yes
   become_user: "{{ nycdb_user }}"

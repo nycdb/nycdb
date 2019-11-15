@@ -3,8 +3,8 @@
   apt:
     update_cache: yes
     cache_valid_time: 3600
-    name: sudo 
-    
+    name: sudo
+
 - name: Make sure we have a nycdb group
   group:
     name: nycdb
@@ -27,7 +27,7 @@
 
 - fail: msg="no ssh_public_key_file defined"
   when: ssh_public_key_file is undefined
-   
+
 - name: Set authorized key for nycdb
   authorized_key:
     user: nycdb
@@ -58,7 +58,6 @@
   become: yes
   command: usermod -p "*" nycdb
   when: check_user_lock.rc == 0
-  
 
 - name: Write swapfile
   command: fallocate -l {{ swapfile_size }} {{ swapfile_location }} creates={{ swapfile_location }}

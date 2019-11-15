@@ -2,7 +2,7 @@
 
 There are two nycdb playbooks: playbook.yml setups a server ready to install the database at /srv/nycdb. api.yml runs the public api at https://api.nycdb.info
 
-To use, setup an Ubuntu Bionic server and configure your ansible hosts file. It might end up looking something like this:
+To use, setup an Debian Buster server and configure your ansible hosts file. It might end up looking something like this:
 
 ``` yaml
 nycdb:

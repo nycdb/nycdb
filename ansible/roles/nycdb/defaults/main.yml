@@ -17,11 +17,10 @@ nycdb_packages:
   - python3-venv
   - python3-setuptools
 
-#  - python3-psycopg2
-postgres_apt_repository: "deb http://apt.postgresql.org/pub/repos/apt/ bionic-pgdg main"
+postgres_apt_repository: "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main"
 
 postgres_packages:
-  - postgresql-11
-  - postgresql-client-11
-  - postgresql-contrib-11
+  - postgresql-12
+  - postgresql-client-12
+  - postgresql-contrib-12
   - libpq-dev
