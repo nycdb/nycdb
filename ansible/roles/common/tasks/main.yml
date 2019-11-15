@@ -1,4 +1,7 @@
 ---
+- fail: msg="no ssh_public_key_file defined"
+  when: ssh_public_key_file is undefined
+
 - name: Install sudo
   apt:
     update_cache: yes
@@ -24,9 +27,6 @@
     groups: nycdb
     append: yes
     shell: /bin/bash
-
-- fail: msg="no ssh_public_key_file defined"
-  when: ssh_public_key_file is undefined
 
 - name: Set authorized key for nycdb
   authorized_key:

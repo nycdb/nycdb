@@ -4,14 +4,14 @@
   become_user: postgres
   vars:
     ansible_ssh_pipelining: true
-  postgresql_user: 
+  postgresql_user:
     db: "{{ nycdb_database_name}}"
-    name: "{{ nycdb_database_user }}" 
+    name: "{{ nycdb_database_user }}"
     password: "{{ nycdb_database_password }}"
     encrypted: yes
     priv: ALL
 
-- name: create anon postgresql user
+- name: Create anon postgresql user
   become: yes
   become_user: postgres
   vars:
@@ -25,7 +25,7 @@
     role_attr_flags: NOSUPERUSER,NOCREATEDB
   tags: grant
 
-- name: grant usage on schema public
+- name: Grant usage on schema public
   become: yes
   become_user: postgres
   vars:
@@ -39,7 +39,7 @@
     objs: public
   tags: grant
 
-- name: grant select privilages for anon PG user
+- name: Grant select privilages for anon PG user
   become: yes
   become_user: postgres
   vars:
@@ -53,7 +53,7 @@
     objs: ALL_IN_SCHEMA
   tags: grant
 
-- name: grant anon to nycdb
+- name: Grant anon to nycdb
   become: yes
   become_user: postgres
   vars:
@@ -65,7 +65,7 @@
     roles: "{{ nycdb_database_user }}"
   tags: grant
 
-- name: ensure anon does not have write permissions
+- name: Ensure anon does not have write permissions
   become: yes
   become_user: postgres
   vars:

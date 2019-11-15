@@ -1,17 +1,15 @@
-- name: Install doc requirements
+- name: Install pandoc
   apt:
     update_cache: yes
     cache_valid_time: 3600
-    name: "{{ item }}"
-  with_items:
-    - pandoc
-       
+    name: pandoc
+
 - name: Create /srv/nyc-db
   file:
     path: /srv/nyc-db
     state: directory
     owner: "{{ nycdb_user }}"
-    
+
 - name: Clone the nyc-db repo
   become: yes
   become_user: "{{ nycdb_user }}"
@@ -39,4 +37,3 @@
     owner: nycdb
     group: nycdb
     mode: 0644
-    
