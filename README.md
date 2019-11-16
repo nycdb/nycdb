@@ -30,15 +30,14 @@ NYC-DB is a python3 command line program that downloads and loads datasets into 
 Just want a copy of the database?
 
 Here are the latest versions available to download:
-
-- [nyc-db-2019-07-24.sql.bz2](https://s3.amazonaws.com/nyc-db/nyc-db-2019-07-24.sql.bz2)
-- [nyc-db-2019-06-17.sql.bz2](https://s3.amazonaws.com/nyc-db/nyc-db-2019-06-17.sql.bz2)
+- [nyc-db-2019-11-15.sql.bz2](https://nycdb.info/sql/nyc-db-2019-11-15.sql.bz2)
+- [nyc-db-2019-07-24.sql.bz2](https://nycdb.info/sql/nyc-db-2019-07-24.sql.bz2)
 
 [![License: CC BY-NC-SA 4.0](https://licensebuttons.net/l/by-nc-sa/4.0/80x15.png)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 
 It's ~3gb compressed and ~25gb decompressed.
 
-Load the db: ``` bzcat nyc-db-2019-07-24.sql.bz2 | psql -d database-name ```
+Load the db: ``` bzcat nyc-db-2019-11-15.sql.bz2 | psql -d database-name ```
 
 ## (Easy) Use our copy of the database
 
@@ -50,7 +49,7 @@ If you are a member of HDC, access credentials are in the description at the top
 
 The easiest way is to use a graphical interface like Postico, DBeaver, or Falcon SQL. You will be "connecting to a server". If you have the option, select Postgresql-- this is the specific kind of SQL database that we are using.
 
-Another option is to connect by command line. After installing Postgresql, you gain access to the command line tool "psql". This is how you would use it-- replace "hostname" and "user" with the actual credentials. 
+Another option is to connect by command line. After installing Postgresql, you gain access to the command line tool "psql". This is how you would use it-- replace "hostname" and "user" with the actual credentials.
 ```
 psql -h hostname -U user -t nycdb
 ```

@@ -1,5 +1,15 @@
 ---
+- name: Install required packages
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+    name:
+      - pandoc
+      - xz-utils
+      - unzip
+
 - name: Setup postgres users
+  become: yes
   import_tasks: psql.yml
   tags: psql
 
@@ -36,13 +46,12 @@
 
 - name: Install nycdb systemd unit file
   template:
-    src: nycdb_service.j2
+    src: nycdb.service.j2
     dest: /etc/systemd/system/nycdb.service
   tags: postgrest
-      
-- name: start nycdb service
+
+- name: Start nycdb service
   systemd:
-    state: started
     name: nycdb
     daemon_reload: yes
   tags: postgrest
@@ -56,61 +65,20 @@
     mode: 0755
   tags: docs
 
+
 - name: Build docs
-  import_tasks: docs.yml
-  tags: docs
+  become_user: "{{ nycdb_user }}"
+  vars:
+    ansible_ssh_pipelining: true
+  make:
+    chdir: /srv/nyc-db/server
+    target: index.html
 
-
-- name: Create /etc/nginx
-  file:
-    path: /etc/nginx
-    state: directory
-    owner: root
-    group: root
-    mode: 0755
-  tags: nginx
-
-- name: Create /etc/nginx/certs
-  file:
-    dest: /etc/nginx/certs
-    state: directory
-    owner: root
-    group: root
-    mode: 0755
-  tags: nginx
-
-- name: Copy nginx cors config
+- name: copy index.html to /var/www/nycdb
   copy:
-    src: cors.conf
-    dest: /etc/nginx/cors.conf
-    owner: root
-    group: root
-    mode: 0755
-  tags: nginx
-  
-- name: Copy TLS Cert
-  copy:
-    content: "{{ tls_certificate }}"
-    dest: /etc/nginx/certs/certificate.pem
-    owner: root
-    group: root
-    mode: 0600
-  no_log: true
-  tags: nginx
-
-- name: Copy TLS Key
-  copy:
-    content: "{{ tls_key }}"
-    dest: /etc/nginx/certs/key.pem
-    owner: root
-    group: root
-    mode: 0600
-  no_log: true
-  tags: nginx
-
-
-- name: Setup nginx
-  import_role:
-    name: jdauphant.nginx
-  tags: nginx
-
+    src: /srv/nyc-db/server/index.html
+    dest: /var/www/nycdb/index.html
+    remote_src: yes
+    owner: nycdb
+    group: nycdb
+    mode: 0644

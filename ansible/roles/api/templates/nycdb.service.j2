@@ -1,9 +1,12 @@
 [Unit]
-Description=nycdb server
+Description=Nycdb Server
+After=postgresql.service
 
 [Service]
 ExecStart=/usr/local/bin/postgrest /home/api/postgrest.conf
-Restart=always
+ExecReload=/bin/kill -SIGUSR1 $MAINPID
+Restart=on-failure
+RestartSec=30
 User=api
 Group=api
 

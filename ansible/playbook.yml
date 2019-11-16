@@ -1,10 +1,11 @@
 ---
-- name: Setup NYC-DB
+- name: nycdb server
   hosts: nycdb
   become: yes
-  # become_user: nycdb
+  become_user: root
   become_method: sudo
 
   roles:
     - common
     - nycdb
+    - api
