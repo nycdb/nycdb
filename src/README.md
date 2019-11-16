@@ -1,57 +1,50 @@
-*****
-NYCDB
-*****
+# NYCDB
 
-a tool for building a database of NYC housing data
-**************************************************
+**a tool for building a database of NYC housing data**
 
-This is a Python library and cli tool for installing, updating and managing NYC-DB, a postgres database of Housing Data for NYC.
+This is a Python library and cli tool for installing, updating and managing NYCDB, a postgres database of NYC Housing Data.
 
-For more background information on this project, the api, and to download the full database dump see: https://github.com/aepyornis/nyc-db
+For more background information on this project, the api, and to download the full database dump see: https://github.com/nycdb/nycdb
 
 
-How to use
-**********
-
-**Requirements**:  Postgres and Python3
+## Requirements and Installation
 
 
-After installing via pip:
+* python 3.6+
+* Postgres 12
 
-.. code-block:: bash
-
-    pip3 install nycdb
-
-
-You'll be able to use the program `nycdb` to import a database.
+The latest version can be installed from pypi with pip:  ` pip3 install nycdb `
 
 
-For example to load all of hpd violations:
+## Using NYCDB
 
-.. code-block:: bash
 
-    nycdb --download hpd_violations
-    nycdb --load hpd_violations -P YOUR_PG_PASSWORD -D YOUR_DATABASE
+`nycdb` downloads datasets and imports them into postgres.
 
-To see all possible datasets:
+View options and usage: `nycdb --help`
 
-.. code-block:: bash
+To print a list of datasets: ` nycdb --list-datasets`
 
-   nycdb --list-datasets
+To load all of hpd violations:
 
+``` sh
+nycdb --download hpd_violations
+nycdb --load hpd_violations -P YOUR_PG_PASSWORD -D YOUR_DATABASE
+```
 
 After a dataset has been loaded you can verify it with "--verify"
 
-.. code-block:: bash
+``` sh
+nycdb --verify hpd_violations
+nycdb --verify-all
+```
 
-   nycdb --verify hpd_violations
-   nycdb --verify-all
+By default the downloaded data files are is stored in './data'. Use `--root-dir` if you'd like to change the location of the data directory.
 
+To see more options run:
 
-By default the downloaded data files are stores in './data'. Use --root-dir to change the location of the data directory.
+## Development
 
-To see more options run: `nycdb --help`
-
-## Adding New Datasets
+###  Adding New Datasets
 
 [Guide Here](ADDING_NEW_DATASETS.md)
