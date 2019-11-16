@@ -13,7 +13,7 @@ test:
 test-unit: test
 
 test-integration:
-	docker run -p 127.0.0.1:7777:5432 --name nycdb_test -e POSTGRES_USER=nycdb -e POSTGRES_PASSWORD=nycdb -e POSTGRES_DB=nycdb_test -d postgres:11
+	docker run -p 127.0.0.1:7777:5432 --name nycdb_test -e POSTGRES_USER=nycdb -e POSTGRES_PASSWORD=nycdb -e POSTGRES_DB=nycdb_test -d postgres:12
 	./scripts/wait-for-pg.sh
 	./venv/bin/pytest tests/integration || true
 	docker stop nycdb_test && docker rm -v nycdb_test

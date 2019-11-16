@@ -15,7 +15,7 @@ services:
     links:
       - db
   db:
-    image: postgres:11
+    image: postgres:12
     environment:
       - POSTGRES_PASSWORD=nycdb
       - POSTGRES_USER=nycdb
