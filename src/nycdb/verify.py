@@ -4,6 +4,7 @@ TABLES = {
     'pluto_17v1': {'pluto_17v1': 800_000},
     'pluto_18v1': {'pluto_18v1': 800_000},
     'pluto_18v2': {'pluto_18v2': 800_000},
+    'pluto_19v1': {'pluto_19v1': 800_000},
     'dobjobs': {'dobjobs': 1_000_000},
     'dob_violations': {'dob_violations': 2_000_000},
     'ecb_violations': {'ecb_violations': 1_300_000},
@@ -45,7 +46,9 @@ TABLES = {
         'marshal_evictions_17': 17_000,
         'marshal_evictions_18': 19_000
     },
-    'oath_hearings': {'oath_hearings': 10_000_000}
+    'oath_hearings': {'oath_hearings': 10_000_000},
+    'hpd_vacateorders': {'hpd_vacateorders': 4_000},
+    'j51_exemptions': {'j51_exemptions': 4_000_000}
 }
 
 

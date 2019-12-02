@@ -179,6 +179,13 @@ def test_pluto18v2(conn):
     assert row_count(conn, 'pluto_18v2') == 10
 
 
+def test_pluto19v1(conn):
+    drop_table(conn, 'pluto_19v1')
+    pluto = nycdb.Dataset('pluto_19v1', args=ARGS)
+    pluto.db_import()
+    assert row_count(conn, 'pluto_19v1') == 10
+
+
 def test_hpd_violations(conn):
     drop_table(conn, 'hpd_violations')
     hpd_violations = nycdb.Dataset('hpd_violations', args=ARGS)
@@ -385,6 +392,18 @@ def test_myplugin_custom_dataset(conn, myplugin):
     dataset = nycdb.Dataset('myplugin_custom_dataset', args=ARGS)
     dataset.db_import()
     assert row_count(conn, 'myplugin_custom_dataset') == 6
+
+
+def test_hpd_vacateorders(conn):
+    drop_table(conn, 'hpd_vacateorders')
+    dataset = nycdb.Dataset('hpd_vacateorders', args=ARGS)
+    dataset.db_import()
+    assert row_count(conn, 'hpd_vacateorders') == 100
+    with conn.cursor(cursor_factory=psycopg2.extras.DictCursor) as curs:
+        curs.execute("select * from hpd_vacateorders WHERE vacateordernumber = 100282")
+        rec = curs.fetchone()
+        assert rec is not None
+        assert rec['bbl'] == '3013480010'
 
 
 def run_cli(args, input):

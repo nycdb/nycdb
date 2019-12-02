@@ -10,86 +10,10 @@ nycdb_database_password: "{{ lookup('password', 'credentials/nycdb_psql_pass len
 anon_db_user: anon
 anon_db_password: "{{ lookup('password', 'credentials/anon_psql_pass length=20 chars=ascii_letters,digits') }}"
 
-sqlpad_db_user: sqlpad
-sqlpad_db_password: "{{ lookup('password', 'credentials/sqlpad_psql_pass length=20 chars=ascii_letters,digits') }}"
-
 swapfile_size: 2G
 swapfile_location: /swapfile
 
-postgrest_release_url: https://github.com/PostgREST/postgrest/releases/download/v5.2.0/postgrest-v5.2.0-ubuntu.tar.xz
+postgrest_release_url: https://github.com/PostgREST/postgrest/releases/download/v6.0.2/postgrest-v6.0.2-linux-x64-static.tar.xz
 
 postgrest_server_port: 4000
 postgrest_max_rows: 5000
-
-
-root_domain: nycdb.info
-api_domain: api.nycdb.info
-sql_domain: sql.nycdb.info
-nginx_ssl_ciphers: "'ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256'"
-
-
-# These are stored at ~/nycdb.yml
-# tls_certificate
-# tls_key
-
-nginx_sites:
-  default_server:
-    - listen 80 default_server
-    - listen [::]:80 default_server
-    - server_name _
-    - return 301 https://$host$request_uri
-  nycdb:
-    - listen 443 ssl http2
-    - listen [::]:443 ssl http2
-    - ssl_certificate /etc/nginx/certs/certificate.pem
-    - ssl_certificate_key /etc/nginx/certs/key.pem
-    - ssl_session_timeout 1d
-    - ssl_session_cache shared:SSL:50m
-    - ssl_session_tickets off
-    - ssl_protocols TLSv1.2
-    - ssl_ciphers {{ nginx_ssl_ciphers }}
-    - ssl_prefer_server_ciphers on
-    - add_header Strict-Transport-Security max-age=15768000
-    - server_name {{ root_domain }}
-    - root /var/www/nycdb
-    - location / { try_files /index.html =404; }
-  api:
-    - listen 443 ssl http2
-    - listen [::]:443 ssl http2
-    - ssl_certificate /etc/nginx/certs/certificate.pem
-    - ssl_certificate_key /etc/nginx/certs/key.pem
-    - ssl_session_timeout 1d
-    - ssl_session_cache shared:SSL:50m
-    - ssl_session_tickets off
-    - ssl_protocols TLSv1.2
-    - ssl_ciphers {{ nginx_ssl_ciphers }}
-    - ssl_prefer_server_ciphers on
-    - add_header Strict-Transport-Security max-age=15768000
-    - server_name {{ api_domain }}
-    - root /var/www/nycdb
-    - |
-      location / {
-        proxy_pass http://127.0.0.1:4000;
-        include /etc/nginx/cors.conf;
-        default_type application/json;
-        proxy_http_version 1.1;
-        
-      }
-  sql:
-    - listen 443 ssl http2
-    - listen [::]:443 ssl http2
-    - ssl_certificate /etc/nginx/certs/certificate.pem
-    - ssl_certificate_key /etc/nginx/certs/key.pem
-    - ssl_session_timeout 1d
-    - ssl_session_cache shared:SSL:50m
-    - ssl_session_tickets off
-    - ssl_protocols TLSv1.2
-    - ssl_ciphers {{ nginx_ssl_ciphers }}
-    - ssl_prefer_server_ciphers on
-    - add_header Strict-Transport-Security max-age=15768000
-    - server_name {{ sql_domain }}
-    - |
-      location / {
-        proxy_pass http://127.0.0.1:3000;
-        proxy_http_version 1.1;
-      }

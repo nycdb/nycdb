@@ -6,42 +6,60 @@ Residents, lawyers, tenants, and organizers who want to use data in their strugg
 
 NYC-DB builds a postgresql database containing the following datasets:
 
-- Department of City Planning's Pluto: versions 15v1, 16v2, 17v1, 18v1, and 18v2
+- Department of City Planning's Pluto: versions 15v1, 16v2, 17v1, 18v1, 18v2, and 19v1
 - DOB Job Filings
-- DOB Complaints
-- HPD Violations
+- [DOB Complaints](https://github.com/nycdb/nycdb/wiki/Dataset:-DOB-Complaints)
+- [DOB Violations](https://github.com/nycdb/nycdb/wiki/Dataset:-DOB-Violations)
+- [HPD Violations](https://github.com/nycdb/nycdb/wiki/Dataset:-HPD-Violations)
 - HPD Registrations
-- HPD Complaints
+- [HPD Complaints](https://github.com/nycdb/nycdb/wiki/Dataset:-HPD-Complaints)
+- [HPD Repair and Vacate Orders](https://github.com/nycdb/nycdb/wiki/Dataset:-HPD-Vacate-Orders)
 - Department of Finance Rolling Sales
 - Tax bills - Rent Stabilization Unit Counts (John Krauss's data)
-- ACRIS
+- [ACRIS](https://github.com/nycdb/nycdb/wiki/Dataset:-ACRIS)
 - 2017 Marshal Evictions
-- ECB / Oath Hearings
+- [ECB Violations](https://github.com/nycdb/nycdb/wiki/Dataset:-ECB-Violations)
+- [Oath Hearings](https://github.com/nycdb/nycdb/wiki/Dataset:-OATH-Hearings)
 - Property Address Directory
 - J-51 Exemptions
 
 NYC-DB is a python3 command line program that downloads and loads datasets into postgres.
 
-## Get a copy
+## (Easy) Get a copy
 
 Just want a copy of the database?
 
 Here are the latest versions available to download:
-
-- [nyc-db-2019-07-24.sql.bz2](https://s3.amazonaws.com/nyc-db/nyc-db-2019-07-24.sql.bz2)
-- [nyc-db-2019-06-17.sql.bz2](https://s3.amazonaws.com/nyc-db/nyc-db-2019-06-17.sql.bz2)
+- [nyc-db-2019-11-15.sql.bz2](https://nycdb.info/sql/nyc-db-2019-11-15.sql.bz2)
+- [nyc-db-2019-07-24.sql.bz2](https://nycdb.info/sql/nyc-db-2019-07-24.sql.bz2)
 
 [![License: CC BY-NC-SA 4.0](https://licensebuttons.net/l/by-nc-sa/4.0/80x15.png)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 
 It's ~3gb compressed and ~25gb decompressed.
 
-Load the db: ``` bzcat nyc-db-2019-07-24.sql.bz2 | psql -d database-name ```
+Load the db: ``` bzcat nyc-db-2019-11-15.sql.bz2 | psql -d database-name ```
 
-## Adding New Datasets
+## (Easy) Use our copy of the database
+
+The Housing Data Coalition host our own copy ("instance") of nycdb.
+
+If you are not a member of HDC, please contact housingdatacoalition@gmail.com
+
+If you are a member of HDC, access credentials are in the description at the top of the Slack channel "nycdb-hackers". Take note of the hostname, user, and password. You will be using the base "nycdb". Make sure that you do NOT have "http://" in front of the hostname.
+
+The easiest way is to use a graphical interface like Postico, DBeaver, or Falcon SQL. You will be "connecting to a server". If you have the option, select Postgresql-- this is the specific kind of SQL database that we are using.
+
+Another option is to connect by command line. After installing Postgresql, you gain access to the command line tool "psql". This is how you would use it-- replace "hostname" and "user" with the actual credentials.
+```
+psql -h hostname -U user -t nycdb
+```
+It will prompt you for the password.
+
+## Adding New Datasets (Advanced)
 
 [Guide Here](src/ADDING_NEW_DATASETS.md)
 
-## Build it yourself!
+## Build it yourself! (Advanced)
 
 ### nycdb cli
 
