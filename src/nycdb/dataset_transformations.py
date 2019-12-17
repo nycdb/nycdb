@@ -1,3 +1,7 @@
+"""
+Each function in this file is the name of a table or dataset.
+"""
+
 from .transform import with_geo, with_bbl, to_csv, extract_csvs_from_zip, extract_csv_from_zip, skip_fields
 from .transform import hpd_registrations_address_cleanup, hpd_contacts_address_cleanup
 from .dof_parser import parse_dof_file

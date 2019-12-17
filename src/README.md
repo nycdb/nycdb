@@ -4,15 +4,13 @@
 
 This is a Python library and cli tool for installing, updating and managing NYCDB, a postgres database of NYC Housing Data.
 
-For more background information on this project for links to download copies of full database dump see: https://github.com/nycdb/nycdb. We use the term **nycdb** to refer both the python software that creates the database and the running copy of the postgres database.
+For more background information on this project and links to download copies of full database dump visit: https://github.com/nycdb/nycdb. We use the term **nycdb** to refer to both the python software and the running copy of the postgres database.
 
 ## Using the cli tool
 
-You will need python 3.6+ and Postgres.
+You will need python 3.6+ and Postgres. The latest version can be installed from pypi with pip:  ` python3 -m pip install nycdb `
 
-The latest version can be installed from pypi with pip:  ` python3 -m pip install nycdb `
-
-Installation is successful, you can view a summary of the tool's options by running `nycdb --help`
+If the installation is successful, you can view a summary of the tool's options by running `nycdb --help`
 
 To print a list of datasets: ` nycdb --list-datasets`
 
@@ -28,7 +26,7 @@ nycdb --verify hpd_violations
 
 You can also verify all datasets: ` nycdb --verify-all `
 
-By default the downloaded data files are is stored in './data'. Use `--root-dir` if you'd like to change the location of the data directory.
+By default the downloaded data files are is stored in `./data`. Use `--root-dir` to change the location of the data directory.
 
 You can export a `.sql` file for any dataset by using the `--dump` command
 
@@ -52,11 +50,7 @@ Run only the unit tests: `make test-unit`
 
 This reuqires docker and docker-compose.
 
-To get started run:
-
-```
-docker-compose up
-```
+To get started  ` docker-compose up `
 
 After Docker downloads and builds some things, it will start a Postgres server on port
 7777 of your local machine, which you can connect to via a desktop client if you like.

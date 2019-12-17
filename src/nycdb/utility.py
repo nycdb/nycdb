@@ -1,6 +1,6 @@
 import os
-import yaml
 from pathlib import Path
+import yaml
 
 
 def read_yml(file):
@@ -10,7 +10,7 @@ def read_yml(file):
 
 
 def mkdir(file_path):
-    """ Creates directories for the file path"""
+    """ Creates all parent directories"""
     Path(os.path.dirname(file_path)).mkdir(parents=True, exist_ok=True)
 
 

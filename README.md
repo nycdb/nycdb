@@ -4,7 +4,7 @@ Let's research the landlord! New York City is in a housing crisis. Some [landlor
 
 Residents, lawyers, tenants, and organizers who want to use data in their struggle turn to proprietary databases and resources, like PropertyShark, designed for real estate or contend with CSV and printouts from city websites. _nycdb_ aims to give technologists and researchers who want to volunteer their time helping community groups who are defending the city against the real estate industry a leg up by providing a ready-to-use database filled with housing data.
 
-_nycdb_ is a python that downloads, processes, and loads the following public datasets into postgres:
+**nycdb** is a python program that downloads, processes, and loads the following public datasets into postgres:
 
 - Department of City Planning's Pluto: versions 15v1, 16v2, 17v1, 18v1, 18v2, and 19v1
 - DOB Job Filings
