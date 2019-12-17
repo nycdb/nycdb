@@ -1,10 +1,10 @@
-# nyc-db
+# nycdb
 
 Let's research the landlord! New York City is in a housing crisis. Some [landlords](https://youtu.be/o1SzKHXz8tU) leave their buildings in despair and let their tenants suffer without heat in winter. Others evict their tenants, legally or illegally, in order to flip buildings and profit off of gentrification. Affordable housing is a scarce resource.
 
-Residents, lawyers, tenants, and organizers who want to use data in their struggle turn to proprietary databases and resources, like PropertyShark, designed for real estate or contend with CSV and printouts from city websites. NYC-DB aims to give technologists and researchers who want to volunteer their time helping community groups who are defending the city against the real estate industry a leg up by providing a ready-to-use database filled with housing data.
+Residents, lawyers, tenants, and organizers who want to use data in their struggle turn to proprietary databases and resources, like PropertyShark, designed for real estate or contend with CSV and printouts from city websites. _nycdb_ aims to give technologists and researchers who want to volunteer their time helping community groups who are defending the city against the real estate industry a leg up by providing a ready-to-use database filled with housing data.
 
-NYC-DB builds a postgresql database containing the following datasets:
+_nycdb_ is a python that downloads, processes, and loads the following public datasets into postgres:
 
 - Department of City Planning's Pluto: versions 15v1, 16v2, 17v1, 18v1, 18v2, and 19v1
 - DOB Job Filings
@@ -23,121 +23,44 @@ NYC-DB builds a postgresql database containing the following datasets:
 - Property Address Directory
 - J-51 Exemptions
 
-NYC-DB is a python3 command line program that downloads and loads datasets into postgres.
+## Using the database
 
-## (Easy) Get a copy
+### Download a copy
 
-Just want a copy of the database?
+If you just want a copy of the postgres database, you may download the latest versions:
 
-Here are the latest versions available to download:
 - [nyc-db-2019-11-15.sql.bz2](https://nycdb.info/sql/nyc-db-2019-11-15.sql.bz2)
 - [nyc-db-2019-07-24.sql.bz2](https://nycdb.info/sql/nyc-db-2019-07-24.sql.bz2)
 
 [![License: CC BY-NC-SA 4.0](https://licensebuttons.net/l/by-nc-sa/4.0/80x15.png)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 
-It's ~3gb compressed and ~25gb decompressed.
+[See here](https://github.com/nycdb/nycdb/wiki/Loading-a-copy-into-postgres) for instructions on how to load the database file.
 
-Load the db: ``` bzcat nyc-db-2019-11-15.sql.bz2 | psql -d database-name ```
+### Use the Housing Data Coalition's instance
 
-## (Easy) Use our copy of the database
+The Housing Data Coalition hosts their own copy ("instance") of nycdb. If you are not a member of HDC and would like to use it, please contact housingdatacoalition@gmail.com
 
-The Housing Data Coalition host our own copy ("instance") of nycdb.
+## Using the software
 
-If you are not a member of HDC, please contact housingdatacoalition@gmail.com
+Go to [src/README.md](src/README.md) for details on how creating your own copy of the database and how to contribute to the project.
 
-If you are a member of HDC, access credentials are in the description at the top of the Slack channel "nycdb-hackers". Take note of the hostname, user, and password. You will be using the base "nycdb". Make sure that you do NOT have "http://" in front of the hostname.
-
-The easiest way is to use a graphical interface like Postico, DBeaver, or Falcon SQL. You will be "connecting to a server". If you have the option, select Postgresql-- this is the specific kind of SQL database that we are using.
-
-Another option is to connect by command line. After installing Postgresql, you gain access to the command line tool "psql". This is how you would use it-- replace "hostname" and "user" with the actual credentials.
-```
-psql -h hostname -U user -t nycdb
-```
-It will prompt you for the password.
-
-## Adding New Datasets (Advanced)
-
-[Guide Here](src/ADDING_NEW_DATASETS.md)
-
-## Build it yourself! (Advanced)
-
-### nycdb cli
-
-To manage and create copies of the database yourself, you can see the nycdb command line tool available on pypi: ` pip3 install nycdb `
-
-see `src/README.md` for more information on using the command line tool.
-
-### Using the Makefile to build the database
-
-As a convenience you can create the database in one go using this command:
-
-```
-make nyc-db DB_HOST=localhost DB_DATABASE=nycdb DB_USER=databaseuser DB_PASSWORD=mypassword
-```
-
-### Using Docker
-
-You can also use Docker to both use and develop nycdb. This can be useful because
-you only need to install Docker--you don't need to worry about installing the proper
-version of Python, Postgres, or any other tools.
-
-To proceed, first [install Docker][] and then run:
-
-```
-docker-compose up
-```
-
-After Docker downloads and builds some things, it will start a Postgres server on port
-7777 of your local machine, which you can connect to via a desktop client if you like.
-You can also press <kbd>CTRL</kbd>-<kbd>C</kbd> at any point to stop the server.
-
-In a separate terminal, you can run:
-
-```
-docker-compose run app bash
-```
-
-At this point you are inside a bash shell in a container that has everything already
-set up for you. The initial working directory will be `/nycdb`, which is mapped to
-the root of the project's repository. From here you can run `nycdb` to access the
-command-line tool.
-
-To develop on nycdb itself:
-
-* You can run `pytest` to run the test suite.
-* Any changes you make to the tool's source code will automatically be reflected
-  in future invocations of `nycdb` and/or the test suite.
-* If you don't have a desktop Postgres client, you can always run
-  `nycdb --dbshell` to interactively inspect the database with [`psql`][].
-
-You can leave the bash shell with `exit`.
-
-If you ever want to wipe the database, run `docker-compose down -v`.
-
-[install Docker]: https://www.docker.com/get-started
-[`psql`]: http://postgresguide.com/utilities/psql.html
-
-### Setup the database and API on a cloud server
-
-See the folder `/ansible` for ansible playbooks to setup the database on a sever.
+Additionally, see the folder [/ansible](/ansible) for ansible playbooks that can be used to install a copy of the database on a sever.
 
 ### Acknowledgments
 
 - [Heatseek](https://heatseek.org/) for ongoing support of the project and for their amazing work.
 - [@talos](https://github.com/talos) for his [tax bill scrapping](https://github.com/talos/nyc-stabilization-unit-counts) to get counts of rent-stabilization units
+- NYCDB's [programmers](https://github.com/nycdb/nycdb/graphs/contributors)
+- [Housing Data Coalition](https://www.housingdatanyc.org/) for their support and workshops
 
-### Future datasets to add:
-
-- census data
-
-#### LICENSE: AGPLv3
+#### License: AGPLv3
 
 ```
-NYC-DB - Postgres database of NYC housing data
-Copyright (C) 2016-2018 Ziggy Mintz
+NYCDB - Postgres database of NYC housing data
+Copyright (C) 2016-2019 ziggy & contributors
 
 This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Affero General Public License as published by
+it under the terms of the GNU Afnnfero General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
 
@@ -145,9 +68,6 @@ This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU Affero General Public License for more details.
-
-You should have received a copy of the GNU Affero General Public License
-along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ```
 
 The database files provided on this page are licensed [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode).
