@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name="nycdb",
-    version="0.1.26",
+    version="0.1.27",
     url="https://github.com/aepyornis/nyc-db",
 
     author="ziggy",
