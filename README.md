@@ -42,16 +42,14 @@ The Housing Data Coalition hosts their own copy ("instance") of nycdb. If you ar
 
 ## Using the software
 
-Go to [src/README.md](src/README.md) for details on how creating your own copy of the database and how to contribute to the project.
-
-Additionally, see the folder [/ansible](/ansible) for ansible playbooks that can be used to install a copy of the database on a sever.
+Go to [src/README.md](src/README.md) for documentation on creating your own copy of the database. See the folder [/ansible](/ansible) for ansible playbooks that can be used to install a copy of the database on a sever.
 
 ### Acknowledgments
 
 - [Heatseek](https://heatseek.org/) for ongoing support of the project and for their amazing work.
 - [@talos](https://github.com/talos) for his [tax bill scrapping](https://github.com/talos/nyc-stabilization-unit-counts) to get counts of rent-stabilization units
 - NYCDB's [programmers](https://github.com/nycdb/nycdb/graphs/contributors)
-- [Housing Data Coalition](https://www.housingdatanyc.org/) for their support and workshops
+- [Housing Data Coalition](https://www.housingdatanyc.org/) for their support and for hosting nycdb workshops
 
 #### License: AGPLv3
 

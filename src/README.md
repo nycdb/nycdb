@@ -50,7 +50,7 @@ Run only the unit tests: `make test-unit`
 
 This reuqires docker and docker-compose.
 
-To get started  ` docker-compose up `
+To get started run ` docker-compose up `
 
 After Docker downloads and builds some things, it will start a Postgres server on port
 7777 of your local machine, which you can connect to via a desktop client if you like.
