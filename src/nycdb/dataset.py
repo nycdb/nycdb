@@ -5,7 +5,6 @@ import os
 import subprocess
 from tqdm import tqdm
 
-
 from . import verify
 from . import dataset_transformations
 from . import sql
@@ -19,7 +18,20 @@ BATCH_SIZE = 1000
 
 
 class Dataset:
-    """Information about a dataset"""
+    """
+    Most CLI actions correspond to a method in this class.
+    It is initialized with the name of a dataset:
+
+        hpd_violations = Dataset('hpd_violations')
+
+    To download the files:
+
+        hpd_violations.download_files()
+
+    To load the files into postgres:
+
+        hpd_violations.db_import()
+    """
 
     def __init__(self, dataset_name, args=None):
         self.name = dataset_name
@@ -40,14 +52,19 @@ class Dataset:
 
 
     def download_files(self):
+        """
+        Downloads all files for the dataset.
+
+        See ./file.py for more details.
+        """
         for f in self.files:
             f.download()
 
 
     def db_import(self):
         """
-        inserts the dataset in the postgres
-        output:  True | Throws
+        Inserts the dataset in the postgres.
+        Output:  True | Throws
         """
         self.setup_db()
         self.create_schema()
@@ -58,6 +75,13 @@ class Dataset:
         self.sql_files()
 
     def index(self):
+        """
+        Some datasets contains additional indices (notably, full-text-search indices)
+        that are not automatically created.
+
+        This method creates those indices.
+        It does nothing if the dataset has no additional indexes
+        """
         if 'index' in self.dataset:
             for sql_file in self.dataset['index']:
                 self.db.execute_sql_file(sql_file)
@@ -72,8 +96,8 @@ class Dataset:
         If no function exists with the same name as the schema table, it tries
         to call the function with the same name as the dataset
 
-        input: dict
-        output: generator
+        Input: dict
+        Output: generator
         """
         tc = Typecast(schema)
 
@@ -85,6 +109,9 @@ class Dataset:
         return tc.cast_rows(rows)
 
     def import_schema(self, schema):
+        """
+        Imports the schema (table) into postgres in batches.
+        """
         rows = self.transform(schema)
 
         pbar = tqdm(unit='rows')
@@ -98,32 +125,53 @@ class Dataset:
         pbar.close()
 
     def create_schema(self):
+        """
+        Issues CREATE TABLE statements for all tables in the dataset.
+        """
         create_table = lambda name, fields: self.db.sql(sql.create_table(name, fields))
 
         for s in self.schemas:
             create_table(s['table_name'], s['fields'])
 
     def sql_files(self):
+        """
+        Executes all sql files for the dataset.
+        """
         if 'sql' in self.dataset:
             for f in self.dataset['sql']:
                 self.db.execute_sql_file(f)
 
     def setup_db(self):
+        """
+        Establishes the Database object. Used to lazy-load self.db.
+        """
         if self.db is None:
             self.db = Database(self.args, table_name=self.name)
 
     def verify(self):
+        """
+        Verifies if the tables for this dataset exists and
+        if it contains approximately the right number of rows.
+        """
         self.setup_db()
         verify.check_dataset(self.db, self.name)
 
     def dump(self):
-        """Creates .sql dump file of the datasets"""
+        """
+        Creates .sql dump file of the datasets.
+        Saves the file with the format [DATASET_NAME]-DATE.sql
+        """
         tables = ['--table={}'.format(s['table_name']) for s in self.schemas]
         file_arg = '--file=./{}-{}.sql'.format(self.name, datetime.date.today().isoformat())
         cmd = ["pg_dump", "--no-owner", "--clean", "--if-exists", "-w"] + tables + [file_arg]
         subprocess.run(cmd, env=self.pg_env(), check=True)
 
     def pg_env(self):
+        """
+        Returns a copy of the environment with postgres environment variables set
+        to be the same as the values provided by the args, which are typically given
+        on the command line.
+        """
         return merge(
             os.environ.copy(),
             {

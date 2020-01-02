@@ -1,14 +1,17 @@
 """ create BBL  """
 import re
 
-manhattan_values = [ 'manhattan', 'mn', '1', 1 ]
-bronx_values = [ 'bronx', 'the bronx', 'bx', '2', 2 ]
-brooklyn_values = [ 'brooklyn', 'bklyn', 'bk' , '3', 3 ]
-queens_values = [ 'queens', 'qn', '4', 4 ]
-staten_island_values = [ 'staten island', 'si', '5', 5 ]
+manhattan_values = ['manhattan', 'mn', '1', 1]
+bronx_values = ['bronx', 'the bronx', 'bx', '2', 2]
+brooklyn_values = ['brooklyn', 'bklyn', 'bk' , '3', 3]
+queens_values = ['queens', 'qn', '4', 4]
+staten_island_values = ['staten island', 'si', '5', 5]
 
 
 def boro_to_code(boro):
+    """
+    Converts borough name (i.e. Queens) to borough code (i.e. 4)
+    """
     if isinstance(boro, str):
         b = boro.strip().lower()
     else:
@@ -53,6 +56,11 @@ def is_empty(i):
 
 
 def bbl(boro, block, lot):
+    """
+    Properly formats boro, block and lot into a 10 character BBL string.
+
+    Returns None if boro, block, or lot is missing
+    """
     if boro is None or is_empty(block) or is_empty(lot):
         return None
 

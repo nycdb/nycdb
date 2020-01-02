@@ -1,5 +1,8 @@
+"""
+DOF rolling sales data is downloadable only as an excel document.
+This file process that file so that we can treat like we do csvs.
+"""
 import xlrd
-
 
 def cell_converter(cell):
     if cell.ctype == 0:
@@ -37,7 +40,11 @@ def to_headers(row):
 
 
 def parse_dof_file(file_path):
-    """ Parse dof rolling sales xls file"""
+    """
+    Parse dof rolling sales xls file
+    input: String path to the excel file
+    output: generator
+    """
     book = xlrd.open_workbook(file_path)
     sheet = book.sheet_by_index(0)
     rows = sheet.get_rows()

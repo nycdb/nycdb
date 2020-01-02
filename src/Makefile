@@ -8,15 +8,13 @@ install:
 	./venv/bin/pip3 install -e .
 
 test:
-	pytest tests/unit/
-
-test-unit: test
-
-test-integration:
 	docker run -p 127.0.0.1:7777:5432 --name nycdb_test -e POSTGRES_USER=nycdb -e POSTGRES_PASSWORD=nycdb -e POSTGRES_DB=nycdb_test -d postgres:12
 	./scripts/wait-for-pg.sh
-	./venv/bin/pytest tests/integration || true
+	./venv/bin/pytest || true
 	docker stop nycdb_test && docker rm -v nycdb_test
+
+test-unit:
+	./venv/bin/pytest tests/unit
 
 venv:
 	python3 -m venv venv
@@ -33,4 +31,4 @@ build:
 upload:
 	twine upload --sign --identity $(GPG_KEYID) dist/*
 
-.PHONY: init test test-integration test-unit cython build clean launch-docker
+.PHONY: init test test-unit build clean upload
