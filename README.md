@@ -6,7 +6,7 @@ Residents, lawyers, tenants, and organizers who want to use data in their strugg
 
 **nycdb** is a python program that downloads, processes, and loads the following public datasets into postgres:
 
-- Department of City Planning's Pluto: versions 15v1, 16v2, 17v1, 18v1, 18v2, and 19v1
+- Department of City Planning's Pluto: versions 15v1, 16v2, 17v1, 18v1, 18v2, 19v1, and 19v2
 - DOB Job Filings
 - [DOB Complaints](https://github.com/nycdb/nycdb/wiki/Dataset:-DOB-Complaints)
 - [DOB Violations](https://github.com/nycdb/nycdb/wiki/Dataset:-DOB-Violations)
