@@ -99,7 +99,7 @@ schema:
     lng: 'double precision'
     lat: 'double precision'
   skip:
-    - mapplutof
+    - mappluto_f
     - rpaddate
     - dcasdate
     - zoningdate
