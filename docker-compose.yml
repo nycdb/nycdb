@@ -4,6 +4,8 @@ services:
     build: .
     volumes:
       - .:/nycdb
+      # https://stackoverflow.com/a/31373824
+      - /nycdb/src/nycdb.egg-info
     working_dir: /nycdb
     environment:
       - NYCDB_POSTGRES_HOST=db
