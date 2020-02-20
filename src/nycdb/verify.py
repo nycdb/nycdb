@@ -45,7 +45,8 @@ TABLES = {
     },
     'marshal_evictions': {
         'marshal_evictions_17': 17_000,
-        'marshal_evictions_18': 19_000
+        'marshal_evictions_18': 19_000,
+        'marshal_evictions_19': 16_000,
     },
     'oath_hearings': {'oath_hearings': 10_000_000},
     'hpd_vacateorders': {'hpd_vacateorders': 4_000},

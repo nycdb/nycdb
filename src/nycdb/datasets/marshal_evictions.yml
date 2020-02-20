@@ -6,6 +6,9 @@ files:
   -
     url: https://s3.amazonaws.com/justfix-data/marshal_evictions_2018.csv
     dest: marshal_evictions_18.csv
+  -
+    url: https://s3.amazonaws.com/justfix-data/marshal_evictions_2019.csv
+    dest: marshal_evictions_19.csv
 sql:
   - marshal_evictions.sql
 schema:
@@ -55,3 +58,23 @@ schema:
       GeosearchableAddress: text
       GeosearchableAddress2: text
       GeosearchFound: text
+  -
+    table_name: marshal_evictions_19
+    fields:
+      UniqueId: text
+      Bbl: char(10)
+      Borough: text
+      CleanedAddress: text
+      CourtIndexNumber: text
+      DocketNumber: text
+      CleanHouseNum: text
+      CleanStreet: text
+      EvictionAddress: text
+      EvictionAptNum: text
+      EvictionZip: text
+      ExecutedDate: date
+      GeosearchAddress: text
+      MarshalFirstName: text
+      MarshalLastName: text
+      ResidentialCommercialInd: text
+      ScheduleStatus: text

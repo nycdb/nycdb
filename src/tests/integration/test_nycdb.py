@@ -314,6 +314,7 @@ def test_acris(conn):
 def test_marshal_evictions(conn):
     drop_table(conn, 'marshal_evictions_17')
     drop_table(conn, 'marshal_evictions_18')
+    drop_table(conn, 'marshal_evictions_19')
     evictions = nycdb.Dataset('marshal_evictions', args=ARGS)
     evictions.db_import()
 
@@ -326,6 +327,7 @@ def test_marshal_evictions(conn):
         assert rec['lat'] == Decimal('40.71081')
 
     assert row_count(conn, 'marshal_evictions_18') == 100
+    assert row_count(conn, 'marshal_evictions_19') == 100
 
 
 def test_oath_hearings(conn):
