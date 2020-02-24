@@ -67,8 +67,6 @@ schema:
       CleanedAddress: text
       CourtIndexNumber: text
       DocketNumber: text
-      CleanHouseNum: text
-      CleanStreet: text
       EvictionAddress: text
       EvictionAptNum: text
       EvictionZip: text
