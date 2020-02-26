@@ -20,6 +20,7 @@ TABLES = {
     },
     'dof_sales': {'dof_sales': 75_000},
     'rentstab': {'rentstab': 45_000},
+    'rentstab_18': {'rentstab_18': 45_000},
     'rentstab_summary': {'rentstab_summary': 45_000},
     'dob_complaints': {'dob_complaints': 1_000_000},
     'hpd_complaints': {

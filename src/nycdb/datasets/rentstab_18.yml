@@ -1,0 +1,14 @@
+---
+files:
+  -
+    url: https://s3.amazonaws.com/justfix-data/rentstab_counts_for_pluto_19v1_bbls.csv
+    dest: rentstab_counts_for_pluto_19v1_bbls.csv
+sql:
+  - rentstab_18.sql
+schema:
+  table_name: rentstab_18
+  fields:
+    year: integer
+    bbl: char(10)
+    soarentstabunits : integer
+    pdfofsoa: text
