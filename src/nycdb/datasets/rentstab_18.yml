@@ -10,5 +10,5 @@ schema:
   fields:
     year: integer
     bbl: char(10)
-    soarentstabunits : integer
+    soarentstabunits: integer
     pdfofsoa: text
