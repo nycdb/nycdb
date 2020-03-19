@@ -277,11 +277,11 @@ def test_rentstab_summary(conn):
     assert row_count(conn, 'rentstab_summary') == 100
 
 
-def test_rentstab_18_summary(conn):
-    drop_table(conn, 'rentstab_18')
-    rentstab_18 = nycdb.Dataset('rentstab_18', args=ARGS)
-    rentstab_18.db_import()
-    assert row_count(conn, 'rentstab_18') == 100
+def test_rentstab_v2_summary(conn):
+    drop_table(conn, 'rentstab_v2')
+    rentstab_v2 = nycdb.Dataset('rentstab_v2', args=ARGS)
+    rentstab_v2.db_import()
+    assert row_count(conn, 'rentstab_v2') == 100
 
 
 def test_acris(conn):
