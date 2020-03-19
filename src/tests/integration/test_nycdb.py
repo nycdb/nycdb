@@ -262,6 +262,7 @@ def test_dobjobs_work_types(conn):
         assert rec['pcfiled'] is True
         assert rec['mechanical'] is True
 
+
 def test_rentstab(conn):
     drop_table(conn, 'rentstab')
     rentstab = nycdb.Dataset('rentstab', args=ARGS)
@@ -277,7 +278,7 @@ def test_rentstab_summary(conn):
     assert row_count(conn, 'rentstab_summary') == 100
 
 
-def test_rentstab_v2_summary(conn):
+def test_rentstab_v2(conn):
     drop_table(conn, 'rentstab_v2')
     rentstab_v2 = nycdb.Dataset('rentstab_v2', args=ARGS)
     rentstab_v2.db_import()
