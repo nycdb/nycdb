@@ -75,6 +75,10 @@ def rentstab(dataset):
     return to_csv(dataset.files[0].dest)
 
 
+def rentstab_v2(dataset):
+    return to_csv(dataset.files[0].dest)
+
+
 def rentstab_summary(dataset):
     return to_csv(dataset.files[0].dest)
 

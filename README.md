@@ -15,7 +15,7 @@ Residents, lawyers, tenants, and organizers who want to use data in their strugg
 - [HPD Complaints](https://github.com/nycdb/nycdb/wiki/Dataset:-HPD-Complaints)
 - [HPD Repair and Vacate Orders](https://github.com/nycdb/nycdb/wiki/Dataset:-HPD-Vacate-Orders)
 - Department of Finance Rolling Sales
-- Tax bills - Rent Stabilization Unit Counts (John Krauss's data)
+- Tax bills - Rent Stabilization Unit Counts (John Krauss and Atul Varma's data)
 - [ACRIS](https://github.com/nycdb/nycdb/wiki/Dataset:-ACRIS)
 - 2017, 2018, and 2019 Marshal Evictions
 - [ECB Violations](https://github.com/nycdb/nycdb/wiki/Dataset:-ECB-Violations)
