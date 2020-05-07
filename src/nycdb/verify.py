@@ -51,7 +51,20 @@ TABLES = {
     },
     'oath_hearings': {'oath_hearings': 10_000_000},
     'hpd_vacateorders': {'hpd_vacateorders': 4_000},
-    'j51_exemptions': {'j51_exemptions': 4_000_000}
+    'j51_exemptions': {'j51_exemptions': 4_000_000},
+    'oca': {
+        'oca_index': 1_300_000,
+        'oca_causes': 1_300_000,
+        'oca_addresses': 1_300_000,
+        'oca_parties': 3_400_000,
+        'oca_events': 2_500_000,
+        'oca_appearances': 2_500_000,
+        'oca_appearance_outcomes': 2_500_000,
+        'oca_motions': 700_000,
+        'oca_decisions': 650_000,
+        'oca_judgments': 600_000,
+        'oca_warrants': 600_000
+    }
 }
 
 

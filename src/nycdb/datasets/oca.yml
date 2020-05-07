@@ -1,0 +1,163 @@
+---
+files:
+  -
+    url: https://s3.amazonaws.com/oca-data/public/oca_index.csv
+    dest: oca_index.csv
+  -
+    url: https://s3.amazonaws.com/oca-data/public/oca_causes.csv
+    dest: oca_causes.csv
+  -
+    url: https://s3.amazonaws.com/oca-data/public/oca_addresses.csv
+    dest: oca_addresses.csv
+  -
+    url: https://s3.amazonaws.com/oca-data/public/oca_parties.csv
+    dest: oca_parties.csv
+  -
+    url: https://s3.amazonaws.com/oca-data/public/oca_events.csv
+    dest: oca_events.csv
+  -
+    url: https://s3.amazonaws.com/oca-data/public/oca_appearances.csv
+    dest: oca_appearances.csv
+  -
+    url: https://s3.amazonaws.com/oca-data/public/oca_appearance_outcomes.csv
+    dest: oca_appearance_outcomes.csv
+  -
+    url: https://s3.amazonaws.com/oca-data/public/oca_motions.csv
+    dest: oca_motions.csv
+  -
+    url: https://s3.amazonaws.com/oca-data/public/oca_decisions.csv
+    dest: oca_decisions.csv
+  -
+    url: https://s3.amazonaws.com/oca-data/public/oca_judgments.csv
+    dest: oca_judgments.csv
+  -
+    url: https://s3.amazonaws.com/oca-data/public/oca_warrants.csv
+    dest: oca_warrants.csv
+sql:
+  - oca/cast_arrays.sql
+  - oca/index.sql
+schema:
+  -
+    table_name: oca_index
+    fields:
+      indexnumberid: text
+      court: text
+      fileddate: date
+      propertytype: text
+      classification: text
+      specialtydesignationtypes: text
+      status: text
+      disposeddate: date
+      disposedreason: text
+      firstpaper: text
+      primaryclaimtotal: numeric
+      dateofjurydemand: date
+  -
+    table_name: oca_causes
+    fields:
+      indexnumberid: text
+      causeofactiontype: text
+      interestfromdate: date
+      amount: numeric
+  -
+    table_name: oca_addresses
+    fields:
+      indexnumberid: text
+      city: text
+      state: text
+      postalcode: text
+  -
+    table_name: oca_parties
+    fields:
+      indexnumberid: text
+      role: text
+      partytype: text
+      representationtype: text
+      undertenant: boolean
+  -
+    table_name: oca_events
+    fields:
+      indexnumberid: text
+      eventname: text
+      fileddate: date
+      feetype: text
+      filingpartiesroles: text
+      answertype: text
+  -
+    table_name: oca_appearances
+    fields:
+      indexnumberid: text
+      appearanceid: bigint
+      appearancedatetime: timestamp
+      appearancepurpose: text
+      appearancereason: text
+      appearancepart: text
+      motionsequence: int
+  -
+    table_name: oca_appearance_outcomes
+    fields:
+      indexnumberid: text
+      appearanceid: bigint
+      appearanceoutcometype: text
+      outcomebasedontype: text
+  -
+    table_name: oca_motions
+    fields:
+      indexnumberid: text
+      sequence: int
+      motiontype: text
+      primaryrelief: text
+      fileddate: date
+      filingpartiesroles: text
+      motiondecision: text
+      motiondecisiondate: date
+  -
+    table_name: oca_decisions
+    fields:
+      indexnumberid: text
+      sequence: int
+      resultof: text
+      highlight: text
+  -
+    table_name: oca_judgments
+    fields:
+      indexnumberid: text
+      sequence: int
+      amendedfromjudgmentsequence: int
+      judgmenttype: text
+      fileddate: date
+      entereddatetime: timestamp
+      withpossession: boolean
+      latestjudgmentstatus: text
+      latestjudgmentstatusdate: date
+      totaljudgmentamount: numeric
+      creditorsroles: text
+      debtorsroles: text
+  -
+    table_name: oca_warrants
+    fields:
+      indexnumberid: text
+      judgmentsequence: int
+      sequence: text
+      createdreason: text
+      ordereddate: date
+      issuancetype: text
+      issuancestayeddate: date
+      issuancestayeddays: int
+      issueddate: date
+      executiontype: text
+      executionstayeddate: date
+      executionstayeddays: int
+      marshalrequestdate: date
+      marshalrequestrevieweddate: date
+      enforcementagency: text
+      enforcementofficerdocketnumber: text
+      propertiesonwarrantcities: text
+      propertiesonwarrantstates: text
+      propertiesonwarrantpostalcodes: text
+      amendeddate: date
+      vacateddate: date
+      adultprotectiveservicesnumber: text
+      returneddate: date
+      returnedreason: text
+      executiondate: date
