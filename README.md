@@ -22,7 +22,7 @@ Residents, lawyers, tenants, and organizers who want to use data in their strugg
 - [Oath Hearings](https://github.com/nycdb/nycdb/wiki/Dataset:-OATH-Hearings)
 - Property Address Directory
 - J-51 Exemptions
-- OCA Housing Court Filings
+- [OCA Housing Court Records](https://github.com/nycdb/nycdb/wiki/Dataset:-OCA-Housing-Court-Records) (zipcode)
 
 ## Using the database
 
