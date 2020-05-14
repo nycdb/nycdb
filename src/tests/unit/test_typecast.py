@@ -52,6 +52,7 @@ def test_to_float():
     assert typecast.to_float('12.5') == 12.5
     assert typecast.to_float('not a number') is None
 
+
 def test_date_yyyymmdd_string():
     assert typecast.date('19250501') == datetime.date(1925, 5, 1)
 
@@ -87,11 +88,30 @@ def test_date_bad_str():
 def test_date_mm_dd_yyyy_with_timestamp():
     assert typecast.date('03/04/2015 12:00:00 AM') == datetime.date(2015, 3, 4)
 
+
 def test_time():
     assert typecast.time('15:01:00') == datetime.time(hour=15, minute=1, second=0)
+    assert typecast.time('15:1:0') == datetime.time(hour=15, minute=1, second=0)
+    assert typecast.time('3:01:00 PM') == datetime.time(hour=15, minute=1, second=0)
+    assert typecast.time('3:01:00 AM') == datetime.time(hour=3, minute=1, second=0)
     assert typecast.time(datetime.time.min) == datetime.time.min
     assert typecast.time('RIGHT NOW') is None
-    
+
+
+def test_timestamp():
+    assert typecast.timestamp('2020-05-13 23:30:00') == datetime.datetime(2020, 5, 13, 23, 30, 0)
+    assert typecast.timestamp('05/13/2020 23:30:00') == datetime.datetime(2020, 5, 13, 23, 30, 0)
+    assert typecast.timestamp('2020-05-13 11:30:00 PM') == datetime.datetime(2020, 5, 13, 23, 30, 0)
+    assert typecast.timestamp('2020-05-13 11:30:00 AM') == datetime.datetime(2020, 5, 13, 11, 30, 0)
+    assert typecast.timestamp(datetime.datetime(2020, 5, 13, 11, 30, 0)) == datetime.datetime(2020, 5, 13, 11, 30, 0)
+
+
+def test_timestamp_bad_str():
+    assert typecast.timestamp('2020-02-31 23:30:00') == None
+    assert typecast.timestamp('05/13/2020 23:30:00 AM XYZ') == None
+    assert typecast.timestamp('WHATHAPP') == None
+
+
 def test_text_array():
     assert typecast.text_array('  one,two,three  ') == ['one', 'two', 'three']
     assert typecast.text_array('1|2|3', sep='|') == ['1', '2', '3']
