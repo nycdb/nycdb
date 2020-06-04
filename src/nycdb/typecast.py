@@ -116,13 +116,33 @@ def date(x):
 def time(x):
     """
     Converts string into datetime.time
-    Example input: 13:01:00
+    Example inputs: '13:01:00', '13:1:0', '01:01:00 PM'
     """
     if isinstance(x, datetime.time):
         return x
-    if isinstance(x, str) and re.match(r'^\d{2}:\d{2}:\d{2}$', x.strip()):
+    if isinstance(x, str) and re.match(r'^\d{1,2}:\d{1,2}:\d{1,2}(\s+[AP]M)?$', x.strip(), flags=re.IGNORECASE):
         try:
-            return datetime.time(*map(int, x.strip().split(':')))
+            time = re.search(r'(\d{1,2}):(\d{1,2}):(\d{1,2})', x.strip())
+            pm = True if re.match(r'^.*?PM$', x.strip(), flags=re.IGNORECASE) else False
+            hour, minute, second = map(int, time.groups())
+            return datetime.time(hour+(pm*12), minute, second)
+        except ValueError:
+            return None
+
+
+def timestamp(x):
+    """
+    Converts string into datetime.datetime
+    Example inputs: '2020-12-31 13:01:01', '2020-12-31 01:01:01 PM'
+    """
+    if isinstance(x, datetime.datetime):
+        return x
+    x_parts = x.strip().split(' ', 1)
+    if len(x_parts) == 2:
+        try:
+            return datetime.datetime.combine(date(x_parts[0]), time(x_parts[1]))
+        except TypeError:
+            return None
         except ValueError:
             return None
 
@@ -195,6 +215,8 @@ class Typecast():
                 d[k] = lambda x: text(x)
             elif v == 'boolean':
                 d[k] = lambda x: boolean(x)
+            elif 'timestamp' in v:
+                d[k] = lambda x: timestamp(x)
             elif v == 'date':
                 d[k] = lambda x: date(x)
             elif 'time' in v:
