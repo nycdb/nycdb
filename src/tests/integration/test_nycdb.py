@@ -399,6 +399,43 @@ def test_hpd_vacateorders(conn):
         assert rec['bbl'] == '3013480010'
 
 
+def test_oca(conn):
+    drop_table(conn, 'oca_index')
+    drop_table(conn, 'oca_causes')
+    drop_table(conn, 'oca_addresses')
+    drop_table(conn, 'oca_parties')
+    drop_table(conn, 'oca_events')
+    drop_table(conn, 'oca_appearances')
+    drop_table(conn, 'oca_appearance_outcomes')
+    drop_table(conn, 'oca_motions')
+    drop_table(conn, 'oca_decisions')
+    drop_table(conn, 'oca_judgments')
+    drop_table(conn, 'oca_warrants')
+    oca = nycdb.Dataset('oca', args=ARGS)
+    oca.db_import()
+    assert row_count(conn, 'oca_index') == 100
+    assert row_count(conn, 'oca_causes') == 100
+    assert row_count(conn, 'oca_addresses') == 100
+    assert row_count(conn, 'oca_parties') == 100
+    assert row_count(conn, 'oca_events') == 100
+    assert row_count(conn, 'oca_appearances') == 100
+    assert row_count(conn, 'oca_appearance_outcomes') == 100
+    assert row_count(conn, 'oca_motions') == 100
+    assert row_count(conn, 'oca_decisions') == 100
+    assert row_count(conn, 'oca_judgments') == 100
+    assert row_count(conn, 'oca_warrants') == 100
+    test_id = '000146FB4347DEDD75BD9817F6FA786E6B978ACA16FA54CAEDD5D48B16DD53E5'
+    assert has_one_row(conn, f"select * from oca_index where indexnumberid = '{test_id}'")
+    with conn.cursor(cursor_factory=psycopg2.extras.DictCursor) as curs:
+        curs.execute("select * from oca_index WHERE indexnumberid = '{}'".format(test_id))
+        rec = curs.fetchone()
+        assert rec is not None
+        assert rec['court'] == 'Kings County Civil Court'
+        assert rec['fileddate'].strftime('%Y-%m-%d') == '2016-02-04'
+        assert rec['specialtydesignationtypes'] == ['Specialty (HHP) Zipcodes']
+        assert rec['primaryclaimtotal'] == Decimal('2740.46')
+
+
 def run_cli(args, input):
     full_args = [
         sys.executable, "-m", "nycdb.cli",
