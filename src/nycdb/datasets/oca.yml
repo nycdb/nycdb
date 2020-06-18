@@ -88,7 +88,7 @@ schema:
     fields:
       indexnumberid: text
       appearanceid: bigint
-      appearancedatetime: timestamp
+      appearancedatetime: 'timestamp without time zone'
       appearancepurpose: text
       appearancereason: text
       appearancepart: text
@@ -126,7 +126,7 @@ schema:
       amendedfromjudgmentsequence: int
       judgmenttype: text
       fileddate: date
-      entereddatetime: timestamp
+      entereddatetime: 'timestamp without time zone'
       withpossession: boolean
       latestjudgmentstatus: text
       latestjudgmentstatusdate: date
