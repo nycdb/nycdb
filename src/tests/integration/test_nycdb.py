@@ -434,6 +434,13 @@ def test_oca(conn):
         assert rec['fileddate'].strftime('%Y-%m-%d') == '2016-02-04'
         assert rec['specialtydesignationtypes'] == ['Specialty (HHP) Zipcodes']
         assert rec['primaryclaimtotal'] == Decimal('2740.46')
+    # make sure datatimes are working
+    test_id = '00000131D2D43B62D4764607D1AB017FC536618A72F3795716341A8DD100CBEF'
+    with conn.cursor(cursor_factory=psycopg2.extras.DictCursor) as curs:
+        curs.execute("select * from oca_appearances WHERE indexnumberid = '{}'".format(test_id))
+        rec = curs.fetchone()
+        assert rec is not None
+        assert rec['appearancedatetime'].strftime('%Y-%m-%d %I:%M:%S') == '2016-05-11 09:30:00'
 
 
 def run_cli(args, input):
