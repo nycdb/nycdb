@@ -1,8 +1,8 @@
 ---
 files:
   -
-    url: https://s3.amazonaws.com/justfix-data/rentstab_counts_for_pluto_19v1_bbls.csv
-    dest: rentstab_counts_for_pluto_19v1_bbls.csv
+    url: https://s3.amazonaws.com/justfix-data/rentstab_counts_from_doffer_2019.csv
+    dest: rentstab_counts_from_doffer_2019.csv
 sql:
   - rentstab_v2.sql
 schema:
@@ -11,3 +11,5 @@ schema:
     ucbbl: char(10)
     uc2018: integer
     pdfsoa2018: text
+    uc2019: integer
+    pdfsoa2019: text
