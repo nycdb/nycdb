@@ -1,8 +1,8 @@
 ---
 files:
   -
-    url: https://s3.amazonaws.com/justfix-data/rentstab_v2.csv
-    dest: rentstab_v2.csv
+    url: https://s3.amazonaws.com/justfix-data/rentstab_counts_from_doffer_2019.csv
+    dest: rentstab_counts_from_doffer_2019.csv
 sql:
   - rentstab_v2.sql
 schema:
