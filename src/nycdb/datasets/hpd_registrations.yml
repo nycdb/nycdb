@@ -34,7 +34,7 @@ schema:
       zip: text
       block: smallint
       lot: smallint
-      BIN: integer
+      BIN: char(7)
       communityboard: smallint
       lastregistrationdate: date
       registrationenddate: date

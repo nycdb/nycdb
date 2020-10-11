@@ -18,7 +18,7 @@ schema:
     StreetName: text
     Block: text
     Lot: text
-    Bin: integer
+    Bin: char(7)
     JobType: text
     JobStatus: text
     JobStatusDescrp: text
@@ -106,6 +106,6 @@ schema:
     GISCOUNCILDISTRICT: smallint
     GISCENSUSTRACT: text
     GISNTANAME: text
-    GISBIN: integer
+    GISBIN: char(7)
     bbl: char(10)
     id: 'serial PRIMARY KEY'
