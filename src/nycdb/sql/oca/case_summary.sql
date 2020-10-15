@@ -1,10 +1,10 @@
 -- Information about any given case is spread across 11 different tables and
 -- includes ton of detail, but for analysis purposes it is helpful to have a
 -- simplified summary table in which each case is represented by a single row.
--- To create this summary table we start aggregate each table grouping by case
--- id and taking some summary of the relevant columns and then joining all of
+-- To create this summary table we aggregate each table grouping by case id
+-- and taking some summary of the relevant columns and then joining all of
 -- these together. These summary indicators are often a count of records in
--- one of the tables (eg the number of motions, warrants, etc.), or the value
+-- one of the tables (eg. the number of motions, warrants, etc.), or the value
 -- of one of the columns for the first or last record that appears for that
 -- case (eg. the reason or status listed for the most recent warrant). These
 -- first() and last() functions are defined in "first_last.sql"
@@ -242,6 +242,5 @@ CREATE TABLE IF NOT EXISTS oca_case_summary AS (
 );
 
 ALTER TABLE oca_case_summary ADD PRIMARY KEY (indexnumberid);
-
-CREATE INDEX ON oca_appearances (filed_date);
-CREATE INDEX ON oca_appearances (zip5);
+CREATE INDEX ON oca_case_summary (filed_date);
+CREATE INDEX ON oca_case_summary (zip5);
