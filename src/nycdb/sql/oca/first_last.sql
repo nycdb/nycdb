@@ -7,6 +7,7 @@
 -- FROM: https://wiki.postgresql.org/wiki/First/last_(aggregate)
 
 -- Create a function that always returns the first non-NULL item
+DROP FUNCTION IF EXISTS public.first_agg(anyelement, anyelement) CASCADE;
 CREATE OR REPLACE FUNCTION public.first_agg ( anyelement, anyelement )
 RETURNS anyelement LANGUAGE SQL IMMUTABLE STRICT AS $$
         SELECT $1;
@@ -20,6 +21,7 @@ CREATE AGGREGATE public.FIRST (
 );
  
 -- Create a function that always returns the last non-NULL item
+DROP FUNCTION IF EXISTS public.last_agg(anyelement, anyelement) CASCADE;
 CREATE OR REPLACE FUNCTION public.last_agg ( anyelement, anyelement )
 RETURNS anyelement LANGUAGE SQL IMMUTABLE STRICT AS $$
         SELECT $2;
