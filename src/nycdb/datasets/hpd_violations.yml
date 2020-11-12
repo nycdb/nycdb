@@ -48,3 +48,4 @@ schema:
     BIN: integer
     BBL: char(10)
     NTA: text
+    RentImpairing: boolean
