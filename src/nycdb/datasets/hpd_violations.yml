@@ -40,6 +40,7 @@ schema:
     CurrentStatusDate: date
     NovType: text
     ViolationStatus: text
+    rentimpairing: text
     Latitude: numeric
     Longitude: numeric
     CommunityBoard: text
