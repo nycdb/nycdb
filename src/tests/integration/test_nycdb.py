@@ -19,7 +19,8 @@ ARGS = SimpleNamespace(
     host=os.environ.get('NYCDB_TEST_POSTGRES_HOST', '127.0.0.1'),
     database=os.environ.get('NYCDB_TEST_POSTGRES_DB', 'nycdb_test'),
     port=os.environ.get('NYCDB_TEST_POSTGRES_PORT', '7777'),
-    root_dir=data_dir
+    root_dir=data_dir,
+    hide_progress=False
 )
 
 CONNECT_ARGS = dict(
