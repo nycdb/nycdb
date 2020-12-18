@@ -26,24 +26,13 @@ Residents, lawyers, tenants, and organizers who want to use data in their strugg
 
 ## Using the database
 
-### Download a copy
+### Create your own copy
 
-If you just want a copy of the postgres database, you may download the latest versions:
-
-- [nyc-db-2019-11-15.sql.bz2](https://nycdb.info/sql/nyc-db-2019-11-15.sql.bz2)
-- [nyc-db-2019-07-24.sql.bz2](https://nycdb.info/sql/nyc-db-2019-07-24.sql.bz2)
-
-[![License: CC BY-NC-SA 4.0](https://licensebuttons.net/l/by-nc-sa/4.0/80x15.png)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
-
-[See here](https://github.com/nycdb/nycdb/wiki/Loading-a-copy-into-postgres) for instructions on how to load the database file.
+Go to [src/README.md](src/README.md) for documentation on how to create your own copy of the database locally.
 
 ### Use the Housing Data Coalition's instance
 
 The Housing Data Coalition hosts their own copy ("instance") of nycdb. If you are not a member of HDC and would like to use it, please contact housingdatacoalition@gmail.com
-
-## Using the software
-
-Go to [src/README.md](src/README.md) for documentation on creating your own copy of the database. See the folder [/ansible](/ansible) for ansible playbooks that can be used to install a copy of the database on a sever.
 
 ### Acknowledgments
 
@@ -56,7 +45,7 @@ Go to [src/README.md](src/README.md) for documentation on creating your own copy
 
 ```
 NYCDB - Postgres database of NYC housing data
-Copyright (C) 2016-2019 ziggy & contributors
+Copyright (C) 2016-2020 ziggy & contributors
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as published by
