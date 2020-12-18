@@ -58,7 +58,7 @@ class Dataset:
         See ./file.py for more details.
         """
         for f in self.files:
-            f.download()
+            f.download(hide_progress=self.args.hide_progress)
 
 
     def db_import(self):
@@ -114,7 +114,7 @@ class Dataset:
         """
         rows = self.transform(schema)
 
-        pbar = tqdm(unit='rows')
+        pbar = tqdm(unit='rows', disable=self.args.hide_progress)
         while True:
             batch = list(itertools.islice(rows, 0, BATCH_SIZE))
             if len(batch) == 0:

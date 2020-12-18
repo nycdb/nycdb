@@ -58,6 +58,7 @@ def parse_args():
     parser.add_argument("--root-dir", help="location of data directory", default="./data")
     # easily inspect the database from the command-line
     parser.add_argument("--dbshell", action="store_true", help="runs psql interactively")
+    parser.add_argument("--hide-progress", action="store_true", help="hide the progress bar")
     return parser.parse_args()
 
 

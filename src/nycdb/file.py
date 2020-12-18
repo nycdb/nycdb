@@ -38,7 +38,7 @@ def safe_int(value):
         return None
 
 
-def download_file(url, dest):
+def download_file(url, dest, hide_progress=False):
     """
     Downloads a url and saves the result to the destination path
 
@@ -59,7 +59,7 @@ def download_file(url, dest):
         is_csv_file = is_csv(dest)
         r = requests.get(url, stream=True)
         total_bytes = safe_int(r.headers.get('content-length'))
-        pbar = tqdm(total=total_bytes, unit='B', unit_scale=True, unit_divisor=1024)
+        pbar = tqdm(total=total_bytes, unit='B', unit_scale=True, unit_divisor=1024, disable=hide_progress)
         with open(dest, **open_kwargs(dest)) as f:
             for chunk in r.iter_content(chunk_size=(512 * 1024)):
                 if chunk:
@@ -82,8 +82,8 @@ class File:
         self.url = file_dict['url']
         self.dest = self._dest(file_dict)
 
-    def download(self):
-        download_file(self.url, self.dest)
+    def download(self, hide_progress=False):
+        download_file(self.url, self.dest, hide_progress=hide_progress)
         return self
 
     def _dest(self, file_dict):
