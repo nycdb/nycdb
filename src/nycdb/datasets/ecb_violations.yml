@@ -12,7 +12,7 @@ schema:
     EcbViolationNumber: text
     EcbViolationStatus: text
     DobViolationNumber: text
-    bin: text
+    bin: char(7)
     boro: char(1)
     block: char(5)
     lot: char(4)

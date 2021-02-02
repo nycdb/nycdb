@@ -12,7 +12,7 @@ schema:
     housenumber: text
     zipcode: text
     housestreet: text
-    bin: integer
+    bin: char(7)
     communityboard: integer
     specialdistrict: text
     complaintcategory: text

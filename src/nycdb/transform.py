@@ -112,7 +112,7 @@ def with_geo(table):
     for row in table:
         try:
             coords = (float(row['xcoord']), float(row['ycoord']))
-            lng, lat = ny_state_coords_to_lat_lng(*coords)
+            lat, lng = ny_state_coords_to_lat_lng(*coords)
             yield merge(row, {'lng': lng, 'lat': lat})
         except:
             yield merge(row, {'lng': None, 'lat': None})
