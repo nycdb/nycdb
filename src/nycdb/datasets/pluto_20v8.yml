@@ -96,8 +96,9 @@ schema:
     pfirm15flag: char(1)
     geom: text
     dcpedited: text
-    lng: 'double precision'
-    lat: 'double precision'
+    latitude: 'double precision'
+    longitude: 'double precision'
+    Notes: text
   skip:
     - mapplutof
     - rpaddate
@@ -108,3 +109,5 @@ schema:
     - masdate
     - polidate
     - edesigdate
+    - lng
+    - lat
