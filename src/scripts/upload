@@ -1,0 +1,8 @@
+#!/bin/bash
+
+version=$(python3 setup.py --fullname)
+gpg_keyid="0xB95EC83A0D72CBA1"
+
+pip3 install wheel twine
+python3 setup.py sdist bdist_wheel
+twine upload --sign --identity $(GPG_KEYID) dist/*

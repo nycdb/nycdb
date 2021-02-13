@@ -6,17 +6,17 @@ python:
   - 3.6
   - 3.7
   - 3.8
+  - 3.9
 
 services:
   - docker
 
 before_install:
   - docker pull postgres:13
-  - docker run -p 127.0.0.1:7777:5432 --name nycdb_test -e POSTGRES_USER=nycdb -e POSTGRES_PASSWORD=nycdb -e POSTGRES_DB=nycdb_test -d postgres:13
-  - ./src/scripts/wait-for-pg.sh
 
 install:
-  - pip install -r src/requirements.txt
+  - pip install pytest
+  - pip install ./src
 
 script:
-  - cd src && pytest
+  - cd src && ./scripts/test

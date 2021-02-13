@@ -8,7 +8,7 @@ For more background information on this project and links to download copies of 
 
 ## Using the cli tool
 
-You will need python 3.6+ and Postgres. The latest version can be installed from pypi with pip:  ` python3 -m pip install nycdb `
+You will need python 3.6+ and Postgres. The latest version can be installed from pypi with pip:  `python3 -m pip install nycdb`
 
 If the installation is successful, you can view a summary of the tool's options by running `nycdb --help`
 
@@ -38,50 +38,40 @@ There are two development workflows: one using python virtual environments and o
 
 First check your python version to make sure you have 3.6 or higher: `python3 --version`
 
-Setup the virtual environment and install the requirements: `make init`
+Setup and active the virtual environment:
 
-Install nycdb into the virtual environment: ` make install`
+``` sh
+python3 -m venv venv
+source venv/bin/activate
+```
 
-Run the tests: `make test`
+Install nycdb: ` pip install -e `
 
-Run only the unit tests: `make test-unit`
+Install pytest and run the tests: `pip install pytest` make test`
 
 ### Using docker
 
-This reuqires docker and docker-compose.
+This requires docker and docker-compose.
 
-To get started run ` docker-compose up `
+To get started run `docker-compose up`
 
 After Docker downloads and builds some things, it will start a Postgres server on port
-7777 of your local machine, which you can connect to via a desktop client if you like.
+5432 of your local machine, which you can connect to via a desktop client if you like.
 You can also press <kbd>CTRL</kbd>-<kbd>C</kbd> at any point to stop the server.
 
-In a separate terminal, you can run:
+In a separate terminal, you will be able to now use the nycdb cli: `docker-compose run nycdb --help`
 
-```
-docker-compose run app bash
-```
-
-At this point you are inside a bash shell in a container that has everything already
-set up for you. The initial working directory will be `/nycdb`, which is mapped to
-the root of the project's repository. From here you can run `nycdb` to access the
-command-line tool.
+You can also open a python3 shell: `docker-compose run --entrypoint=python3 nycdb` or run the test suit `docker-compose run --entrypoint=pytest nycdb`
 
 To develop on nycdb itself:
 
-* You can run `pytest` to run the test suite.
 * Any changes you make to the tool's source code will automatically be reflected
   in future invocations of `nycdb` and/or the test suite.
 * If you don't have a desktop Postgres client, you can always run
-  `nycdb --dbshell` to interactively inspect the database with [`psql`][].
-
-You can leave the bash shell with `exit`.
+  `nycdb --dbshell` to interactively inspect the database with [psql](http://postgresguide.com/utilities/psql.html).
 
 If you ever want to wipe the database, run `docker-compose down -v`.
 
-[install Docker]: https://www.docker.com/get-started
-[`psql`]: http://postgresguide.com/utilities/psql.html
-
 ###  Adding New Datasets
 
-See the [guide Here](ADDING_NEW_DATASETS.md) for the steps to add a new dataset
+See the [guide here](ADDING_NEW_DATASETS.md) for the steps to add a new dataset

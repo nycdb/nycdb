@@ -1,19 +1,9 @@
-FROM python:3.7-buster
+FROM python:3.9-buster
 
-RUN echo 'deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main' > /etc/apt/sources.list.d/pgdg.list
-RUN curl -sSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
-RUN apt-get update && apt-get install -y \
-	postgresql-client-12 \
-        libpq-dev
-
-RUN pip install --upgrade setuptools pip
-
-COPY src/requirements.txt /nycdb/src/requirements.txt
-
+RUN apt-get update && apt-get install -y postgresql-client libpq-dev
 WORKDIR /nycdb/src
-
-RUN pip install -r requirements.txt --no-binary psycopg2
-
-COPY src/ /nycdb/src/
-
-RUN ls -al && pip install -e .
+COPY ./src/ /nycdb/src/
+RUN pip install pytest
+RUN pip install -e .
+ENTRYPOINT [ "python", "-m", "nycdb.cli" ]
+CMD [ "--list-datasets" ]
