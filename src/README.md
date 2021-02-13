@@ -34,43 +34,44 @@ You can export a `.sql` file for any dataset by using the `--dump` command
 
 There are two development workflows: one using python virtual environments and one using docker.
 
-### python3 virtual environments
+### Using docker and docker-compose
 
-First check your python version to make sure you have 3.6 or higher: `python3 --version`
+To get started all you have to do is run `docker-compose up`.
 
-Setup and active the virtual environment:
+On the first run Docker will take longer to downloads and build the images. It
+will start a Postgres server on port 5432 of your local machineYou can also press
+<kbd>CTRL</kbd>-<kbd>C</kbd> at any point to stop the server.
+
+In a separate terminal, you will be able to now use the nycdb cli: `docker-compose run nycdb --help`
+
+You can also open a python3 shell: `docker-compose run --entrypoint=python3 nycdb` or run the test suit `docker-compose run --entrypoint=pytest nycdb`
+
+You may also develop on nycdb itself:
+
+* Any changes you make to the tool's source code will automatically be reflected
+  in future invocations of `nycdb` and the test suite.
+* The postgres database server is forwarded to localhost:5432 which you can connect to via a desktop client if you like.
+* If you don't have a desktop Postgres client, you can always run
+  `nycdb --dbshell` to interactively inspect the database with [psql](http://postgresguide.com/utilities/psql.html).
+
+To stop the database run `docker-compose down`. The downloaded files and database data are stored in docker volumes and are not automatically removed.
+
+however, if you ever want to wipe the database, run `docker-compose down -v`.
+
+### Python3 virtual environments
+
+If you have postgres installed separately, you can use this alternative method without docker:
+
+Setup and active a virtual environment:
 
 ``` sh
 python3 -m venv venv
 source venv/bin/activate
 ```
 
-Install nycdb: ` pip install -e `
+Install nycdb: ` pip install -e ./src`
 
-Install pytest and run the tests: `pip install pytest` make test`
-
-### Using docker
-
-This requires docker and docker-compose.
-
-To get started run `docker-compose up`
-
-After Docker downloads and builds some things, it will start a Postgres server on port
-5432 of your local machine, which you can connect to via a desktop client if you like.
-You can also press <kbd>CTRL</kbd>-<kbd>C</kbd> at any point to stop the server.
-
-In a separate terminal, you will be able to now use the nycdb cli: `docker-compose run nycdb --help`
-
-You can also open a python3 shell: `docker-compose run --entrypoint=python3 nycdb` or run the test suit `docker-compose run --entrypoint=pytest nycdb`
-
-To develop on nycdb itself:
-
-* Any changes you make to the tool's source code will automatically be reflected
-  in future invocations of `nycdb` and/or the test suite.
-* If you don't have a desktop Postgres client, you can always run
-  `nycdb --dbshell` to interactively inspect the database with [psql](http://postgresguide.com/utilities/psql.html).
-
-If you ever want to wipe the database, run `docker-compose down -v`.
+As long as the virtual environment is activated, you can use `nycdb` directly in your shell.
 
 ###  Adding New Datasets
 
