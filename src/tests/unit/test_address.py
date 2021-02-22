@@ -65,9 +65,12 @@ class TestNormalizeStreet(object):
 
 
 def test_normalize_street_number():
+    assert normalize_street_number(None) is None
+    assert normalize_street_number('') is None
     assert normalize_street_number('24') == '24'
-    assert normalize_street_number('101-23') == '10123'
-    assert normalize_street_number('30-80') == '3080'
+    assert normalize_street_number('101-23') == '101-23'
+    assert normalize_street_number('30 80') == '30 80'
+    assert normalize_street_number(' 301  ') == '301'
 
 
 def test_normalize_apartment_returns_nil():

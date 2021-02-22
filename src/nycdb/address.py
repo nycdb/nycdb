@@ -130,11 +130,10 @@ def normalize_street(street):
     return func_chain(STREET_FUNCS, s).replace('.', '').strip()
 
 
-# remove dashes or spaces...sorry Queens!
 def normalize_street_number(number):
     if number is None or number == '':
         return None
-    return re.sub(r'(?<=\d)(-|[ ])(?=\d)', '', number).replace('-', '').strip()
+    return number.strip()
 
 
 APT_STRINGS_TO_REMOVE = ['.', '_', '#', '{', '}', '/']
