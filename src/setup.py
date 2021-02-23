@@ -2,16 +2,14 @@ import setuptools
 
 setuptools.setup(
     name="nycdb",
-    version="0.1.29",
-    url="https://github.com/aepyornis/nyc-db",
-
-    author="ziggy",
+    version="0.2.0",
+    url="https://github.com/nycdb/nycdb",
+    author="nycdb",
     author_email="nycdb@riseup.net",
-
     license='AGPL-3.0-or-later',
-
     description="database of nyc housing data",
     long_description=open('README.md').read(),
+    long_description_content_type=('text/markdown'),
 
     entry_points={
         'console_scripts': [
@@ -41,6 +39,10 @@ setuptools.setup(
         'psycopg2>=2.7',
         'tqdm>=4.28.1'
     ],
+
+    extras_requires={
+        'test': ['pytest>=6']
+    },
 
     classifiers=[
         'Development Status :: 3 - Alpha',
