@@ -19,7 +19,7 @@ TABLES = {
         'hpd_registrations_grouped_by_bbl': 130_000,
         'hpd_registrations_grouped_by_bbl_with_contacts': 130_000
     },
-    'dof_sales': {'dof_sales': 75_000},
+    'dof_sales': {'dof_sales': 60_000},
     'rentstab': {'rentstab': 45_000},
     'rentstab_v2': {'rentstab_v2': 40_000},
     'rentstab_summary': {'rentstab_summary': 45_000},
@@ -79,12 +79,15 @@ class colors:
 def check_dataset(db, dataset):
     """ input: nycdb.Database, str """
 
+    exit_state = True
+
     for table_name, min_row_count in TABLES[dataset].items():
         if db.table_exists(table_name):
             cnt = db.row_count(table_name)
             if cnt >= min_row_count:
                 print(colors.GREEN + table_name + ' has ' + format(cnt, ',') + ' rows' + colors.ENDC)
             else:
+                exit_state = False
                 if cnt == 0:
                     print(colors.FAIL + table_name + ' has no rows!' + colors.ENDC)
                 else:
@@ -93,4 +96,7 @@ def check_dataset(db, dataset):
                         format(min_row_count, ',') + colors.ENDC + colors.FAIL + ' rows' + colors.ENDC
                     print(has_rows + expecting)
         else:
+            exit_state = False
             print(colors.FAIL + table_name + ' is missing!' + colors.ENDC)
+
+    return exit_state
