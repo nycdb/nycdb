@@ -1,4 +1,5 @@
 TABLES = {
+    'pluto_10v1': {'pluto_10v1': 800_000},
     'pluto_15v1': {'pluto_15v1': 800_000},
     'pluto_16v2': {'pluto_16v2': 800_000},
     'pluto_17v1': {'pluto_17v1': 800_000},

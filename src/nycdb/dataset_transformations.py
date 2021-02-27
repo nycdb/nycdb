@@ -1,8 +1,10 @@
 """
 Each function in this file is the name of a table or dataset.
 """
+import logging
 
-from .transform import with_geo, with_bbl, to_csv, extract_csvs_from_zip, extract_csv_from_zip, skip_fields
+
+from .transform import with_geo, with_bbl, to_csv, stream_files_from_zip, extract_csv_from_zip, skip_fields
 from .transform import hpd_registrations_address_cleanup, hpd_contacts_address_cleanup
 from .dof_parser import parse_dof_file
 from .datasets import datasets
@@ -21,13 +23,25 @@ def _pluto(dataset):
     optionally allowing for skipped fields in some versions.
     It assumes there is only one schema for each pluto dataset.
     """
-    pluto_generator = with_geo(to_csv(extract_csvs_from_zip(dataset.files[0].dest)))
+    extension = 'txt' if dataset.name == 'pluto_10v1' else 'csv'
+
+    pluto_generator = with_geo(
+        to_csv(
+            stream_files_from_zip(dataset.files[0].dest, extension=extension)
+        )
+    )
+
     pluto_fields_to_skip = dataset.schemas[0].get('skip')
 
     if pluto_fields_to_skip:
-        return skip_fields(pluto_generator, [s.lower() for s in pluto_fields_to_skip])
+        pluto_generator = skip_fields(pluto_generator, [s.lower() for s in pluto_fields_to_skip])
 
-    return pluto_generator
+    for line in pluto_generator:
+        if line['borough'] is None or line['block'] is None or line['lot'] is None:
+          logging.info("skipping pluto row without bbl: {}".format(line))
+        else:
+          yield line
+
 
 # Creates a function for each pluto version
 # same as doing def pluto_15v1() ... def pluto_16v2 ... etc
@@ -36,6 +50,7 @@ for pluto_version in filter(lambda x: x[0:5] == 'pluto', datasets().keys()):
 def {pluto_version}(dataset):
     return _pluto(dataset)
 ''')
+
 
 def hpd_complaints(dataset):
     return with_bbl(to_csv(dataset.files[0].dest))

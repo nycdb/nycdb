@@ -132,6 +132,13 @@ def test_dob_complaints(conn):
     assert row_count(conn, 'dob_complaints') == 100
 
 
+def test_pluto10v1(conn):
+    drop_table(conn, 'pluto_10v1')
+    pluto = nycdb.Dataset('pluto_10v1', args=ARGS)
+    pluto.db_import()
+    assert row_count(conn, 'pluto_10v1') == 20
+
+
 def test_pluto15v1(conn):
     drop_table(conn, 'pluto_15v1')
     pluto = nycdb.Dataset('pluto_15v1', args=ARGS)
