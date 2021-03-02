@@ -9,6 +9,9 @@ files:
   -
     url: https://s3.amazonaws.com/justfix-data/marshal_evictions_2019.csv
     dest: marshal_evictions_19.csv
+  -
+    url: https://api.displacementalert.org/evictions?format=csv&filename=marshal_evictions_all.csv
+    dest: marshal_evictions_all.csv
 sql:
   - marshal_evictions.sql
 schema:
@@ -60,6 +63,24 @@ schema:
       GeosearchFound: text
   -
     table_name: marshal_evictions_19
+    fields:
+      UniqueId: text
+      Bbl: char(10)
+      Borough: text
+      CleanedAddress: text
+      CourtIndexNumber: text
+      DocketNumber: text
+      EvictionAddress: text
+      EvictionAptNum: text
+      EvictionZip: text
+      ExecutedDate: date
+      GeosearchAddress: text
+      MarshalFirstName: text
+      MarshalLastName: text
+      ResidentialCommercialInd: text
+      ScheduleStatus: text
+  -
+    table_name: marshal_evictions_all
     fields:
       UniqueId: text
       Bbl: char(10)
