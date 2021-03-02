@@ -6,7 +6,7 @@ Residents, lawyers, tenants, and organizers who want to use data in their strugg
 
 **nycdb** is a python program that downloads, processes, and loads the following public datasets into postgres:
 
-- Department of City Planning's Pluto: versions 15v1, 16v2, 17v1, 18v1, 18v2, 19v1, and 19v2
+- Department of City Planning's Pluto: versions 15v1, 16v2, 17v1, 18v1, 18v2, 19v1, 19v2, and 20v8
 - DOB Job Filings
 - [DOB Complaints](https://github.com/nycdb/nycdb/wiki/Dataset:-DOB-Complaints)
 - [DOB Violations](https://github.com/nycdb/nycdb/wiki/Dataset:-DOB-Violations)
@@ -17,7 +17,7 @@ Residents, lawyers, tenants, and organizers who want to use data in their strugg
 - Department of Finance Rolling Sales
 - Tax bills - Rent Stabilization Unit Counts (John Krauss and Atul Varma's data)
 - [ACRIS](https://github.com/nycdb/nycdb/wiki/Dataset:-ACRIS)
-- 2017, 2018, and 2019 Marshal Evictions
+- Marshal Evictions (From the [Department of Investigation](https://data.cityofnewyork.us/City-Government/Evictions/6z8x-wfk4) via [ANHD's DAP Portal](https://github.com/ANHD-NYC-CODE/anhd-council-backend)
 - [ECB Violations](https://github.com/nycdb/nycdb/wiki/Dataset:-ECB-Violations)
 - [Oath Hearings](https://github.com/nycdb/nycdb/wiki/Dataset:-OATH-Hearings)
 - Property Address Directory
