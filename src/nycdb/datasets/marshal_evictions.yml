@@ -10,8 +10,8 @@ files:
     url: https://s3.amazonaws.com/justfix-data/marshal_evictions_2019.csv
     dest: marshal_evictions_19.csv
   -
-    url: https://api.displacementalert.org/evictions?format=csv&filename=marshal_evictions.csv
-    dest: marshal_evictions.csv
+    url: https://api.displacementalert.org/evictions?format=csv&filename=marshal_evictions_all.csv
+    dest: marshal_evictions_all.csv
 sql:
   - marshal_evictions.sql
 schema:
@@ -80,7 +80,7 @@ schema:
       ResidentialCommercialInd: text
       ScheduleStatus: text
   -
-    table_name: marshal_evictions
+    table_name: marshal_evictions_all
     fields:
       UniqueId: text
       Bbl: char(10)

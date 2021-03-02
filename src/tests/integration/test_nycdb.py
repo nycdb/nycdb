@@ -329,7 +329,7 @@ def test_marshal_evictions(conn):
     drop_table(conn, 'marshal_evictions_17')
     drop_table(conn, 'marshal_evictions_18')
     drop_table(conn, 'marshal_evictions_19')
-    drop_table(conn, 'marshal_evictions')
+    drop_table(conn, 'marshal_evictions_all')
     evictions = nycdb.Dataset('marshal_evictions', args=ARGS)
     evictions.db_import()
 
@@ -343,7 +343,7 @@ def test_marshal_evictions(conn):
 
     assert row_count(conn, 'marshal_evictions_18') == 100
     assert row_count(conn, 'marshal_evictions_19') == 100
-    assert row_count(conn, 'marshal_evictions') == 100
+    assert row_count(conn, 'marshal_evictions_all') == 100
 
 
 def test_oath_hearings(conn):
