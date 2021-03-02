@@ -68,8 +68,13 @@ def print_datasets():
 
 
 def verify_all(args):
+    exit_status = 0
+
     for ds in datasets().keys():
-        Dataset(ds, args=args).verify()
+        if not Dataset(ds, args=args).verify():
+            exit_status = 1
+
+    sys.exit(exit_status)
 
 
 def run_dbshell(args):
@@ -85,7 +90,10 @@ def dispatch(args):
     if args.list_datasets:
         print_datasets()
     elif args.verify:
-        Dataset(args.verify, args=args).verify()
+         if Dataset(args.verify, args=args).verify():
+             sys.exit(0)
+         else:
+             sys.exit(1)
     elif args.verify_all:
         verify_all(args)
     elif args.download:
