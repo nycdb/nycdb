@@ -131,8 +131,10 @@ def marshal_evictions(dataset, schema):
     _to_csv = to_csv(dest_file.dest)
     return _to_csv
 
-def nycha_bbls_18(dataset):
-    return with_bbl(to_csv(dataset.files[0].dest))
+def nycha_bbls(dataset, schema):
+    dest_file = next(filter(lambda f: schema['table_name'] in f.dest, dataset.files))
+    _to_csv_with_bbl = with_bbl(to_csv(dest_file.dest))
+    return _to_csv_with_bbl
 
 def hpd_vacateorders(dataset):
     return to_csv(dataset.files[0].dest)
