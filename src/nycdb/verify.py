@@ -52,6 +52,9 @@ TABLES = {
         'marshal_evictions_19': 16_000,
         'marshal_evictions_all': 55_000,
     },
+    'nycha_bbls': {
+        'nycha_bbls_18': 5_500,
+    },
     'oath_hearings': {'oath_hearings': 10_000_000},
     'hpd_vacateorders': {'hpd_vacateorders': 4_000},
     'j51_exemptions': {'j51_exemptions': 4_000_000},
