@@ -1,7 +1,7 @@
 ---
 files:
   -
-    url: https://raw.githubusercontent.com/JustFixNYC/nycha-scraper/master/Block-and-Lot-Guide-08272018.csv
+    url: https://raw.githubusercontent.com/JustFixNYC/nycha-scraper/098bd8232bee2cd59266bf278e26e32bd0cd7df1/Block-and-Lot-Guide-08272018.csv
     dest: nycha_bbls_18.csv
 sql:
   - nycha_bbls.sql
