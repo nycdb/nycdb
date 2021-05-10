@@ -36,10 +36,9 @@ def flip_numbers(header):
 
 def clean_headers(headers):
     """
-    str -> [str]
-    turns header line into a list and fixes some commmon
+    parses header csv line and fixes some common issues with column names
 
-    issues with column names
+    String --> [String]
     """
     s = headers.lower()
     for char in invalid_header_chars:
@@ -49,18 +48,15 @@ def clean_headers(headers):
     return [flip_numbers(x) for x in s.split(',')]
 
 
-# String (filepath) -> String
-def extract_csvs_from_zip(file_path):
+def stream_files_from_zip(file_path, extension='csv', common_header=True):
     """
-    Combines all content in all CSVs (.csv) in the zip file.
+    Extracts data from all files of a single type (default = csv) from the zip file.
+    It uses the header from the first file and skips the headers from other files
 
-    Uses the header from the first csv file and
-    excludes the header from the rest of the csvs.
-
-    Returns generator
+    String --> Generator
     """
     with ZipFile(file_path, 'r') as zip_f:
-        csv_files = [f for f in zip_f.namelist() if f[-3:].lower() == 'csv']
+        csv_files = [f for f in zip_f.namelist() if f[-3:].lower() == extension]
         for (idx, csv_file) in enumerate(csv_files):
             with zip_f.open(csv_file) as f:
                 firstline = f.readline().decode('UTF-8', 'ignore')
@@ -68,6 +64,18 @@ def extract_csvs_from_zip(file_path):
                     yield firstline
                 for line in f:
                     yield line.decode('UTF-8', 'ignore')
+
+
+
+# String (filepath) -> String
+def extract_csvs_from_zip(file_path):
+    """
+    Combines all content in all CSVs (.csv) in the zip file.
+
+    Uses the header from the first csv file and
+    excludes the header from the rest of the csvs.
+    """
+    return stream_files_from_zip(file_path)
 
 
 def extract_csv_from_zip(file_path, csv_file_path):
@@ -85,10 +93,9 @@ def extract_csv_from_zip(file_path, csv_file_path):
 
 def to_csv(file_path_or_generator):
     """
-    input: String | Generator
-    outs: Generator
+    Reads firstline as the headers and converts input into a stream of dicts
 
-    reads firstline as the headers and converts input into a stream of dicts
+    String | Generator --> Generator
     """
     if isinstance(file_path_or_generator, types.GeneratorType):
         f = io.StringIO(''.join(list(file_path_or_generator)))
@@ -112,7 +119,7 @@ def with_geo(table):
     for row in table:
         try:
             coords = (float(row['xcoord']), float(row['ycoord']))
-            lng, lat = ny_state_coords_to_lat_lng(*coords)
+            lat, lng = ny_state_coords_to_lat_lng(*coords)
             yield merge(row, {'lng': lng, 'lat': lat})
         except:
             yield merge(row, {'lng': None, 'lat': None})

@@ -9,7 +9,7 @@ schema:
     BBL: char(10)
     IsnDobBisViol: text
     boro: char(1)
-    Bin: text
+    Bin: char(7)
     block: text
     lot: text
     IssueDate: date

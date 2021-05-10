@@ -19,7 +19,8 @@ ARGS = SimpleNamespace(
     host=os.environ.get('NYCDB_TEST_POSTGRES_HOST', '127.0.0.1'),
     database=os.environ.get('NYCDB_TEST_POSTGRES_DB', 'nycdb_test'),
     port=os.environ.get('NYCDB_TEST_POSTGRES_PORT', '7777'),
-    root_dir=data_dir
+    root_dir=data_dir,
+    hide_progress=False
 )
 
 CONNECT_ARGS = dict(
@@ -131,6 +132,13 @@ def test_dob_complaints(conn):
     assert row_count(conn, 'dob_complaints') == 100
 
 
+def test_pluto10v1(conn):
+    drop_table(conn, 'pluto_10v1')
+    pluto = nycdb.Dataset('pluto_10v1', args=ARGS)
+    pluto.db_import()
+    assert row_count(conn, 'pluto_10v1') == 20
+
+
 def test_pluto15v1(conn):
     drop_table(conn, 'pluto_15v1')
     pluto = nycdb.Dataset('pluto_15v1', args=ARGS)
@@ -190,6 +198,11 @@ def test_pluto19v2(conn):
     pluto.db_import()
     assert row_count(conn, 'pluto_19v2') == 10
 
+def test_pluto20v8(conn):
+    drop_table(conn, 'pluto_20v8')
+    pluto = nycdb.Dataset('pluto_20v8', args=ARGS)
+    pluto.db_import()
+    assert row_count(conn, 'pluto_20v8') == 10
 
 def test_hpd_violations(conn):
     drop_table(conn, 'hpd_violations')
@@ -323,6 +336,7 @@ def test_marshal_evictions(conn):
     drop_table(conn, 'marshal_evictions_17')
     drop_table(conn, 'marshal_evictions_18')
     drop_table(conn, 'marshal_evictions_19')
+    drop_table(conn, 'marshal_evictions_all')
     evictions = nycdb.Dataset('marshal_evictions', args=ARGS)
     evictions.db_import()
 
@@ -336,6 +350,7 @@ def test_marshal_evictions(conn):
 
     assert row_count(conn, 'marshal_evictions_18') == 100
     assert row_count(conn, 'marshal_evictions_19') == 100
+    assert row_count(conn, 'marshal_evictions_all') == 100
 
 
 def test_oath_hearings(conn):

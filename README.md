@@ -6,7 +6,7 @@ Residents, lawyers, tenants, and organizers who want to use data in their strugg
 
 **nycdb** is a python program that downloads, processes, and loads the following public datasets into postgres:
 
-- Department of City Planning's Pluto: versions 15v1, 16v2, 17v1, 18v1, 18v2, 19v1, and 19v2
+- Department of City Planning's Pluto: versions 15v1, 16v2, 17v1, 18v1, 18v2, 19v1, 19v2, and 20v8
 - DOB Job Filings
 - [DOB Complaints](https://github.com/nycdb/nycdb/wiki/Dataset:-DOB-Complaints)
 - [DOB Violations](https://github.com/nycdb/nycdb/wiki/Dataset:-DOB-Violations)
@@ -17,7 +17,7 @@ Residents, lawyers, tenants, and organizers who want to use data in their strugg
 - Department of Finance Rolling Sales
 - Tax bills - Rent Stabilization Unit Counts (John Krauss and Atul Varma's data)
 - [ACRIS](https://github.com/nycdb/nycdb/wiki/Dataset:-ACRIS)
-- 2017, 2018, and 2019 Marshal Evictions
+- [Marshal Evictions](https://github.com/nycdb/nycdb/wiki/Dataset:-Marshal-Evictions) - From [DOI](https://data.cityofnewyork.us/City-Government/Evictions/6z8x-wfk4) via ANHD's [Displacement Alert Project](https://github.com/ANHD-NYC-CODE/anhd-council-backend) and [API](https://api.displacementalert.org/docs/) (built by [Jade Ahking](https://github.com/0xStarcat))
 - [ECB Violations](https://github.com/nycdb/nycdb/wiki/Dataset:-ECB-Violations)
 - [Oath Hearings](https://github.com/nycdb/nycdb/wiki/Dataset:-OATH-Hearings)
 - Property Address Directory
@@ -26,24 +26,13 @@ Residents, lawyers, tenants, and organizers who want to use data in their strugg
 
 ## Using the database
 
-### Download a copy
+### Create your own copy
 
-If you just want a copy of the postgres database, you may download the latest versions:
-
-- [nyc-db-2019-11-15.sql.bz2](https://nycdb.info/sql/nyc-db-2019-11-15.sql.bz2)
-- [nyc-db-2019-07-24.sql.bz2](https://nycdb.info/sql/nyc-db-2019-07-24.sql.bz2)
-
-[![License: CC BY-NC-SA 4.0](https://licensebuttons.net/l/by-nc-sa/4.0/80x15.png)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
-
-[See here](https://github.com/nycdb/nycdb/wiki/Loading-a-copy-into-postgres) for instructions on how to load the database file.
+Go to [src/README.md](src/README.md) for documentation on how to create your own copy of the database locally.
 
 ### Use the Housing Data Coalition's instance
 
 The Housing Data Coalition hosts their own copy ("instance") of nycdb. If you are not a member of HDC and would like to use it, please contact housingdatacoalition@gmail.com
-
-## Using the software
-
-Go to [src/README.md](src/README.md) for documentation on creating your own copy of the database. See the folder [/ansible](/ansible) for ansible playbooks that can be used to install a copy of the database on a sever.
 
 ### Acknowledgments
 
@@ -56,7 +45,7 @@ Go to [src/README.md](src/README.md) for documentation on creating your own copy
 
 ```
 NYCDB - Postgres database of NYC housing data
-Copyright (C) 2016-2019 ziggy & contributors
+Copyright (C) 2016-2020 ziggy & contributors
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as published by

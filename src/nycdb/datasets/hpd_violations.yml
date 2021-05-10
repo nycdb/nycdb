@@ -45,6 +45,7 @@ schema:
     CommunityBoard: text
     CouncilDistrict: smallint
     CensusTract: text
-    BIN: integer
+    BIN: char(7)
     BBL: char(10)
     NTA: text
+    RentImpairing: boolean

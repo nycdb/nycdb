@@ -1,0 +1,21 @@
+---
+files:
+  -
+    url: https://raw.githubusercontent.com/JustFixNYC/nycha-scraper/098bd8232bee2cd59266bf278e26e32bd0cd7df1/Block-and-Lot-Guide-08272018.csv
+    dest: nycha_bbls_18.csv
+sql:
+  - nycha_bbls.sql
+schema:
+  -
+    table_name: nycha_bbls_18
+    fields:
+      borough: text
+      block: text
+      lot: text
+      address: text
+      zipcode: text
+      development: text
+      managedby: text
+      cd: text
+      facility: text
+      bbl: char(10)

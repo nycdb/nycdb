@@ -58,6 +58,7 @@ def parse_args():
     parser.add_argument("--root-dir", help="location of data directory", default="./data")
     # easily inspect the database from the command-line
     parser.add_argument("--dbshell", action="store_true", help="runs psql interactively")
+    parser.add_argument("--hide-progress", action="store_true", help="hide the progress bar")
     return parser.parse_args()
 
 
@@ -67,8 +68,13 @@ def print_datasets():
 
 
 def verify_all(args):
+    exit_status = 0
+
     for ds in datasets().keys():
-        Dataset(ds, args=args).verify()
+        if not Dataset(ds, args=args).verify():
+            exit_status = 1
+
+    sys.exit(exit_status)
 
 
 def run_dbshell(args):
@@ -84,7 +90,10 @@ def dispatch(args):
     if args.list_datasets:
         print_datasets()
     elif args.verify:
-        Dataset(args.verify, args=args).verify()
+         if Dataset(args.verify, args=args).verify():
+             sys.exit(0)
+         else:
+             sys.exit(1)
     elif args.verify_all:
         verify_all(args)
     elif args.download:
