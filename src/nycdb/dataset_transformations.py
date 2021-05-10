@@ -113,6 +113,7 @@ def oath_hearings(dataset):
                     block='violationlocationblockno',
                     lot='violationlocationlotno')
 
+
 def pad_adr(dataset):
     pad_generator = with_bbl(to_csv(extract_csv_from_zip(
         dataset.files[0].dest, 'bobaadr.txt')), borough='boro')
@@ -131,10 +132,16 @@ def marshal_evictions(dataset, schema):
     _to_csv = to_csv(dest_file.dest)
     return _to_csv
 
+
 def nycha_bbls(dataset, schema):
     dest_file = next(filter(lambda f: schema['table_name'] in f.dest, dataset.files))
     _to_csv_with_bbl = with_bbl(to_csv(dest_file.dest))
     return _to_csv_with_bbl
+
+
+def hpd_litigations(dataset):
+    return to_csv(dataset.files[0].dest)
+
 
 def hpd_vacateorders(dataset):
     return to_csv(dataset.files[0].dest)
