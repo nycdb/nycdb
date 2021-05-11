@@ -3,6 +3,8 @@ files:
   -
     url: https://data.cityofnewyork.us/api/views/tb8q-a3ar/rows.csv?accessType=DOWNLOAD
     dest: hpd_vacateorders.csv
+sql:
+  - hpd_vacateorders.sql
 schema:
   table_name: hpd_vacateorders
   fields:
