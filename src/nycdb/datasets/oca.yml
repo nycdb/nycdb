@@ -36,6 +36,8 @@ files:
 sql:
   - oca/cast_arrays.sql
   - oca/index.sql
+  - oca/firt_last.sql
+  - oca/case_summary.sql
 schema:
   -
     table_name: oca_index
