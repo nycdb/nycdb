@@ -1,0 +1,34 @@
+---
+files:
+  -
+    url: https://data.cityofnewyork.us/api/views/59kj-x8nc/rows.csv?accessType=DOWNLOAD
+    dest: hpd_litigations.csv
+sql:
+  - hpd_litigations.sql
+schema:
+  table_name: hpd_litigations
+  fields:
+    LitigationId: integer
+    BuildingId: integer
+    Boro: integer
+    HouseNumber: text
+    StreetName: text
+    Zip: text
+    Block: integer
+    Lot: integer
+    CaseType: text
+    CaseOpenDate: 'timestamp without time zone'
+    CaseStatus: text
+    OpenJudgement: text
+    FindingOfHarassment: text
+    FindingDate: 'timestamp without time zone'
+    Penalty: text
+    Respondent: text
+    Latitude: numeric
+    Longitude: numeric
+    CommunityDistrict: text
+    CouncilDistrict: text
+    CensusTract: text
+    Bin: char(7)
+    Bbl: char(10)
+    Nta: text

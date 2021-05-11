@@ -226,6 +226,13 @@ def test_hpd_registrations(conn):
     assert row_count(conn, 'hpd_contacts') == 100
 
 
+def test_hpd_litigations(conn):
+    drop_table(conn, 'hpd_litigations')
+    hpd_litigations = nycdb.Dataset('hpd_litigations', args=ARGS)
+    hpd_litigations.db_import()
+    assert row_count(conn, 'hpd_litigations') == 100
+
+
 def test_hpd_registrations_derived_tables(conn):
     assert row_count(conn, 'hpd_corporate_owners') > 10
     assert row_count(conn, 'hpd_registrations_grouped_by_bbl') > 10
