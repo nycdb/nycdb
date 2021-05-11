@@ -17,6 +17,14 @@ def dob_violations(dataset):
     return with_bbl(to_csv(dataset.files[0].dest), borough='boro')
 
 
+def dof_exemption_classification_codes(dataset):
+    return to_csv(dataset.files[0].dest)
+
+
+def dof_exemptions(dataset):
+    return with_bbl(to_csv(dataset.files[1].dest), borough='boro')
+
+
 def _pluto(dataset):
     """
     Handles importing of all pluto versions,

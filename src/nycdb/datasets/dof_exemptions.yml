@@ -1,0 +1,95 @@
+---
+files:
+  -
+    url: https://data.cityofnewyork.us/api/views/myn9-hwsy/rows.csv?accessType=DOWNLOAD
+    dest: dof_exemption_classification_codes.csv
+  -
+    url: https://data.cityofnewyork.us/api/views/muvi-b6kx/rows.csv?accessType=DOWNLOAD
+    dest: dof_exemptions.csv
+schema:
+  -
+    table_name: dof_exemption_classification_codes
+    fields:
+      exemptcode: integer
+      sdeacode: text
+      description: text
+      status: text
+      legalref: text
+      comments: text
+      updated: date
+  -
+    table_name: dof_exemptions
+    fields:
+      parid: text
+      boro: integer
+      block: integer
+      lot: integer
+      bbl: text
+      ease: text
+      rectype: integer
+      year: text
+      reuc: text
+      period: integer
+      exmpcode: integer
+      exmpcodesuffix: text
+      exmpseq: integer
+      nysexmpcode: text
+      pstatus: text
+      coopnum: integer
+      condonumber: integer
+      condosfx: text
+      pyexmptot: bigint
+      pyexmptrn: bigint
+      pyexmptxbl: bigint
+      tenexmptot: bigint
+      tenexmptrn: bigint
+      tenexmptxbl: bigint
+      cbnexmptot: bigint
+      cbnexmptrn: bigint
+      cbnexmptxbl: bigint
+      finexmptot: bigint
+      finexmptrn: bigint
+      finexmptxbl: bigint
+      curexmptot: bigint
+      curexmptrn: bigint
+      curexmptxbl: bigint
+      createdate: date
+      exname: text
+      percent1: numeric
+      percent2: numeric
+      enterdate: date
+      percent3: numeric
+      percent4: numeric
+      owner2: text
+      pyincrpct1: numeric
+      pyincrpct2: numeric
+      pyincrpct3: numeric
+      pyincrpct4: numeric
+      status: text
+      computeflg: text
+      pypartialpct: text
+      noyears: integer
+      baseyr: text
+      basetot: text
+      basetrntot: text
+      gargcomact: text
+      gargcompct: text
+      gargcomtrn: text
+      benftstart: text
+      icipappno: bigint
+      gcert421: text
+      effdate: integer
+      prelimdate: integer
+      gbasevalueact421: bigint
+      j51prevexmptact: bigint
+      j51prevexmpttrn: bigint
+      j51basevalact: bigint
+      j51vasevaltrn: bigint
+      j51govtfinanced: text
+      caseno: text
+      lline: text
+      extractdt: text
+      bldgclass: text
+      fintaxclass: text
+sql:
+  - dof_exemptions.sql
