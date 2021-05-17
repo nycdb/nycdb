@@ -128,7 +128,7 @@ def test_hpd_complaints(conn):
 def test_dof_exemptions(conn):
     drop_table(conn, 'dof_exemptions')
     drop_table(conn, 'dof_exemption_classification_codes')
-    hpd_complaints = nycdb.Dataset('dof_exemptions', args=ARGS)
+    dof_exemptions = nycdb.Dataset('dof_exemptions', args=ARGS)
     hpd_complaints.db_import()
     assert row_count(conn, 'dof_exemptions') == 10
 
