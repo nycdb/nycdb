@@ -11,10 +11,12 @@ Residents, lawyers, tenants, and organizers who want to use data in their strugg
 - [DOB Complaints](https://github.com/nycdb/nycdb/wiki/Dataset:-DOB-Complaints)
 - [DOB Violations](https://github.com/nycdb/nycdb/wiki/Dataset:-DOB-Violations)
 - [HPD Violations](https://github.com/nycdb/nycdb/wiki/Dataset:-HPD-Violations)
+- [HPD Litigations](https://github.com/nycdb/nycdb/wiki/Dataset:-HPD-Litigations)
 - HPD Registrations
 - [HPD Complaints](https://github.com/nycdb/nycdb/wiki/Dataset:-HPD-Complaints)
 - [HPD Repair and Vacate Orders](https://github.com/nycdb/nycdb/wiki/Dataset:-HPD-Vacate-Orders)
 - Department of Finance Rolling Sales
+- [Department of Finance Property Tax Exemptions](https://github.com/nycdb/nycdb/wiki/Dataset:-DOF-Exemptions)
 - Tax bills - Rent Stabilization Unit Counts (John Krauss and Atul Varma's data)
 - [ACRIS](https://github.com/nycdb/nycdb/wiki/Dataset:-ACRIS)
 - [Marshal Evictions](https://github.com/nycdb/nycdb/wiki/Dataset:-Marshal-Evictions) - From [DOI](https://data.cityofnewyork.us/City-Government/Evictions/6z8x-wfk4) via ANHD's [Displacement Alert Project](https://github.com/ANHD-NYC-CODE/anhd-council-backend) and [API](https://api.displacementalert.org/docs/) (built by [Jade Ahking](https://github.com/0xStarcat))
@@ -23,6 +25,7 @@ Residents, lawyers, tenants, and organizers who want to use data in their strugg
 - Property Address Directory
 - J-51 Exemptions
 - [OCA Housing Court Records](https://github.com/nycdb/nycdb/wiki/Dataset:-OCA-Housing-Court-Records) (zipcode)
+- [BBLs of NYC Housing Authority (NYCHA) Developments](https://github.com/nycdb/nycdb/wiki/Dataset:-NYCHA-BBLs) — From NYCHA via [JustFix's scraper tool](https://github.com/JustFixNYC/nycha-scraper)
 
 ## Using the database
 
