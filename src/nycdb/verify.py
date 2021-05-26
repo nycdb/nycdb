@@ -63,6 +63,7 @@ TABLES = {
     'hpd_vacateorders': {'hpd_vacateorders': 4_000},
     'hpd_litigations': {'hpd_litigations': 170_000},
     'j51_exemptions': {'j51_exemptions': 4_000_000},
+    'mci_applications':{'mci_applications': 25_000},
     'oca': {
         'oca_index': 1_300_000,
         'oca_causes': 1_300_000,
