@@ -436,6 +436,13 @@ def test_hpd_vacateorders(conn):
         assert rec is not None
         assert rec['bbl'] == '3013480010'
 
+        
+def test_mci_applications(conn):
+    drop_table(conn, 'mci_applications')
+    mci_applications = nycdb.Dataset('mci_applications', args=ARGS)
+    mci_applications.db_import()
+    assert row_count(conn, 'mci_applications') == 100
+
 
 def test_oca(conn):
     drop_table(conn, 'oca_index')
