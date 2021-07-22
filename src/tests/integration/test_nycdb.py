@@ -276,6 +276,11 @@ def test_dobjobs(conn):
     assert 'ownername' in columns
     # full text columns shouldn't be inserted by default
     assert 'ownername_tsvector' not in columns
+    
+    # without this commit, the database connection seems to deadlock
+    # oddly, setting autocommit on the connection doesn't fix it either
+    conn.commit()
+    
     dobjobs.index()
     columns = table_columns(conn, 'dobjobs')
     assert 'ownername_tsvector' in columns
