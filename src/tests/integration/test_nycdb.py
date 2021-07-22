@@ -264,7 +264,7 @@ def test_dof_sales(conn):
     drop_table(conn, 'dof_sales')
     dof_sales = nycdb.Dataset('dof_sales', args=ARGS)
     dof_sales.db_import()
-    assert row_count(conn, 'dof_sales') == 70
+    assert row_count(conn, 'dof_sales') == 10
     assert has_one_row(conn, "select 1 where to_regclass('public.dof_sales_bbl_idx') is NOT NULL")
 
 
