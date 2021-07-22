@@ -1,20 +1,8 @@
 ---
 files:
   -
-    url: http://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/rollingsales_manhattan.xls
-    dest: rollingsales_manhattan.xls
-  -
-    url: http://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/rollingsales_bronx.xls
-    dest: rollingsales_bronx.xls
-  -
-    url: http://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/rollingsales_brooklyn.xls
-    dest: rollingsales_brooklyn.xls
-  -
-    url: http://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/rollingsales_queens.xls
-    dest: rollingsales_queens.xls
-  -
-    url: http://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/rollingsales_statenisland.xls
-    dest: rollingsales_statenisland.xls
+    url: https://data.cityofnewyork.us/api/views/usep-8jbt/rows.csv?accessType=DOWNLOAD
+    dest: dof_sales.csv
 sql:
   - dof_sales.sql
 schema:
