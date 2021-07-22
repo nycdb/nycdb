@@ -80,26 +80,23 @@ def drop_table(conn, table_name):
 
 
 def row_count(conn, table_name):
-    with conn:
-        with conn.cursor() as curs:
-            curs.execute('select count(*) from {}'.format(table_name))
-            return curs.fetchone()[0]
+    with conn.cursor() as curs:
+        curs.execute('select count(*) from {}'.format(table_name))
+        return curs.fetchone()[0]
 
 
 def has_one_row(conn, query):
-    with conn:
-        with conn.cursor() as curs:
-            curs.execute(query)
-            return bool(curs.fetchone())
+    with conn.cursor() as curs:
+        curs.execute(query)
+        return bool(curs.fetchone())
 
 
 def table_columns(conn, table_name):
     sql = "SELECT column_name FROM information_schema.columns WHERE table_schema = 'public' AND table_name = '{}'".format(
         table_name)
-    with conn:
-        with conn.cursor() as curs:
-            curs.execute(sql)
-            return [x[0] for x in curs.fetchall()]
+    with conn.cursor() as curs:
+        curs.execute(sql)
+        return [x[0] for x in curs.fetchall()]
 
 
 def test_ecb_violations(conn):
