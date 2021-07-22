@@ -80,26 +80,23 @@ def drop_table(conn, table_name):
 
 
 def row_count(conn, table_name):
-    with conn:
-        with conn.cursor() as curs:
-            curs.execute('select count(*) from {}'.format(table_name))
-            return curs.fetchone()[0]
+    with conn.cursor() as curs:
+        curs.execute('select count(*) from {}'.format(table_name))
+        return curs.fetchone()[0]
 
 
 def has_one_row(conn, query):
-    with conn:
-        with conn.cursor() as curs:
-            curs.execute(query)
-            return bool(curs.fetchone())
+    with conn.cursor() as curs:
+        curs.execute(query)
+        return bool(curs.fetchone())
 
 
 def table_columns(conn, table_name):
     sql = "SELECT column_name FROM information_schema.columns WHERE table_schema = 'public' AND table_name = '{}'".format(
         table_name)
-    with conn:
-        with conn.cursor() as curs:
-            curs.execute(sql)
-            return [x[0] for x in curs.fetchall()]
+    with conn.cursor() as curs:
+        curs.execute(sql)
+        return [x[0] for x in curs.fetchall()]
 
 
 def test_ecb_violations(conn):
@@ -264,7 +261,7 @@ def test_dof_sales(conn):
     drop_table(conn, 'dof_sales')
     dof_sales = nycdb.Dataset('dof_sales', args=ARGS)
     dof_sales.db_import()
-    assert row_count(conn, 'dof_sales') == 70
+    assert row_count(conn, 'dof_sales') == 10
     assert has_one_row(conn, "select 1 where to_regclass('public.dof_sales_bbl_idx') is NOT NULL")
 
 
@@ -279,6 +276,11 @@ def test_dobjobs(conn):
     assert 'ownername' in columns
     # full text columns shouldn't be inserted by default
     assert 'ownername_tsvector' not in columns
+    
+    # without this commit, the database connection seems to deadlock
+    # oddly, setting autocommit on the connection doesn't fix it either
+    conn.commit()
+    
     dobjobs.index()
     columns = table_columns(conn, 'dobjobs')
     assert 'ownername_tsvector' in columns

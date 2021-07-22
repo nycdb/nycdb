@@ -6,7 +6,6 @@ import logging
 
 from .transform import with_geo, with_bbl, to_csv, stream_files_from_zip, extract_csv_from_zip, skip_fields
 from .transform import hpd_registrations_address_cleanup, hpd_contacts_address_cleanup
-from .dof_parser import parse_dof_file
 from .datasets import datasets
 
 def ecb_violations(dataset):
@@ -85,9 +84,7 @@ def hpd_contacts(dataset):
 
 
 def dof_sales(dataset):
-    for f in dataset.files:
-        for row in with_bbl(parse_dof_file(f.dest)):
-            yield row
+    return with_bbl(to_csv(dataset.files[0].dest))
 
 
 def dobjobs(dataset):
