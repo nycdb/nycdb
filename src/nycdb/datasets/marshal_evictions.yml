@@ -83,17 +83,27 @@ schema:
     table_name: marshal_evictions_all
     fields:
       UniqueId: text
-      Bbl: char(10)
+      Bbl: text
+      Bin: text
       Borough: text
+      CensusTract: text
       CleanedAddress: text
+      CommunityBoard: text
+      CouncilDistrict: text
       CourtIndexNumber: text
       DocketNumber: text
+      Ejectment: text
       EvictionAddress: text
-      EvictionAptNum: text
+      EvictionApartmentNumber: text
+      EvictionLegalPossession: text
+      EvictionPostCode: text
       EvictionZip: text
       ExecutedDate: date
       GeosearchAddress: text
-      MarshalFirstName: text
+      Latitude: numeric
+      Longitude: numeric
+      marshal1stname: text
       MarshalLastName: text
-      ResidentialCommercialInd: text
+      Nta: text
+      ResidentialCommercial: text
       ScheduleStatus: text
