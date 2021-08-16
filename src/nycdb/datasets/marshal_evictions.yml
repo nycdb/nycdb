@@ -83,8 +83,8 @@ schema:
     table_name: marshal_evictions_all
     fields:
       UniqueId: text
-      Bbl: text
-      Bin: text
+      Bbl: char(10)
+      Bin: char(7)
       Borough: text
       CensusTract: text
       CleanedAddress: text
@@ -97,7 +97,6 @@ schema:
       EvictionApartmentNumber: text
       EvictionLegalPossession: text
       EvictionPostCode: text
-      EvictionZip: text
       ExecutedDate: date
       GeosearchAddress: text
       Latitude: numeric
@@ -107,3 +106,5 @@ schema:
       Nta: text
       ResidentialCommercial: text
       ScheduleStatus: text
+    skip:
+      - EvictionZip

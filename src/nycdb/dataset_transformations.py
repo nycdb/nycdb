@@ -135,7 +135,10 @@ def j51_exemptions(dataset):
 def marshal_evictions(dataset, schema):
     dest_file = next(filter(lambda f: schema['table_name'] in f.dest, dataset.files))
     _to_csv = to_csv(dest_file.dest)
-    return _to_csv
+    if 'skip' in schema:
+        return skip_fields(_to_csv, [s.lower() for s in schema['skip']])
+    else:
+        return _to_csv
 
 
 def nycha_bbls(dataset, schema):
