@@ -1,10 +1,14 @@
 #!/bin/bash
 
+echo 'Reached the first part'
+
 docker run -p 127.0.0.1:7777:5432 --rm --name nycdb_test -e POSTGRES_USER=nycdb -e POSTGRES_PASSWORD=nycdb -e POSTGRES_DB=nycdb_test -d postgres:13
 
-print('Reached the second part!')
+echo 'Reached the second part'
 
 connection_attempts=0
+
+echo 'Reached the third part'
 
 until pg_isready -h 127.0.0.1 -p 7777 -U postgres --quiet
 do
@@ -17,6 +21,8 @@ do
     ((ATTEMPTS++))
     sleep 0.25
 done
+
+echo 'Reached the fourth part'
 
 pytest
 pytest_status=$?
