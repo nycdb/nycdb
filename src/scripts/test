@@ -13,7 +13,7 @@ do
 	exit 1
     fi
 
-    ((ATTEMPTS++))
+    ((connection_attempts++))
     sleep 0.25
 done
 
