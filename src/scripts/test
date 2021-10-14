@@ -1,12 +1,11 @@
 #!/bin/bash
 
-docker run -p 127.0.0.1:7777:5432 --rm --name nycdb_test -e POSTGRES_USER=nycdb -e POSTGRES_PASSWORD=nycdb -e POSTGRES_DB=nycdb_test -d postgres:13
+docker run -p 127.0.0.1:7777:5432 --rm --name nycdb_test -e POSTGRES_USER=nycdb -e POSTGRES_PASSWORD=nycdb -e POSTGRES_DB=nycdb_test -it postgres:13
 
 connection_attempts=0
 
 until pg_isready -h 127.0.0.1 -p 7777 -U postgres --quiet
 do
-    echo 'Reached the inside loop part'
     if [[ $connection_attempts -eq 20 ]]
     then
 	echo 'Postgres failed to start'
