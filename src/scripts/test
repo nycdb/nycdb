@@ -1,6 +1,6 @@
 #!/bin/bash
 
-docker run -p 127.0.0.1:7777:5432 --rm --name nycdb_test -e POSTGRES_USER=nycdb -e POSTGRES_PASSWORD=nycdb -e POSTGRES_DB=nycdb_test postgres:10
+docker run -p 127.0.0.1:7777:5432 --rm --name nycdb_test -e POSTGRES_USER=nycdb -e POSTGRES_PASSWORD=nycdb -e POSTGRES_DB=nycdb_test -d postgres:10
 
 connection_attempts=0
 
