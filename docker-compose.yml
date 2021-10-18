@@ -39,3 +39,4 @@ services:
 volumes:
   download-data:
   database-data:
+    name: "${NYCDB_DATABASE_VOLUME_NAME:-database-data}"
