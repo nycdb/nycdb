@@ -2,7 +2,10 @@ version: '3'
 
 services:
   nycdb:
-    build: .
+    build:
+      context: .
+      args:
+        PYTHON_VERSION: "${PYTHON_VERSION:-3.10-bullseye}"
     volumes:
       - ./src:/nycdb/src
       - download-data:/nycdb/src/data
@@ -13,10 +16,11 @@ services:
       - NYCDB_TEST_POSTGRES_USER=nycdb
       - NYCDB_TEST_POSTGRES_PASSWORD=nycdb
       - NYCDB_TEST_POSTGRES_PORT=5432
-    links:
-      - db
+    depends_on:
+      db:
+        condition: service_healthy
   db:
-    image: postgres:13
+    image: "postgres:${POSTGRES_VERSION:-14}"
     shm_size: 1gb
     volumes:
       - database-data:/var/lib/postgresql/data
@@ -26,6 +30,11 @@ services:
       - POSTGRES_DB=nycdb
     ports:
       - 127.0.0.1:5432:5432
+    healthcheck:
+      test: pg_isready
+      timeout: 5s
+      interval: 1s
+      retries: 20
 
 volumes:
   download-data:

@@ -44,7 +44,7 @@ will start a Postgres server on port 5432 of your local machineYou can also pres
 
 In a separate terminal, you will be able to now use the nycdb cli: `docker-compose run nycdb --help`
 
-You can also open a python3 shell: `docker-compose run --entrypoint=python3 nycdb` or run the test suit `docker-compose run --entrypoint=pytest nycdb`
+You can also open a python3 shell: `docker-compose run --entrypoint=python3 nycdb` or run the test suit `docker-compose run --entrypoint="pytest tests" nycdb`
 
 You may also develop on nycdb itself:
 

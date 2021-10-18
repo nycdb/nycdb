@@ -1,6 +1,7 @@
-FROM python:3.9-buster
+ARG PYTHON_VERSION=latest
+FROM python:${PYTHON_VERSION}
 
-RUN apt-get update && apt-get install -y postgresql-client libpq-dev
+RUN apt-get update && apt-get install -y postgresql-client libpq-dev proj-bin libproj-dev
 WORKDIR /nycdb/src
 COPY ./src/ /nycdb/src/
 RUN pip install pytest
