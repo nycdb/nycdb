@@ -1,24 +1,10 @@
 #!/bin/bash
 
-docker run -p 127.0.0.1:7777:5432 --rm --name nycdb_test -e POSTGRES_USER=nycdb -e POSTGRES_PASSWORD=nycdb -e POSTGRES_DB=nycdb_test -d postgres:13
+export NYCDB_DATABASE_VOLUME_NAME="nycdb_test-database-data"
 
-connection_attempts=0
+if docker volume inspect "$NYCDB_DATABASE_VOLUME_NAME" > /dev/null; then
+   docker volume rm "$NYCDB_DATABASE_VOLUME_NAME" > /dev/null
+fi
 
-until pg_isready -h 127.0.0.1 -p 7777 -U postgres --quiet
-do
-    if [[ $connection_attempts -eq 20 ]]
-    then
-	echo 'Postgres failed to start'
-	exit 1
-    fi
-
-    ((ATTEMPTS++))
-    sleep 0.25
-done
-
-pytest
-pytest_status=$?
-
-docker stop nycdb_test
-
-exit $pytest_status
+# docker-compose build
+docker-compose run --rm --entrypoint="pytest tests" nycdb
