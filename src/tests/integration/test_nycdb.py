@@ -217,6 +217,12 @@ def test_pluto20v8(conn):
     pluto.db_import()
     assert row_count(conn, 'pluto_20v8') == 10
 
+def test_pluto21v3(conn):
+    drop_table(conn, 'pluto_21v3')
+    pluto = nycdb.Dataset('pluto_21v3', args=ARGS)
+    pluto.db_import()
+    assert row_count(conn, 'pluto_21v3') == 5
+
 def test_hpd_violations(conn):
     drop_table(conn, 'hpd_violations')
     hpd_violations = nycdb.Dataset('hpd_violations', args=ARGS)
@@ -276,11 +282,11 @@ def test_dobjobs(conn):
     assert 'ownername' in columns
     # full text columns shouldn't be inserted by default
     assert 'ownername_tsvector' not in columns
-    
+
     # without this commit, the database connection seems to deadlock
     # oddly, setting autocommit on the connection doesn't fix it either
     conn.commit()
-    
+
     dobjobs.index()
     columns = table_columns(conn, 'dobjobs')
     assert 'ownername_tsvector' in columns
