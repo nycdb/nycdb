@@ -4,7 +4,7 @@ Each function in this file is the name of a table or dataset.
 import logging
 
 
-from .transform import with_geo, with_bbl, to_csv, stream_files_from_zip, extract_csv_from_zip, skip_fields
+from .transform import with_bbl, to_csv, stream_files_from_zip, extract_csv_from_zip, skip_fields
 from .transform import hpd_registrations_address_cleanup, hpd_contacts_address_cleanup
 from .datasets import datasets
 
@@ -32,11 +32,7 @@ def _pluto(dataset):
     """
     extension = 'txt' if dataset.name == 'pluto_10v1' else 'csv'
 
-    pluto_generator = with_geo(
-        to_csv(
-            stream_files_from_zip(dataset.files[0].dest, extension=extension)
-        )
-    )
+    pluto_generator = to_csv(stream_files_from_zip(dataset.files[0].dest, extension=extension))
 
     pluto_fields_to_skip = dataset.schemas[0].get('skip')
 
