@@ -15,15 +15,15 @@ headers = [
     'building_class_at_present',
     'address',
     'apartment_number',
-    'zip code',
+    'zip_code',
     'residential_units',
-    'commercia_nunits',
+    'commercial_units',
     'total_units',
     'land_square_feet',
     'gross_square_feet',
     'year_built',
     'tax_class_at_time_of_sale',
-    'building_class_at time_of_sale',
+    'building_class_at_time_of_sale',
     'sale_price',
     'sale_date',
     'year'
@@ -76,7 +76,8 @@ class AnnualSales:
 
                 # res units, com units, land sqft, gross sqft, year build
                 for i in range(11,17):
-                    values[i] = int(values[i])
+                    if values[i] != None:
+                        values[i] = int(values[i])
 
                 values[17] = str(int(values[17]))
                 values[19] = str(int(values[19])) # sale price
