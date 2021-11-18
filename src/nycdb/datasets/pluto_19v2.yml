@@ -96,8 +96,6 @@ schema:
     pfirm15flag: char(1)
     geom: text
     dcpedited: text
-    lng: 'double precision'
-    lat: 'double precision'
   skip:
     - mapplutof
     - rpaddate

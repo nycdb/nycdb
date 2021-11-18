@@ -109,5 +109,3 @@ schema:
     - masdate
     - polidate
     - edesigdate
-    - lng
-    - lat

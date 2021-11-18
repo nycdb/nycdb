@@ -34,7 +34,6 @@ setuptools.setup(
     install_requires=[
         'PyYAML>=5.1',
         'requests>=2.18',
-        'pyproj>=2.1.3',
         'psycopg2>=2.7',
         'tqdm>=4.28.1'
     ],
