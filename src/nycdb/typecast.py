@@ -23,6 +23,9 @@ def downcase_fields_and_values(d):
 
 
 def integer(i):
+    if i is None:
+        return None
+
     if isinstance(i, int):
         return i
     try:
@@ -69,7 +72,7 @@ def numeric(x):
 def to_float(x):
     if x is None:
         return None
-    
+
     if isinstance(x, float):
         return x
 

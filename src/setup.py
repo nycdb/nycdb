@@ -35,7 +35,9 @@ setuptools.setup(
         'PyYAML>=5.1',
         'requests>=2.18',
         'psycopg2>=2.7',
-        'tqdm>=4.28.1'
+        'tqdm>=4.28.1',
+        'openpyxl>=3.0.9',
+        'xlrd>=2.0.1'
     ],
 
     extras_requires={

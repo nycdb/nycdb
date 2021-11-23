@@ -487,6 +487,18 @@ def test_oca(conn):
         assert rec['appearancedatetime'].strftime('%Y-%m-%d %I:%M:%S') == '2016-05-11 09:30:00'
 
 
+def test_dof_annual_sales(conn):
+    drop_table(conn, 'dof_annual_sales')
+    dof_annual_sales = nycdb.Dataset('dof_annual_sales', args=ARGS)
+    dof_annual_sales.files = [
+        nycdb.file.File({ 'dest': 'dof_annual_sales_2020_manhattan.xlsx', 'url': 'https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2020/2020_manhattan.xlsx'}, root_dir=data_dir),
+        nycdb.file.File({ 'dest': 'dof_annual_sales_2015_manhattan.xls', 'url': 'https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2015/2015_manhattan.xls'}, root_dir=data_dir)
+    ]
+
+    dof_annual_sales.db_import()
+    assert row_count(conn, 'dof_annual_sales') == 47
+
+
 def run_cli(args, input):
     full_args = [
         sys.executable, "-m", "nycdb.cli",

@@ -2,11 +2,12 @@
 Each function in this file is the name of a table or dataset.
 """
 import logging
-
+import itertools
 
 from .transform import with_bbl, to_csv, stream_files_from_zip, extract_csv_from_zip, skip_fields
 from .transform import hpd_registrations_address_cleanup, hpd_contacts_address_cleanup
 from .datasets import datasets
+from .annual_sales import AnnualSales
 
 def ecb_violations(dataset):
     return with_bbl(to_csv(dataset.files[0].dest), borough='boro')
@@ -155,3 +156,7 @@ def oca(dataset, schema):
     dest_file = next(filter(lambda f: schema['table_name'] in f.dest, dataset.files))
     _to_csv = to_csv(dest_file.dest)
     return _to_csv
+
+
+def dof_annual_sales(dataset):
+    return itertools.chain(*[with_bbl(AnnualSales(f.dest)) for f in dataset.files])
