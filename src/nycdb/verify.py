@@ -22,6 +22,7 @@ TABLES = {
         'hpd_registrations_grouped_by_bbl_with_contacts': 130_000
     },
     'dof_sales': {'dof_sales': 60_000},
+    'dof_annual_sales': { 'dof_annual_sales': 900_000 },
     'dof_exemptions': {
         'dof_exemptions': 740_000,
         'dof_exemption_classification_codes': 175
