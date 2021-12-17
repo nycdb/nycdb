@@ -180,6 +180,96 @@ files:
   -
     url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2009_statenisland.xls
     dest: dof_annual_sales_2009_staten_island.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/09pdf/rolling_sales/sales_2008_manhattan.xls
+    dest: dof_annual_sales_2008_manhattan.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/09pdf/rolling_sales/sales_2008_bronx.xls
+    dest: dof_annual_sales_2008_bronx.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/09pdf/rolling_sales/sales_2008_brooklyn.xls
+    dest: dof_annual_sales_2008_brooklyn.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/09pdf/rolling_sales/sales_2008_queens.xls
+    dest: dof_annual_sales_2008_queens.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/09pdf/rolling_sales/sales_2008_statenisland.xls
+    dest: dof_annual_sales_2008_si.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/excel/rolling_sales/sales_2007_manhattan.xls
+    dest: dof_annual_sales_2007_manhattan.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/excel/rolling_sales/sales_2007_bronx.xls
+    dest: dof_annual_sales_2007_bronx.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/excel/rolling_sales/sales_2007_brooklyn.xls
+    dest: dof_annual_sales_2007_brooklyn.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/excel/rolling_sales/sales_2007_queens.xls
+    dest: dof_annual_sales_2007_queens.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/excel/rolling_sales/sales_2007_statenisland.xls
+    dest: dof_annual_sales_2007_si.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/sales_manhattan_06.xls
+    dest: dof_annual_sales_2006_manhattan.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/sales_bronx_06.xls
+    dest: dof_annual_sales_2006_bronx.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/sales_brooklyn_06.xls
+    dest: dof_annual_sales_2006_brooklyn.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/sales_queens_06.xls
+    dest: dof_annual_sales_2006_queens.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/sales_si_06.xls
+    dest: dof_annual_sales_2006_si.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/sales_manhattan_05.xls
+    dest: dof_annual_sales_2005_manhattan.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/sales_bronx_05.xls
+    dest: dof_annual_sales_2005_bronx.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/sales_brooklyn_05.xls
+    dest: dof_annual_sales_2005_brooklyn.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/sales_queens_05.xls
+    dest: dof_annual_sales_2005_queens.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/sales_si_05.xls
+    dest: dof_annual_sales_2005_si.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/sales_manhattan_04.xls
+    dest: dof_annual_sales_2004_manhattan.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/sales_bronx_04.xls
+    dest: dof_annual_sales_2004_bronx.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/sales_brooklyn_04.xls
+    dest: dof_annual_sales_2004_brooklyn.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/sales_queens_04.xls
+    dest: dof_annual_sales_2004_queens.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/sales_si_04.xls
+    dest: dof_annual_sales_2004_si.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/sales_manhattan_03.xls
+    dest: dof_annual_sales_2003_manhattan.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/sales_bronx_03.xls
+    dest: dof_annual_sales_2003_bronx.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/sales_brooklyn_03.xls
+    dest: dof_annual_sales_2003_brooklyn.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/sales_queens_03.xls
+    dest: dof_annual_sales_2003_queens.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/sales_si_03.xls
+    dest: dof_annual_sales_2003_si.xls
 schema:
   table_name: dof_annual_sales
   fields:
