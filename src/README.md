@@ -54,9 +54,11 @@ You may also develop on nycdb itself:
 * If you don't have a desktop Postgres client, you can always run
   `nycdb --dbshell` to interactively inspect the database with [psql](http://postgresguide.com/utilities/psql.html).
 
+To update the database after adding new packages or dev dependencies, just run `docker-compose up --build --force-recreate --no-deps`. This command will take a bit longer than the regular `docker-compose up` command, but will reinstall packages within the docker container without removing any downloaded files or database data from the docker database.
+
 To stop the database run `docker-compose down`. The downloaded files and database data are stored in docker volumes and are not automatically removed.
 
-however, if you ever want to wipe the database, run `docker-compose down -v`.
+However, if you ever want to wipe the database, run `docker-compose down -v`.
 
 ### Python3 virtual environments
 
