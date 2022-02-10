@@ -1,0 +1,83 @@
+---
+files:
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/421a/2021/421a_2021_manhattan.xlsx
+    dest: 421a_2021_manhattan.xlsx
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/421a/2021/421a_2021_bronx.xlsx
+    dest: 421a_2021_bronx.xlsx
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/421a/2021/421a_2021_brooklyn.xlsx
+    dest: 421a_2021_brooklyn.xlsx
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/421a/2021/421a_2021_queens.xlsx
+    dest: 421a_2021_queens.xlsx
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/421a/2021/421a_2021_statenisland.xlsx
+    dest: 421a_2021_statenisland.xlsx
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/421a/1819/421a_1819_manhattan.xlsx
+    dest: 421a_1819_manhattan.xlsx
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/421a/1819/421a_1819_bronx.xlsx
+    dest: 421a_1819_bronx.xlsx
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/421a/1819/421a_1819_brooklyn.xlsx
+    dest: 421a_1819_brooklyn.xlsx
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/421a/1819/421a_1819_queens.xlsx
+    dest: 421a_1819_queens.xlsx
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/421a/1819/421a_1819_statenisland.xlsx
+    dest: 421a_1819_statenisland.xlsx
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/421a/1718/421a_1718_manhattan.xlsx
+    dest: 421a_1718_manhattan.xlsx
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/421a/1718/421a_1718_bronx.xlsx
+    dest: 421a_1718_bronx.xlsx
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/421a/1718/421a_1718_brooklyn.xlsx
+    dest: 421a_1718_brooklyn.xlsx
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/421a/1718/421a_1718_queens.xlsx
+    dest: 421a_1718_queens.xlsx
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/421a/1718/421a_1718_statenisland.xlsx
+    dest: 421a_1718_statenisland.xlsx
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/421a/1617/421a_1617_manhattan.xlsx
+    dest: 421a_1617_manhattan.xlsx
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/421a/1617/421a_1617_bronx.xlsx
+    dest: 421a_1617_bronx.xlsx
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/421a/1617/421a_1617_brooklyn.xlsx
+    dest: 421a_1617_brooklyn.xlsx
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/421a/1617/421a_1617_queens.xlsx
+    dest: 421a_1617_queens.xlsx
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/421a/1617/421a_1617_statenisland.xlsx
+    dest: 421a_1617_statenisland.xlsx
+schema:
+  table_name: dof_421a
+  fields:
+    borough: char(1)
+    neighborhood: text
+    building_class_category: text
+    tax_class_at_present: text
+    block: text
+    lot: text
+    building_class_at_present: text
+    address: text
+    zip_code: text
+    residential_units: int
+    commercial_units: int
+    total_units: int
+    land_square_feet: int
+    gross_square_feet:  int
+    year_built: smallint
+    fiscalyear: char(4)
+    bbl: char(10)
+    id: 'serial PRIMARY KEY'
