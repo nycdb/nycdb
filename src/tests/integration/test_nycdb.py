@@ -85,10 +85,13 @@ def row_count(conn, table_name):
         return curs.fetchone()[0]
 
 
-def has_one_row(conn, query):
-    with conn.cursor() as curs:
+def fetch_one_row(conn, query):
+    with conn.cursor(cursor_factory=psycopg2.extras.DictCursor) as curs:
         curs.execute(query)
-        return bool(curs.fetchone())
+        return curs.fetchone()
+
+def has_one_row(*args):
+    return bool(fetch_one_row(*args))
 
 
 def table_columns(conn, table_name):
@@ -498,6 +501,13 @@ def test_dof_annual_sales(conn):
     dof_annual_sales.db_import()
     assert row_count(conn, 'dof_annual_sales') == 47
 
+def test_dof_421a(conn):
+    drop_table(conn, 'dof_421a')
+    dof_421a = nycdb.Dataset('dof_421a', args=ARGS)
+    dof_421a.files = [ nycdb.file.File({ 'dest': '421a_2021_brooklyn.xlsx', 'url': 'https://example.com' }, root_dir=data_dir) ]
+    dof_421a.db_import()
+    assert row_count(conn, 'dof_421a') == 45
+    assert fetch_one_row(conn, "SELECT * FROM dof_421a LIMIT 1")['fiscalyear'] == '2021'
 
 def run_cli(args, input):
     full_args = [

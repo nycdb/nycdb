@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from itertools import islice
 import yaml
 
 
@@ -30,3 +31,8 @@ def merge(x, y):
     z = x.copy()
     z.update(y)
     return z
+
+
+def consume(iterator, n):
+    """advance the iterator n-steps ahead"""
+    next(islice(iterator, n, n), None)

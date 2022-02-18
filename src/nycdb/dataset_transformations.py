@@ -8,6 +8,7 @@ from .transform import with_bbl, to_csv, stream_files_from_zip, extract_csv_from
 from .transform import hpd_registrations_address_cleanup, hpd_contacts_address_cleanup
 from .datasets import datasets
 from .annual_sales import AnnualSales
+from .dof_421a import iter_421a
 
 def ecb_violations(dataset):
     return with_bbl(to_csv(dataset.files[0].dest), borough='boro')
@@ -160,3 +161,7 @@ def oca(dataset, schema):
 
 def dof_annual_sales(dataset):
     return itertools.chain(*[with_bbl(AnnualSales(f.dest)) for f in dataset.files])
+
+
+def dof_421a(dataset):
+    return itertools.chain(*[with_bbl(iter_421a(f.dest)) for f in dataset.files])
