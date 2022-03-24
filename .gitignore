@@ -25,3 +25,5 @@ modules/hpd-complaints/*.csv
 src/.pytest_cache/
 
 *.bz2
+
+.vscode

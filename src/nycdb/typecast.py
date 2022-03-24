@@ -92,6 +92,9 @@ def mm_dd_yyyy(date_str):
 # TODO: allow for different date inputs besides mm/dd/yyyy
 #  03/04/2015 12:00:00 AM
 def date(x):
+    if x is None:
+        return None
+        
     if isinstance(x, (datetime.date, datetime.datetime)):
         return x
     # checks for 2018-12-31 date input
@@ -138,6 +141,9 @@ def timestamp(x):
     Converts string into datetime.datetime
     Example inputs: '2020-12-31 13:01:01', '2020-12-31 01:01:01 PM'
     """
+    if x is None:
+        return None
+        
     if isinstance(x, datetime.datetime):
         return x
     x_parts = x.strip().split(' ', 1)
@@ -160,6 +166,8 @@ def boolean(x):
 
 
 def text_array(x, sep=","):
+    if x is None:
+        return None
     return x.strip().split(sep)
 
 
