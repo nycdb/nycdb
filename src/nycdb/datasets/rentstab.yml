@@ -1,7 +1,7 @@
 ---
 files:
   -
-    url: http://taxbills.nyc/joined.csv
+    url: https://taxbillsnyc.s3.amazonaws.com/joined.csv
     dest: taxbills_joined.csv
 sql:
   - rentstab.sql
