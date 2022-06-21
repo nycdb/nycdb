@@ -224,6 +224,18 @@ def test_pluto21v3(conn):
     pluto.db_import()
     assert row_count(conn, 'pluto_21v3') == 5
 
+def test_pluto22v1(conn):
+    drop_table(conn, 'pluto_22v1')
+    pluto = nycdb.Dataset('pluto_22v1', args=ARGS)
+    pluto.db_import()
+    assert row_count(conn, 'pluto_22v1') == 5
+
+def test_pluto_latest(conn):
+    drop_table(conn, 'pluto_latest')
+    pluto = nycdb.Dataset('pluto_latest', args=ARGS)
+    pluto.db_import()
+    assert row_count(conn, 'pluto_latest') == 5
+
 def test_hpd_violations(conn):
     drop_table(conn, 'hpd_violations')
     hpd_violations = nycdb.Dataset('hpd_violations', args=ARGS)
