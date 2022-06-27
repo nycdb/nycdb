@@ -32,7 +32,7 @@ headers = [
 class AnnualSales:
     def __init__(self, filename):
         self.filename = filename
-        self.year = re.search("\d{4}", basename(self.filename)).group()
+        self.year = re.search(r"\d{4}", basename(self.filename)).group()
         self.ext = splitext(self.filename)[1]
 
     def __iter__(self):

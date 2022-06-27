@@ -14,7 +14,7 @@ def validate_header_row(row):
 
 
 def iter_421a(filename):
-    fiscalyear = re.search("_(\d{4})_", os.path.basename(filename)).group(1)
+    fiscalyear = re.search(r"_(\d{4})_", os.path.basename(filename)).group(1)
     workbook = openpyxl.load_workbook(filename)
     worksheet = workbook[workbook.sheetnames[0]]
     rows = worksheet.iter_rows(values_only=True)
