@@ -1,0 +1,22 @@
+files:
+  -
+    url: https://data.cityofnewyork.us/api/views/emrz-5p35/rows.csv?accessType=DOWNLOAD
+    dest: hpd_omo_charges.csv
+schema:
+  table_name: hpd_omo_charges
+  fields:
+    InvoiceID: integer
+    InvoiceSequenceID: text
+    OMONumber: char(7)
+    InvoiceStatus: text
+    InvoiceDate: date
+    InvoiceBillAmount: numeric
+    InvoicePayAmount: numeric
+    SalesTax: numeric
+    AdminFee: numeric
+    PaymentID: numeric
+    ChargeAmount: numeric
+    DateTransferDoF: date
+    UniqueKey: text
+sql:
+  - hpd_omo_charges.sql

@@ -1,0 +1,1 @@
+CREATE INDEX hpd_OMONumber_idx on hpd_omo_charges (OMONumber);

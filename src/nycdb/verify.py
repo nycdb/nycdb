@@ -27,6 +27,7 @@ TABLES = {
         'hpd_registrations_grouped_by_bbl': 130_000,
         'hpd_registrations_grouped_by_bbl_with_contacts': 130_000
     },
+    'hpd_hwo_charges': {'hpd_hwo_charges': 88_000},
     'dof_421a': {'dof_421a': 275_000},
     'dof_sales': {'dof_sales': 60_000},
     'dof_annual_sales': { 'dof_annual_sales': 900_000 },
