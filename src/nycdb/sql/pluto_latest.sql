@@ -3,7 +3,7 @@ ALTER TABLE pluto_latest RENAME COLUMN communityboard TO cd;
 ALTER TABLE pluto_latest RENAME COLUMN censustract2010 TO ct2010;
 ALTER TABLE pluto_latest RENAME COLUMN councildistrict TO council;
 ALTER TABLE pluto_latest RENAME COLUMN postcode TO zipcode;
-ALTER TABLE pluto_latest ADD COLUMN landusdesc text;
+ALTER TABLE pluto_latest ADD COLUMN landusedesc text;
 UPDATE pluto_latest SET landusedesc = CASE
     	WHEN landuse = 1 THEN 'One & Two Family Buildings'
     	WHEN landuse = 2 THEN 'Multi-Family Walk-Up Buildings'
