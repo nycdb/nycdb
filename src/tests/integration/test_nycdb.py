@@ -521,6 +521,13 @@ def test_dof_421a(conn):
     assert row_count(conn, 'dof_421a') == 45
     assert fetch_one_row(conn, "SELECT * FROM dof_421a LIMIT 1")['fiscalyear'] == '2021'
 
+    
+def test_speculation_watch_list(conn):
+    drop_table(conn, 'speculation_watch_list')
+    speculation_watch_list = nycdb.Dataset('speculation_watch_list', args=ARGS)
+    speculation_watch_list.db_import()
+    assert row_count(conn, 'speculation_watch_list') == 5
+
 def run_cli(args, input):
     full_args = [
         sys.executable, "-m", "nycdb.cli",

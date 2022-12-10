@@ -27,6 +27,7 @@ Residents, lawyers, tenants, and organizers who want to use data in their strugg
 - J-51 Exemptions
 - [OCA Housing Court Records](https://github.com/nycdb/nycdb/wiki/Dataset:-OCA-Housing-Court-Records) (zipcode)
 - [BBLs of NYC Housing Authority (NYCHA) Developments](https://github.com/nycdb/nycdb/wiki/Dataset:-NYCHA-BBLs) — From NYCHA via [JustFix's scraper tool](https://github.com/JustFixNYC/nycha-scraper)
+- [Speculation Watch List](https://data.cityofnewyork.us/Housing-Development/Speculation-Watch-List/adax-9mit)
 
 ## Using the database
 
