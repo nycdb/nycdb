@@ -521,6 +521,12 @@ def test_dof_421a(conn):
     assert row_count(conn, 'dof_421a') == 45
     assert fetch_one_row(conn, "SELECT * FROM dof_421a LIMIT 1")['fiscalyear'] == '2021'
 
+def test_conh(conn):
+    drop_table(conn, 'conh')
+    conh = nycdb.Dataset('conh', args=ARGS)
+    conh.db_import()
+    assert row_count(conn, 'conh') == 5
+
 def run_cli(args, input):
     full_args = [
         sys.executable, "-m", "nycdb.cli",
