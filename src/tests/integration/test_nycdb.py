@@ -521,6 +521,14 @@ def test_dof_421a(conn):
     assert row_count(conn, 'dof_421a') == 45
     assert fetch_one_row(conn, "SELECT * FROM dof_421a LIMIT 1")['fiscalyear'] == '2021'
 
+def test_hpd_affordable_production(conn):
+    drop_table(conn, 'hpd_affordable_building')
+    drop_table(conn, 'hpd_affordable_project')
+    hpd_affordable_production = nycdb.Dataset('hpd_affordable_production', args=ARGS)
+    hpd_affordable_production.db_import()
+    assert row_count(conn, 'hpd_affordable_building') == 5
+    assert row_count(conn, 'hpd_affordable_project') == 5
+
 def run_cli(args, input):
     full_args = [
         sys.executable, "-m", "nycdb.cli",
