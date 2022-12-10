@@ -14,6 +14,7 @@ TABLES = {
     'dobjobs': {'dobjobs': 1_000_000},
     'dob_violations': {'dob_violations': 2_000_000},
     'ecb_violations': {'ecb_violations': 1_300_000},
+    'hpd_conh': {'hpd_conh': 1_000},
     'hpd_violations': {'hpd_violations': 4_000_000},
     'hpd_registrations': {
         'hpd_registrations': 150_000,

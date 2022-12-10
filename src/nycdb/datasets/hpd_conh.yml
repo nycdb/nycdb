@@ -1,0 +1,30 @@
+---
+files:
+  -
+    url: https://data.cityofnewyork.us/api/views/bzxi-2tsw/rows.csv?accessType=DOWNLOAD
+    dest: hpd_conh.csv
+schema:
+  table_name: hpd_conh
+  fields:
+    BuildingID: integer
+    BIN: char(7)
+    StreetAddress: text
+    Borocode: char(1)
+    Block: integer
+    Lot: integer
+    BQI: text
+    DischargedAEP: text
+    Discharged7A: text
+    HPDVacateOrder: text
+    DOBVacateOrder: text
+    HarassmentFinding: text
+    DateAdded: date
+    Borough: text
+    Postcode: text
+    Latitude: numeric
+    Longitude: numeric
+    CommunityBoard: smallint
+    CouncilDistrict: smallint
+    CensusTract: text
+    BBL: char(10)
+    NTANeighborhoodTabulationArea: text

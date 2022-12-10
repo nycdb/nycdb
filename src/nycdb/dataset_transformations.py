@@ -36,7 +36,7 @@ def _pluto(dataset):
 
     if dataset.name == 'pluto_latest':
         pluto_generator = to_csv(dataset.files[0].dest)
-    else:    
+    else:
         pluto_generator = to_csv(stream_files_from_zip(dataset.files[0].dest, extension=extension))
 
     pluto_fields_to_skip = dataset.schemas[0].get('skip')
@@ -168,3 +168,6 @@ def dof_annual_sales(dataset):
 
 def dof_421a(dataset):
     return itertools.chain(*[with_bbl(iter_421a(f.dest)) for f in dataset.files])
+
+def hpd_conh (dataset):
+    return to_csv(dataset.files[0].dest)
