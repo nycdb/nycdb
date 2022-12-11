@@ -81,7 +81,7 @@ TABLES = {
         'oca_judgments': 600_000,
         'oca_warrants': 600_000
     },
-    'conh': {'conh': 1000},
+    'hpd_conh': {'hpd_conh': 1000},
 }
 
 

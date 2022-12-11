@@ -2,11 +2,11 @@
 files:
   -
     url: https://data.cityofnewyork.us/api/views/bzxi-2tsw/rows.csv?accessType=DOWNLOAD
-    dest: conh.csv
+    dest: hpd_conh.csv
 sql:
-  - conh.sql
+  - hpd_conh.sql
 schema:
-  table_name: conh
+  table_name: hpd_conh
   fields:
     BuildingId: text
     bin: char(7)
