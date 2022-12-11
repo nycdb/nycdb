@@ -286,6 +286,7 @@ def test_dof_sales(conn):
 
 def test_dobjobs(conn):
     drop_table(conn, 'dobjobs')
+    drop_table(conn, 'dob_now_jobs')
     dobjobs = nycdb.Dataset('dobjobs', args=ARGS)
     dobjobs.db_import()
     assert row_count(conn, 'dobjobs') == 100
@@ -308,6 +309,7 @@ def test_dobjobs(conn):
 
 def test_dobjobs_work_types(conn):
     drop_table(conn, 'dobjobs')
+    drop_table(conn, 'dob_now_jobs')
     dobjobs = nycdb.Dataset('dobjobs', args=ARGS)
     dobjobs.db_import()
 
@@ -318,6 +320,15 @@ def test_dobjobs_work_types(conn):
         assert rec['loftboard'] is None
         assert rec['pcfiled'] is True
         assert rec['mechanical'] is True
+
+
+def test_dob_now_jobs(conn):
+    drop_table(conn, 'dobjobs')
+    drop_table(conn, 'dob_now_jobs')
+    dob_now_jobs = nycdb.Dataset('dobjobs', args=ARGS)
+    dob_now_jobs.db_import()
+    assert row_count(conn, 'dob_now_jobs') == 5
+    assert has_one_row(conn, "select 1 where to_regclass('public.dob_now_jobs_bbl') is NOT NULL")
 
 
 def test_rentstab(conn):
