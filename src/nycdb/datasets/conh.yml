@@ -9,7 +9,7 @@ schema:
   table_name: conh
   fields:
     BuildingId: text
-    bin: text
+    bin: char(7)
     StreetAddress: text
     borocode: char(1)
     block: char(5)
