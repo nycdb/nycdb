@@ -236,6 +236,13 @@ def test_pluto_latest(conn):
     pluto.db_import()
     assert row_count(conn, 'pluto_latest') == 5
 
+def test_pluto_sql_columns(conn):
+    with conn.cursor(cursor_factory=psycopg2.extras.DictCursor) as curs:
+        curs.execute("select * from pluto_latest WHERE landuse = 1")
+        rec = curs.fetchone()
+        assert rec['landusedesc'] == "One & Two Family Buildings"
+
+
 def test_hpd_violations(conn):
     drop_table(conn, 'hpd_violations')
     hpd_violations = nycdb.Dataset('hpd_violations', args=ARGS)
