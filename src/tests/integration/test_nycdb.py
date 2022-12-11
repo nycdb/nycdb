@@ -529,6 +529,12 @@ def test_hpd_affordable_production(conn):
     assert row_count(conn, 'hpd_affordable_building') == 5
     assert row_count(conn, 'hpd_affordable_project') == 5
 
+def test_hpd_conh(conn):
+    drop_table(conn, 'hpd_conh')
+    hpd_conh = nycdb.Dataset('hpd_conh', args=ARGS)
+    hpd_conh.db_import()
+    assert row_count(conn, 'hpd_conh') == 5
+
 def run_cli(args, input):
     full_args = [
         sys.executable, "-m", "nycdb.cli",

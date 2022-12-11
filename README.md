@@ -15,7 +15,8 @@ Residents, lawyers, tenants, and organizers who want to use data in their strugg
 - HPD Registrations
 - [HPD Complaints](https://github.com/nycdb/nycdb/wiki/Dataset:-HPD-Complaints)
 - [HPD Repair and Vacate Orders](https://github.com/nycdb/nycdb/wiki/Dataset:-HPD-Vacate-Orders)
-- HPD Affordable Production (Building and Project)
+- [HPD Affordable Production (Building and Project)](https://github.com/nycdb/nycdb/wiki/Dataset:-HPD-Affordable-Production)
+- [HPD Certificate of No Harassment](https://github.com/nycdb/nycdb/wiki/Dataset:-HPD-Certificate-of-No-Harassment)
 - Department of Finance Rolling Sales
 - Department of Finance Annualized Sales
 - [Department of Finance Property Tax Exemptions](https://github.com/nycdb/nycdb/wiki/Dataset:-DOF-Exemptions)
