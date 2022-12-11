@@ -81,6 +81,10 @@ TABLES = {
         'oca_judgments': 600_000,
         'oca_warrants': 600_000
     },
+    'hpd_affordable_production': {
+        'hpd_affordable_building': 6_000,
+        'hpd_affordable_project': 3_400
+    },
     'hpd_conh': {'hpd_conh': 1_000},
 }
 

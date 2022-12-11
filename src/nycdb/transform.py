@@ -8,7 +8,7 @@ from .address import normalize_street, normalize_street_number, normalize_apartm
 from .bbl import bbl
 from .utility import merge
 
-invalid_header_chars = ["\n", "\r", ' ', '-', '#', '.', "'", '"', '_', '/', '(', ')', ':']
+invalid_header_chars = ["\n", "\r", ' ', '-', '#', '.', "'", '"', '_', '/', '(', ')', ':', '+']
 replace_header_chars = [('%', 'pct')]
 starts_with_numbers = re.compile(r'^(\d+)(.*)$')
 only_numbers = re.compile(r'^\d+$')

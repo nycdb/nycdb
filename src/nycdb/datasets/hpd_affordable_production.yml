@@ -1,0 +1,77 @@
+---
+files:
+  -
+    url: https://data.cityofnewyork.us/api/views/hg8x-zxpr/rows.csv?accessType=DOWNLOAD
+    dest: hpd_affordable_building.csv
+  -
+    url: https://data.cityofnewyork.us/api/views/hq68-rnsi/rows.csv?accessType=DOWNLOAD
+    dest: hpd_affordable_project.csv
+schema:
+  -
+    table_name: hpd_affordable_building
+    fields:
+      ProjectId: text
+      ProjectName: text
+      ProjectStartDate: date
+      ProjectCompletionDate: date
+      BuildingId: integer
+      Number: text
+      Street: text
+      Borough: text
+      Postcode: char(5)
+      bbl: char(10)
+      bin: char(7)
+      CommunityBoard: text
+      CouncilDistrict: integer
+      CensusTract: text
+      ntaNeighborhoodTabulationArea: text
+      Latitude: numeric
+      Longitude: numeric
+      LatitudeInternal: numeric
+      LongitudeInternal: numeric
+      BuildingCompletionDate: date
+      ReportingConstructionType: text
+      ExtendedAffordabilityOnly: boolean
+      PrevailingWageStatus: text
+      ExtremelyLowIncomeUnits: integer
+      VeryLowIncomeUnits: integer
+      LowIncomeUnits: integer
+      ModerateIncomeUnits: integer
+      MiddleIncomeUnits: integer
+      OtherIncomeUnits: integer
+      StudioUnits: integer
+      BrUnits1: integer
+      BrUnits2: integer
+      BrUnits3: integer
+      BrUnits4: integer
+      BrUnits5: integer
+      BrUnits6: integer
+      UnknownBrUnits: integer
+      CountedRentalUnits: integer
+      CountedHomeownershipUnits: integer
+      AllCountedUnits: integer
+      TotalUnits: integer
+  -
+    table_name: hpd_affordable_project
+    fields:
+      ProjectId: text
+      ProjectName: text
+      ProgramGroup: text
+      ProjectStartDate: date
+      ProjectCompletionDate: date
+      ExtendedAffordabilityOnly: boolean
+      PrevailingWageStatus: text
+      PlannedTaxBenefit: text
+      ExtremelyLowIncomeUnits: integer
+      VeryLowIncomeUnits: integer
+      LowIncomeUnits: integer
+      ModerateIncomeUnits: integer
+      MiddleIncomeUnits: integer
+      OtherIncomeUnits: integer
+      CountedRentalUnits: integer
+      CountedHomeownershipUnits: integer
+      AllCountedUnits: integer
+      TotalUnits: integer
+      SeniorUnits: integer
+sql:
+  - hpd_affordable_production.sql
