@@ -87,6 +87,7 @@ TABLES = {
     },
     'hpd_conh': {'hpd_conh': 1_000},
     'dcp_housingdb': {'dcp_housingdb': 70_000},
+    'speculation_watch_list': { 'speculation_watch_list': 500 }
 }
 
 
