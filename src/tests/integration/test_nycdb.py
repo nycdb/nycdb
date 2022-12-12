@@ -236,6 +236,13 @@ def test_pluto_latest(conn):
     pluto.db_import()
     assert row_count(conn, 'pluto_latest') == 5
 
+def test_pluto_sql_columns(conn):
+    with conn.cursor(cursor_factory=psycopg2.extras.DictCursor) as curs:
+        curs.execute("select * from pluto_latest WHERE landuse = 1")
+        rec = curs.fetchone()
+        assert rec['landusedesc'] == "One & Two Family Buildings"
+
+
 def test_hpd_violations(conn):
     drop_table(conn, 'hpd_violations')
     hpd_violations = nycdb.Dataset('hpd_violations', args=ARGS)
@@ -513,6 +520,7 @@ def test_dof_annual_sales(conn):
     dof_annual_sales.db_import()
     assert row_count(conn, 'dof_annual_sales') == 47
 
+
 def test_dof_421a(conn):
     drop_table(conn, 'dof_421a')
     dof_421a = nycdb.Dataset('dof_421a', args=ARGS)
@@ -527,6 +535,23 @@ def test_speculation_watch_list(conn):
     speculation_watch_list = nycdb.Dataset('speculation_watch_list', args=ARGS)
     speculation_watch_list.db_import()
     assert row_count(conn, 'speculation_watch_list') == 5
+
+
+def test_hpd_affordable_production(conn):
+    drop_table(conn, 'hpd_affordable_building')
+    drop_table(conn, 'hpd_affordable_project')
+    hpd_affordable_production = nycdb.Dataset('hpd_affordable_production', args=ARGS)
+    hpd_affordable_production.db_import()
+    assert row_count(conn, 'hpd_affordable_building') == 5
+    assert row_count(conn, 'hpd_affordable_project') == 5
+
+
+def test_hpd_conh(conn):
+    drop_table(conn, 'hpd_conh')
+    hpd_conh = nycdb.Dataset('hpd_conh', args=ARGS)
+    hpd_conh.db_import()
+    assert row_count(conn, 'hpd_conh') == 5
+
 
 def run_cli(args, input):
     full_args = [
@@ -567,3 +592,17 @@ def run_cli(args, input):
 def test_dbshell(db):
     outs, errs = run_cli(["--dbshell"], input="\\copyright")
     assert 'PostgreSQL' in outs
+
+
+def test_dcp_housingdb(conn):
+    drop_table(conn, 'dcp_housingdb')
+    dataset = nycdb.Dataset('dcp_housingdb', args=ARGS)
+    dataset.db_import()
+    assert row_count(conn, 'dcp_housingdb') > 0
+    assert has_one_row(conn, "select 1 where to_regclass('public.dcp_housingdb_bbl_idx') is NOT NULL")
+
+    with conn.cursor(cursor_factory=psycopg2.extras.DictCursor) as curs:
+        curs.execute("select * from dcp_housingdb WHERE jobnumber = '102138820'")
+        rec = curs.fetchone()
+        assert rec is not None
+        assert rec['latitude'] == Decimal('40.796734999999998')

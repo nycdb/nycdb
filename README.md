@@ -15,6 +15,8 @@ Residents, lawyers, tenants, and organizers who want to use data in their strugg
 - HPD Registrations
 - [HPD Complaints](https://github.com/nycdb/nycdb/wiki/Dataset:-HPD-Complaints)
 - [HPD Repair and Vacate Orders](https://github.com/nycdb/nycdb/wiki/Dataset:-HPD-Vacate-Orders)
+- [HPD Affordable Production (Building and Project)](https://github.com/nycdb/nycdb/wiki/Dataset:-HPD-Affordable-Production)
+- [HPD Certificate of No Harassment](https://github.com/nycdb/nycdb/wiki/Dataset:-HPD-Certificate-of-No-Harassment)
 - Department of Finance Rolling Sales
 - Department of Finance Annualized Sales
 - [Department of Finance Property Tax Exemptions](https://github.com/nycdb/nycdb/wiki/Dataset:-DOF-Exemptions)
@@ -28,6 +30,7 @@ Residents, lawyers, tenants, and organizers who want to use data in their strugg
 - [OCA Housing Court Records](https://github.com/nycdb/nycdb/wiki/Dataset:-OCA-Housing-Court-Records) (zipcode)
 - [BBLs of NYC Housing Authority (NYCHA) Developments](https://github.com/nycdb/nycdb/wiki/Dataset:-NYCHA-BBLs) — From NYCHA via [JustFix's scraper tool](https://github.com/JustFixNYC/nycha-scraper)
 - [Speculation Watch List](https://data.cityofnewyork.us/Housing-Development/Speculation-Watch-List/adax-9mit)
+- [DCP Housing Database](https://github.com/nycdb/nycdb/wiki/Dataset:-DCP-Housing-Database)
 
 ## Using the database
 

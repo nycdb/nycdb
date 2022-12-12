@@ -169,5 +169,22 @@ def dof_annual_sales(dataset):
 def dof_421a(dataset):
     return itertools.chain(*[with_bbl(iter_421a(f.dest)) for f in dataset.files])
 
+
 def speculation_watch_list(dataset):
     return skip_fields(to_csv(dataset.files[0].dest), [s.lower() for s in dataset.dataset['schema']['skip']]);
+
+
+def hpd_affordable_building(dataset):
+    return to_csv(dataset.files[0].dest)
+
+
+def hpd_affordable_project(dataset):
+    return to_csv(dataset.files[1].dest)
+
+
+def hpd_conh(dataset):
+    return to_csv(dataset.files[0].dest)
+
+
+def dcp_housingdb(dataset):
+    return to_csv(extract_csv_from_zip(dataset.files[0].dest, "HousingDB_post2010.csv"))
