@@ -581,3 +581,17 @@ def run_cli(args, input):
 def test_dbshell(db):
     outs, errs = run_cli(["--dbshell"], input="\\copyright")
     assert 'PostgreSQL' in outs
+
+
+def test_dcp_housingdb(conn):
+    drop_table(conn, 'dcp_housingdb')
+    dataset = nycdb.Dataset('dcp_housingdb', args=ARGS)
+    dataset.db_import()
+    assert row_count(conn, 'dcp_housingdb') > 0
+    assert has_one_row(conn, "select 1 where to_regclass('public.dcp_housingdb_bbl_idx') is NOT NULL")
+
+    with conn.cursor(cursor_factory=psycopg2.extras.DictCursor) as curs:
+        curs.execute("select * from dcp_housingdb WHERE jobnumber = '102138820'")
+        rec = curs.fetchone()
+        assert rec is not None
+        assert rec['latitude'] == Decimal('40.796734999999998')

@@ -86,6 +86,7 @@ TABLES = {
         'hpd_affordable_project': 3_400
     },
     'hpd_conh': {'hpd_conh': 1_000},
+    'dcp_housingdb': {'dcp_housingdb': 70_000},
 }
 
 
