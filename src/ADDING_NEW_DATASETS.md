@@ -168,7 +168,7 @@ For datasets requiring no transformation, the simplest version of this method lo
 
 ```
 def ecb_violations(dataset):
-  return to_csv(dataset.files[0].dest)
+    return to_csv(dataset.files[0].dest)
 ```
 
 If your dataset needs some custom transformation, such as adding the `bbl`, you can add that behavior here:
