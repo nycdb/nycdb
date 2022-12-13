@@ -1,0 +1,34 @@
+---
+files:
+  - url: https://data.cityofnewyork.us/api/views/adax-9mit/rows.csv?accessType=DOWNLOAD
+    dest: speculation_watch_list.csv
+schema:
+  table_name: speculation_watch_list
+  fields:
+    Borough: text
+    Boro: char(1)
+    Block: integer
+    Lot: integer
+    Bbl: char(10)
+    HnumLo: text
+    HnumHi: text
+    StrName: text
+    Crfn: text
+    Grantee: text
+    DeedDate: date
+    Price: bigint
+    CapRate: numeric
+    BoroughCapRate: numeric
+    Yearqtr: text
+    Postcode: text
+    Latitude: numeric
+    Longitude: numeric
+    CommunityBoard: text
+    CouncilDistrict: text
+    CensusTract: text
+    BIN: char(7)
+    NTA: text
+  skip:
+    - location1
+sql:
+  - speculation_watch_list.sql

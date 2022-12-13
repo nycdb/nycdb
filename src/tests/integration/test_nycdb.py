@@ -520,6 +520,7 @@ def test_dof_annual_sales(conn):
     dof_annual_sales.db_import()
     assert row_count(conn, 'dof_annual_sales') == 47
 
+
 def test_dof_421a(conn):
     drop_table(conn, 'dof_421a')
     dof_421a = nycdb.Dataset('dof_421a', args=ARGS)
@@ -527,6 +528,14 @@ def test_dof_421a(conn):
     dof_421a.db_import()
     assert row_count(conn, 'dof_421a') == 45
     assert fetch_one_row(conn, "SELECT * FROM dof_421a LIMIT 1")['fiscalyear'] == '2021'
+
+    
+def test_speculation_watch_list(conn):
+    drop_table(conn, 'speculation_watch_list')
+    speculation_watch_list = nycdb.Dataset('speculation_watch_list', args=ARGS)
+    speculation_watch_list.db_import()
+    assert row_count(conn, 'speculation_watch_list') == 5
+
 
 def test_hpd_affordable_production(conn):
     drop_table(conn, 'hpd_affordable_building')
@@ -536,11 +545,13 @@ def test_hpd_affordable_production(conn):
     assert row_count(conn, 'hpd_affordable_building') == 5
     assert row_count(conn, 'hpd_affordable_project') == 5
 
+
 def test_hpd_conh(conn):
     drop_table(conn, 'hpd_conh')
     hpd_conh = nycdb.Dataset('hpd_conh', args=ARGS)
     hpd_conh.db_import()
     assert row_count(conn, 'hpd_conh') == 5
+
 
 def run_cli(args, input):
     full_args = [

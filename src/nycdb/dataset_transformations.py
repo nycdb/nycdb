@@ -170,6 +170,10 @@ def dof_421a(dataset):
     return itertools.chain(*[with_bbl(iter_421a(f.dest)) for f in dataset.files])
 
 
+def speculation_watch_list(dataset):
+    return skip_fields(to_csv(dataset.files[0].dest), [s.lower() for s in dataset.dataset['schema']['skip']]);
+
+
 def hpd_affordable_building(dataset):
     return to_csv(dataset.files[0].dest)
 
