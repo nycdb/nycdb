@@ -11,7 +11,10 @@ TABLES = {
     'pluto_21v3': {'pluto_21v3': 800_000},
     'pluto_22v1': {'pluto_22v1': 800_000},
     'pluto_latest': {'pluto_latest': 800_000},
-    'dobjobs': {'dobjobs': 1_000_000},
+    'dobjobs': {
+        'dobjobs': 1_000_000,
+        'dob_now_jobs': 380_000
+    },
     'dob_violations': {'dob_violations': 2_000_000},
     'ecb_violations': {'ecb_violations': 1_300_000},
     'hpd_violations': {'hpd_violations': 4_000_000},
