@@ -208,7 +208,7 @@ sql:
 
 ### Step 6 - re-install nycdb to register the new dataset
 
-> 🐳 When running via Docker, this step is handled automatically, so there's no need to do this step.
+> 🐳 When running via Docker, this step is handled automatically, so there's no need to do anything here.
 
 - `pip uninstall nycdb`
 - `pip setup.py install` (from inside of the `src` directory)
