@@ -1,0 +1,299 @@
+---
+files:
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2020/2020_manhattan.xlsx
+    dest: dof_annual_sales_2020_manhattan.xlsx
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2020/2020_bronx.xlsx
+    dest: dof_annual_sales_2020_bronx.xlsx
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2020/2020_brooklyn.xlsx
+    dest: dof_annual_sales_2020_brooklyn.xlsx
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2020/2020_queens.xlsx
+    dest: dof_annual_sales_2020_queens.xlsx
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2020/2020_staten_island.xlsx
+    dest: dof_annual_sales_2020_staten_island.xlsx
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2019/2019_manhattan.xlsx
+    dest: dof_annual_sales_2019_manhattan.xlsx
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2019/2019_bronx.xlsx
+    dest: dof_annual_sales_2019_bronx.xlsx
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2019/2019_brooklyn.xlsx
+    dest: dof_annual_sales_2019_brooklyn.xlsx
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2019/2019_queens.xlsx
+    dest: dof_annual_sales_2019_queens.xlsx
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2019/2019_statenisland.xlsx
+    dest: dof_annual_sales_2019_staten_island.xlsx
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2018/2018_manhattan.xlsx
+    dest: dof_annual_sales_2018_manhattan.xlsx
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2018/2018_bronx.xlsx
+    dest: dof_annual_sales_2018_bronx.xlsx
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2018/2018_brooklyn.xlsx
+    dest: dof_annual_sales_2018_brooklyn.xlsx
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2018/2018_queens.xlsx
+    dest: dof_annual_sales_2018_queens.xlsx
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2018/2018_statenisland.xlsx
+    dest: dof_annual_sales_2018_staten_island.xlsx
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2017/2017_manhattan.xls
+    dest: dof_annual_sales_2017_manhattan.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2017/2017_bronx.xls
+    dest: dof_annual_sales_2017_bronx.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2017/2017_brooklyn.xls
+    dest: dof_annual_sales_2017_brooklyn.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2017/2017_queens.xls
+    dest: dof_annual_sales_2017_queens.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2017/2017_statenisland.xls
+    dest: dof_annual_sales_2017_staten_island.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2016/2016_manhattan.xls
+    dest: dof_annual_sales_2016_manhattan.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2016/2016_bronx.xls
+    dest: dof_annual_sales_2016_bronx.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2016/2016_brooklyn.xls
+    dest: dof_annual_sales_2016_brooklyn.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2016/2016_queens.xls
+    dest: dof_annual_sales_2016_queens.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2016/2016_statenisland.xls
+    dest: dof_annual_sales_2016_staten_island.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2015/2015_manhattan.xls
+    dest: dof_annual_sales_2015_manhattan.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2015/2015_bronx.xls
+    dest: dof_annual_sales_2015_bronx.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2015/2015_brooklyn.xls
+    dest: dof_annual_sales_2015_brooklyn.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2015/2015_queens.xls
+    dest: dof_annual_sales_2015_queens.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2015/2015_statenisland.xls
+    dest: dof_annual_sales_2015_staten_island.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2014/2014_manhattan.xls
+    dest: dof_annual_sales_2014_manhattan.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2014/2014_bronx.xls
+    dest: dof_annual_sales_2014_bronx.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2014/2014_brooklyn.xls
+    dest: dof_annual_sales_2014_brooklyn.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2014/2014_queens.xls
+    dest: dof_annual_sales_2014_queens.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2014/2014_statenisland.xls
+    dest: dof_annual_sales_2014_staten_island.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2013/2013_manhattan.xls
+    dest: dof_annual_sales_2013_manhattan.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2013/2013_bronx.xls
+    dest: dof_annual_sales_2013_bronx.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2013/2013_brooklyn.xls
+    dest: dof_annual_sales_2013_brooklyn.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2013/2013_queens.xls
+    dest: dof_annual_sales_2013_queens.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2013/2013_statenisland.xls
+    dest: dof_annual_sales_2013_staten_island.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2012/2012_manhattan.xls
+    dest: dof_annual_sales_2012_manhattan.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2012/2012_bronx.xls
+    dest: dof_annual_sales_2012_bronx.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2012/2012_brooklyn.xls
+    dest: dof_annual_sales_2012_brooklyn.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2012/2012_queens.xls
+    dest: dof_annual_sales_2012_queens.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2012/2012_statenisland.xls
+    dest: dof_annual_sales_2012_staten_island.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2011/2011_manhattan.xls
+    dest: dof_annual_sales_2011_manhattan.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2011/2011_bronx.xls
+    dest: dof_annual_sales_2011_bronx.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2011/2011_brooklyn.xls
+    dest: dof_annual_sales_2011_brooklyn.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2011/2011_queens.xls
+    dest: dof_annual_sales_2011_queens.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2011/2011_statenisland.xls
+    dest: dof_annual_sales_2011_staten_island.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2010/2010_manhattan.xls
+    dest: dof_annual_sales_2010_manhattan.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2010/2010_bronx.xls
+    dest: dof_annual_sales_2010_bronx.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2010/2010_brooklyn.xls
+    dest: dof_annual_sales_2010_brooklyn.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2010/2010_queens.xls
+    dest: dof_annual_sales_2010_queens.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2010/2010_statenisland.xls
+    dest: dof_annual_sales_2010_staten_island.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2009_manhattan.xls
+    dest: dof_annual_sales_2009_manhattan.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2009_bronx.xls
+    dest: dof_annual_sales_2009_bronx.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2009_brooklyn.xls
+    dest: dof_annual_sales_2009_brooklyn.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2009_queens.xls
+    dest: dof_annual_sales_2009_queens.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2009_statenisland.xls
+    dest: dof_annual_sales_2009_staten_island.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/09pdf/rolling_sales/sales_2008_manhattan.xls
+    dest: dof_annual_sales_2008_manhattan.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/09pdf/rolling_sales/sales_2008_bronx.xls
+    dest: dof_annual_sales_2008_bronx.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/09pdf/rolling_sales/sales_2008_brooklyn.xls
+    dest: dof_annual_sales_2008_brooklyn.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/09pdf/rolling_sales/sales_2008_queens.xls
+    dest: dof_annual_sales_2008_queens.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/pdf/09pdf/rolling_sales/sales_2008_statenisland.xls
+    dest: dof_annual_sales_2008_si.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/excel/rolling_sales/sales_2007_manhattan.xls
+    dest: dof_annual_sales_2007_manhattan.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/excel/rolling_sales/sales_2007_bronx.xls
+    dest: dof_annual_sales_2007_bronx.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/excel/rolling_sales/sales_2007_brooklyn.xls
+    dest: dof_annual_sales_2007_brooklyn.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/excel/rolling_sales/sales_2007_queens.xls
+    dest: dof_annual_sales_2007_queens.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/excel/rolling_sales/sales_2007_statenisland.xls
+    dest: dof_annual_sales_2007_si.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/sales_manhattan_06.xls
+    dest: dof_annual_sales_2006_manhattan.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/sales_bronx_06.xls
+    dest: dof_annual_sales_2006_bronx.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/sales_brooklyn_06.xls
+    dest: dof_annual_sales_2006_brooklyn.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/sales_queens_06.xls
+    dest: dof_annual_sales_2006_queens.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/sales_si_06.xls
+    dest: dof_annual_sales_2006_si.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/sales_manhattan_05.xls
+    dest: dof_annual_sales_2005_manhattan.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/sales_bronx_05.xls
+    dest: dof_annual_sales_2005_bronx.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/sales_brooklyn_05.xls
+    dest: dof_annual_sales_2005_brooklyn.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/sales_queens_05.xls
+    dest: dof_annual_sales_2005_queens.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/sales_si_05.xls
+    dest: dof_annual_sales_2005_si.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/sales_manhattan_04.xls
+    dest: dof_annual_sales_2004_manhattan.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/sales_bronx_04.xls
+    dest: dof_annual_sales_2004_bronx.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/sales_brooklyn_04.xls
+    dest: dof_annual_sales_2004_brooklyn.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/sales_queens_04.xls
+    dest: dof_annual_sales_2004_queens.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/sales_si_04.xls
+    dest: dof_annual_sales_2004_si.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/sales_manhattan_03.xls
+    dest: dof_annual_sales_2003_manhattan.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/sales_bronx_03.xls
+    dest: dof_annual_sales_2003_bronx.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/sales_brooklyn_03.xls
+    dest: dof_annual_sales_2003_brooklyn.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/sales_queens_03.xls
+    dest: dof_annual_sales_2003_queens.xls
+  -
+    url: https://www1.nyc.gov/assets/finance/downloads/sales_si_03.xls
+    dest: dof_annual_sales_2003_si.xls
+schema:
+  table_name: dof_annual_sales
+  fields:
+    borough: char(1)
+    neighborhood: text
+    building_class_category: text
+    tax_class_at_present: text
+    block: text
+    lot: text
+    easement: text
+    building_class_at_present: text
+    address: text
+    apartment_number: text
+    zip_code: text
+    residential_units: int
+    commercial_units: int
+    total_units: int
+    land_square_feet: int
+    gross_square_feet: int
+    year_built: smallint
+    tax_class_at_time_of_sale: text
+    building_class_at_time_of_sale: text
+    sale_price: bigint
+    sale_date: date
+    year: smallint
+    bbl: char(10)
+    id: 'serial PRIMARY KEY'

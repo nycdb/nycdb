@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name="nycdb",
-    version="0.2.1",
+    version="0.2.8",
     url="https://github.com/nycdb/nycdb",
     author="nycdb",
     author_email="nycdb@riseup.net",
@@ -34,10 +34,10 @@ setuptools.setup(
     install_requires=[
         'PyYAML>=5.1',
         'requests>=2.18',
-        'xlrd>=1.1.0',
-        'pyproj>=2.1.3',
         'psycopg2>=2.7',
-        'tqdm>=4.28.1'
+        'tqdm>=4.28.1',
+        'openpyxl>=3.0.9',
+        'xlrd>=2.0.1'
     ],
 
     extras_requires={

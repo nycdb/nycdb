@@ -7,9 +7,8 @@ from zipfile import ZipFile
 from .address import normalize_street, normalize_street_number, normalize_apartment
 from .bbl import bbl
 from .utility import merge
-from .geo import ny_state_coords_to_lat_lng
 
-invalid_header_chars = ["\n", "\r", ' ', '-', '#', '.', "'", '"', '_', '/', '(', ')', ':']
+invalid_header_chars = ["\n", "\r", ' ', '-', '#', '.', "'", '"', '_', '/', '(', ')', ':', '+']
 replace_header_chars = [('%', 'pct')]
 starts_with_numbers = re.compile(r'^(\d+)(.*)$')
 only_numbers = re.compile(r'^\d+$')
@@ -113,16 +112,6 @@ def to_csv(file_path_or_generator):
 def with_bbl(table, borough='borough', block='block', lot='lot'):
     for row in table:
         yield merge(row, {'bbl': bbl(row[borough], row[block], row[lot])})
-
-
-def with_geo(table):
-    for row in table:
-        try:
-            coords = (float(row['xcoord']), float(row['ycoord']))
-            lat, lng = ny_state_coords_to_lat_lng(*coords)
-            yield merge(row, {'lng': lng, 'lat': lat})
-        except:
-            yield merge(row, {'lng': None, 'lat': None})
 
 
 def skip_fields(table, fields_to_skip):

@@ -32,7 +32,7 @@ schema:
       streetname: text
       streetcode: integer
       zip: text
-      block: smallint
+      block: integer
       lot: smallint
       BIN: char(7)
       communityboard: smallint

@@ -80,26 +80,26 @@ def drop_table(conn, table_name):
 
 
 def row_count(conn, table_name):
-    with conn:
-        with conn.cursor() as curs:
-            curs.execute('select count(*) from {}'.format(table_name))
-            return curs.fetchone()[0]
+    with conn.cursor() as curs:
+        curs.execute('select count(*) from {}'.format(table_name))
+        return curs.fetchone()[0]
 
 
-def has_one_row(conn, query):
-    with conn:
-        with conn.cursor() as curs:
-            curs.execute(query)
-            return bool(curs.fetchone())
+def fetch_one_row(conn, query):
+    with conn.cursor(cursor_factory=psycopg2.extras.DictCursor) as curs:
+        curs.execute(query)
+        return curs.fetchone()
+
+def has_one_row(*args):
+    return bool(fetch_one_row(*args))
 
 
 def table_columns(conn, table_name):
     sql = "SELECT column_name FROM information_schema.columns WHERE table_schema = 'public' AND table_name = '{}'".format(
         table_name)
-    with conn:
-        with conn.cursor() as curs:
-            curs.execute(sql)
-            return [x[0] for x in curs.fetchall()]
+    with conn.cursor() as curs:
+        curs.execute(sql)
+        return [x[0] for x in curs.fetchall()]
 
 
 def test_ecb_violations(conn):
@@ -176,8 +176,6 @@ def test_pluto_insert(conn):
         assert rec is not None
         assert rec['address'] == '369 PARK AVENUE SOUTH'
         assert rec['lotarea'] == 8032
-        assert round(rec['lng'], 5) == -73.98434
-        assert round(rec['lat'], 5) == 40.74211
 
 
 def test_pluto17v1(conn):
@@ -219,6 +217,31 @@ def test_pluto20v8(conn):
     pluto = nycdb.Dataset('pluto_20v8', args=ARGS)
     pluto.db_import()
     assert row_count(conn, 'pluto_20v8') == 10
+
+def test_pluto21v3(conn):
+    drop_table(conn, 'pluto_21v3')
+    pluto = nycdb.Dataset('pluto_21v3', args=ARGS)
+    pluto.db_import()
+    assert row_count(conn, 'pluto_21v3') == 5
+
+def test_pluto22v1(conn):
+    drop_table(conn, 'pluto_22v1')
+    pluto = nycdb.Dataset('pluto_22v1', args=ARGS)
+    pluto.db_import()
+    assert row_count(conn, 'pluto_22v1') == 5
+
+def test_pluto_latest(conn):
+    drop_table(conn, 'pluto_latest')
+    pluto = nycdb.Dataset('pluto_latest', args=ARGS)
+    pluto.db_import()
+    assert row_count(conn, 'pluto_latest') == 5
+
+def test_pluto_sql_columns(conn):
+    with conn.cursor(cursor_factory=psycopg2.extras.DictCursor) as curs:
+        curs.execute("select * from pluto_latest WHERE landuse = 1")
+        rec = curs.fetchone()
+        assert rec['landusedesc'] == "One & Two Family Buildings"
+
 
 def test_hpd_violations(conn):
     drop_table(conn, 'hpd_violations')
@@ -264,12 +287,13 @@ def test_dof_sales(conn):
     drop_table(conn, 'dof_sales')
     dof_sales = nycdb.Dataset('dof_sales', args=ARGS)
     dof_sales.db_import()
-    assert row_count(conn, 'dof_sales') == 70
+    assert row_count(conn, 'dof_sales') == 10
     assert has_one_row(conn, "select 1 where to_regclass('public.dof_sales_bbl_idx') is NOT NULL")
 
 
 def test_dobjobs(conn):
     drop_table(conn, 'dobjobs')
+    drop_table(conn, 'dob_now_jobs')
     dobjobs = nycdb.Dataset('dobjobs', args=ARGS)
     dobjobs.db_import()
     assert row_count(conn, 'dobjobs') == 100
@@ -279,6 +303,11 @@ def test_dobjobs(conn):
     assert 'ownername' in columns
     # full text columns shouldn't be inserted by default
     assert 'ownername_tsvector' not in columns
+
+    # without this commit, the database connection seems to deadlock
+    # oddly, setting autocommit on the connection doesn't fix it either
+    conn.commit()
+
     dobjobs.index()
     columns = table_columns(conn, 'dobjobs')
     assert 'ownername_tsvector' in columns
@@ -287,6 +316,7 @@ def test_dobjobs(conn):
 
 def test_dobjobs_work_types(conn):
     drop_table(conn, 'dobjobs')
+    drop_table(conn, 'dob_now_jobs')
     dobjobs = nycdb.Dataset('dobjobs', args=ARGS)
     dobjobs.db_import()
 
@@ -297,6 +327,15 @@ def test_dobjobs_work_types(conn):
         assert rec['loftboard'] is None
         assert rec['pcfiled'] is True
         assert rec['mechanical'] is True
+
+
+def test_dob_now_jobs(conn):
+    drop_table(conn, 'dobjobs')
+    drop_table(conn, 'dob_now_jobs')
+    dob_now_jobs = nycdb.Dataset('dobjobs', args=ARGS)
+    dob_now_jobs.db_import()
+    assert row_count(conn, 'dob_now_jobs') == 5
+    assert has_one_row(conn, "select 1 where to_regclass('public.dob_now_jobs_bbl') is NOT NULL")
 
 
 def test_rentstab(conn):
@@ -488,6 +527,50 @@ def test_oca(conn):
         assert rec['appearancedatetime'].strftime('%Y-%m-%d %I:%M:%S') == '2016-05-11 09:30:00'
 
 
+def test_dof_annual_sales(conn):
+    drop_table(conn, 'dof_annual_sales')
+    dof_annual_sales = nycdb.Dataset('dof_annual_sales', args=ARGS)
+    dof_annual_sales.files = [
+        nycdb.file.File({ 'dest': 'dof_annual_sales_2020_manhattan.xlsx', 'url': 'https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2020/2020_manhattan.xlsx'}, root_dir=data_dir),
+        nycdb.file.File({ 'dest': 'dof_annual_sales_2015_manhattan.xls', 'url': 'https://www1.nyc.gov/assets/finance/downloads/pdf/rolling_sales/annualized-sales/2015/2015_manhattan.xls'}, root_dir=data_dir)
+    ]
+
+    dof_annual_sales.db_import()
+    assert row_count(conn, 'dof_annual_sales') == 47
+
+
+def test_dof_421a(conn):
+    drop_table(conn, 'dof_421a')
+    dof_421a = nycdb.Dataset('dof_421a', args=ARGS)
+    dof_421a.files = [ nycdb.file.File({ 'dest': '421a_2021_brooklyn.xlsx', 'url': 'https://example.com' }, root_dir=data_dir) ]
+    dof_421a.db_import()
+    assert row_count(conn, 'dof_421a') == 45
+    assert fetch_one_row(conn, "SELECT * FROM dof_421a LIMIT 1")['fiscalyear'] == '2021'
+
+    
+def test_speculation_watch_list(conn):
+    drop_table(conn, 'speculation_watch_list')
+    speculation_watch_list = nycdb.Dataset('speculation_watch_list', args=ARGS)
+    speculation_watch_list.db_import()
+    assert row_count(conn, 'speculation_watch_list') == 5
+
+
+def test_hpd_affordable_production(conn):
+    drop_table(conn, 'hpd_affordable_building')
+    drop_table(conn, 'hpd_affordable_project')
+    hpd_affordable_production = nycdb.Dataset('hpd_affordable_production', args=ARGS)
+    hpd_affordable_production.db_import()
+    assert row_count(conn, 'hpd_affordable_building') == 5
+    assert row_count(conn, 'hpd_affordable_project') == 5
+
+
+def test_hpd_conh(conn):
+    drop_table(conn, 'hpd_conh')
+    hpd_conh = nycdb.Dataset('hpd_conh', args=ARGS)
+    hpd_conh.db_import()
+    assert row_count(conn, 'hpd_conh') == 5
+
+
 def run_cli(args, input):
     full_args = [
         sys.executable, "-m", "nycdb.cli",
@@ -527,3 +610,17 @@ def run_cli(args, input):
 def test_dbshell(db):
     outs, errs = run_cli(["--dbshell"], input="\\copyright")
     assert 'PostgreSQL' in outs
+
+
+def test_dcp_housingdb(conn):
+    drop_table(conn, 'dcp_housingdb')
+    dataset = nycdb.Dataset('dcp_housingdb', args=ARGS)
+    dataset.db_import()
+    assert row_count(conn, 'dcp_housingdb') > 0
+    assert has_one_row(conn, "select 1 where to_regclass('public.dcp_housingdb_bbl_idx') is NOT NULL")
+
+    with conn.cursor(cursor_factory=psycopg2.extras.DictCursor) as curs:
+        curs.execute("select * from dcp_housingdb WHERE jobnumber = '102138820'")
+        rec = curs.fetchone()
+        assert rec is not None
+        assert rec['latitude'] == Decimal('40.796734999999998')

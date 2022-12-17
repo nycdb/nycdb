@@ -1,7 +1,7 @@
 ---
 files:
   -
-    url: http://taxbills.nyc/changes-summary.csv
+    url: https://taxbillsnyc.s3.amazonaws.com/changes-summary.csv
     dest: changes-summary.csv
 schema:
   table_name: rentstab_summary

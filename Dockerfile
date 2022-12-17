@@ -1,4 +1,5 @@
-FROM python:3.9-buster
+ARG PYTHON_VERSION=latest
+FROM python:${PYTHON_VERSION}
 
 RUN apt-get update && apt-get install -y postgresql-client libpq-dev
 WORKDIR /nycdb/src

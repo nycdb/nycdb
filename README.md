@@ -6,7 +6,7 @@ Residents, lawyers, tenants, and organizers who want to use data in their strugg
 
 **nycdb** is a python program that downloads, processes, and loads the following public datasets into postgres:
 
-- Department of City Planning's Pluto: versions 15v1, 16v2, 17v1, 18v1, 18v2, 19v1, 19v2, and 20v8
+- Department of City Planning's Pluto: versions 15v1, 16v2, 17v1, 18v1, 18v2, 19v1, 19v2, 20v8, 21v3, 22v1, and the [latest version via Open Data](https://data.cityofnewyork.us/City-Government/Primary-Land-Use-Tax-Lot-Output-PLUTO-/64uk-42ks)
 - DOB Job Filings
 - [DOB Complaints](https://github.com/nycdb/nycdb/wiki/Dataset:-DOB-Complaints)
 - [DOB Violations](https://github.com/nycdb/nycdb/wiki/Dataset:-DOB-Violations)
@@ -15,7 +15,10 @@ Residents, lawyers, tenants, and organizers who want to use data in their strugg
 - HPD Registrations
 - [HPD Complaints](https://github.com/nycdb/nycdb/wiki/Dataset:-HPD-Complaints)
 - [HPD Repair and Vacate Orders](https://github.com/nycdb/nycdb/wiki/Dataset:-HPD-Vacate-Orders)
+- [HPD Affordable Production (Building and Project)](https://github.com/nycdb/nycdb/wiki/Dataset:-HPD-Affordable-Production)
+- [HPD Certificate of No Harassment](https://github.com/nycdb/nycdb/wiki/Dataset:-HPD-Certificate-of-No-Harassment)
 - Department of Finance Rolling Sales
+- Department of Finance Annualized Sales
 - [Department of Finance Property Tax Exemptions](https://github.com/nycdb/nycdb/wiki/Dataset:-DOF-Exemptions)
 - Tax bills - Rent Stabilization Unit Counts (John Krauss and Atul Varma's data)
 - [ACRIS](https://github.com/nycdb/nycdb/wiki/Dataset:-ACRIS)
@@ -26,6 +29,8 @@ Residents, lawyers, tenants, and organizers who want to use data in their strugg
 - J-51 Exemptions
 - [OCA Housing Court Records](https://github.com/nycdb/nycdb/wiki/Dataset:-OCA-Housing-Court-Records) (zipcode)
 - [BBLs of NYC Housing Authority (NYCHA) Developments](https://github.com/nycdb/nycdb/wiki/Dataset:-NYCHA-BBLs) — From NYCHA via [JustFix's scraper tool](https://github.com/JustFixNYC/nycha-scraper)
+- [Speculation Watch List](https://github.com/nycdb/nycdb/wiki/Dataset:-Speculation-Watch-List)
+- [DCP Housing Database](https://github.com/nycdb/nycdb/wiki/Dataset:-DCP-Housing-Database)
 
 ## Using the database
 

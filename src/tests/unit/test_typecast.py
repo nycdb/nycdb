@@ -12,6 +12,7 @@ def test_integer():
     assert typecast.integer('10') == 10
     assert typecast.integer('  10  ') == 10
     assert typecast.integer('') is None
+    assert typecast.integer(None) is None
     assert typecast.integer('NOT AN INTEGER') is None
 
 
@@ -32,6 +33,7 @@ def test_char():
     assert typecast.char('test', 2) == 'te'
     assert typecast.char(' test', 2) == 'te'
     assert typecast.char(345, 3) == '345'
+    assert typecast.char(None, 3) is None
 
 
 def test_boolean():
@@ -40,17 +42,20 @@ def test_boolean():
     assert typecast.boolean('X') is True
     assert typecast.boolean('no') is False
     assert typecast.boolean('am i true or false?') is None
+    assert typecast.boolean(None) is None
 
 
 def test_numeric():
     assert typecast.numeric('1.5') == Decimal('1.5')
     assert typecast.numeric('') is None
+    assert typecast.numeric(None) is None
 
 
 def test_to_float():
     assert typecast.to_float(12.5) == 12.5
     assert typecast.to_float('12.5') == 12.5
     assert typecast.to_float('not a number') is None
+    assert typecast.to_float(None) is None
 
 
 def test_date_yyyymmdd_string():
@@ -84,6 +89,9 @@ def test_date_bad_str():
     assert typecast.date('01/01/0000') is None
     assert typecast.date('WHATHAPP') is None
 
+def test_date_none():
+    assert typecast.date(None) is None
+
 
 def test_date_mm_dd_yyyy_with_timestamp():
     assert typecast.date('03/04/2015 12:00:00 AM') == datetime.date(2015, 3, 4)
@@ -96,6 +104,7 @@ def test_time():
     assert typecast.time('3:01:00 AM') == datetime.time(hour=3, minute=1, second=0)
     assert typecast.time(datetime.time.min) == datetime.time.min
     assert typecast.time('RIGHT NOW') is None
+    assert typecast.time(None) is None
 
 
 def test_timestamp():
@@ -111,10 +120,13 @@ def test_timestamp_bad_str():
     assert typecast.timestamp('05/13/2020 23:30:00 AM XYZ') == None
     assert typecast.timestamp('WHATHAPP') == None
 
+def test_timestamp_none():
+    assert typecast.timestamp(None) is None
 
 def test_text_array():
     assert typecast.text_array('  one,two,three  ') == ['one', 'two', 'three']
     assert typecast.text_array('1|2|3', sep='|') == ['1', '2', '3']
+    assert typecast.text_array(None) is None
 
 
 def test_typecast_init():

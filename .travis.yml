@@ -1,22 +1,38 @@
 sudo: true
-dist: xenial
-
-language: python
-python:
-  - 3.6
-  - 3.7
-  - 3.8
-  - 3.9
+dist: jammy
 
 services:
   - docker
 
-before_install:
-  - docker pull postgres:13
-
 install:
-  - pip install pytest
-  - pip install ./src
+  - docker-compose build
 
 script:
-  - cd src && ./scripts/test
+  - docker-compose run --entrypoint="pytest tests" nycdb
+
+jobs:
+  include:
+    - env:
+        PYTHON_VERSION: 3.12-rc-bullseye
+        POSTGRES_VERSION: 15
+    - env:
+        PYTHON_VERSION: 3.11-bullseye
+        POSTGRES_VERSION: 15
+    - env:
+        PYTHON_VERSION: 3.11-bullseye
+        POSTGRES_VERSION: 14
+    - env:
+        PYTHON_VERSION: 3.10-bullseye
+        POSTGRES_VERSION: 14
+    - env:
+        PYTHON_VERSION: 3.10-bullseye
+        POSTGRES_VERSION: 13
+    - env:
+        PYTHON_VERSION: 3.10-bullseye
+        POSTGRES_VERSION: 12
+    - env:
+        PYTHON_VERSION: 3.9-bullseye
+        POSTGRES_VERSION: 14
+    - env:
+        PYTHON_VERSION: 3.8-bullseye
+        POSTGRES_VERSION: 14

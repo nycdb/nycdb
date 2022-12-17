@@ -1,0 +1,12 @@
+CREATE INDEX ON speculation_watch_list ("borough");
+CREATE INDEX ON speculation_watch_list ("boro");
+CREATE INDEX ON speculation_watch_list ("block");
+CREATE INDEX ON speculation_watch_list ("lot");
+CREATE INDEX ON speculation_watch_list ("bbl");
+CREATE INDEX ON speculation_watch_list ("deeddate");
+CREATE INDEX ON speculation_watch_list ("postcode");
+CREATE INDEX ON speculation_watch_list ("latitude", "longitude");
+CREATE INDEX ON speculation_watch_list ("communityboard");
+CREATE INDEX ON speculation_watch_list ("councildistrict");
+CREATE INDEX ON speculation_watch_list ("censustract");
+CREATE INDEX ON speculation_watch_list ("bin");
