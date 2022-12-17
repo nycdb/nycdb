@@ -481,6 +481,13 @@ def test_mci_applications(conn):
     mci_applications = nycdb.Dataset('mci_applications', args=ARGS)
     mci_applications.db_import()
     assert row_count(conn, 'mci_applications') == 100
+    assert has_one_row(conn, "select 1 where to_regclass('public.mci_applications_bbl_idx') is NOT NULL")
+
+    with conn.cursor(cursor_factory=psycopg2.extras.DictCursor) as curs:
+        curs.execute("select * from mci_applications WHERE bin = '2012083'")
+        rec = curs.fetchone()
+        assert rec is not None
+        assert rec['bbl'] == '2030710039'
 
 
 def test_oca(conn):

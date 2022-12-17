@@ -3,6 +3,8 @@ files:
   -
     url: https://raw.githubusercontent.com/wshenyc/nyc_mci_map/main/data/raw%20data/nycwide_mci_final.csv
     dest: mci_applications.csv
+sql:
+  - mci_applications.sql
 schema:
   table_name: mci_applications
   fields:
@@ -11,7 +13,7 @@ schema:
     ZipCode: integer
     LastReg: text
     RcCount: integer
-    DocketNumber: text
+    DocketNo: text
     CaseType: text
     CaseStatus: text
     FilingDate: date
@@ -21,10 +23,12 @@ schema:
     MciItem: text
     ClaimCost: text
     AllowCost: text
-    WkBegDate: text
+    WkBegDt: text
     BBL: char(10)
-    BIN: integer
+    BuildingIdentificationNumber: char(7)
     Latitude: numeric
     Longitude: numeric
     NTA: text
     NtaName: text
+  skip:
+    - ""
