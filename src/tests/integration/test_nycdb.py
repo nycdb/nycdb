@@ -630,4 +630,4 @@ def test_dob_vacate_orders(conn):
         curs.execute("select * from dob_vacate_orders WHERE bbl = '4029700038'")
         rec = curs.fetchone()
         assert rec is not None
-        assert rec['streetname'] == '83 STREET'
+        assert rec['lastdispositiondate'].strftime('%Y-%m-%d') == '2012-01-03'
