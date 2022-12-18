@@ -617,3 +617,17 @@ def test_dcp_housingdb(conn):
         rec = curs.fetchone()
         assert rec is not None
         assert rec['latitude'] == Decimal('40.796734999999998')
+
+
+def test_dob_vacate_orders(conn):
+    drop_table(conn, 'dob_vacate_orders')
+    dataset = nycdb.Dataset('dob_vacate_orders', args=ARGS)
+    dataset.db_import()
+    assert row_count(conn, 'dob_vacate_orders') > 0
+    assert has_one_row(conn, "select 1 where to_regclass('public.dob_vacate_orders_bbl_idx') is NOT NULL")
+
+    with conn.cursor(cursor_factory=psycopg2.extras.DictCursor) as curs:
+        curs.execute("select * from dob_vacate_orders WHERE bbl = '4029700038'")
+        rec = curs.fetchone()
+        assert rec is not None
+        assert rec['lastdispositiondate'].strftime('%Y-%m-%d') == '2012-01-03'

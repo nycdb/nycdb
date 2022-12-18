@@ -191,3 +191,7 @@ def hpd_conh(dataset):
 
 def dcp_housingdb(dataset):
     return to_csv(extract_csv_from_zip(dataset.files[0].dest, "HousingDB_post2010.csv"))
+
+
+def dob_vacate_orders(dataset):
+    return with_bbl(to_csv(dataset.files[0].dest), borough='boroughname')
