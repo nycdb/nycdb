@@ -488,6 +488,7 @@ def test_mci_applications(conn):
         rec = curs.fetchone()
         assert rec is not None
         assert rec['bbl'] == '2030710039'
+        assert rec['filingdate'].strftime('%Y-%m-%d') == '2018-11-09'
 
 
 def test_oca(conn):

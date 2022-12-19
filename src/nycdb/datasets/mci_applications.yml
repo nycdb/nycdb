@@ -23,7 +23,7 @@ schema:
     MciItem: text
     ClaimCost: text
     AllowCost: text
-    WkBegDt: text
+    WkBegDt: date
     BBL: char(10)
     BuildingIdentificationNumber: char(7)
     Latitude: numeric

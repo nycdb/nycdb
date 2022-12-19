@@ -84,7 +84,9 @@ def to_float(x):
 def mm_dd_yyyy(date_str):
     try:
         month, day, year = map(int, date_str[0:10].split('/'))
-        return datetime.date(year, month, day)
+        if len(str(year)) == 2:
+            year = f'20{year}' if year < 40 else f'19{year}'
+        return datetime.date(int(year), month, day)
     except ValueError:
         return None
 
@@ -109,8 +111,8 @@ def date(x):
             return datetime.datetime.strptime(x, '%Y%m%d').date()
         except ValueError:
             return None
-    # checks for 09/30/2018 and 9/2/2022 date inputs
-    elif re.match(r'^\d{1,2}/\d{1,2}/\d{4}$', x):
+    # checks for 09/30/2018 and 9/2/2022 and 9/30/22 date inputs
+    elif re.match(r'^\d{1,2}/\d{1,2}/\d{2,4}$', x):
         return mm_dd_yyyy(x)
     # checks for 12/31/2018 12:00:00 AM date input
     elif len(x) == 22 and len(x[0:10].split('/')) == 3:
@@ -241,5 +243,3 @@ class Typecast():
             else:
                 d[k] = lambda x: x
         return d
-
-print(date('1/3/2012'))

@@ -69,6 +69,8 @@ def test_date_invalid_yyyymmdd_string():
 def test_date_mm_dd_yyyy():
     assert typecast.date('05/01/1925') == datetime.date(1925, 5, 1)
     assert typecast.date('5/1/1925') == datetime.date(1925, 5, 1)
+    assert typecast.date('5/1/22') == datetime.date(2022, 5, 1)
+    assert typecast.date('5/1/95') == datetime.date(1995, 5, 1)
 
 
 def test_date_iso8601_string():
@@ -85,7 +87,6 @@ def test_date_accepts_datetime():
 
 
 def test_date_bad_str():
-    assert typecast.date('01/01/01') is None
     assert typecast.date('03/04/2015 12:00:00 AM XYZ') is None
     assert typecast.date('01/01/0000') is None
     assert typecast.date('WHATHAPP') is None
