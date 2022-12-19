@@ -71,6 +71,8 @@ Here's a list of the column types you can use:
 
 `boolean` - for true/false values
 
+In addition to these types, any valid postgresql type can be used. If the type includes whitespace, be sure to surround it with quotation marks. For example, the [`oca_appearances.appearancedatetime` column](./nycdb/datasets/oca.yml) has type `'timestamp without time zone'`
+
 **************
 
 
@@ -78,9 +80,14 @@ Here's a list of the column types you can use:
 
 You might have found a table in the NY Open Data portal [like this for example](https://data.cityofnewyork.us/Housing-Development/DOB-ECB-Violations/6bgk-3dad) that lists out the columns in the dataset and their data type. Even if a column says "Text" there, if the column can be parsed as a `date`, then `nycdb` *might* be smart enough to know how to convert this "text" into a "date". If you check in the `typecast.py` file, you can see from the "date" method that NYCDB can parse dates in a variety of formats (like "20000131" and "12/31/2018 12:00:00 AM", for example).
 
-It's also **essential** to note that while columns might appear `snake_cased` in the open data portal, you need to convert these column names to `CamelCase` in the `ecb_violations.yml` file. So
-if a column is called `ECB_VIOLATION_NUMBER` in the CSV, it
-should be called `EcbViolationNumber` in the YML file.
+It's also **essential** to note that nycdb converts all column names found in the CSV to conventional, valid SQL column names, and the fields listed in your new `yml` file must match those names. The field-to-column name matching is case-insensitive, but we prefer `CamelCase` field names for readability.
+
+Some examples of how column names are transformed:
+
+- Characters like ` `, `_`, `-`, and `+`, among others, are removed from the column names found in the CSV. For example, the `VIOLATION_NUMBER` column from the [DOB Violations data source](https://data.cityofnewyork.us/Housing-Development/DOB-Violations/3h2n-5cm9) is renamed to [`ViolationNumber` in dob_violations.yml](./nycdb/datasets/dob_violations.yml).
+- The charater `%` is replaced with `pct`. For example, the `% TRANSFERRED` column from the [ACRIS - Real Property Master data source](https://data.cityofnewyork.us/City-Government/ACRIS-Real-Property-Master/bnx9-e6tj) is renamed to [`PCTTRANSFERRED` in acris.yml](./nycdb/datasets/acris.yml).
+- Columns that begin with a number in the CSV are rearranged so the number comes last. For example, the `1-BR Units` column from the [Affordable Housing Production by Building data source](https://data.cityofnewyork.us/Housing-Development/Affordable-Housing-Production-by-Building/hg8x-zxpr) is renamed to [`BRUnits1` in hpd_affordable_production.yml](./nycdb/datasets/hpd_affordable_production.yml).
+- All these transformations are implemented in [transform.py](./nycdb/transform.py).
 
 For this example, we'll fill out the rest of the `ecb_violations.yml` configuration.
 
@@ -157,8 +164,14 @@ If the dataset does not include a `BBL` column, but has `boro` (or `borough`), `
 
 Each dataset needs a method defined in `dataset_transformations.py` (which shares the same name as the dataset).
 
-With this method, you can add custom transformations, such as adding the `bbl` (see the `to_bbl` method below).
+For datasets requiring no transformation, the simplest version of this method looks like this:
 
+```
+def ecb_violations(dataset):
+    return to_csv(dataset.files[0].dest)
+```
+
+If your dataset needs some custom transformation, such as adding the `bbl`, you can add that behavior here:
 
 ```
 def ecb_violations(dataset):
@@ -195,11 +208,15 @@ sql:
 
 ### Step 6 - re-install nycdb to register the new dataset
 
+> 🐳 When running via Docker, this step is handled automatically, so there's no need to do anything here.
+
 - `pip uninstall nycdb`
 - `pip setup.py install` (from inside of the `src` directory)
 
 
 ### Step 7 - verify
+
+> 🐳 When running via docker, replace all the `nycdb` commands listed below with `docker-compose run nycdb` equivalents. For example, instead of running `nycdb --list`, run `docker-compose run nycdb --list`.
 
 To see if your dataset registers:
 
@@ -254,17 +271,13 @@ head -6 data/ecb_violations.csv
 
 Copy and paste the results from the terminal into the fake data file.
 
-Now, to run the tests, make sure you have the docker container setup:
-
-```
-docker-compose up
-```
-
-and run the command:
+Run the test command:
 
 ```
 pytest
 ```
+
+> 🐳 When running via Docker, run the tests via `docker-compose run --entrypoint=pytest nycdb`
 
 If it says all the tests passed, you passed! If it says a test failed, you'll have to debug.
 
@@ -274,8 +287,10 @@ It might be the case that the new test you added is the only one that's failing.
 If that's the case, you can re-run *only* that test via command-line options like this:
 
 ```
-pytest src/tests/integration/test_nycdb.py -k test_hpd_complaint_problems
+pytest tests/integration/test_nycdb.py -k test_hpd_complaint_problems
 ```
+
+> 🐳 When running via Docker, run a specific test via `docker-compose run --entrypoint='pytest tests/integration/test_nycdb.py -k test_hpd_complaint_problems' nycdb`
 
 This allows you to debug and iterate on your code faster.
 

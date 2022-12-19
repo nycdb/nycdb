@@ -6,27 +6,28 @@ Residents, lawyers, tenants, and organizers who want to use data in their strugg
 
 **nycdb** is a python program that downloads, processes, and loads the following public datasets into postgres:
 
-- Department of City Planning's Pluto: versions 15v1, 16v2, 17v1, 18v1, 18v2, 19v1, 19v2, 20v8, 21v3, 22v1, and the [latest version via Open Data](https://data.cityofnewyork.us/City-Government/Primary-Land-Use-Tax-Lot-Output-PLUTO-/64uk-42ks)
-- DOB Job Filings
+- [Department of City Planning's PLUTO](https://github.com/nycdb/nycdb/wiki/Dataset:-PLUTO) (Includes the [latest version via Open Data](https://data.cityofnewyork.us/City-Government/Primary-Land-Use-Tax-Lot-Output-PLUTO-/64uk-42ks), and many other specific versions. See documentatino for details)
+- [DOB Job Filings](https://github.com/nycdb/nycdb/wiki/Dataset:-DOB-Job-Filings)
 - [DOB Complaints](https://github.com/nycdb/nycdb/wiki/Dataset:-DOB-Complaints)
+- [DOB Vacate Orders](https://github.com/nycdb/nycdb/wiki/Dataset:-DOB-Vacate-Orders) - From [FOIA request by Jennah Gosciak](https://github.com/jennahgosciak/dob_vacate_orders)
 - [DOB Violations](https://github.com/nycdb/nycdb/wiki/Dataset:-DOB-Violations)
 - [HPD Violations](https://github.com/nycdb/nycdb/wiki/Dataset:-HPD-Violations)
 - [HPD Litigations](https://github.com/nycdb/nycdb/wiki/Dataset:-HPD-Litigations)
-- HPD Registrations
+- [HPD Registrations](https://github.com/nycdb/nycdb/wiki/Dataset:-HPD-Registrations)
 - [HPD Complaints](https://github.com/nycdb/nycdb/wiki/Dataset:-HPD-Complaints)
 - [HPD Repair and Vacate Orders](https://github.com/nycdb/nycdb/wiki/Dataset:-HPD-Vacate-Orders)
 - [HPD Affordable Production (Building and Project)](https://github.com/nycdb/nycdb/wiki/Dataset:-HPD-Affordable-Production)
 - [HPD Certificate of No Harassment](https://github.com/nycdb/nycdb/wiki/Dataset:-HPD-Certificate-of-No-Harassment)
-- Department of Finance Rolling Sales
-- Department of Finance Annualized Sales
+- [Department of Finance Rolling Sales](https://github.com/nycdb/nycdb/wiki/Dataset:-DOF-Rolling-Sales)
+- [Department of Finance Annualized Sales](https://github.com/nycdb/nycdb/wiki/Dataset:-DOF-Annualized-Sales)
 - [Department of Finance Property Tax Exemptions](https://github.com/nycdb/nycdb/wiki/Dataset:-DOF-Exemptions)
-- Tax bills - Rent Stabilization Unit Counts (John Krauss and Atul Varma's data)
+- [Tax bills - Rent Stabilization Unit Counts](https://github.com/nycdb/nycdb/wiki/Dataset:-Rent-Stabilized-Buildings) ([John Krauss](https://github.com/talos/nyc-stabilization-unit-counts) and [Atul Varma's](https://github.com/JustFixNYC/nyc-doffer) data)
 - [ACRIS](https://github.com/nycdb/nycdb/wiki/Dataset:-ACRIS)
 - [Marshal Evictions](https://github.com/nycdb/nycdb/wiki/Dataset:-Marshal-Evictions) - From [DOI](https://data.cityofnewyork.us/City-Government/Evictions/6z8x-wfk4) via ANHD's [Displacement Alert Project](https://github.com/ANHD-NYC-CODE/anhd-council-backend) and [API](https://api.displacementalert.org/docs/) (built by [Jade Ahking](https://github.com/0xStarcat))
 - [ECB Violations](https://github.com/nycdb/nycdb/wiki/Dataset:-ECB-Violations)
 - [Oath Hearings](https://github.com/nycdb/nycdb/wiki/Dataset:-OATH-Hearings)
-- Property Address Directory
-- J-51 Exemptions
+- [Property Address Directory](https://github.com/nycdb/nycdb/wiki/Dataset:-Property-Address-Directory-(PAD))
+- [J-51 Exemptions](https://github.com/nycdb/nycdb/wiki/Dataset:-J-51-Exemptions)
 - [OCA Housing Court Records](https://github.com/nycdb/nycdb/wiki/Dataset:-OCA-Housing-Court-Records) (zipcode)
 - [BBLs of NYC Housing Authority (NYCHA) Developments](https://github.com/nycdb/nycdb/wiki/Dataset:-NYCHA-BBLs) — From NYCHA via [JustFix's scraper tool](https://github.com/JustFixNYC/nycha-scraper)
 - [Speculation Watch List](https://github.com/nycdb/nycdb/wiki/Dataset:-Speculation-Watch-List)

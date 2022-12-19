@@ -93,6 +93,9 @@ def dobjobs(dataset):
     return with_bbl(to_csv(dataset.files[0].dest))
 
 
+def dob_now_jobs(dataset):
+    return with_bbl(skip_fields(to_csv(dataset.files[1].dest), [s.lower() for s in dataset.schemas[1]['skip']]))
+
 def rentstab(dataset):
     return to_csv(dataset.files[0].dest)
 
@@ -189,3 +192,7 @@ def hpd_conh(dataset):
 
 def dcp_housingdb(dataset):
     return to_csv(extract_csv_from_zip(dataset.files[0].dest, "HousingDB_post2010.csv"))
+
+
+def dob_vacate_orders(dataset):
+    return with_bbl(to_csv(dataset.files[0].dest), borough='boroughname')

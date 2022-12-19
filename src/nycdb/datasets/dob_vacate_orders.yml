@@ -1,0 +1,21 @@
+---
+files:
+  -
+    url: https://raw.githubusercontent.com/jennahgosciak/dob_vacate_orders/main/Vacates_from_2012_v3.csv
+    dest: dob_vacate_orders.csv
+sql:
+  - dob_vacate_orders.sql
+schema:
+  table_name: dob_vacate_orders
+  fields:
+    LastDispositionDateDateOfIssuanceOfVacate: date
+    LastDispositionYear: integer
+    HouseNumber: text
+    StreetName: text
+    BoroughName: text
+    ZipCode: char(5)
+    Block: integer
+    Lot: integer
+    ComplaintCategoryDescription: text
+    LastDispositionCodeDescription: text
+    BBL: char(10)

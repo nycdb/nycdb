@@ -293,6 +293,7 @@ def test_dof_sales(conn):
 
 def test_dobjobs(conn):
     drop_table(conn, 'dobjobs')
+    drop_table(conn, 'dob_now_jobs')
     dobjobs = nycdb.Dataset('dobjobs', args=ARGS)
     dobjobs.db_import()
     assert row_count(conn, 'dobjobs') == 100
@@ -315,6 +316,7 @@ def test_dobjobs(conn):
 
 def test_dobjobs_work_types(conn):
     drop_table(conn, 'dobjobs')
+    drop_table(conn, 'dob_now_jobs')
     dobjobs = nycdb.Dataset('dobjobs', args=ARGS)
     dobjobs.db_import()
 
@@ -325,6 +327,15 @@ def test_dobjobs_work_types(conn):
         assert rec['loftboard'] is None
         assert rec['pcfiled'] is True
         assert rec['mechanical'] is True
+
+
+def test_dob_now_jobs(conn):
+    drop_table(conn, 'dobjobs')
+    drop_table(conn, 'dob_now_jobs')
+    dob_now_jobs = nycdb.Dataset('dobjobs', args=ARGS)
+    dob_now_jobs.db_import()
+    assert row_count(conn, 'dob_now_jobs') == 5
+    assert has_one_row(conn, "select 1 where to_regclass('public.dob_now_jobs_bbl') is NOT NULL")
 
 
 def test_rentstab(conn):
@@ -606,3 +617,17 @@ def test_dcp_housingdb(conn):
         rec = curs.fetchone()
         assert rec is not None
         assert rec['latitude'] == Decimal('40.796734999999998')
+
+
+def test_dob_vacate_orders(conn):
+    drop_table(conn, 'dob_vacate_orders')
+    dataset = nycdb.Dataset('dob_vacate_orders', args=ARGS)
+    dataset.db_import()
+    assert row_count(conn, 'dob_vacate_orders') > 0
+    assert has_one_row(conn, "select 1 where to_regclass('public.dob_vacate_orders_bbl_idx') is NOT NULL")
+
+    with conn.cursor(cursor_factory=psycopg2.extras.DictCursor) as curs:
+        curs.execute("select * from dob_vacate_orders WHERE bbl = '4029700038'")
+        rec = curs.fetchone()
+        assert rec is not None
+        assert rec['lastdispositiondate'].strftime('%Y-%m-%d') == '2012-01-03'
