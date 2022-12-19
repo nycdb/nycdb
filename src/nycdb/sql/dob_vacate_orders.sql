@@ -1,0 +1,3 @@
+ALTER TABLE dob_vacate_orders RENAME COLUMN LastDispositionDateDateOfIssuanceOfVacate to LastDispositionDate;
+CREATE INDEX dob_vacate_orders_bbl_idx on dob_vacate_orders (bbl);
+CREATE INDEX dob_vacate_orders_lastdispositiondate_idx on dob_vacate_orders (LastDispositionDate);

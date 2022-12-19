@@ -68,6 +68,7 @@ def test_date_invalid_yyyymmdd_string():
 
 def test_date_mm_dd_yyyy():
     assert typecast.date('05/01/1925') == datetime.date(1925, 5, 1)
+    assert typecast.date('5/1/1925') == datetime.date(1925, 5, 1)
 
 
 def test_date_iso8601_string():
