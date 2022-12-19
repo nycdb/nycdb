@@ -4,6 +4,7 @@ import itertools
 import os
 import subprocess
 from tqdm import tqdm
+from zipfile import ZipFile
 
 from . import verify
 from . import dataset_transformations
@@ -50,7 +51,6 @@ class Dataset:
     def _files(self):
         return [File(file_dict, folder=self.name, root_dir=self.root_dir) for file_dict in self.dataset['files']]
 
-
     def download_files(self):
         """
         Downloads all files for the dataset.
@@ -60,7 +60,6 @@ class Dataset:
         for f in self.files:
             f.download(hide_progress=self.args.hide_progress)
 
-
     def db_import(self):
         """
         Inserts the dataset in the postgres.
@@ -68,9 +67,15 @@ class Dataset:
         """
         self.setup_db()
         self.create_schema()
-
-        for schema in self.schemas:
-            self.import_schema(schema)
+        
+        for idx, schema in enumerate(self.schemas):
+            if 'type' in schema:
+                if schema['type'] == 'shapefile':
+                    self.import_schema_shp(schema, index=idx)
+                else:
+                    self.import_schema(schema)
+            else:
+                self.import_schema(schema)
 
         self.sql_files()
 
@@ -123,6 +128,20 @@ class Dataset:
                 pbar.update(len(batch))
                 self.db.insert_rows(batch, table_name=schema['table_name'])
         pbar.close()
+
+    def import_schema_shp(self, schema, index=None):
+        """
+        Imports the shapefile into postgres with shp2pgsql.
+
+        schema['table_name'] in .yaml should be the content name of the unzipped file
+        """
+        ZipFile(self.files[index].dest, mode='r').extractall(self.root_dir)
+
+        file_path = os.path.join(os.path.splitext(self.files[index].dest)[0], schema['table_name'])
+        cmd = ['shp2pgsql', '-a', file_path, schema['table_name']]
+
+        pg = subprocess.Popen(cmd, stdout=subprocess.PIPE)
+        subprocess.run('psql', stdin=pg.stdout, env=self.pg_env(), check=True)
 
     def create_schema(self):
         """

@@ -90,10 +90,10 @@ def dispatch(args):
     if args.list_datasets:
         print_datasets()
     elif args.verify:
-         if Dataset(args.verify, args=args).verify():
-             sys.exit(0)
-         else:
-             sys.exit(1)
+        if Dataset(args.verify, args=args).verify():
+            sys.exit(0)
+        else:
+            sys.exit(1)
     elif args.verify_all:
         verify_all(args)
     elif args.download:
@@ -104,6 +104,7 @@ def dispatch(args):
         Dataset(args.dump, args=args).dump()
     elif args.dbshell:
         run_dbshell(args=args)
+
 
 def main():
     logging.basicConfig(level=logging.DEBUG)

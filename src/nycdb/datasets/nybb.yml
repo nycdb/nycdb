@@ -1,0 +1,15 @@
+---
+files:
+  -
+    url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nybb_22c.zip
+    dest: nybb_22c.zip
+schema:
+  type: shapefile
+  table_name: nybb
+  fields:
+    id: 'serial PRIMARY KEY'
+    borocode: integer
+    boroname: char(32)
+    shape_leng: 'double precision'
+    shape_area: 'double precision'
+    geom: geometry(MultiPolygon, 2263)

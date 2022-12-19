@@ -65,7 +65,6 @@ def stream_files_from_zip(file_path, extension='csv', common_header=True):
                     yield line.decode('UTF-8', 'ignore')
 
 
-
 # String (filepath) -> String
 def extract_csvs_from_zip(file_path):
     """

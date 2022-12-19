@@ -58,7 +58,7 @@ class Database:
                     page_size=len(rows)
                 )
             except psycopg2.DataError:
-                print(rows) # useful for debugging
+                print(rows)  # useful for debugging
                 raise
         self.conn.commit()
 
@@ -79,7 +79,6 @@ class Database:
         with self.conn.cursor() as curs:
             curs.execute(query)
             return curs.fetchone()[0]
-
 
     def table_exists(self, table_name):
         """Tests if the table exists"""
