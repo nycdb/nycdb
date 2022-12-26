@@ -195,3 +195,7 @@ def dcp_housingdb(dataset):
 
 def dob_vacate_orders(dataset):
     return with_bbl(to_csv(dataset.files[0].dest), borough='boroughname')
+
+
+def dof_tax_lien_sale_list(dataset):
+    return with_bbl(to_csv(dataset.files[0].dest))
