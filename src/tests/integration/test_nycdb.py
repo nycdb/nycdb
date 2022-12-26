@@ -643,4 +643,4 @@ def test_dof_tax_lien_sale_list(conn):
         curs.execute("select * from dof_tax_lien_sale_list WHERE bbl = '1000160003'")
         rec = curs.fetchone()
         assert rec is not None
-        assert rec['report_date'].strftime('%Y-%m-%d') == '2019-04-01'
+        assert rec['reportdate'].strftime('%Y-%m-%d') == '2019-04-01'
