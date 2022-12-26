@@ -13,7 +13,7 @@ schema:
     Borough: integer
     Block: integer
     Lot: integer
-    TaxClassCode: char(1)
+    TaxClassCode: char(2)
     BuildingClass: char(2)
     CommunityBoard: char(3)
     CouncilDistrict: char(2)
