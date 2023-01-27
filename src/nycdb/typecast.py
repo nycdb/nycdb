@@ -241,5 +241,3 @@ class Typecast():
             else:
                 d[k] = lambda x: x
         return d
-
-print(date('1/3/2012'))
