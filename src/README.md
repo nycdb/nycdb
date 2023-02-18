@@ -36,13 +36,17 @@ There are two development workflows: one using python virtual environments and o
 
 ### Using docker and docker-compose
 
+Clone the nycdb repository to your computer, open the terminal, and set your working directory to the location of the cloned nycdb folder using `cd <filepath>`
+
 To get started all you have to do is run `docker-compose up`.
 
 On the first run Docker will take longer to downloads and build the images. It
 will start a Postgres server on port 5432 of your local machineYou can also press
 <kbd>CTRL</kbd>-<kbd>C</kbd> at any point to stop the server.
 
-In a separate terminal, you will be able to now use the nycdb cli: `docker-compose run nycdb --help`
+In a separate terminal, you will be able to now use the nycdb cli: `docker-compose run nycdb --help`.
+
+You will not have any data loaded when you create your local instance of the db. Use functions like `--download` and `--load` to add datasets to your local database, for example: `docker-compose run nycdb --download <dataset>`
 
 You can also open a python3 shell: `docker-compose run --entrypoint=python3 nycdb` or run the test suit `docker-compose run --entrypoint="pytest tests" nycdb`
 
