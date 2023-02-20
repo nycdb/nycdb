@@ -631,3 +631,16 @@ def test_dob_vacate_orders(conn):
         rec = curs.fetchone()
         assert rec is not None
         assert rec['lastdispositiondate'].strftime('%Y-%m-%d') == '2012-01-03'
+
+
+def test_dof_tax_lien_sale_list(conn):
+    drop_table(conn, 'dof_tax_lien_sale_list')
+    dataset = nycdb.Dataset('dof_tax_lien_sale_list', args=ARGS)
+    dataset.db_import()
+    assert row_count(conn, 'dof_tax_lien_sale_list') > 0
+    assert has_one_row(conn, "select 1 where to_regclass('public.dof_tax_lien_sale_list_bbl_idx') is NOT NULL")
+    with conn.cursor(cursor_factory=psycopg2.extras.DictCursor) as curs:
+        curs.execute("select * from dof_tax_lien_sale_list WHERE bbl = '1000160003'")
+        rec = curs.fetchone()
+        assert rec is not None
+        assert rec['reportdate'].strftime('%Y-%m-%d') == '2019-04-01'

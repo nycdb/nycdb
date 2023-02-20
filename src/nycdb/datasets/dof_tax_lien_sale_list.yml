@@ -1,0 +1,24 @@
+---
+files:
+  -
+    url: https://data.cityofnewyork.us/api/views/9rz4-mjek/rows.csv?accessType=DOWNLOAD
+    dest: dof_tax_lien_sale_list.csv
+sql:
+    - dof_tax_lien_sale_list.sql
+schema:
+  table_name: dof_tax_lien_sale_list
+  fields:
+    Month: text
+    Cycle: text
+    Borough: integer
+    Block: integer
+    Lot: integer
+    TaxClassCode: char(2)
+    BuildingClass: char(2)
+    CommunityBoard: char(3)
+    CouncilDistrict: char(2)
+    HouseNumber: text
+    StreetName: text
+    ZipCode: char(5)
+    WaterDebtOnly: boolean
+    BBL: char(10)
