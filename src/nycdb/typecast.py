@@ -16,6 +16,9 @@ YES_VALUES = [1, True, 'T', 't', 'true', 'True', 'TRUE', '1', 'y', 'Y', "YES", '
 NO_VALUES = ['0', 0, False, 'False', 'f', 'F', 'false', 'FALSE', 'N', 'n', 'NO', 'No', 'no']
 INTEGER_TYPES = ['integer', 'smallint', 'bigint', 'int']
 
+# For 2-digit year values, decide when 19XX or 20XX
+CENTURY_THRESHOLD = 40
+
 
 def downcase_fields_and_values(d):
     """downcase keys and values in dictionary"""
@@ -85,7 +88,7 @@ def mm_dd_yyyy(date_str):
     try:
         month, day, year = map(int, date_str[0:10].split('/'))
         if len(str(year)) == 2:
-            year = f'20{year}' if year < 40 else f'19{year}'
+            year = f'20{year}' if year < CENTURY_THRESHOLD else f'19{year}'
         return datetime.date(int(year), month, day)
     except ValueError:
         return None
