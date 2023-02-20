@@ -23,6 +23,7 @@ postgres-data
 modules/hpd-complaints/*.csv
 
 src/.pytest_cache/
+venv/
 
 *.bz2
 .DS_Store
