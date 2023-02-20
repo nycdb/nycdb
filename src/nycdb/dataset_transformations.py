@@ -165,6 +165,10 @@ def oca(dataset, schema):
     return _to_csv
 
 
+def mci_applications(dataset):
+    return skip_fields(to_csv(dataset.files[0].dest), [s.lower() for s in dataset.dataset['schema']['skip']])
+
+
 def dof_annual_sales(dataset):
     return itertools.chain(*[with_bbl(AnnualSales(f.dest)) for f in dataset.files])
 
