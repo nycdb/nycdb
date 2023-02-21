@@ -659,3 +659,10 @@ def test_dof_tax_lien_sale_list(conn):
         rec = curs.fetchone()
         assert rec is not None
         assert rec['reportdate'].strftime('%Y-%m-%d') == '2019-04-01'
+
+
+def test_dob_certificate_occupancy(conn):
+    drop_table(conn, 'dob_certificate_occupancy')
+    dob_certificate_occupancy = nycdb.Dataset('dob_certificate_occupancy', args=ARGS)
+    dob_certificate_occupancy.db_import()
+    assert row_count(conn, 'dob_certificate_occupancy') == 5
