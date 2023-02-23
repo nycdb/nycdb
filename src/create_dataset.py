@@ -43,8 +43,6 @@ import textwrap
 import csv
 from pathlib import Path
 
-import nycdb
-
 
 MY_DIR = Path(__file__).parent.resolve()
 
@@ -198,11 +196,11 @@ def guess_data_type(name: str, value: str) -> str:
         >>> guess_data_type('description', 'illegal conversion')
         'text'
     '''
-    if name.lower == 'bbl':
+    if name.lower() == 'bbl':
         return 'char(10)'
-    elif name.lower == 'bin':
+    elif name.lower() == 'bin':
         return 'char(7)'
-    elif name.lower in ['zip', 'zipcode', 'postalcode']:
+    elif name.lower() in ['zip', 'zipcode', 'postalcode', 'postcode']:
         return 'char(5)'
     elif value.isnumeric():
         return 'integer'
