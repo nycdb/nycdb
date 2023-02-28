@@ -154,11 +154,11 @@ def is_valid_identifier(path: str) -> bool:
 
 
 # https://stackoverflow.com/a/19053800
-def to_camel_case(snake_str: str) -> str:
+def to_pascal_case(snake_str: str) -> str:
     '''
-    Convert the given string to camel case, e.g.:
+    Convert the given string to pascal case, e.g.:
 
-        >>> to_camel_case('boop_bap')
+        >>> to_pascal_case('boop_bap')
         'BoopBap'
     '''
 
@@ -218,7 +218,7 @@ def generate_yaml_code(dataset: str, csvpath: Path) -> str:
         header_row = next(reader)
         value_row = next(reader)
     fields = '\n        '.join([
-        f"{to_camel_case(name)}: {guess_data_type(name, value)}" for name, value in zip(header_row, value_row)
+        f"{to_pascal_case(name)}: {guess_data_type(name, value)}" for name, value in zip(header_row, value_row)
     ])
     return cleanup_text(f"""
     ---
