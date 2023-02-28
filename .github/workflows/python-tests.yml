@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Python Tests
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  python_tests:
     strategy:
       matrix:
         include:
