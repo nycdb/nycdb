@@ -7,11 +7,30 @@ on:
     branches: [ "main" ]
 
 jobs:
-
   build:
-
+    strategy:
+      matrix:
+        include:
+          - python_version: 3.12-rc-bullseye
+            postgres_version: 15
+          - python_version: 3.11-bullseye
+            postgres_version: 15
+          - python_version: 3.11-bullseye
+            postgres_version: 14
+          - python_version: 3.10-bullseye
+            postgres_version: 14
+          - python_version: 3.10-bullseye
+            postgres_version: 13
+          - python_version: 3.10-bullseye
+            postgres_version: 12
+          - python_version: 3.9-bullseye
+            postgres_version: 14
+          - python_version: 3.8-bullseye
+            postgres_version: 14
     runs-on: ubuntu-latest
-
+    env:
+      POSTGRES_VERSION: ${{ matrix.postgres_version }}
+      PYTHON_VERSION: ${{ matrix.python_version }}
     steps:
     - name: Build the Docker image
       uses: actions/checkout@v3 
