@@ -6,5 +6,5 @@ if docker volume inspect "$NYCDB_DATABASE_VOLUME_NAME" > /dev/null; then
    docker volume rm "$NYCDB_DATABASE_VOLUME_NAME" > /dev/null
 fi
 
-# docker-compose build
-docker-compose run --rm --entrypoint="pytest tests" nycdb
+# docker compose build
+docker compose run --rm --entrypoint="pytest tests" nycdb

@@ -5,7 +5,7 @@ services:
     build:
       context: .
       args:
-        PYTHON_VERSION: "${PYTHON_VERSION:-3.10-bullseye}"
+        PYTHON_VERSION: "${PYTHON_VERSION:-3.11-bullseye}"
     volumes:
       - ./src:/nycdb/src
       - download-data:/nycdb/src/data
@@ -20,7 +20,7 @@ services:
       db:
         condition: service_healthy
   db:
-    image: "postgres:${POSTGRES_VERSION:-14}"
+    image: "postgres:${POSTGRES_VERSION:-15}"
     shm_size: 1gb
     volumes:
       - database-data:/var/lib/postgresql/data
