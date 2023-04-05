@@ -26,8 +26,8 @@ CONNINFO = f"host={ARGS.host} port={ARGS.port} dbname={ARGS.database} user={ARGS
 
 
 def create_db(dbname):
-    conn = psycopg.connect(CONNINFO)
-    with conn.cursor(autocommit=True) as curs:
+    conn = psycopg.connect(CONNINFO, autocommit=True)
+    with conn.cursor() as curs:
         curs.execute("CREATE DATABASE " + dbname)
     conn.close()
 
