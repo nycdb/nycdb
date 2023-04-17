@@ -48,7 +48,7 @@ The Housing Data Coalition hosts their own copy ("instance") of nycdb. If you ar
 ### Acknowledgments
 
 - [Heatseek](https://heatseek.org/) for ongoing support of the project and for their amazing work.
-- [@talos](https://github.com/talos) for his [tax bill scrapping](https://github.com/talos/nyc-stabilization-unit-counts) to get counts of rent-stabilization units
+- [@talos](https://github.com/talos) for his [tax bill scraping](https://github.com/talos/nyc-stabilization-unit-counts) to get counts of rent-stabilization units
 - NYCDB's [programmers](https://github.com/nycdb/nycdb/graphs/contributors)
 - [Housing Data Coalition](https://www.housingdatanyc.org/) for their support and for hosting nycdb workshops
 
