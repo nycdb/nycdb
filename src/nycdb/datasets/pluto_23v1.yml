@@ -12,10 +12,10 @@ schema:
     Block: integer
     Lot: integer
     CD: smallint
-    CB2010: text
+    BCT2020: text
+    BCTCB2020: text
     CT2010: text
-    BCT2020: char(7)
-    BCTCB2020: char(11)
+    CB2010: text
     SchoolDist: smallint
     Council: smallint
     ZipCode: char(5)
