@@ -32,11 +32,17 @@ jobs:
       POSTGRES_VERSION: ${{ matrix.postgres_version }}
       PYTHON_VERSION: ${{ matrix.python_version }}
     steps:
-    - name: Build the Docker image
-      uses: actions/checkout@v3 
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-    - name: Start containers
-      run: docker-compose build
-    
+    - name: Build containers
+      run: docker compose build
+
+    - name: Start Postgres
+      run: docker compose up -d db
+
+    - name: Wait for postgres
+      run: docker compose exec db /usr/bin/timeout 30 bash -c 'until pg_isready; do sleep 1; done'
+
     - name: Run tests
-      run: docker-compose run --entrypoint="pytest tests" nycdb
+      run: docker compose run --env "NYCDB_TEST_POSTGRES_DB=nycdb" --entrypoint="pytest tests" nycdb

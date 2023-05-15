@@ -1,0 +1,46 @@
+[project]
+name = "nycdb"
+dynamic = ["version", "readme"]
+authors = [
+  	{ name = "nycdb", email = "nycdb@riseup.net"},
+]
+description = "Database of NYC housing data"
+requires-python = ">=3.8"
+keywords = ["nyc", "housing", "data", "postgresql"]
+license = {text = "AGPL-3.0-or-later"}
+classifiers = [
+        "License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)",
+	"Programming Language :: Python :: 3 :: Only",
+]
+dependencies = [
+"PyYAML>=5.1",
+"requests>=2.18",
+"psycopg>=3.1",
+"tqdm>=4.28.1",
+"openpyxl>=3.0.9",
+"xlrd>=2.0.1"
+]
+
+[project.urls]
+homepage = "https://github.com/nycdb/nycdb"
+repository = "https://github.com/nycdb/nycdb"
+
+[project.optional-dependencies]
+test = ["pytest>=6"]
+
+[project.scripts]
+nycdb = "nycdb.cli:main"
+
+[build-system]
+requires = ["setuptools >= 61"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["nycdb"]
+
+[tool.setuptools.package-data]
+nycdb =  ["datasets/*.yml", "sql/*.sql", "sql/**/*.sql"]
+
+[tool.setuptools.dynamic]
+version = {attr = "nycdb.VERSION"}
+readme = {file = ["README.md"]}
