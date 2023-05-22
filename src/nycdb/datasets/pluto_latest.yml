@@ -13,6 +13,8 @@ schema:
     Lot: integer
     CommunityBoard: smallint
     CensusTract2010: text
+    BCT2020: text
+    BCTCB2020: text
     CB2010: text
     SchoolDist: smallint
     CouncilDistrict: smallint
