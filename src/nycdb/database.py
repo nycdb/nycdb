@@ -24,7 +24,7 @@ class Database:
         }
 
         self.table_name = table_name
-        self.conn = psycopg.connect(self.conninfo())
+        self.conn = psycopg.connect(self.conninfo(), cursor_factory=psycopg.ClientCursor)
 
     def sql(self, SQL):
         """executes single sql statement"""
@@ -42,10 +42,7 @@ class Database:
 
         with self.conn.cursor() as curs:
             try:
-                curs.executemany(
-                    sql.insert_many(table_name, rows),
-                    map(lambda d: list(d.values()), rows),
-                )
+                curs.execute(sql.insert_many(curs, table_name, rows))
             except psycopg.Error:
                 print(rows)  # useful for debugging
                 raise
