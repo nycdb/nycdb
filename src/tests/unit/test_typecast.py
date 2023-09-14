@@ -140,9 +140,9 @@ def test_typecast_init():
 
 
 def test_typecast_generate_cast():
-    t = typecast.Typecast(nycdb.datasets()['hpd_registrations']['schema'][0])
+    t = typecast.Typecast(nycdb.datasets()['hpd_violations']['schema'][0])
     assert t.cast['boroid']('123') == 123
-    assert t.cast['boro'](' test  ') == 'test'
+    assert t.cast['borough'](' test  ') == 'test'
     assert t.cast['bbl']('0123456789X') == '0123456789'
 
 
