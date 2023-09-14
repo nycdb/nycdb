@@ -101,19 +101,14 @@ def test_ecb_violations(conn):
     assert row_count(conn, "ecb_violations") == 5
 
 
-def test_hpd_complaint_problems(conn):
-    drop_table(conn, "hpd_complaint_problems")
-    drop_table(conn, "hpd_complaints")
-    hpd_complaints = nycdb.Dataset("hpd_complaints", args=ARGS)
-    hpd_complaints.db_import()
-    assert row_count(conn, "hpd_complaint_problems") == 9
-
-
 def test_hpd_complaints(conn):
+    drop_table(conn, "hpd_complaints_and_problems")
     drop_table(conn, "hpd_complaint_problems")
     drop_table(conn, "hpd_complaints")
     hpd_complaints = nycdb.Dataset("hpd_complaints", args=ARGS)
     hpd_complaints.db_import()
+    assert row_count(conn, "hpd_complaints_and_problems") == 10
+    assert row_count(conn, "hpd_complaint_problems") == 9
     assert row_count(conn, "hpd_complaints") == 100
 
 

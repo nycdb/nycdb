@@ -1,12 +1,53 @@
 ---
 files:
   -
+    url: https://data.cityofnewyork.us/api/views/ygpa-z7cr/rows.csv?accessType=DOWNLOAD
+    dest: hpd_complaints_and_problems.csv
+  -
     url: https://data.cityofnewyork.us/api/views/uwyv-629c/rows.csv?accessType=DOWNLOAD
     dest: hpd_complaints.csv
   -
     url: https://data.cityofnewyork.us/api/views/a2nx-4u46/rows.csv?accessType=DOWNLOAD
     dest: hpd_complaint_problems.csv
+sql:
+  - hpd_complaints.sql
 schema:
+  -
+    table_name: hpd_complaints_and_problems
+    fields:
+      ReceivedDate: date
+      ProblemID: integer
+      ComplaintID: integer
+      BuildingID: integer
+      Borough: text
+      HouseNumber: text
+      StreetName: text
+      PostCode: text
+      Block: integer
+      Lot: integer
+      Apartment: text
+      CommunityBoard: integer
+      UnitType: text
+      SpaceType: text
+      Type: text
+      MajorCategory: text
+      MinorCategory: text
+      ProblemCode: text
+      ComplaintStatus: text
+      ComplaintStatusDate: date
+      ProblemStatus: text
+      ProblemStatusDate: date
+      StatusDescription: text
+      ProblemDuplicateFlag: boolean
+      ComplaintAnonymousFlag: boolean
+      UniqueKey: text
+      Latitude: numeric
+      Longitude: numeric
+      CouncilDistrict: char(2)
+      CensusTract: text
+      Bin: char(7)
+      BBL: char(10)
+      NTA: text
   -
     table_name: hpd_complaints
     fields:
@@ -47,5 +88,3 @@ schema:
       Status: text
       StatusDate: date
       StatusDescription: text
-sql:
-  - hpd_complaints.sql
