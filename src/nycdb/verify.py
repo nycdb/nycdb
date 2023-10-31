@@ -39,6 +39,7 @@ TABLES = {
     'rentstab_summary': {'rentstab_summary': 45_000},
     'dob_complaints': {'dob_complaints': 1_000_000},
     'hpd_complaints': {
+        'hpd_complaints_and_problems': 13_000_000,
         'hpd_complaints': 1_000_000,
         'hpd_complaint_problems': 2_000_000
     },

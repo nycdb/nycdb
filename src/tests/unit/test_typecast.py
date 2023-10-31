@@ -140,16 +140,16 @@ def test_typecast_init():
 
 
 def test_typecast_generate_cast():
-    t = typecast.Typecast(nycdb.datasets()['hpd_complaints']['schema'][0])
-    assert t.cast['boroughid']('123') == 123
+    t = typecast.Typecast(nycdb.datasets()['hpd_violations']['schema'])
+    assert t.cast['buildingid']('123') == 123
     assert t.cast['borough'](' test  ') == 'test'
     assert t.cast['bbl']('0123456789X') == '0123456789'
 
 
 def test_cast_row():
-    t = typecast.Typecast(nycdb.datasets()['hpd_complaints']['schema'][0])
-    row = { 'BoroughID': '123', 'Status': 'GOOD' }
-    assert t.cast_row(row) == { 'BoroughID': 123, 'Status': 'GOOD' }
+    t = typecast.Typecast(nycdb.datasets()['hpd_registrations']['schema'][0])
+    row = { 'boroid': '123', 'streetname': 'GOOD' }
+    assert t.cast_row(row) == { 'boroid': 123, 'streetname': 'GOOD' }
 
 
 def test_correct_bbl_typecast_for_pluto():
