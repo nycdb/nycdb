@@ -1,0 +1,6 @@
+[flake8]
+select = C,E,F,W
+max-complexity = 10
+max-line-length = 160
+per-file-ignores = __init__.py:F401
+ignore=W291,W391,W605,C901,E302,E305,E306
