@@ -207,3 +207,6 @@ def dob_vacate_orders(dataset):
 
 def dof_tax_lien_sale_list(dataset):
     return with_bbl(to_csv(dataset.files[0].dest))
+
+def dob_certificate_occupancy(dataset):
+    return with_bbl(skip_fields(to_csv(dataset.files[0].dest), [s.lower() for s in dataset.dataset['schema']['skip']]))
