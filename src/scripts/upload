@@ -3,4 +3,5 @@ set -e
 
 pip3 install build twine
 python3 -m build
-twine upload -r nycdb dist/*
+python3 -m twine check dist/*
+python3 -m twine upload dist/*
