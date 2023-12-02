@@ -1,0 +1,36 @@
+---
+files:
+  -
+    url: https://nycopendata.socrata.com/api/views/bs8b-p36w/rows.csv?accessType=DOWNLOAD
+    dest: dob_certificate_occupancy.csv
+schema:
+  table_name: dob_certificate_occupancy
+  fields:
+    JobNumber: text
+    JobType: text
+    COIssueDate: date
+    BinNumber: char(7)
+    Borough: char(1)
+    Number: text
+    Street: text
+    Block: char(5)
+    Lot: char(7)
+    Postcode: char(5)
+    PrDwellingUnit: smallint
+    ExDwellingUnit: smallint
+    ApplicationStatusRaw: text
+    FilingStatusRaw: text
+    ItemNumber: integer
+    IssueType: text
+    Latitude: numeric
+    Longitude: numeric
+    CommunityBoard: smallint
+    CouncilDistrict: smallint
+    CensusTract:  text
+    NTA: text
+    Location: text
+    BBL: char(10)
+  skip:
+    - BIN
+sql:
+  - dob_certificate_occupancy.sql
