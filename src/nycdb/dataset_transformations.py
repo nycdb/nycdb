@@ -217,5 +217,9 @@ def hpd_hwo_charges(dataset):
     return to_csv(dataset.files[0].dest)
 
 
-def hpd_omo_charges(dataset):
+def hpd_omo_invoices(dataset):
     return to_csv(dataset.files[0].dest)
+
+
+def hpd_omo_charges(dataset):
+    return to_csv(dataset.files[1].dest)
