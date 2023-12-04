@@ -248,6 +248,20 @@ def test_hpd_violations(conn):
     assert row_count(conn, "hpd_violations") == 100
 
 
+def test_hpd_hwo_charges(conn):
+    drop_table(conn, "hpd_hwo_charges")
+    nycdb.Dataset("hpd_hwo_charges", args=ARGS).db_import()
+    assert row_count(conn, "hpd_hwo_charges") == 5
+
+
+def test_hpd_omo(conn):
+    drop_table(conn, "hpd_omo_invoices")
+    drop_table(conn, "hpd_omo_charges")
+    nycdb.Dataset("hpd_omo", args=ARGS).db_import()
+    assert row_count(conn, "hpd_omo_invoices") == 10
+    assert row_count(conn, "hpd_omo_charges") == 10
+
+
 def test_hpd_violations_index(conn):
     assert has_one_row(
         conn, "select 1 where to_regclass('public.hpd_violations_bbl_idx') is NOT NULL"
