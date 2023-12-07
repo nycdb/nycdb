@@ -87,7 +87,8 @@ TABLES = {
         'oca_motions': 700_000,
         'oca_decisions': 650_000,
         'oca_judgments': 600_000,
-        'oca_warrants': 600_000
+        'oca_warrants': 600_000,
+        'oca_metadata': 1_300_000,
     },
     'hpd_affordable_production': {
         'hpd_affordable_building': 6_000,
