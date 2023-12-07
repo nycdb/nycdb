@@ -540,6 +540,7 @@ def test_oca(conn):
     drop_table(conn, "oca_decisions")
     drop_table(conn, "oca_judgments")
     drop_table(conn, "oca_warrants")
+    drop_table(conn, "oca_metadata")
     oca = nycdb.Dataset("oca", args=ARGS)
     oca.db_import()
     assert row_count(conn, "oca_index") == 100
@@ -553,6 +554,7 @@ def test_oca(conn):
     assert row_count(conn, "oca_decisions") == 100
     assert row_count(conn, "oca_judgments") == 100
     assert row_count(conn, "oca_warrants") == 100
+    assert row_count(conn, "oca_metadata") == 100
     test_id = "000146FB4347DEDD75BD9817F6FA786E6B978ACA16FA54CAEDD5D48B16DD53E5"
     assert has_one_row(
         conn, f"select * from oca_index where indexnumberid = '{test_id}'"

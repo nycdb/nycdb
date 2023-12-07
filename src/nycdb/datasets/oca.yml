@@ -33,6 +33,9 @@ files:
   -
     url: https://oca-2-dev.s3.amazonaws.com/public/oca_warrants.csv
     dest: oca_warrants.csv
+  -
+    url: https://oca-2-dev.s3.amazonaws.com/public/oca_metadata.csv
+    dest: oca_metadata.csv
 sql:
   - oca/cast_arrays.sql
   - oca/index.sql
@@ -163,3 +166,10 @@ schema:
       returneddate: date
       returnedreason: text
       executiondate: date
+  -
+    table_name: oca_metadata
+    fields:
+      indexnumberid: text
+      initialdate: date
+      updatedate: date
+      deletedate: date
