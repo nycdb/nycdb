@@ -1,5 +1,5 @@
 """nycdb - nyc housing database"""
-VERSION = "0.3.0"
+VERSION = "0.3.1.dev"
 #__all__ = []
 
 from . import typecast, sql, transform, bbl, address
