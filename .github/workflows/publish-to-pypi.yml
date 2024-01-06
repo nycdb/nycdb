@@ -1,0 +1,24 @@
+name: Publish to PyPI
+
+on: push
+
+jobs:
+  build:
+    name: Build python package
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.x"
+    - name: Install pypa/build
+      run: python3 -m pip install build --user
+    - name: Build a binary wheel and a source tarball
+      run: python3 -m build
+      working-directory: ./src
+    - name: Store the distribution packages
+      uses: actions/upload-artifact@v3
+      with:
+        name: python-package-distributions
+        path: src/dist/
