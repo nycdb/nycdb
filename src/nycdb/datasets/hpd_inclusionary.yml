@@ -1,0 +1,67 @@
+---
+files:
+  -
+    url: https://data.cityofnewyork.us/api/views/jafx-rvrb/rows.csv?date=20240120&accessType=DOWNLOAD
+    dest: hpd_inclusionary_projects.csv
+  -
+    url: https://data.cityofnewyork.us/api/views/cm6g-t7ye/rows.csv?date=20240120&accessType=DOWNLOAD
+    dest: hpd_inclusionary_properties.csv
+  -
+    url: https://data.cityofnewyork.us/api/views/ej3f-9dad/rows.csv?date=20240120&accessType=DOWNLOAD
+    dest: hpd_inclusionary_transfers.csv
+  -
+    url: https://data.cityofnewyork.us/api/views/qcru-xhuq/rows.csv?date=20240120&accessType=DOWNLOAD
+    dest: hpd_inclusionary_generated.csv
+sql:
+  - hpd_inclusionary.sql
+
+
+schema:
+  -
+    table_name: hpd_inclusionary_projects
+    fields:
+      projectId: integer
+      projectName: text
+      administeringAgent: text
+      projectStatus: text
+      totalIHFloorArea: numeric
+      transferredIHFloorArea: numeric
+      remainingIHFloorArea: numeric
+
+  -
+    table_name: hpd_inclusionary_properties
+    fields:
+      id: integer
+      hpdBuildingId: integer
+      address: text
+      bbl: char(10)
+      bin: char(7)
+      councilDistrict: smallint
+      communityDistrict: smallint
+      censusTract2010: integer
+      neighborhoodTabulationArea: text
+      postcode: smallint
+      borough: text
+      latitude: numeric
+      longitude: numeric
+      totalIHFloorArea: numeric
+      transferredIHFloorArea: numeric
+      remainingIHFloorArea: numeric
+      propertyType: text
+      geocodingMethod: text
+
+  -
+    table_name: hpd_inclusionary_transfers
+    fields:
+      generatingProjectId: integer
+      transferredFloorArea: integer
+      transferDate: date
+      generatingBuildingId: integer
+      transferBuildingId: integer
+
+  -
+    table_name: hpd_inclusionary_generated
+    fields:
+      generatingProjectId: integer
+      floorAreaGenerated: numeric
+      generatingBuildingId: integer
