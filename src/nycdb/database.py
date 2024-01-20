@@ -87,3 +87,8 @@ class Database:
         return "host={host} port={port} dbname={database} user={user} password={password}".format(
             **self.connection_params
         )
+
+    def connstring(self):
+        return "postgresql://{user}:{password}@{host}:{port}/{database}".format(
+            **self.connection_params
+        )
