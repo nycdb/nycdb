@@ -746,4 +746,9 @@ def test_dob_certificate_occupancy(conn):
     dob_certificate_occupancy = nycdb.Dataset('dob_certificate_occupancy', args=ARGS)
     dob_certificate_occupancy.db_import()
     assert row_count(conn, 'dob_certificate_occupancy') == 5
-    
+
+def test_dob_safety_violations(conn):
+    drop_table(conn, 'dob_safety_violations')
+    dob_safety_violations = nycdb.Dataset('dob_safety_violations', args=ARGS)
+    dob_safety_violations.db_import()
+    assert row_count(conn, 'dob_safety_violations') == 5
