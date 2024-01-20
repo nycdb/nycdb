@@ -312,6 +312,11 @@ def test_dof_sales(conn):
         conn, "select 1 where to_regclass('public.dof_sales_bbl_idx') is NOT NULL"
     )
 
+def test_dob_safety_violations(conn):
+    drop_table(conn, 'dob_safety_violations')
+    ecb_violations = nycdb.Dataset('dob_safety_violations', args=ARGS)
+    ecb_violations.db_import()
+    assert row_count(conn, 'dob_safety_violations') == 5
 
 def test_dobjobs(conn):
     drop_table(conn, "dobjobs")

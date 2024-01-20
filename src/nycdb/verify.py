@@ -17,6 +17,7 @@ TABLES = {
         'dob_now_jobs': 380_000
     },
     'dob_violations': {'dob_violations': 2_000_000},
+    'dob_safety_violations': {'dob_safety_violations': 490_000 },
     'ecb_violations': {'ecb_violations': 1_300_000},
     'hpd_violations': {'hpd_violations': 4_000_000},
     'hpd_registrations': {
