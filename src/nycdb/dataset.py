@@ -61,21 +61,26 @@ class Dataset:
         for f in self.files:
             f.download(hide_progress=self.args.hide_progress)
 
-    def db_import(self):
+    def db_import(self, limit=None):
         """
         Inserts the dataset in the postgres.
+
+        Optionally, provide a list of table names to limit the import
+        to certain schemas in the datset
+
         Output:  True | Throws
         """
         self.setup_db()
         self.create_schema()
 
         for schema in self.schemas:
-            if schema.get("type") == "shapefile":
-                Shapefile(
-                    schema, connstring=self.db.connstring(), root_dir=self.root_dir
-                ).db_import()
-            else:
-                self.import_schema(schema)
+            if limit is None or schema["table_name"] in limit:
+                if schema.get("type") == "shapefile":
+                    Shapefile(
+                        schema, connstring=self.db.connstring(), root_dir=self.root_dir
+                    ).db_import()
+                else:
+                    self.import_schema(schema)
 
         self.sql_files()
 
