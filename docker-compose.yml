@@ -23,6 +23,7 @@ services:
     shm_size: 1gb
     volumes:
       - database-data:/var/lib/postgresql/data
+      - ./src/scripts/createExtensionPostGIS.sql:/docker-entrypoint-initdb.d/createExtensionPostGIS.sql
     environment:
       - POSTGRES_PASSWORD=nycdb
       - POSTGRES_USER=nycdb

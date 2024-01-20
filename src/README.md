@@ -82,3 +82,19 @@ As long as the virtual environment is activated, you can use `nycdb` directly in
 ###  Adding New Datasets
 
 See the [guide here](ADDING_NEW_DATASETS.md) for the steps to add a new dataset
+
+
+### A Note on POSTGIS
+If one wishes to install the `boundaries` dataset which includes shapefiles and other GIS content for NYC, one will need to rerun the docker-compose. 
+
+A few commands that work nicely for this:
+
+```
+# Stop and remove containers, networks, and volumes
+docker-compose down -v
+
+# Build and start the services
+docker-compose up --build
+```
+
+- During the `docker-compose up` command the sql in `src/scripts/createExtensionPostGIS.sql` is executed to add the POSTGIS extension to your nycdb POSTGRES instance
