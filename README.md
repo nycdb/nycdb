@@ -9,7 +9,7 @@ Residents, lawyers, tenants, and organizers who want to use data in their strugg
 - [Department of City Planning's PLUTO](https://github.com/nycdb/nycdb/wiki/Dataset:-PLUTO) (Includes the [latest version via Open Data](https://data.cityofnewyork.us/City-Government/Primary-Land-Use-Tax-Lot-Output-PLUTO-/64uk-42ks), and many other specific versions. See documentatino for details)
 - [DOB Job Filings](https://github.com/nycdb/nycdb/wiki/Dataset:-DOB-Job-Filings)
 - [DOB Complaints](https://github.com/nycdb/nycdb/wiki/Dataset:-DOB-Complaints)
-- [DOB Safety Violations]()
+- [DOB Safety Violations](https://github.com/nycdb/nycdb/wiki/Dataset:-DOB-Safety-Violations)
 - [DOB Vacate Orders](https://github.com/nycdb/nycdb/wiki/Dataset:-DOB-Vacate-Orders) - From [FOIA request by Jennah Gosciak](https://github.com/jennahgosciak/dob_vacate_orders)
 - [DOB Violations](https://github.com/nycdb/nycdb/wiki/Dataset:-DOB-Violations)
 - [HPD Violations](https://github.com/nycdb/nycdb/wiki/Dataset:-HPD-Violations)
