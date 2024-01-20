@@ -747,6 +747,7 @@ def test_dof_tax_lien_sale_list(conn):
         assert rec is not None
         assert rec["reportdate"].strftime("%Y-%m-%d") == "2019-04-01"
 
+
 def test_dob_certificate_occupancy(conn):
     drop_table(conn, 'dob_certificate_occupancy')
     dob_certificate_occupancy = nycdb.Dataset('dob_certificate_occupancy', args=ARGS)
@@ -777,3 +778,10 @@ def test_boundaries_two(conn):
     boundaries.db_import(limit=['nyad', 'nycc'])
     assert row_count(conn, 'nyad') == 65
     assert row_count(conn, 'nycc') == 51
+
+
+def test_dhs_daily_shelter_count(conn):
+    drop_table(conn, 'dhs_daily_shelter_count')
+    ecb_violations = nycdb.Dataset('dhs_daily_shelter_count', args=ARGS)
+    ecb_violations.db_import()
+    assert row_count(conn, 'dhs_daily_shelter_count') == 5

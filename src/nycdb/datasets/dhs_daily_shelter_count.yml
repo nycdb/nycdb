@@ -1,0 +1,13 @@
+---
+files:
+  -
+    url: https://raw.githubusercontent.com/anesta95/nyc_shelter_count/main/data/dhs_daily_report.csv
+    dest: dhs_daily_shelter_count.csv
+schema:
+  table_name: dhs_daily_shelter_count
+  fields:
+    Measure: text
+    Count: integer
+    Series_name: text
+    Date: date
+
