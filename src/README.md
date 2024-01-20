@@ -24,6 +24,8 @@ nycdb --load hpd_violations
 nycdb --verify hpd_violations
 ```
 
+To delete a previously imported dataset (for example, if you'd like to import an updated version of it), use the `--drop` option. For example, to delete the dataset **hpd_violations**: `nycdb --drop hpd_violations`.
+
 You can also verify all datasets: ` nycdb --verify-all `
 
 By default the downloaded data files are is stored in `./data`. Use `--root-dir` to change the location of the data directory.

@@ -166,6 +166,17 @@ class Dataset:
         cmd = ["pg_dump", "--no-owner", "--clean", "--if-exists", "-w"] + tables + [file_arg]
         subprocess.run(cmd, env=self.pg_env(), check=True)
 
+
+    def drop(self):
+        """
+        Drops the dataset from postgres.
+        """
+        self.setup_db()
+
+        for s in self.schemas:
+            self.db.sql(sql.drop_table(s['table_name']))
+
+
     def pg_env(self):
         """
         Returns a copy of the environment with postgres environment variables set
