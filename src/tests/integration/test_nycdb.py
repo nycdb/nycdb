@@ -24,7 +24,6 @@ ARGS = SimpleNamespace(
 
 CONNINFO = f"host={ARGS.host} port={ARGS.port} dbname={ARGS.database} user={ARGS.user} password={ARGS.password}"
 
-
 def create_db(dbname):
     conn = psycopg.connect(CONNINFO, autocommit=True)
     with conn.cursor() as curs:
@@ -56,7 +55,6 @@ def db():
             else:
                 raise e
 
-
 @pytest.fixture
 def conn(db):
     with psycopg.connect(CONNINFO) as conn:
@@ -66,6 +64,12 @@ def conn(db):
 def drop_table(conn, table_name):
     with conn.cursor() as curs:
         curs.execute("DROP TABLE IF EXISTS {};".format(table_name))
+    conn.commit()
+
+
+def setup_postgis(conn):
+    with conn.cursor() as curs:
+        curs.execute("CREATE EXTENSION IF NOT EXISTS postgis;")
     conn.commit()
 
 
@@ -746,4 +750,21 @@ def test_dob_certificate_occupancy(conn):
     dob_certificate_occupancy = nycdb.Dataset('dob_certificate_occupancy', args=ARGS)
     dob_certificate_occupancy.db_import()
     assert row_count(conn, 'dob_certificate_occupancy') == 5
-    
+
+
+def test_boundaries_one(conn):
+    setup_postgis(conn)
+    drop_table(conn, 'nyad')
+    boundaries = nycdb.Dataset('boundaries', args=ARGS)
+    boundaries.db_import(limit=['nyad'])
+    assert row_count(conn, 'nyad') == 65
+
+
+def test_boundaries_two(conn):
+    setup_postgis(conn)
+    drop_table(conn, 'nyad')
+    drop_table(conn, 'nycc')
+    boundaries = nycdb.Dataset('boundaries', args=ARGS)
+    boundaries.db_import(limit=['nyad', 'nycc'])
+    assert row_count(conn, 'nyad') == 65
+    assert row_count(conn, 'nycc') == 51
