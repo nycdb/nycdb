@@ -1,0 +1,28 @@
+---
+files:
+  -
+    url: https://data.cityofnewyork.us/api/views/855j-jady/rows.csv?date=20240120&accessType=DOWNLOAD
+    dest: dob_safety_violations.csv
+schema:
+  table_name: dob_safety_violations
+  fields:
+    BIN: text
+    ViolationIssueDate: date
+    ViolationNumber: text
+    ViolationType: text
+    ViolationRemarks: text
+    ViolationStatus: text
+    DeviceNumber: text
+    DeviceType: text
+    CycleEndDate: date
+    borough: text
+    block: integer
+    lot: smallint
+    HouseNumber: text
+    street: text
+    city: text
+    state: text
+    zip: text
+    bbl: char(10)
+sql:
+- dob_safety_violations.sql
