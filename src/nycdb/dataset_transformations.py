@@ -223,3 +223,7 @@ def hpd_omo_invoices(dataset):
 
 def hpd_omo_charges(dataset):
     return to_csv(dataset.files[1].dest)
+
+
+def dof_property_charge(dataset):
+    return to_csv(dataset.files[0].dest)

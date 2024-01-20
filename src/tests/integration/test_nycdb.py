@@ -747,3 +747,18 @@ def test_dob_certificate_occupancy(conn):
     dob_certificate_occupancy.db_import()
     assert row_count(conn, 'dob_certificate_occupancy') == 5
     
+
+def test_dof_property_charge(conn):
+    drop_table(conn, 'dof_property_charge')
+    dataset = nycdb.Dataset('dof_property_charge', args=ARGS)
+    dataset.db_import()
+    assert row_count(conn, 'dof_property_charge') > 0
+    assert has_one_row(conn, "select 1 where to_regclass('public.dof_property_charge_bbl_idx') is NOT NULL")
+    with conn.cursor(cursor_factory=psycopg2.extras.DictCursor) as curs:
+        curs.execute("select * from dof_property_charge WHERE bbl = '2022600001'")
+        rec = curs.fetchone()
+        assert rec is not None
+        # TODO: Use another column from that row to confirm the value. Make sure you are using the correct type
+        # assert rec['COLUMN GOES HERE'] == 'VALUE GOES HERE'
+
+

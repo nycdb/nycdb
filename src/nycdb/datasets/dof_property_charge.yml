@@ -1,0 +1,44 @@
+---
+files:
+  -
+    url: https://data.cityofnewyork.us/api/views/scjx-j6np/rows.csv?accessType=DOWNLOAD
+    dest: dof_property_charge.csv
+sql:
+    - dof_property_charge.sql
+schema:
+  table_name: dof_property_charge
+  fields:
+    rectype: smallint 
+    parid: text
+    code: text
+    projno: text
+    accountid: text
+    dtpdbegin: date 
+    dtpdend: date 
+    valclass: text
+    luc: text
+    transctr: text
+    priorownerflag: text
+    cityownedflag: text
+    hiloint: text
+    petind: text
+    actinstall: text
+    intagree: text
+    typeacct: text
+    sumliab: bigint
+    sumcoll: bigint
+    sumint: bigint
+    sumdsc: bigint
+    sumbal: bigint
+    update: bigint
+    duedate: date 
+    postthru: date 
+    dtgrace: date 
+    idblock: text
+    idlot: text
+    rolltype: text
+    taxyear: text
+    prioryear: text
+    cycle: text
+    accode: text
+    extractdt: date 
