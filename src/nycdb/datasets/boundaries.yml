@@ -1,0 +1,109 @@
+---
+files:
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyad_23d.zip
+    dest: nyad_23d.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nycg_23d.zip
+    dest: nycg_23d.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyss_23d.zip
+    dest: nyss_23d.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nymc_23d.zip
+    dest: nymc_23d.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nycc_23d.zip
+    dest: nycc_23d.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyed_23d.zip
+    dest: nyed_23d.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nybb_23d.zip
+    dest: nybb_23d.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nycd_23d.zip
+    dest: nycd_23d.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nysd_23d.zip
+    dest: nysd_23d.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nypp_23d.zip
+    dest: nypp_23d.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyha_23d.zip
+    dest: nyha_23d.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyhc_23d.zip
+    dest: nyhc_23d.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyfc_23d.zip
+    dest: nyfc_23d.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyfb_23d.zip
+    dest: nyfb_23d.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyfd_23d.zip
+    dest: nyfd_23d.zip
+sql: []
+schema:
+  # State Assembly Districts
+  - table_name: nyad
+    path: nyad_23d/nyad
+    dest: nyad_23d.zip
+    type: shapefile
+  # Congressional Districts
+  - table_name: nycg
+    path: nycg_23d/nycg
+    dest: nycg_23d.zip
+    type: shapefile
+  # State Senate Districts
+  - table_name: nyss
+    path: nyss_23d/nyss
+    dest: nyss_23d.zip
+    type: shapefile
+  # Municipal Court Districts
+  - table_name: nymc
+    path: nymc_23d/nymc
+    dest: nymc_23d.zip
+    type: shapefile
+  # City Council Districts
+  - table_name: nycc
+    path: nycc_23d/nycc
+    dest: nycc_23d.zip
+    type: shapefile
+  # Election Districts
+  - table_name: nyed
+    path: nyed_23d/nyed
+    dest: nyed_23d.zip
+    type: shapefile
+  # Borough Boundaries
+  - table_name: nybb
+    path: nybb_23d/nybb
+    dest: nybb_23d.zip
+    type: shapefile
+  # Community Districts
+  - table_name: nycd
+    path: nycd_23d/nycd
+    dest: nycd_23d.zip
+    type: shapefile
+ # School Districts
+  - table_name: nysd
+    path: nysd_23d/nysd
+    dest: nysd_23d.zip
+    type: shapefile
+  # Police Precincts
+  - table_name: nypp
+    path: nypp_23d/nypp
+    dest: nypp_23d.zip
+    type: shapefile
+  # Health Area
+  - table_name: nyha
+    path: nyha_23d/nyha
+    dest: nyha_23d.zip
+    type: shapefile
+  # Health Center
+  - table_name: nyhc
+    path: nyhc_23d/nyhc
+    dest: nyhc_23d.zip
+    type: shapefile
+  # Fire Companies
+  - table_name: nyfc
+    path: nyfc_23d/nyfc
+    dest: nyfc_23d.zip
+    type: shapefile
+  # Fire Battalions
+  - table_name: nyfb
+    path: nyfb_23d/nyfb
+    dest: nyfb_23d.zip
+    type: shapefile
+  # Fire Divisions
+  - table_name: nyfd
+    path: nyfd_23d/nyfd
+    dest: nyfd_23d.zip
+    type: shapefile

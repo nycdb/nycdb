@@ -13,6 +13,7 @@ from .typecast import Typecast
 from .file import File
 from .utility import list_wrap, merge
 from .datasets import datasets
+from .shapefile import Shapefile
 
 BATCH_SIZE = 1000
 
@@ -60,7 +61,6 @@ class Dataset:
         for f in self.files:
             f.download(hide_progress=self.args.hide_progress)
 
-
     def db_import(self):
         """
         Inserts the dataset in the postgres.
@@ -70,7 +70,12 @@ class Dataset:
         self.create_schema()
 
         for schema in self.schemas:
-            self.import_schema(schema)
+            if schema.get("type") == "shapefile":
+                Shapefile(
+                    schema, connstring=self.db.connstring(), root_dir=self.root_dir
+                ).db_import()
+            else:
+                self.import_schema(schema)
 
         self.sql_files()
 
@@ -82,11 +87,11 @@ class Dataset:
         This method creates those indices.
         It does nothing if the dataset has no additional indexes
         """
-        if 'index' in self.dataset:
-            for sql_file in self.dataset['index']:
+        if "index" in self.dataset:
+            for sql_file in self.dataset["index"]:
                 self.db.execute_sql_file(sql_file)
         else:
-            logging.debug('no index files exist for this dataset')
+            logging.debug("no index files exist for this dataset")
 
     def transform(self, schema):
         """
@@ -102,7 +107,7 @@ class Dataset:
         tc = Typecast(schema)
 
         try:
-            rows = getattr(dataset_transformations, schema['table_name'])(self)
+            rows = getattr(dataset_transformations, schema["table_name"])(self)
         except AttributeError:
             rows = getattr(dataset_transformations, self.name)(self, schema)
 
@@ -114,31 +119,31 @@ class Dataset:
         """
         rows = self.transform(schema)
 
-        pbar = tqdm(unit='rows', disable=self.args.hide_progress)
+        pbar = tqdm(unit="rows", disable=self.args.hide_progress)
         while True:
             batch = list(itertools.islice(rows, 0, BATCH_SIZE))
             if len(batch) == 0:
                 break
             else:
                 pbar.update(len(batch))
-                self.db.insert_rows(batch, table_name=schema['table_name'])
+                self.db.insert_rows(batch, table_name=schema["table_name"])
         pbar.close()
 
     def create_schema(self):
         """
         Issues CREATE TABLE statements for all tables in the dataset.
         """
-        create_table = lambda name, fields: self.db.sql(sql.create_table(name, fields))
-
         for s in self.schemas:
-            create_table(s['table_name'], s['fields'])
+            # tables of type 'shapefile' do not need to be created first
+            if s.get("type") != "shapefile":
+                self.db.sql(sql.create_table(s["table_name"], s["fields"]))
 
     def sql_files(self):
         """
         Executes all sql files for the dataset.
         """
-        if 'sql' in self.dataset:
-            for f in self.dataset['sql']:
+        if "sql" in self.dataset:
+            for f in self.dataset["sql"]:
                 self.db.execute_sql_file(f)
 
     def setup_db(self):
@@ -161,9 +166,15 @@ class Dataset:
         Creates .sql dump file of the datasets.
         Saves the file with the format [DATASET_NAME]-DATE.sql
         """
-        tables = ['--table={}'.format(s['table_name']) for s in self.schemas]
-        file_arg = '--file=./{}-{}.sql'.format(self.name, datetime.date.today().isoformat())
-        cmd = ["pg_dump", "--no-owner", "--clean", "--if-exists", "-w"] + tables + [file_arg]
+        tables = ["--table={}".format(s["table_name"]) for s in self.schemas]
+        file_arg = "--file=./{}-{}.sql".format(
+            self.name, datetime.date.today().isoformat()
+        )
+        cmd = (
+            ["pg_dump", "--no-owner", "--clean", "--if-exists", "-w"]
+            + tables
+            + [file_arg]
+        )
         subprocess.run(cmd, env=self.pg_env(), check=True)
 
 
@@ -186,9 +197,10 @@ class Dataset:
         return merge(
             os.environ.copy(),
             {
-                'PGHOST': self.args.host,
-                'PGPORT': self.args.port,
-                'PGUSER': self.args.user,
-                'PGDATABASE': self.args.database,
-                'PGPASSWORD': self.args.password
-            })
+                "PGHOST": self.args.host,
+                "PGPORT": self.args.port,
+                "PGUSER": self.args.user,
+                "PGDATABASE": self.args.database,
+                "PGPASSWORD": self.args.password,
+            },
+        )
