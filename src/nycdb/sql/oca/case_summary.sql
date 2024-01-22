@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS oca_case_summary AS (
 			CASE 
 				WHEN court ~* '(new york)|(harlem)'				THEN 'Manhattan'
 				WHEN court ~* 'bronx' 							THEN 'Bronx'
-				WHEN court ~* '(brooklyn)|(kings)|(redhook)' 	THEN 'Brooklyn'
+				WHEN court ~* '(brooklyn)|(kings\b)|(redhook)' 	THEN 'Brooklyn'
 				WHEN court ~* 'queens' 							THEN 'Queens'
 				WHEN court ~* 'richmond' 						THEN 'Staten Island'
 			END AS court_boro,
