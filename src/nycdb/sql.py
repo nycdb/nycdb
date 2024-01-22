@@ -7,6 +7,12 @@ def create_table(table_name, fields) -> str:
     sql += ")"
     return sql
 
+def drop_table(table_name) -> str:
+    """
+    String --> String
+    """
+    return "DROP TABLE {}".format(table_name)
+
 
 def insert_many(curs, table_name, rows) -> str:
     """
