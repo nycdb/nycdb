@@ -1,0 +1,10 @@
+CREATE INDEX hpdInclusionaryProjectIdIndex ON hpd_inclusionary_projects (projectId);
+
+CREATE INDEX hpdInclusionaryBuildingIdIndex ON hpd_inclusionary_properties (id);
+CREATE INDEX bblIndex ON hpd_inclusionary_properties (bbl);
+
+CREATE INDEX hpdInclusionaryGeneratingProjectIdIndex ON hpd_inclusionary_transfers (generatingProjectId);
+CREATE INDEX hpdInclusionaryGeneratingBuildingIdIndex ON hpd_inclusionary_transfers (generatingBuildingId);
+CREATE INDEX hpdInclusionaryTransferBuildingIdIndex ON hpd_inclusionary_transfers (transferBuildingId);
+
+CREATE INDEX hpdInclusionaryGeneratedProjectIdIndex ON hpd_inclusionary_generated (generatingProjectId);

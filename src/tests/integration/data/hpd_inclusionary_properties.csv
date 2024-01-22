@@ -1,0 +1,6 @@
+ID,HPD Building ID,Address,BBL,BIN,Council District,Community District,Census Tract 2010,Neighborhood Tabulation Area,Postcode,Borough,Latitude,Longitude,Total IH Floor Area,Transferred IH Floor Area,Remaining IH Floor Area,Property Type,Geocoding Method
+7,963,1595 2 AVENUE,1015280028,1048662,5,8,13800,MN32,10028,Manhattan,40.77587665,-73.95354435,0,0,0,Compensated Development,Geocoded on BBL
+9,1009,1691 2 AVENUE,1015330027,1048814,5,8,14602,MN32,10128,Manhattan,40.77908429,-73.95123846,0,12914,0,Compensated Development,Geocoded on BBL
+17,2174,299 3 AVENUE,1009030057,1082133,2,6,6400,MN21,10010,Manhattan,40.7385617,-73.98294388,0,4650,0,Compensated Development,Geocoded on BBL
+19,2315,587 3 AVENUE,1009190005,1020351,4,6,7800,MN20,10016,Manhattan,40.74839486,-73.97578457,0,4550.8,0,Compensated Development,Geocoded on BBL
+21,2414,985 3 AVENUE,1013320047,1038641,4,6,10800,MN19,10022,Manhattan,40.76121871,-73.96641617,0,5272,0,Compensated Development,Geocoded on BBL

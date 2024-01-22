@@ -224,5 +224,12 @@ def hpd_omo_invoices(dataset):
 def hpd_omo_charges(dataset):
     return to_csv(dataset.files[1].dest)
 
+  
+def hpd_inclusionary(dataset, schema):
+    dest_file = next(filter(lambda f: schema['table_name'] in f.dest, dataset.files))
+    _to_csv = to_csv(dest_file.dest)
+    return _to_csv
+
+  
 def dob_safety_violations(dataset):
     return with_bbl(to_csv(dataset.files[0].dest), borough='borough')
