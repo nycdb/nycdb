@@ -69,6 +69,12 @@ def drop_table(conn, table_name):
     conn.commit()
 
 
+def setup_postgis(conn):
+    with conn.cursor() as curs:
+        curs.execute("CREATE EXTENSION IF NOT EXISTS postgis;")
+    conn.commit()
+
+
 def row_count(conn, table_name):
     with conn.cursor() as curs:
         curs.execute("select count(*) from {}".format(table_name))
@@ -747,8 +753,27 @@ def test_dob_certificate_occupancy(conn):
     dob_certificate_occupancy.db_import()
     assert row_count(conn, 'dob_certificate_occupancy') == 5
 
+
 def test_dob_safety_violations(conn):
     drop_table(conn, 'dob_safety_violations')
     dob_safety_violations = nycdb.Dataset('dob_safety_violations', args=ARGS)
     dob_safety_violations.db_import()
     assert row_count(conn, 'dob_safety_violations') == 5
+
+
+def test_boundaries_one(conn):
+    setup_postgis(conn)
+    drop_table(conn, 'nyad')
+    boundaries = nycdb.Dataset('boundaries', args=ARGS)
+    boundaries.db_import(limit=['nyad'])
+    assert row_count(conn, 'nyad') == 65
+
+
+def test_boundaries_two(conn):
+    setup_postgis(conn)
+    drop_table(conn, 'nyad')
+    drop_table(conn, 'nycc')
+    boundaries = nycdb.Dataset('boundaries', args=ARGS)
+    boundaries.db_import(limit=['nyad', 'nycc'])
+    assert row_count(conn, 'nyad') == 65
+    assert row_count(conn, 'nycc') == 51

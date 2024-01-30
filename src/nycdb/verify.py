@@ -98,7 +98,8 @@ TABLES = {
     'dcp_housingdb': {'dcp_housingdb': 70_000},
     'speculation_watch_list': { 'speculation_watch_list': 500 },
     'dob_certificate_occupancy': {'dob_certificate_occupancy': 138_000},
-    'dob_safety_violations': {'dob_safety_violations': 491_174}
+    'dob_safety_violations': {'dob_safety_violations': 491_174},
+    'boundaries': {'nyad': 65, 'nycg': 13, 'nyss': 28, 'nymc': 28, 'nycc': 51, 'nyed': 4286, 'nybb': 5, 'nycd': 71, 'nysd': 33, 'nypp': 77, 'nyha': 354, 'nyhc': 30, 'nyfc': 348, 'nyfb': 49, 'nyfd': 9}
 }
 
 

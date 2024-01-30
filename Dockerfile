@@ -1,7 +1,7 @@
 ARG PYTHON_VERSION=latest
 FROM python:${PYTHON_VERSION}
 
-RUN apt-get update && apt-get install -y postgresql-client libpq-dev
+RUN apt-get update && apt-get install -y postgresql-client libpq-dev postgis
 WORKDIR /nycdb/src
 COPY ./src/ /nycdb/src/
 RUN pip install pytest
