@@ -37,6 +37,8 @@ Residents, lawyers, tenants, and organizers who want to use data in their strugg
 - [DCP Housing Database](https://github.com/nycdb/nycdb/wiki/Dataset:-DCP-Housing-Database)
 - [Major Capital Improvements (MCI) Applications](https://github.com/nycdb/nycdb/wiki/Dataset:-Major-Capital-Improvements-(MCI)-Applications) - From [FOIL request by Winnie Shen](https://github.com/wshenyc/nyc_mci_map)
 - [DOB Safety Violations](https://data.cityofnewyork.us/Housing-Development/DOB-Safety-Violations/855j-jady)
+- [https://data.cityofnewyork.us/Housing-Development/Bedbug-Reporting/wz6d-d3jb](https://data.cityofnewyork.us/Housing-Development/Bedbug-Reporting/wz6d-d3jb)
+
 
 ## Using the database
 
