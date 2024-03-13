@@ -90,7 +90,7 @@ def extract_csv_from_zip(file_path, csv_file_path):
                 yield line.decode('UTF-8', 'ignore')
 
 
-def to_csv(file_path_or_generator):
+def to_csv(file_path_or_generator, header_replacements={}):
     """
     Reads firstline as the headers and converts input into a stream of dicts
 
@@ -105,6 +105,8 @@ def to_csv(file_path_or_generator):
 
     with f:
         headers = clean_headers(f.readline())
+        headers = [header_replacements[h] if header_replacements.get(h) else h for h in headers]
+            #replace headers with table replacements and return new headers
         for row in csv.DictReader(f, fieldnames=headers):
             yield row
 
@@ -112,7 +114,6 @@ def to_csv(file_path_or_generator):
 def with_bbl(table, borough='borough', block='block', lot='lot'):
     for row in table:
         yield merge(row, {'bbl': bbl(row[borough], row[block], row[lot])})
-
 
 def skip_fields(table, fields_to_skip):
     for row in table:

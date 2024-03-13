@@ -216,5 +216,10 @@ def hpd_omo_invoices(dataset):
 def hpd_omo_charges(dataset):
     return to_csv(dataset.files[1].dest)
 
+
 def dob_safety_violations(dataset):
     return with_bbl(to_csv(dataset.files[0].dest), borough='borough')
+
+
+def dhs_daily_shelter_count(dataset):
+    return to_csv(dataset.files[0].dest, header_replacements={'table': 'series_name'})
