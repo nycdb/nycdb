@@ -64,14 +64,6 @@ def hpd_complaints_and_problems(dataset):
     return to_csv(dataset.files[0].dest)
 
 
-def hpd_complaints(dataset):
-    return with_bbl(to_csv(dataset.files[1].dest))
-
-
-def hpd_complaint_problems(dataset):
-    return to_csv(dataset.files[2].dest)
-
-
 def dob_complaints(dataset):
     return to_csv(dataset.files[0].dest)
 
