@@ -40,11 +40,7 @@ TABLES = {
     'rentstab_v2': {'rentstab_v2': 40_000},
     'rentstab_summary': {'rentstab_summary': 45_000},
     'dob_complaints': {'dob_complaints': 1_000_000},
-    'hpd_complaints': {
-        'hpd_complaints_and_problems': 13_000_000,
-        'hpd_complaints': 1_000_000,
-        'hpd_complaint_problems': 2_000_000
-    },
+    'hpd_complaints': {'hpd_complaints_and_problems': 13_000_000},
     'pad': {'pad_adr': 1000000},
     'acris': {
         'real_property_remarks': 1_000_000,
