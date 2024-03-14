@@ -9,6 +9,7 @@ class Shapefile:
         self.connstring = connstring
         self.table_name = schema["table_name"]
         self.path = schema["path"]
+        self.srid = schema["srid"]
         self.zip_file = os.path.join(root_dir, schema["dest"])
 
     def db_import(self):
@@ -16,7 +17,7 @@ class Shapefile:
             zipfile.ZipFile(self.zip_file, mode="r").extractall(path=tmpdir)
 
             shp2pgsql = subprocess.run(
-                ["shp2pgsql", os.path.join(tmpdir, self.path)],
+                ["shp2pgsql", f"-s {self.srid}:2263", os.path.join(tmpdir, self.path)],
                 universal_newlines=True,
                 stdout=subprocess.PIPE,
             )
