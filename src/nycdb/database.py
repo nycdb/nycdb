@@ -76,6 +76,7 @@ class Database:
     
     def get_current_db_schema(self):
         search_path = self.execute_and_fetchone("SHOW search_path;")
+        # default search_path is '"$user", public'
         match = re.search(r'(?:".*",\s)?.*?(\w+)', search_path)
         first_non_user_schema = match.group(1) if match else None
         return first_non_user_schema
