@@ -1,4 +1,5 @@
 import os
+import re
 import psycopg
 from . import sql
 
@@ -72,6 +73,12 @@ class Database:
             table_name
         )
         return self.execute_and_fetchone(query)
+    
+    def get_current_db_schema(self):
+        search_path = self.execute_and_fetchone("SHOW search_path;")
+        match = re.search(r'(?:".*",\s)?.*?(\w+)', search_path)
+        first_non_user_schema = match.group(1) if match else None
+        return first_non_user_schema
 
     def row_count(self, table_name):
         """returns the row count of the table"""

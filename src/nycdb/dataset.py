@@ -77,7 +77,10 @@ class Dataset:
             if limit is None or schema["table_name"] in limit:
                 if schema.get("type") == "shapefile":
                     Shapefile(
-                        schema, connstring=self.db.connstring(), root_dir=self.root_dir
+                        schema, 
+                        connstring=self.db.connstring(), 
+                        root_dir=self.root_dir, 
+                        db_schema=self.db.get_current_db_schema()
                     ).db_import()
                 else:
                     self.import_schema(schema)
