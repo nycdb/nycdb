@@ -75,6 +75,12 @@ def setup_postgis(conn):
     conn.commit()
 
 
+def get_srid(conn, table_name, column_name):
+    with conn.cursor() as curs:
+        curs.execute(f"SELECT ST_SRID({column_name}) from {table_name}")
+        return curs.fetchone()[0]
+
+
 def row_count(conn, table_name):
     with conn.cursor() as curs:
         curs.execute("select count(*) from {}".format(table_name))
@@ -763,7 +769,8 @@ def test_boundaries_one(conn):
     drop_table(conn, 'nyad')
     boundaries = nycdb.Dataset('boundaries', args=ARGS)
     boundaries.db_import(limit=['nyad'])
-    assert row_count(conn, 'nyad') == 65
+    assert row_count(conn, 'nyad') == 5
+    assert get_srid(conn, 'nyad', 'geom') == 2263
 
 
 def test_boundaries_two(conn):
@@ -772,8 +779,22 @@ def test_boundaries_two(conn):
     drop_table(conn, 'nycc')
     boundaries = nycdb.Dataset('boundaries', args=ARGS)
     boundaries.db_import(limit=['nyad', 'nycc'])
-    assert row_count(conn, 'nyad') == 65
-    assert row_count(conn, 'nycc') == 51
+    assert row_count(conn, 'nyad') == 5
+    assert row_count(conn, 'nycc') == 5
+    assert get_srid(conn, 'nycc', 'geom') == 2263
+
+
+def test_shapefile_in_alt_schema_works(conn):
+    setup_postgis(conn)
+    drop_table(conn, 'nyad')
+    boundaries = nycdb.Dataset('boundaries', args=ARGS)
+    boundaries.setup_db()
+    default_search_path = boundaries.db.execute_and_fetchone("SHOW search_path")
+    boundaries.db.sql("CREATE SCHEMA IF NOT EXISTS temp; SET search_path TO temp, public")
+    boundaries.db_import(limit=['nyad'])
+    query = "SELECT table_schema FROM information_schema.columns WHERE table_name='nyad'"
+    assert boundaries.db.execute_and_fetchone(query) == "temp"
+    boundaries.db.sql(f'DROP SCHEMA temp CASCADE; SET search_path TO {default_search_path}')
 
 
 def test_dhs_daily_shelter_count(conn):
