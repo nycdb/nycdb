@@ -80,7 +80,7 @@ In addition to these types, any valid postgresql type can be used. If the type i
 
 You might have found a table in the NY Open Data portal [like this for example](https://data.cityofnewyork.us/Housing-Development/DOB-ECB-Violations/6bgk-3dad) that lists out the columns in the dataset and their data type. Even if a column says "Text" there, if the column can be parsed as a `date`, then `nycdb` *might* be smart enough to know how to convert this "text" into a "date". If you check in the `typecast.py` file, you can see from the "date" method that NYCDB can parse dates in a variety of formats (like "20000131" and "12/31/2018 12:00:00 AM", for example).
 
-It's also **essential** to note that nycdb converts all column names found in the CSV to conventional, valid SQL column names, and the fields listed in your new `yml` file must match those names. The field-to-column name matching is case-insensitive, but we prefer `CamelCase` field names for readability.
+It's also **essential** to note that nycdb converts all column names found in the CSV to conventional, valid SQL column names, and the fields listed in your new `yml` file must match those names. The field-to-column name matching is case-insensitive, but we prefer `PascalCase` field names for readability.
 
 Some examples of how column names are transformed:
 
