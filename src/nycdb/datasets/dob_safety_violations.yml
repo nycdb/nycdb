@@ -1,7 +1,7 @@
 ---
 files:
   -
-    url: https://data.cityofnewyork.us/api/views/855j-jady/rows.csv?date=20240120&accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/views/855j-jady/rows.csv?accessType=DOWNLOAD
     dest: dob_safety_violations.csv
 schema:
   table_name: dob_safety_violations
