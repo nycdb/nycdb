@@ -37,3 +37,29 @@ def insert_many(curs, table_name, rows) -> str:
     sql = f"INSERT INTO {table_name} {fields} VALUES {values}"
 
     return sql
+
+
+def copy(curs, table_name, rows) -> None:
+    """
+    Given a psycopg.ClientCursor, a table name, and a list of dictionaries
+    representing rows, generate a sql statement string that will perform a COPY.
+    This statement can be passed to executed on its own to quickly insert all the values 
+    for improved efficiency. [1]
+
+    For example:
+
+        >>> copy(curs, 'boop', [{'foo': 1, 'bar': 2}, {'foo': 3, 'bar': 4}])
+        
+
+    [1]:
+    https://www.psycopg.org/psycopg3/docs/basic/copy.html#using-copy-to-and-copy-from
+    """
+    field_names = rows[0].keys()
+    placeholder = f"({','.join(['%s' for k in field_names])})"
+    fields = placeholder % tuple(field_names)
+    sql = f"COPY {table_name} {fields} FROM STDIN"
+
+    with curs.copy(sql) as copy:
+        for row in rows:
+            row_values = tuple(row.values())
+            copy.write_row(row_values)
