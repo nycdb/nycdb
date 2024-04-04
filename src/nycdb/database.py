@@ -33,7 +33,7 @@ class Database:
             curs.execute(SQL)
         self.conn.commit()
 
-    def insert_rows(self, rows, table_name=None):
+    def insert_rows(self, rows, table_name=None, use_copy=False):
         """
         Inserts many rows, all in the same transaction using executemany
         """
@@ -43,7 +43,10 @@ class Database:
 
         with self.conn.cursor() as curs:
             try:
-                curs.execute(sql.insert_many(curs, table_name, rows))
+                if use_copy:
+                    sql.copy(curs, table_name, rows)
+                else:
+                    curs.execute(sql.insert_many(curs, table_name, rows))
             except psycopg.Error:
                 print(rows)  # useful for debugging
                 raise
@@ -73,7 +76,7 @@ class Database:
             table_name
         )
         return self.execute_and_fetchone(query)
-    
+
     def get_current_db_schema(self):
         search_path = self.execute_and_fetchone("SHOW search_path;")
         # default search_path is '"$user", public'
