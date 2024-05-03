@@ -43,7 +43,7 @@ class Database:
 
         with self.conn.cursor() as curs:
             try:
-                curs.execute(sql.insert_many(curs, table_name, rows))
+                sql.copy(curs, table_name, rows)
             except psycopg.Error:
                 print(rows)  # useful for debugging
                 raise
