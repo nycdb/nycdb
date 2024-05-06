@@ -33,7 +33,7 @@ class Database:
             curs.execute(SQL)
         self.conn.commit()
 
-    def insert_rows(self, rows, table_name=None, use_copy=False):
+    def insert_rows(self, rows, table_name=None):
         """
         Inserts many rows, all in the same transaction using executemany
         """
@@ -43,10 +43,7 @@ class Database:
 
         with self.conn.cursor() as curs:
             try:
-                if use_copy:
-                    sql.copy(curs, table_name, rows)
-                else:
-                    curs.execute(sql.insert_many(curs, table_name, rows))
+                sql.copy(curs, table_name, rows)
             except psycopg.Error:
                 print(rows)  # useful for debugging
                 raise

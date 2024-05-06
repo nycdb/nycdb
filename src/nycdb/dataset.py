@@ -134,7 +134,7 @@ class Dataset:
                 break
             else:
                 pbar.update(len(batch))
-                self.db.insert_rows(batch, table_name=schema["table_name"], use_copy=schema["use_copy"])
+                self.db.insert_rows(batch, table_name=schema["table_name"])
         pbar.close()
 
     def create_schema(self):
