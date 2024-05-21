@@ -1,0 +1,15 @@
+CREATE INDEX nyad_geom_idx ON nyad USING GIST (geom);
+CREATE INDEX nycg_geom_idx ON nycg USING GIST (geom);
+CREATE INDEX nyss_geom_idx ON nyss USING GIST (geom);
+CREATE INDEX nymc_geom_idx ON nymc USING GIST (geom);
+CREATE INDEX nycc_geom_idx ON nycc USING GIST (geom);
+CREATE INDEX nyed_geom_idx ON nyed USING GIST (geom);
+CREATE INDEX nybb_geom_idx ON nybb USING GIST (geom);
+CREATE INDEX nycd_geom_idx ON nycd USING GIST (geom);
+CREATE INDEX nysd_geom_idx ON nysd USING GIST (geom);
+CREATE INDEX nypp_geom_idx ON nypp USING GIST (geom);
+CREATE INDEX nyha_geom_idx ON nyha USING GIST (geom);
+CREATE INDEX nyhc_geom_idx ON nyhc USING GIST (geom);
+CREATE INDEX nyfc_geom_idx ON nyfc USING GIST (geom);
+CREATE INDEX nyfb_geom_idx ON nyfb USING GIST (geom);
+CREATE INDEX nyfd_geom_idx ON nyfd USING GIST (geom);
