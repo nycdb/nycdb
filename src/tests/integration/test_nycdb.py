@@ -771,7 +771,7 @@ def test_boundaries_one(conn):
     setup_postgis(conn)
     drop_table(conn, 'nyad')
     boundaries = nycdb.Dataset('boundaries', args=ARGS)
-    boundaries.db_import(limit=['nyad'])
+    boundaries.db_import()
     assert row_count(conn, 'nyad') == 5
     assert get_srid(conn, 'nyad', 'geom') == 2263
     assert has_one_row(
@@ -784,7 +784,7 @@ def test_boundaries_two(conn):
     drop_table(conn, 'nyad')
     drop_table(conn, 'nycc')
     boundaries = nycdb.Dataset('boundaries', args=ARGS)
-    boundaries.db_import(limit=['nyad', 'nycc'])
+    boundaries.db_import()
     assert row_count(conn, 'nyad') == 5
     assert row_count(conn, 'nycc') == 5
     assert get_srid(conn, 'nycc', 'geom') == 2263
@@ -797,7 +797,7 @@ def test_shapefile_in_alt_schema_works(conn):
     boundaries.setup_db()
     default_search_path = boundaries.db.execute_and_fetchone("SHOW search_path")
     boundaries.db.sql("CREATE SCHEMA IF NOT EXISTS temp; SET search_path TO temp, public")
-    boundaries.db_import(limit=['nyad'])
+    boundaries.db_import()
     query = "SELECT table_schema FROM information_schema.columns WHERE table_name='nyad'"
     assert boundaries.db.execute_and_fetchone(query) == "temp"
     boundaries.db.sql(f'DROP SCHEMA temp CASCADE; SET search_path TO {default_search_path}')
