@@ -235,6 +235,7 @@ def test_pluto23v1(conn):
     pluto.db_import()
     assert row_count(conn, 'pluto_23v1') == 5
 
+
 def test_pluto_latest(conn):
     drop_table(conn, "pluto_latest")
     pluto = nycdb.Dataset("pluto_latest", args=ARGS)
@@ -767,40 +768,28 @@ def test_dob_safety_violations(conn):
     assert row_count(conn, 'dob_safety_violations') == 5
 
 
-def test_boundaries_one(conn):
+def test_shapefile_in_alt_schema_works(conn):
     setup_postgis(conn)
-    drop_table(conn, 'nyad')
     boundaries = nycdb.Dataset('boundaries', args=ARGS)
-    boundaries.db_import()
-    assert row_count(conn, 'nyad') == 5
-    assert get_srid(conn, 'nyad', 'geom') == 2263
-    assert has_one_row(
-        conn, "select 1 where to_regclass('public.nyad_geom_idx') is NOT NULL"
-    )
+    boundaries.setup_db()
+    default_search_path = boundaries.db.execute_and_fetchone("SHOW search_path")
+    boundaries.db.sql("CREATE SCHEMA IF NOT EXISTS temp; SET search_path TO temp, public")
+    boundaries.db_import(limit=['nyad'])
+    query = "SELECT table_schema FROM information_schema.columns WHERE table_name='nyad'"
+    assert boundaries.db.execute_and_fetchone(query) == "temp"
+    boundaries.db.sql(f'DROP SCHEMA temp CASCADE; SET search_path TO {default_search_path}')
 
 
-def test_boundaries_two(conn):
+def test_boundaries(conn):
     setup_postgis(conn)
-    drop_table(conn, 'nyad')
-    drop_table(conn, 'nycc')
     boundaries = nycdb.Dataset('boundaries', args=ARGS)
     boundaries.db_import()
     assert row_count(conn, 'nyad') == 5
     assert row_count(conn, 'nycc') == 5
     assert get_srid(conn, 'nycc', 'geom') == 2263
-
-
-def test_shapefile_in_alt_schema_works(conn):
-    setup_postgis(conn)
-    drop_table(conn, 'nyad')
-    boundaries = nycdb.Dataset('boundaries', args=ARGS)
-    boundaries.setup_db()
-    default_search_path = boundaries.db.execute_and_fetchone("SHOW search_path")
-    boundaries.db.sql("CREATE SCHEMA IF NOT EXISTS temp; SET search_path TO temp, public")
-    boundaries.db_import()
-    query = "SELECT table_schema FROM information_schema.columns WHERE table_name='nyad'"
-    assert boundaries.db.execute_and_fetchone(query) == "temp"
-    boundaries.db.sql(f'DROP SCHEMA temp CASCADE; SET search_path TO {default_search_path}')
+    assert has_one_row(
+        conn, "select 1 where to_regclass('public.nyad_geom_idx') is NOT NULL"
+    )
 
 
 def test_dhs_daily_shelter_count(conn):
