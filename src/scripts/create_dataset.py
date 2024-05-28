@@ -254,7 +254,7 @@ def generate_test_py_code(dataset: str) -> str:
         dataset.db_import()
         assert row_count(conn, '{dataset}') > 0
         assert has_one_row(conn, "select 1 where to_regclass('public.{dataset}_bbl_idx') is NOT NULL")
-        with conn.cursor(cursor_factory=psycopg2.extras.DictCursor) as curs:
+        with conn.cursor(row_factory=dict_row) as curs:
             # TODO: Look at the test data and use a column to select a row of data. eg. with a BBL value
             curs.execute("select * from {dataset} WHERE bbl = 'FILL THIS IN'")
             rec = curs.fetchone()
