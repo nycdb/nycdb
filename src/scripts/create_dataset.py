@@ -1,4 +1,5 @@
-'''
+#!/usr/bin/env python3
+"""
     This script makes it easy to create scaffolding for a new
     NYC-DB dataset based on an input CSV file. Just copy it
     into the `/src` directory of your NYC-DB repository,
@@ -34,31 +35,26 @@
     To run the self-test, do:
 
         python create_dataset.py test
-'''
+"""
 
 import sys
 import re
+import csv
+import random
 import argparse
 import textwrap
-import csv
+import subprocess
 from pathlib import Path
 
 
-MY_DIR = Path(__file__).parent.resolve()
-
-NYCDB_DIR = MY_DIR / 'nycdb'
-
-DATASETS_DIR = NYCDB_DIR / 'datasets'
-
-TRANSFORMATIONS_PY_PATH = NYCDB_DIR / 'dataset_transformations.py'
-
-SQL_DIR = NYCDB_DIR / 'sql'
-
-TEST_DIR = MY_DIR / 'tests' / 'integration'
-
-NYCDB_TEST_PY_PATH = TEST_DIR / 'test_nycdb.py'
-
-TEST_DATA_DIR = TEST_DIR / 'data'
+SRC_DIR = Path(__file__).parent.parent.resolve()
+NYCDB_DIR = SRC_DIR / "nycdb"
+DATASETS_DIR = NYCDB_DIR / "datasets"
+TRANSFORMATIONS_PY_PATH = NYCDB_DIR / "dataset_transformations.py"
+SQL_DIR = NYCDB_DIR / "sql"
+TEST_DIR = SRC_DIR / "tests" / "integration"
+NYCDB_TEST_PY_PATH = TEST_DIR / "test_nycdb.py"
+TEST_DATA_DIR = TEST_DIR / "data"
 
 assert DATASETS_DIR.exists()
 assert TRANSFORMATIONS_PY_PATH.exists()
@@ -76,7 +72,7 @@ class DatasetCreator:
         transform_py_code: str,
         sql_code: str,
         test_py_code: str,
-        test_csv_text: str
+        test_csv_text: str,
     ) -> None:
         self.name = name
         self.yaml_code = yaml_code
@@ -90,7 +86,7 @@ class DatasetCreator:
         self.test_csv_path = TEST_DATA_DIR / f"{name}.csv"
 
     def append_to_file(self, path: Path, text: str) -> None:
-        with path.open('a') as f:
+        with path.open("a") as f:
             print(f"Appending to {self.relpath(path)}.")
             f.write(self._with_leading_newlines(text))
 
@@ -99,7 +95,7 @@ class DatasetCreator:
         curr_text = path.read_text()
         if to_remove in curr_text:
             print(f"Undoing changes to {self.relpath(path)}.")
-            path.write_text(curr_text.replace(to_remove, ''))
+            path.write_text(curr_text.replace(to_remove, ""))
 
     def _with_leading_newlines(self, text: str) -> str:
         return f"\n\n{text}"
@@ -109,7 +105,7 @@ class DatasetCreator:
         path.write_text(text)
 
     def relpath(self, path: Path) -> str:
-        return str(path.relative_to(MY_DIR))
+        return str(path.relative_to(SRC_DIR))
 
     def execute(self) -> None:
         self.undo()
@@ -120,11 +116,7 @@ class DatasetCreator:
         self.append_to_file(NYCDB_TEST_PY_PATH, self.test_py_code)
 
     def undo(self) -> None:
-        paths = [
-            self.yaml_path,
-            self.sql_path,
-            self.test_csv_path
-        ]
+        paths = [self.yaml_path, self.sql_path, self.test_csv_path]
         for path in paths:
             if path.exists():
                 print(f"Removing {self.relpath(path)}.")
@@ -134,7 +126,7 @@ class DatasetCreator:
 
 
 def is_valid_identifier(path: str) -> bool:
-    '''
+    """
     Returns whether the argument is a valid Python identifier
     that starts with an alphabetic character or an underscore
     and contains only alphanumeric characters or underscores
@@ -148,22 +140,22 @@ def is_valid_identifier(path: str) -> bool:
         True
         >>> is_valid_identifier('@#$@!#$')
         False
-    '''
+    """
 
-    return bool(re.match(r'^[A-Za-z_][A-Za-z0-9_]+$', path))
+    return bool(re.match(r"^[A-Za-z_][A-Za-z0-9_]+$", path))
 
 
 # https://stackoverflow.com/a/19053800
 def to_pascal_case(snake_str: str) -> str:
-    '''
+    """
     Convert the given string to pascal case, e.g.:
 
         >>> to_pascal_case('boop_bap')
         'BoopBap'
-    '''
+    """
 
-    components = snake_str.replace(' ', '_').split('_')
-    return ''.join(x.title() for x in components)
+    components = snake_str.replace(" ", "_").split("_")
+    return "".join(x.title() for x in components)
 
 
 def cleanup_text(text: str) -> str:
@@ -173,16 +165,17 @@ def cleanup_text(text: str) -> str:
 def get_head(filepath: Path, max_lines: int) -> str:
     lines = []
     i = 0
-    with filepath.open('r') as f:
+    with filepath.open("r") as f:
         for line in f.readlines():
             lines.append(line)
             i += 1
             if i >= max_lines:
                 break
-    return ''.join(lines)
+    return "".join(lines)
+
 
 def guess_data_type(name: str, value: str) -> str:
-    '''
+    """
     Returns the best guess at the SQL datatype that should be used in the YAML
     file based on the column names (for special cases like BBL) and the values
     from the CSV, and defaults to 'text' when there's no better guess.
@@ -195,32 +188,37 @@ def guess_data_type(name: str, value: str) -> str:
         'integer'
         >>> guess_data_type('description', 'illegal conversion')
         'text'
-    '''
-    if name.lower() == 'bbl':
-        return 'char(10)'
-    elif name.lower() == 'bin':
-        return 'char(7)'
-    elif name.lower() in ['zip', 'zipcode', 'postalcode', 'postcode']:
-        return 'char(5)'
+    """
+    if name.lower() == "bbl":
+        return "char(10)"
+    elif name.lower() == "bin":
+        return "char(7)"
+    elif name.lower() in ["zip", "zipcode", "postalcode", "postcode"]:
+        return "char(5)"
     elif value.isnumeric():
-        return 'integer'
-    
+        return "integer"
+
     try:
         float(value)
     except ValueError:
-        return 'text'
+        return "text"
     else:
-        return 'numeric'
+        return "numeric"
+
 
 def generate_yaml_code(dataset: str, csvpath: Path) -> str:
-    with csvpath.open('r') as f:
+    with csvpath.open("r") as f:
         reader = csv.reader(f)
         header_row = next(reader)
         value_row = next(reader)
-    fields = '\n        '.join([
-        f"{to_pascal_case(name)}: {guess_data_type(name, value)}" for name, value in zip(header_row, value_row)
-    ])
-    return cleanup_text(f"""
+    fields = "\n        ".join(
+        [
+            f"{to_pascal_case(name)}: {guess_data_type(name, value)}"
+            for name, value in zip(header_row, value_row)
+        ]
+    )
+    return cleanup_text(
+        f"""
     ---
     files:
       -
@@ -234,18 +232,22 @@ def generate_yaml_code(dataset: str, csvpath: Path) -> str:
       fields:
         # TODO: The data types for these fields likely aren't ideal!
         {fields}
-    """)
+    """
+    )
 
 
 def generate_transform_py_code(dataset: str) -> str:
-    return cleanup_text(f"""
+    return cleanup_text(
+        f"""
     def {dataset}(dataset):
         return to_csv(dataset.files[0].dest)
-    """)
+    """
+    )
 
 
 def generate_test_py_code(dataset: str) -> str:
-    return cleanup_text(f"""
+    return cleanup_text(
+        f"""
     def test_{dataset}(conn):
         drop_table(conn, '{dataset}')
         dataset = nycdb.Dataset('{dataset}', args=ARGS)
@@ -259,13 +261,16 @@ def generate_test_py_code(dataset: str) -> str:
             assert rec is not None
             # TODO: Use another column from that row to confirm the value. Make sure you are using the correct type
             assert rec['COLUMN GOES HERE'] == 'VALUE GOES HERE'
-    """)
+    """
+    )
 
 
 def generate_sql_code(dataset: str) -> str:
-    return cleanup_text(f"""
+    return cleanup_text(
+        f"""
     CREATE INDEX {dataset}_bbl_idx on {dataset} (bbl);
-    """)
+    """
+    )
 
 
 def fail(msg: str) -> None:
@@ -274,41 +279,31 @@ def fail(msg: str) -> None:
 
 
 def selftest():
-    import random
-    import subprocess
 
     print("Running pytest on myself...")
 
-    subprocess.check_call(['pytest', __file__, '--doctest-modules'])
+    subprocess.check_call(["pytest", __file__, "--doctest-modules"])
 
     print("Creating a temporary CSV and running myself on it...")
 
     i = random.randint(1, 1500000)
     name = f"temptest_{i}"
-    tempcsv = MY_DIR / f'{name}.csv'
-    tempcsv.write_text('\n'.join([
-        'foo,bar,bbl',
-        'a,"hello there",3028850001',
-        'b,"zz zdoj",4028850001'
-    ]))
+    tempcsv = SRC_DIR / f"{name}.csv"
+    tempcsv.write_text(
+        "\n".join(
+            ["foo,bar,bbl", 'a,"hello there",3028850001', 'b,"zz zdoj",4028850001']
+        )
+    )
     try:
-        base_args = [
-            'python',
-            __file__,
-            str(tempcsv)
-        ]
+        base_args = ["python", __file__, str(tempcsv)]
         subprocess.check_call(base_args)
         try:
             print("Running the test I created for the new dataset...")
-            subprocess.check_call([
-                'pytest',
-                str(NYCDB_TEST_PY_PATH),
-                '-k',
-                name,
-                '-vv'
-            ])
+            subprocess.check_call(
+                ["pytest", str(NYCDB_TEST_PY_PATH), "-k", name, "-vv"]
+            )
         finally:
-            subprocess.check_call([*base_args, '--undo'])
+            subprocess.check_call([*base_args, "--undo"])
     finally:
         tempcsv.unlink()
 
@@ -319,18 +314,15 @@ def main():
     parser = argparse.ArgumentParser(
         description="Create scaffolding for a new NYC-DB dataset."
     )
+    parser.add_argument("csvfile", help="The CSV file to base the new dataset on.")
     parser.add_argument(
-        'csvfile',
-        help='The CSV file to base the new dataset on.'
-    )
-    parser.add_argument(
-        '--undo',
-        action='store_true',
-        help='Attempt to undo the creation of the scaffolding.'
+        "--undo",
+        action="store_true",
+        help="Attempt to undo the creation of the scaffolding.",
     )
     args = parser.parse_args()
 
-    if args.csvfile == 'test':
+    if args.csvfile == "test":
         selftest()
         return
 
@@ -365,5 +357,5 @@ def main():
         print(f"as needed.")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
