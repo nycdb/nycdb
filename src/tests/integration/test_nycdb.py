@@ -777,7 +777,7 @@ def test_shapefile_in_alt_schema_works(conn):
     boundaries.db_import()
     query = "SELECT table_schema FROM information_schema.columns WHERE table_name='nyad'"
     assert boundaries.db.execute_and_fetchone(query) == "temp"
-    boundaries.db.sql(f'DROP SCHEMA temp CASCADE; SET search_path TO {default_search_path}')
+    boundaries.db.sql(f'DROP SCHEMA temp CASCADE; SET search_path TO {default_search_path};')
 
 
 def test_boundaries(conn):
@@ -797,3 +797,16 @@ def test_dhs_daily_shelter_count(conn):
     ecb_violations = nycdb.Dataset('dhs_daily_shelter_count', args=ARGS)
     ecb_violations.db_import()
     assert row_count(conn, 'dhs_daily_shelter_count') == 5
+
+
+def test_hpd_aep(conn):
+    drop_table(conn, 'hpd_aep')
+    dataset = nycdb.Dataset('hpd_aep', args=ARGS)
+    dataset.db_import()
+    assert row_count(conn, 'hpd_aep') > 0
+    assert has_one_row(conn, "select 1 where to_regclass('public.hpd_aep_bbl_idx') is NOT NULL")
+    with conn.cursor(row_factory=dict_row) as curs:
+        curs.execute("select * from hpd_aep WHERE bbl = '2031560155'")
+        rec = curs.fetchone()
+        assert rec is not None
+        assert rec['buildingid'] == 107767
