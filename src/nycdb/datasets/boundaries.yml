@@ -30,7 +30,8 @@ files:
     dest: nyfb_23d.zip
   - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyfd_23d.zip
     dest: nyfd_23d.zip
-sql: []
+sql: 
+  - boundaries.sql
 schema:
   # State Assembly Districts
   - table_name: nyad
