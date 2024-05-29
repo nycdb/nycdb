@@ -765,7 +765,7 @@ def test_dob_safety_violations(conn):
     drop_table(conn, 'dob_safety_violations')
     dob_safety_violations = nycdb.Dataset('dob_safety_violations', args=ARGS)
     dob_safety_violations.db_import()
-    assert row_count(conn, 'dob_safety_violations') == 5
+    assert row_count(conn, 'dob_safety_violations') == 9
 
 
 def test_shapefile_in_alt_schema_works(conn):
