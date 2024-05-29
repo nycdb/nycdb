@@ -186,7 +186,7 @@ def hpd_affordable_project(dataset):
 
 
 def hpd_conh(dataset):
-    return to_csv(dataset.files[0].dest)
+    return to_csv(dataset.files[0].dest, header_replacements={"neighborhoodtabulationareanta2020": "nta"})
 
 
 def dcp_housingdb(dataset):

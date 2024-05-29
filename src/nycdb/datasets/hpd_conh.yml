@@ -27,6 +27,6 @@ schema:
     longitude: numeric
     CommunityBoard: text
     CouncilDistrict: text
-    CensusTract: text
     bbl: char(10)
-    NtaNeighborhoodTabulationArea: text
+    CensusTract2020: text
+    nta: text
