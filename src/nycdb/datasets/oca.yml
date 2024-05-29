@@ -1,38 +1,41 @@
 ---
 files:
   -
-    url: https://s3.amazonaws.com/oca-data/public/oca_index.csv
+    url: https://oca-2-dev.s3.amazonaws.com/public/oca_index.csv
     dest: oca_index.csv
   -
-    url: https://s3.amazonaws.com/oca-data/public/oca_causes.csv
+    url: https://oca-2-dev.s3.amazonaws.com/public/oca_causes.csv
     dest: oca_causes.csv
   -
-    url: https://s3.amazonaws.com/oca-data/public/oca_addresses.csv
+    url: https://oca-2-dev.s3.amazonaws.com/public/oca_addresses.csv
     dest: oca_addresses.csv
   -
-    url: https://s3.amazonaws.com/oca-data/public/oca_parties.csv
+    url: https://oca-2-dev.s3.amazonaws.com/public/oca_parties.csv
     dest: oca_parties.csv
   -
-    url: https://s3.amazonaws.com/oca-data/public/oca_events.csv
+    url: https://oca-2-dev.s3.amazonaws.com/public/oca_events.csv
     dest: oca_events.csv
   -
-    url: https://s3.amazonaws.com/oca-data/public/oca_appearances.csv
+    url: https://oca-2-dev.s3.amazonaws.com/public/oca_appearances.csv
     dest: oca_appearances.csv
   -
-    url: https://s3.amazonaws.com/oca-data/public/oca_appearance_outcomes.csv
+    url: https://oca-2-dev.s3.amazonaws.com/public/oca_appearance_outcomes.csv
     dest: oca_appearance_outcomes.csv
   -
-    url: https://s3.amazonaws.com/oca-data/public/oca_motions.csv
+    url: https://oca-2-dev.s3.amazonaws.com/public/oca_motions.csv
     dest: oca_motions.csv
   -
-    url: https://s3.amazonaws.com/oca-data/public/oca_decisions.csv
+    url: https://oca-2-dev.s3.amazonaws.com/public/oca_decisions.csv
     dest: oca_decisions.csv
   -
-    url: https://s3.amazonaws.com/oca-data/public/oca_judgments.csv
+    url: https://oca-2-dev.s3.amazonaws.com/public/oca_judgments.csv
     dest: oca_judgments.csv
   -
-    url: https://s3.amazonaws.com/oca-data/public/oca_warrants.csv
+    url: https://oca-2-dev.s3.amazonaws.com/public/oca_warrants.csv
     dest: oca_warrants.csv
+  -
+    url: https://oca-2-dev.s3.amazonaws.com/public/oca_metadata.csv
+    dest: oca_metadata.csv
 sql:
   - oca/cast_arrays.sql
   - oca/index.sql
@@ -163,3 +166,10 @@ schema:
       returneddate: date
       returnedreason: text
       executiondate: date
+  -
+    table_name: oca_metadata
+    fields:
+      indexnumberid: text
+      initialdate: date
+      updatedate: date
+      deletedate: date

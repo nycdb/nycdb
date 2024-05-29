@@ -1,0 +1,51 @@
+name: Python Tests
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  python_tests:
+    strategy:
+      matrix:
+        include:
+          - python_version: 3.13-rc-bookworm
+            postgres_image: postgis/postgis:16-master
+          - python_version: 3.12-bookworm
+            postgres_image: postgis/postgis:16-3.4
+          - python_version: 3.12-bookworm
+            postgres_image: postgis/postgis:15-3.4
+          - python_version: 3.11-bookworm
+            postgres_image: postgis/postgis:16-3.4
+          - python_version: 3.11-bookworm
+            postgres_image: postgis/postgis:15-3.4
+          - python_version: 3.11-bookworm
+            postgres_image: postgis/postgis:14-3.4
+          - python_version: 3.10-bookworm
+            postgres_image: postgis/postgis:14-3.4
+          - python_version: 3.9-bullseye
+            postgres_image: postgis/postgis:12-3.4
+          - python_version: 3.8-bullseye
+            postgres_image: postgis/postgis:12-3.4
+    runs-on: ubuntu-latest
+
+    env:
+      POSTGRES_IMAGE: ${{ matrix.postgres_image }}
+      PYTHON_VERSION: ${{ matrix.python_version }}
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Build containers
+      run: docker compose build
+
+    - name: Start Postgres
+      run: docker compose up -d db
+
+    - name: Wait for postgres
+      run: docker compose exec db /usr/bin/timeout 30 bash -c 'until pg_isready; do sleep 1; done'
+
+    - name: Run tests
+      run: docker compose run --env "NYCDB_TEST_POSTGRES_DB=nycdb" --entrypoint="pytest tests" nycdb

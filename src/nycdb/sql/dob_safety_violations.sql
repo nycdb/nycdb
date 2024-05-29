@@ -1,0 +1,3 @@
+CREATE INDEX dob_safety_violations_bbl_idx on dob_safety_violations (bbl);
+CREATE INDEX dob_safety_violations_violationissuedate_idx on dob_safety_violations (violationissuedate);
+CREATE INDEX dob_safety_violations_violationnumber_idx on dob_safety_violations (violationnumber);

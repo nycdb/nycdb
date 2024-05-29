@@ -43,3 +43,7 @@ ALTER TABLE oca_warrants ADD PRIMARY KEY (indexnumberid, judgmentsequence, seque
 CREATE INDEX ON oca_warrants (indexnumberid);
 CREATE INDEX ON oca_warrants (judgmentsequence);
 CREATE INDEX ON oca_warrants (sequence);
+
+
+ALTER TABLE oca_metadata ADD PRIMARY KEY (indexnumberid);
+CREATE INDEX ON oca_metadata (initialdate);

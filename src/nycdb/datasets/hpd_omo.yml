@@ -1,0 +1,61 @@
+files:
+  -
+    url: https://data.cityofnewyork.us/api/views/emrz-5p35/rows.csv?accessType=DOWNLOAD
+    dest: hpd_omo_invoices.csv
+  -
+    url: https://data.cityofnewyork.us/api/views/mdbu-nrqn/rows.csv?accessType=DOWNLOAD
+    dest: hpd_omo_charges.csv
+sql:
+  - hpd_omo.sql
+schema:
+  -
+    table_name: hpd_omo_invoices
+    fields:
+        InvoiceID: integer
+        InvoiceSequenceID: text
+        OMONumber: char(7)
+        InvoiceStatus: text
+        InvoiceDate: date
+        InvoiceBillAmount: numeric
+        InvoicePayAmount: numeric
+        SalesTax: numeric
+        AdminFee: numeric
+        PaymentID: numeric
+        ChargeAmount: numeric
+        DateTransferDoF: date
+        UniqueKey: text
+  -
+    table_name: hpd_omo_charges
+    fields:
+        OMOID: integer
+        OMONumber: text
+        BuildingID: integer
+        BoroID: char(1)
+        Boro: text
+        HouseNumber: text
+        StreetName: text
+        Apartment: text
+        Zip: text
+        Block: integer
+        Lot: integer
+        LifeCycle: text
+        WorkTypeGeneral: text
+        OMOStatusReason: text
+        OMOAwardAmount: numeric
+        OMOCreateDate: date
+        NetChangeOrders: integer
+        OMOAwardDate: date
+        IsAEP: text
+        IsCommercialDemolition: text
+        ServiceChargeFlag: boolean
+        FEMAEventID: smallint
+        FEMAEvent: text
+        OMODescription: text
+        Latitude: numeric
+        Longitude: numeric
+        CommunityBoard: smallint
+        CouncilDistrict: smallint
+        CensusTract: integer
+        BIN:  integer
+        BBL: char(10)
+        NTA: text

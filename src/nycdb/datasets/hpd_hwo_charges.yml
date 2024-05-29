@@ -1,0 +1,42 @@
+---
+files:
+  -
+    url: https://data.cityofnewyork.us/api/views/sbnd-xujn/rows.csv?accessType=DOWNLOAD
+    dest: hpd_hwo_charges.csv
+schema:
+  table_name: hpd_hwo_charges
+  fields:
+    HWOID: integer
+    HWONumber: text
+    BuildingID: integer
+    BoroID: integer
+    Boro: text
+    HouseNumber: text
+    StreetName: text
+    Zip: char(5)
+    Block: integer
+    Lot: integer
+    LifeCycle: text
+    WorkTypeGeneral: text
+    HWOStatusReason: text
+    HWOCreateDate: date
+    IsAEP: text
+    IsCommercialDemolition: integer
+    FEMAEventID: numeric
+    FEMAEvent: text
+    HWODescription: text
+    HWOApprovedAmount: numeric
+    SalesTax: numeric
+    AdminFee: numeric
+    ChargeAmount: numeric
+    DateTransferDoF: date
+    Latitude: numeric
+    Longitude: numeric
+    CommunityBoard: numeric
+    CouncilDistrict: text
+    CensusTract: text
+    BIN: char(7)
+    BBL: char(10)
+    NTA: text
+sql:
+  - hpd_hwo_charges.sql

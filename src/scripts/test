@@ -1,10 +1,21 @@
 #!/bin/bash
 
-export NYCDB_DATABASE_VOLUME_NAME="nycdb_test-database-data"
-
-if docker volume inspect "$NYCDB_DATABASE_VOLUME_NAME" > /dev/null; then
-   docker volume rm "$NYCDB_DATABASE_VOLUME_NAME" > /dev/null
+if command -v podman > /dev/null;then
+    docker="podman"
+    docker_compose="podman-compose"
+elif command -v docker > /dev/null;then
+    docker="docker"
+    docker_compose="docker compose"
+else
+    echo "could not find docker or podman" >&2
+    exit 1
 fi
 
-# docker-compose build
-docker-compose run --rm --entrypoint="pytest tests" nycdb
+export NYCDB_DATABASE_VOLUME_NAME="nycdb_test-database-data"
+
+$docker volume rm "$NYCDB_DATABASE_VOLUME_NAME"
+# $docker_compose build
+$docker_compose up -d db
+$docker_compose exec db timeout 30 bash -c 'until pg_isready; do sleep 1; done'
+$docker_compose exec db psql -U nycdb -d nycdb --command="CREATE database nycdb_test with owner nycdb;"
+$docker_compose run --rm --entrypoint="pytest tests" nycdb

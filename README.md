@@ -15,6 +15,8 @@ Residents, lawyers, tenants, and organizers who want to use data in their strugg
 - [HPD Litigations](https://github.com/nycdb/nycdb/wiki/Dataset:-HPD-Litigations)
 - [HPD Registrations](https://github.com/nycdb/nycdb/wiki/Dataset:-HPD-Registrations)
 - [HPD Complaints](https://github.com/nycdb/nycdb/wiki/Dataset:-HPD-Complaints)
+- [HPD Handyman Work Order (HWO) Charges](https://github.com/nycdb/nycdb/wiki/Dataset:-HPD-Handyman-Work-Order-(HWO)-Charges)
+- [HPD Open Market Order (OMO) Charges](https://github.com/nycdb/nycdb/wiki/Dataset:-HPD-Open-Market-Order-(OMO)-Charges)
 - [HPD Repair and Vacate Orders](https://github.com/nycdb/nycdb/wiki/Dataset:-HPD-Vacate-Orders)
 - [HPD Affordable Production (Building and Project)](https://github.com/nycdb/nycdb/wiki/Dataset:-HPD-Affordable-Production)
 - [HPD Certificate of No Harassment](https://github.com/nycdb/nycdb/wiki/Dataset:-HPD-Certificate-of-No-Harassment)
@@ -34,6 +36,9 @@ Residents, lawyers, tenants, and organizers who want to use data in their strugg
 - [Speculation Watch List](https://github.com/nycdb/nycdb/wiki/Dataset:-Speculation-Watch-List)
 - [DCP Housing Database](https://github.com/nycdb/nycdb/wiki/Dataset:-DCP-Housing-Database)
 - [Major Capital Improvements (MCI) Applications](https://github.com/nycdb/nycdb/wiki/Dataset:-Major-Capital-Improvements-(MCI)-Applications) - From [FOIL request by Winnie Shen](https://github.com/wshenyc/nyc_mci_map)
+- [DOB Safety Violations](https://data.cityofnewyork.us/Housing-Development/DOB-Safety-Violations/855j-jady)
+- [DHS Daily Shelter Census](https://www.nyc.gov/assets/dhs/downloads/pdf/dailyreport.pdf) - From [scraping by Adrian Nesta and Patrick Spauster](https://github.com/anesta95/nyc_shelter_count/tree/main)
+
 
 ## Using the database
 
@@ -48,7 +53,7 @@ The Housing Data Coalition hosts their own copy ("instance") of nycdb. If you ar
 ### Acknowledgments
 
 - [Heatseek](https://heatseek.org/) for ongoing support of the project and for their amazing work.
-- [@talos](https://github.com/talos) for his [tax bill scrapping](https://github.com/talos/nyc-stabilization-unit-counts) to get counts of rent-stabilization units
+- [@talos](https://github.com/talos) for his [tax bill scraping](https://github.com/talos/nyc-stabilization-unit-counts) to get counts of rent-stabilization units
 - NYCDB's [programmers](https://github.com/nycdb/nycdb/graphs/contributors)
 - [Housing Data Coalition](https://www.housingdatanyc.org/) for their support and for hosting nycdb workshops
 

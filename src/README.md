@@ -24,6 +24,8 @@ nycdb --load hpd_violations
 nycdb --verify hpd_violations
 ```
 
+To delete a previously imported dataset (for example, if you'd like to import an updated version of it), use the `--drop` option. For example, to delete the dataset **hpd_violations**: `nycdb --drop hpd_violations`.
+
 You can also verify all datasets: ` nycdb --verify-all `
 
 By default the downloaded data files are is stored in `./data`. Use `--root-dir` to change the location of the data directory.
@@ -82,3 +84,11 @@ As long as the virtual environment is activated, you can use `nycdb` directly in
 ###  Adding New Datasets
 
 See the [guide here](ADDING_NEW_DATASETS.md) for the steps to add a new dataset
+
+### A Note on PostGIS
+
+To use datasets with spatial information such as `boundaries`, you will need to install the extension [PostGIS](https://postgis.net/) and have the program `shp2pgsql` installed and available on your path. `shp2pgsql` is typically installed alongside the PostGIS installation.
+
+The extension can be enabled in your database by executing the SQL `CREATE EXTENSION postgis`.
+
+When `docker compose up` is executed for the first time, the PostGIS extension will be enabled automatically.

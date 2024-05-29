@@ -36,7 +36,7 @@ def _pluto(dataset):
 
     if dataset.name == 'pluto_latest':
         pluto_generator = to_csv(dataset.files[0].dest)
-    else:    
+    else:
         pluto_generator = to_csv(stream_files_from_zip(dataset.files[0].dest, extension=extension))
 
     pluto_fields_to_skip = dataset.schemas[0].get('skip')
@@ -60,12 +60,8 @@ def {pluto_version}(dataset):
 ''')
 
 
-def hpd_complaints(dataset):
-    return with_bbl(to_csv(dataset.files[0].dest))
-
-
-def hpd_complaint_problems(dataset):
-    return to_csv(dataset.files[1].dest)
+def hpd_complaints_and_problems(dataset):
+    return to_csv(dataset.files[0].dest)
 
 
 def dob_complaints(dataset):
@@ -203,3 +199,27 @@ def dob_vacate_orders(dataset):
 
 def dof_tax_lien_sale_list(dataset):
     return with_bbl(to_csv(dataset.files[0].dest))
+
+
+def dob_certificate_occupancy(dataset):
+    return with_bbl(skip_fields(to_csv(dataset.files[0].dest), [s.lower() for s in dataset.dataset['schema']['skip']]))
+
+
+def hpd_hwo_charges(dataset):
+    return to_csv(dataset.files[0].dest)
+
+
+def hpd_omo_invoices(dataset):
+    return to_csv(dataset.files[0].dest)
+
+
+def hpd_omo_charges(dataset):
+    return to_csv(dataset.files[1].dest)
+
+
+def dob_safety_violations(dataset):
+    return with_bbl(to_csv(dataset.files[0].dest), borough='borough')
+
+
+def dhs_daily_shelter_count(dataset):
+    return to_csv(dataset.files[0].dest, header_replacements={'table': 'series_name'})

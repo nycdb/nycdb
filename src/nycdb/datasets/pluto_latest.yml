@@ -96,9 +96,10 @@ schema:
     HealthCenterDistrict: smallint
     Firm07Flag: char(1)
     pfirm15flag: char(1)
-    geom: text
     dcpedited: text
     Notes: text
+    BCT2020: text
+    BCTCB2020: text
   skip:
     - mapplutof
     - rpaddate
@@ -109,3 +110,4 @@ schema:
     - masdate
     - polidate
     - edesigdate
+    - geom
