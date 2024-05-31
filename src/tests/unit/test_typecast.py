@@ -100,10 +100,12 @@ def test_date_mm_dd_yyyy_with_timestamp():
 
 
 def test_time():
-    assert typecast.time('15:01:00') == datetime.time(hour=15, minute=1, second=0)
-    assert typecast.time('15:1:0') == datetime.time(hour=15, minute=1, second=0)
-    assert typecast.time('3:01:00 PM') == datetime.time(hour=15, minute=1, second=0)
-    assert typecast.time('3:01:00 AM') == datetime.time(hour=3, minute=1, second=0)
+    assert typecast.time('15:01:00') == datetime.time(15, 1, 0)
+    assert typecast.time('15:1:0') == datetime.time(15, 1, 0)
+    assert typecast.time('3:01:00 PM') == datetime.time(15, 1, 0)
+    assert typecast.time('3:01:00 AM') == datetime.time(3, 1, 0)
+    assert typecast.time('12:45:41 PM') == datetime.time(12, 45, 41)
+    assert typecast.time('12:45:41 AM') == datetime.time(0, 45, 41)
     assert typecast.time(datetime.time.min) == datetime.time.min
     assert typecast.time('RIGHT NOW') is None
     assert typecast.time(None) is None
@@ -114,6 +116,8 @@ def test_timestamp():
     assert typecast.timestamp('05/13/2020 23:30:00') == datetime.datetime(2020, 5, 13, 23, 30, 0)
     assert typecast.timestamp('2020-05-13 11:30:00 PM') == datetime.datetime(2020, 5, 13, 23, 30, 0)
     assert typecast.timestamp('2020-05-13 11:30:00 AM') == datetime.datetime(2020, 5, 13, 11, 30, 0)
+    assert typecast.timestamp('03/26/2021 12:45:41 PM') == datetime.datetime(2021, 3, 26, 12, 45, 41)
+    assert typecast.timestamp('03/26/2021 12:45:41 AM') == datetime.datetime(2021, 3, 26, 0, 45, 41)
     assert typecast.timestamp(datetime.datetime(2020, 5, 13, 11, 30, 0)) == datetime.datetime(2020, 5, 13, 11, 30, 0)
 
 

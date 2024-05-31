@@ -806,7 +806,9 @@ def test_dohmh_rodent_inspections(conn):
     assert row_count(conn, 'dohmh_rodent_inspections') == 5
     assert has_one_row(conn, "select 1 where to_regclass('public.dohmh_rodent_inspections_bbl_idx') is NOT NULL")
     with conn.cursor(row_factory=dict_row) as curs:
-        curs.execute("select * from dohmh_rodent_inspections WHERE bbl = '1005290009'")
+        curs.execute("select * from dohmh_rodent_inspections WHERE bbl = '1000520021'")
         rec = curs.fetchone()
         assert rec is not None
-        assert rec['inspectiondate'].strftime("%Y-%m-%d") == '2023-06-07'
+        print(rec)
+        assert rec['inspectiondate'].strftime("%Y-%m-%d") == '2021-03-26'
+        assert rec['approveddate'].strftime("%Y-%m-%d") == '2021-03-29'
