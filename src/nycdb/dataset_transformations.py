@@ -223,3 +223,13 @@ def dob_safety_violations(dataset):
 
 def dhs_daily_shelter_count(dataset):
     return to_csv(dataset.files[0].dest, header_replacements={'table': 'series_name'})
+
+
+def dohmh_rodent_inspections(dataset):
+    return with_bbl(
+        skip_fields(
+            to_csv(dataset.files[0].dest),
+            [s.lower() for s in dataset.dataset["schema"]["skip"]],
+        ),
+        borough="borocode",
+    )

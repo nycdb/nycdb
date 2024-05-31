@@ -38,6 +38,7 @@ Residents, lawyers, tenants, and organizers who want to use data in their strugg
 - [Major Capital Improvements (MCI) Applications](https://github.com/nycdb/nycdb/wiki/Dataset:-Major-Capital-Improvements-(MCI)-Applications) - From [FOIL request by Winnie Shen](https://github.com/wshenyc/nyc_mci_map)
 - [DOB Safety Violations](https://data.cityofnewyork.us/Housing-Development/DOB-Safety-Violations/855j-jady)
 - [DHS Daily Shelter Census](https://www.nyc.gov/assets/dhs/downloads/pdf/dailyreport.pdf) - From [scraping by Adrian Nesta and Patrick Spauster](https://github.com/anesta95/nyc_shelter_count/tree/main)
+- [DOHMH Rodent Inspections](https://github.com/nycdb/nycdb/wiki/Dataset:-DOHMH-Rodent-Inspections)
 
 
 ## Using the database

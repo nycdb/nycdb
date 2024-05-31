@@ -1,0 +1,6 @@
+CREATE INDEX dohmh_rodent_inspections_bbl_idx ON dohmh_rodent_inspections (bbl);
+CREATE INDEX dohmh_rodent_inspections_inspectiondate_idx ON dohmh_rodent_inspections (inspectiondate);
+CREATE INDEX dohmh_rodent_inspections_approveddate_idx ON dohmh_rodent_inspections (ApprovedDate);
+CREATE INDEX dohmh_rodent_inspections_result_idx ON dohmh_rodent_inspections (result);
+CREATE INDEX dohmh_rodent_inspections_inspectiontype_idx ON dohmh_rodent_inspections (inspectiontype);
+CREATE INDEX dohmh_rodent_inspections_inspectiontype_jobticketorworkorderid_idx ON dohmh_rodent_inspections (inspectiontype, JobTicketOrWorkOrderId);

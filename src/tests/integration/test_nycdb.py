@@ -797,3 +797,16 @@ def test_dhs_daily_shelter_count(conn):
     ecb_violations = nycdb.Dataset('dhs_daily_shelter_count', args=ARGS)
     ecb_violations.db_import()
     assert row_count(conn, 'dhs_daily_shelter_count') == 5
+
+
+def test_dohmh_rodent_inspections(conn):
+    drop_table(conn, 'dohmh_rodent_inspections')
+    dataset = nycdb.Dataset('dohmh_rodent_inspections', args=ARGS)
+    dataset.db_import()
+    assert row_count(conn, 'dohmh_rodent_inspections') == 5
+    assert has_one_row(conn, "select 1 where to_regclass('public.dohmh_rodent_inspections_bbl_idx') is NOT NULL")
+    with conn.cursor(row_factory=dict_row) as curs:
+        curs.execute("select * from dohmh_rodent_inspections WHERE bbl = '1005290009'")
+        rec = curs.fetchone()
+        assert rec is not None
+        assert rec['inspectiondate'].strftime("%Y-%m-%d") == '2023-06-07'
