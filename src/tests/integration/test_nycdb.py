@@ -260,18 +260,12 @@ def test_hpd_violations(conn):
     assert row_count(conn, "hpd_violations") == 100
 
 
-def test_hpd_hwo_charges(conn):
-    drop_table(conn, "hpd_hwo_charges")
-    nycdb.Dataset("hpd_hwo_charges", args=ARGS).db_import()
-    assert row_count(conn, "hpd_hwo_charges") == 5
-
-
-def test_hpd_omo(conn):
-    drop_table(conn, "hpd_omo_invoices")
-    drop_table(conn, "hpd_omo_charges")
-    nycdb.Dataset("hpd_omo", args=ARGS).db_import()
-    assert row_count(conn, "hpd_omo_invoices") == 10
-    assert row_count(conn, "hpd_omo_charges") == 10
+def test_hpd_charges(conn):
+    dataset = nycdb.Dataset('hpd_charges', args=ARGS)
+    dataset.drop()
+    dataset.db_import()
+    for s in dataset.schemas:
+        assert row_count(conn, s['table_name']) == 5
 
 
 def test_hpd_violations_index(conn):
