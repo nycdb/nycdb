@@ -97,6 +97,10 @@ def has_one_row(*args):
     return bool(fetch_one_row(*args))
 
 
+def has_index(conn, index_name):
+    return has_one_row(conn, f"select 1 where to_regclass('public.{index_name}') is NOT NULL")
+
+
 def table_columns(conn, table_name):
     sql = "SELECT column_name FROM information_schema.columns WHERE table_schema = 'public' AND table_name = '{}'".format(
         table_name
@@ -791,3 +795,16 @@ def test_dhs_daily_shelter_count(conn):
     ecb_violations = nycdb.Dataset('dhs_daily_shelter_count', args=ARGS)
     ecb_violations.db_import()
     assert row_count(conn, 'dhs_daily_shelter_count') == 5
+
+
+def test_hpd_underlying_conditions(conn):
+    drop_table(conn, 'hpd_underlying_conditions')
+    dataset = nycdb.Dataset('hpd_underlying_conditions', args=ARGS)
+    dataset.db_import()
+    assert row_count(conn, 'hpd_underlying_conditions') == 5
+    assert has_index(conn, 'hpd_underlying_conditions_bbl_idx')
+    with conn.cursor(row_factory=dict_row) as curs:
+        curs.execute("select * from hpd_underlying_conditions WHERE bbl = '2046280001'")
+        rec = curs.fetchone()
+        assert rec is not None
+        assert rec['currentstatus'] == 'Discharged'

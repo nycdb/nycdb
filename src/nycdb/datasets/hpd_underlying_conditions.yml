@@ -1,0 +1,26 @@
+---
+files:
+  -
+    url: https://data.cityofnewyork.us/api/views/xpbf-ithr/rows.csv?accessType=DOWNLOAD
+    dest: hpd_underlying_conditions.csv
+sql:
+    - hpd_underlying_conditions.sql
+schema:
+  table_name: hpd_underlying_conditions
+  fields:
+    BuildingId: integer
+    Borough: text
+    NumberPhn: text
+    Street: text
+    TotalUnits: integer
+    OrderIssueDate: text
+    CurrentStatus: text
+    Postcode: char(5)
+    Latitude: numeric
+    Longitude: numeric
+    CommunityBoard: text
+    CouncilDistrict: text
+    Bin: char(7)
+    Bbl: char(10)
+    CensusTract2020: text
+    Nta2020: text
