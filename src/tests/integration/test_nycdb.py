@@ -97,6 +97,10 @@ def has_one_row(*args):
     return bool(fetch_one_row(*args))
 
 
+def has_index(conn, index_name):
+    return has_one_row(conn, f"select 1 where to_regclass('public.{index_name}') is NOT NULL")
+
+
 def table_columns(conn, table_name):
     sql = "SELECT column_name FROM information_schema.columns WHERE table_schema = 'public' AND table_name = '{}'".format(
         table_name
@@ -260,18 +264,12 @@ def test_hpd_violations(conn):
     assert row_count(conn, "hpd_violations") == 100
 
 
-def test_hpd_hwo_charges(conn):
-    drop_table(conn, "hpd_hwo_charges")
-    nycdb.Dataset("hpd_hwo_charges", args=ARGS).db_import()
-    assert row_count(conn, "hpd_hwo_charges") == 5
-
-
-def test_hpd_omo(conn):
-    drop_table(conn, "hpd_omo_invoices")
-    drop_table(conn, "hpd_omo_charges")
-    nycdb.Dataset("hpd_omo", args=ARGS).db_import()
-    assert row_count(conn, "hpd_omo_invoices") == 10
-    assert row_count(conn, "hpd_omo_charges") == 10
+def test_hpd_charges(conn):
+    dataset = nycdb.Dataset('hpd_charges', args=ARGS)
+    dataset.drop()
+    dataset.db_import()
+    for s in dataset.schemas:
+        assert row_count(conn, s['table_name']) == 5
 
 
 def test_hpd_violations_index(conn):
@@ -765,7 +763,7 @@ def test_dob_safety_violations(conn):
     drop_table(conn, 'dob_safety_violations')
     dob_safety_violations = nycdb.Dataset('dob_safety_violations', args=ARGS)
     dob_safety_violations.db_import()
-    assert row_count(conn, 'dob_safety_violations') == 5
+    assert row_count(conn, 'dob_safety_violations') == 9
 
 
 def test_shapefile_in_alt_schema_works(conn):
@@ -810,3 +808,16 @@ def test_hpd_aep(conn):
         rec = curs.fetchone()
         assert rec is not None
         assert rec['buildingid'] == 107767
+
+
+def test_hpd_underlying_conditions(conn):
+    drop_table(conn, 'hpd_underlying_conditions')
+    dataset = nycdb.Dataset('hpd_underlying_conditions', args=ARGS)
+    dataset.db_import()
+    assert row_count(conn, 'hpd_underlying_conditions') == 5
+    assert has_index(conn, 'hpd_underlying_conditions_bbl_idx')
+    with conn.cursor(row_factory=dict_row) as curs:
+        curs.execute("select * from hpd_underlying_conditions WHERE bbl = '2046280001'")
+        rec = curs.fetchone()
+        assert rec is not None
+        assert rec['currentstatus'] == 'Discharged'

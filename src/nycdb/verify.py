@@ -27,8 +27,12 @@ TABLES = {
         'hpd_registrations_grouped_by_bbl': 130_000,
         'hpd_registrations_grouped_by_bbl_with_contacts': 130_000
     },
-    'hpd_hwo_charges': {'hpd_hwo_charges': 88_000},
-    'hpd_omo': {'hpd_omo_charges': 400_000, 'hpd_omo_invoices': 650_000},
+    'hpd_charges': {
+        'hpd_hwo_charges': 88_000, 
+        'hpd_omo_charges': 400_000, 
+        'hpd_omo_invoices': 700_000, 
+        'hpd_fee_charges': 90_000
+    },
     'dof_421a': {'dof_421a': 275_000},
     'dof_sales': {'dof_sales': 60_000},
     'dof_annual_sales': { 'dof_annual_sales': 900_000 },
@@ -97,7 +101,8 @@ TABLES = {
     'dob_safety_violations': {'dob_safety_violations': 491_174},
     'boundaries': {'nyad': 65, 'nycg': 13, 'nyss': 28, 'nymc': 28, 'nycc': 51, 'nyed': 4286, 'nybb': 5, 'nycd': 71, 'nysd': 33, 'nypp': 77, 'nyha': 354, 'nyhc': 30, 'nyfc': 348, 'nyfb': 49, 'nyfd': 9},
     'dhs_daily_shelter_count': {'dhs_daily_shelter_count': 7_000},
-    'hpd_aep': {'hpd_aep': 3_000}
+    'hpd_aep': {'hpd_aep': 3_000},
+    'hpd_underlying_conditions': {'hpd_underlying_conditions': 500},
 }
 
 

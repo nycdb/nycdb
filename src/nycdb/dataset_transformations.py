@@ -209,12 +209,16 @@ def hpd_hwo_charges(dataset):
     return to_csv(dataset.files[0].dest)
 
 
-def hpd_omo_invoices(dataset):
-    return to_csv(dataset.files[0].dest)
-
-
 def hpd_omo_charges(dataset):
     return to_csv(dataset.files[1].dest)
+
+
+def hpd_omo_invoices(dataset):
+    return to_csv(dataset.files[2].dest)
+
+
+def hpd_fee_charges(dataset):
+    return to_csv(dataset.files[3].dest)
 
 
 def dob_safety_violations(dataset):
@@ -227,3 +231,7 @@ def dhs_daily_shelter_count(dataset):
 
 def hpd_aep(dataset):
     return to_csv(dataset.files[0].dest, header_replacements={'ofbcviolationsatstart': 'bcviolationsatstart'})
+
+
+def hpd_underlying_conditions(dataset):
+    return to_csv(dataset.files[0].dest)

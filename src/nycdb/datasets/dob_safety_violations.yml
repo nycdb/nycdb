@@ -24,5 +24,12 @@ schema:
     state: text
     zip: text
     bbl: char(10)
+    postcode: text
+    latitude: double precision
+    longitude: double precision
+    communityboard: text
+    councildistrict: text
+    censustract2020: text
+    neighborhoodtabulationareanta2020: text
 sql:
 - dob_safety_violations.sql
