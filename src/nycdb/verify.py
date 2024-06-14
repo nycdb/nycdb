@@ -101,7 +101,8 @@ TABLES = {
     'dob_safety_violations': {'dob_safety_violations': 491_174},
     'boundaries': {'nyad': 65, 'nycg': 13, 'nyss': 28, 'nymc': 28, 'nycc': 51, 'nyed': 4286, 'nybb': 5, 'nycd': 71, 'nysd': 33, 'nypp': 77, 'nyha': 354, 'nyhc': 30, 'nyfc': 348, 'nyfb': 49, 'nyfd': 9},
     'dhs_daily_shelter_count': {'dhs_daily_shelter_count': 7_000},
-    'hpd_underlying_conditions': {'hpd_underlying_conditions': 500}
+    'hpd_aep': {'hpd_aep': 3_000},
+    'hpd_underlying_conditions': {'hpd_underlying_conditions': 500},
 }
 
 
