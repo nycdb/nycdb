@@ -652,6 +652,12 @@ def test_hpd_conh(conn):
     hpd_conh = nycdb.Dataset("hpd_conh", args=ARGS)
     hpd_conh.db_import()
     assert row_count(conn, "hpd_conh") == 5
+    assert has_one_row(conn, "select 1 where to_regclass('public.hpd_conh_bbl_idx') is NOT NULL")
+    with conn.cursor(row_factory=dict_row) as curs:
+        curs.execute("select * from hpd_conh WHERE bbl = '1014570003'")
+        rec = curs.fetchone()
+        assert rec is not None
+        assert rec["nta"] == "MN0801"
 
 
 def run_cli(args, input):
