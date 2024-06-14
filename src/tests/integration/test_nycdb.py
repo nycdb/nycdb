@@ -97,6 +97,10 @@ def has_one_row(*args):
     return bool(fetch_one_row(*args))
 
 
+def has_index(conn, index_name):
+    return has_one_row(conn, f"select 1 where to_regclass('public.{index_name}') is NOT NULL")
+
+
 def table_columns(conn, table_name):
     sql = "SELECT column_name FROM information_schema.columns WHERE table_schema = 'public' AND table_name = '{}'".format(
         table_name
@@ -260,18 +264,12 @@ def test_hpd_violations(conn):
     assert row_count(conn, "hpd_violations") == 100
 
 
-def test_hpd_hwo_charges(conn):
-    drop_table(conn, "hpd_hwo_charges")
-    nycdb.Dataset("hpd_hwo_charges", args=ARGS).db_import()
-    assert row_count(conn, "hpd_hwo_charges") == 5
-
-
-def test_hpd_omo(conn):
-    drop_table(conn, "hpd_omo_invoices")
-    drop_table(conn, "hpd_omo_charges")
-    nycdb.Dataset("hpd_omo", args=ARGS).db_import()
-    assert row_count(conn, "hpd_omo_invoices") == 10
-    assert row_count(conn, "hpd_omo_charges") == 10
+def test_hpd_charges(conn):
+    dataset = nycdb.Dataset('hpd_charges', args=ARGS)
+    dataset.drop()
+    dataset.db_import()
+    for s in dataset.schemas:
+        assert row_count(conn, s['table_name']) == 5
 
 
 def test_hpd_violations_index(conn):
@@ -654,6 +652,12 @@ def test_hpd_conh(conn):
     hpd_conh = nycdb.Dataset("hpd_conh", args=ARGS)
     hpd_conh.db_import()
     assert row_count(conn, "hpd_conh") == 5
+    assert has_one_row(conn, "select 1 where to_regclass('public.hpd_conh_bbl_idx') is NOT NULL")
+    with conn.cursor(row_factory=dict_row) as curs:
+        curs.execute("select * from hpd_conh WHERE bbl = '1014570003'")
+        rec = curs.fetchone()
+        assert rec is not None
+        assert rec["nta"] == "MN0801"
 
 
 def run_cli(args, input):
@@ -777,7 +781,7 @@ def test_shapefile_in_alt_schema_works(conn):
     boundaries.db_import()
     query = "SELECT table_schema FROM information_schema.columns WHERE table_name='nyad'"
     assert boundaries.db.execute_and_fetchone(query) == "temp"
-    boundaries.db.sql(f'DROP SCHEMA temp CASCADE; SET search_path TO {default_search_path}')
+    boundaries.db.sql(f'DROP SCHEMA temp CASCADE; SET search_path TO {default_search_path};')
 
 
 def test_boundaries(conn):
@@ -812,3 +816,29 @@ def test_dohmh_rodent_inspections(conn):
         print(rec)
         assert rec['inspectiondate'].strftime("%Y-%m-%d") == '2021-03-26'
         assert rec['approveddate'].strftime("%Y-%m-%d") == '2021-03-29'
+
+
+def test_hpd_aep(conn):
+    drop_table(conn, 'hpd_aep')
+    dataset = nycdb.Dataset('hpd_aep', args=ARGS)
+    dataset.db_import()
+    assert row_count(conn, 'hpd_aep') > 0
+    assert has_one_row(conn, "select 1 where to_regclass('public.hpd_aep_bbl_idx') is NOT NULL")
+    with conn.cursor(row_factory=dict_row) as curs:
+        curs.execute("select * from hpd_aep WHERE bbl = '2031560155'")
+        rec = curs.fetchone()
+        assert rec is not None
+        assert rec['buildingid'] == 107767
+
+
+def test_hpd_underlying_conditions(conn):
+    drop_table(conn, 'hpd_underlying_conditions')
+    dataset = nycdb.Dataset('hpd_underlying_conditions', args=ARGS)
+    dataset.db_import()
+    assert row_count(conn, 'hpd_underlying_conditions') == 5
+    assert has_index(conn, 'hpd_underlying_conditions_bbl_idx')
+    with conn.cursor(row_factory=dict_row) as curs:
+        curs.execute("select * from hpd_underlying_conditions WHERE bbl = '2046280001'")
+        rec = curs.fetchone()
+        assert rec is not None
+        assert rec['currentstatus'] == 'Discharged'

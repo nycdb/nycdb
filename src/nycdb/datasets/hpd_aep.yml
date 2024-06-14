@@ -1,0 +1,29 @@
+---
+files:
+  -
+    url: https://data.cityofnewyork.us/api/views/hcir-3275/rows.csv?accessType=DOWNLOAD
+    dest: hpd_aep.csv
+sql:
+    - hpd_aep.sql
+schema:
+  table_name: hpd_aep
+  fields:
+    BuildingId: integer
+    Borough: text
+    Number: text
+    Street: text
+    TotalUnits: integer
+    AepStartDate: date
+    bcviolationsatstart: integer
+    CurrentStatus: text
+    DischargeDate: date
+    AepRound: text
+    Postcode: char(5)
+    Latitude: numeric
+    Longitude: numeric
+    CommunityBoard: text
+    CouncilDistrict: text
+    CensusTract: text
+    Bin: char(7)
+    Bbl: char(10)
+    Nta: text
