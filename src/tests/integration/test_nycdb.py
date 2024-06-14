@@ -803,6 +803,21 @@ def test_dhs_daily_shelter_count(conn):
     assert row_count(conn, 'dhs_daily_shelter_count') == 5
 
 
+def test_dohmh_rodent_inspections(conn):
+    drop_table(conn, 'dohmh_rodent_inspections')
+    dataset = nycdb.Dataset('dohmh_rodent_inspections', args=ARGS)
+    dataset.db_import()
+    assert row_count(conn, 'dohmh_rodent_inspections') == 5
+    assert has_one_row(conn, "select 1 where to_regclass('public.dohmh_rodent_inspections_bbl_idx') is NOT NULL")
+    with conn.cursor(row_factory=dict_row) as curs:
+        curs.execute("select * from dohmh_rodent_inspections WHERE bbl = '1000520021'")
+        rec = curs.fetchone()
+        assert rec is not None
+        print(rec)
+        assert rec['inspectiondate'].strftime("%Y-%m-%d") == '2021-03-26'
+        assert rec['approveddate'].strftime("%Y-%m-%d") == '2021-03-29'
+
+
 def test_hpd_aep(conn):
     drop_table(conn, 'hpd_aep')
     dataset = nycdb.Dataset('hpd_aep', args=ARGS)

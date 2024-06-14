@@ -1,0 +1,37 @@
+---
+files:
+  -
+    url: https://data.cityofnewyork.us/api/views/p937-wjvj/rows.csv?accessType=DOWNLOAD
+    dest: dohmh_rodent_inspections.csv
+sql:
+    - dohmh_rodent_inspections.sql
+schema:
+  table_name: dohmh_rodent_inspections
+  fields:
+    InspectionType: text
+    JobTicketOrWorkOrderId: integer
+    JobId: text
+    JobProgress: integer
+    BoroCode: char(1)
+    Block: char(5)
+    Lot: char(4)
+    HouseNumber: text
+    StreetName: text
+    ZipCode: text
+    XCoord: numeric
+    YCoord: numeric
+    Latitude: numeric
+    Longitude: numeric
+    Borough: text
+    InspectionDate: timestamp
+    Result: text
+    ApprovedDate: timestamp
+    CommunityBoard: text
+    CouncilDistrict: text
+    CensusTract: text
+    Bin: char(7)
+    Nta: text
+    bbl: char(10)
+  skip:
+    - Bbl
+    - Location

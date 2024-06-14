@@ -163,14 +163,13 @@ def time(x):
     """
     if isinstance(x, datetime.time):
         return x
-    if isinstance(x, str) and re.match(
-        r"^\d{1,2}:\d{1,2}:\d{1,2}(\s+[AP]M)?$", x.strip(), flags=re.IGNORECASE
-    ):
+    if isinstance(x, str):
         try:
-            time = re.search(r"(\d{1,2}):(\d{1,2}):(\d{1,2})", x.strip())
-            pm = True if re.match(r"^.*?PM$", x.strip(), flags=re.IGNORECASE) else False
-            hour, minute, second = map(int, time.groups())
-            return datetime.time(hour + (pm * 12), minute, second)
+            time_str = re.compile(r"\s+").sub(' ', x.strip().upper())
+            if re.match(r"^\d{1,2}:\d{1,2}:\d{1,2}\s[AP]M$", time_str):
+                return datetime.datetime.strptime(time_str, '%I:%M:%S %p').time()
+            elif re.match(r"^\d{1,2}:\d{1,2}:\d{1,2}$", time_str):
+                return datetime.datetime.strptime(time_str, '%H:%M:%S').time()
         except ValueError:
             return None
 
