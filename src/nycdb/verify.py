@@ -70,6 +70,7 @@ TABLES = {
     },
     'nycha_bbls': {
         'nycha_bbls_18': 5_500,
+        'nycha_bbls_24': 5_500,
     },
     'oath_hearings': {'oath_hearings': 10_000_000},
     'hpd_vacateorders': {'hpd_vacateorders': 4_000},

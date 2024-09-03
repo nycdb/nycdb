@@ -842,3 +842,18 @@ def test_hpd_underlying_conditions(conn):
         rec = curs.fetchone()
         assert rec is not None
         assert rec['currentstatus'] == 'Discharged'
+
+
+def test_nycha_bbls(conn):
+    drop_table(conn, 'nycha_bbls_18')
+    drop_table(conn, 'nycha_bbls_24')
+    dataset = nycdb.Dataset('nycha_bbls', args=ARGS)
+    dataset.db_import()
+
+    assert row_count(conn, 'nycha_bbls_24') > 0
+    assert has_one_row(conn, "select 1 where to_regclass('public.nycha_bbls_24_bbl_idx') is NOT NULL")
+    with conn.cursor(row_factory=dict_row) as curs:
+        curs.execute("select * from nycha_bbls_24 WHERE bbl = '2023240001'")
+        rec = curs.fetchone()
+        assert rec is not None
+        assert rec['development'] == 'PATTERSON'
