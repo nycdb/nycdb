@@ -11,6 +11,7 @@ TABLES = {
     'pluto_21v3': {'pluto_21v3': 800_000},
     'pluto_22v1': {'pluto_22v1': 800_000},
     'pluto_23v1': {'pluto_23v1': 800_000},
+    'pluto_24v2': {'pluto_24v2': 800_000},
     'pluto_latest': {'pluto_latest': 800_000},
     'dobjobs': {
         'dobjobs': 1_000_000,
