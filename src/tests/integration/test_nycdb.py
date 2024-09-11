@@ -885,4 +885,4 @@ def test_hpd_ll44(conn):
         curs.execute("select * from hpd_ll44_buildings WHERE projectid = 44218")
         rec = curs.fetchone()
         assert rec is not None
-        assert rec['programname'] == 'Multifamily Finance Program'
+        assert rec['programgroup'] == 'Multifamily Finance Program'
