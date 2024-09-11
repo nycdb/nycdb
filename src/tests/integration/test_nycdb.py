@@ -794,6 +794,7 @@ def test_shapefile_in_alt_schema_works(conn):
 def test_boundaries(conn):
     setup_postgis(conn)
     boundaries = nycdb.Dataset('boundaries', args=ARGS)
+    boundaries.drop()
     boundaries.db_import()
     assert row_count(conn, 'nyad') == 5
     assert row_count(conn, 'nycc') == 5
@@ -826,8 +827,8 @@ def test_dohmh_rodent_inspections(conn):
 
 
 def test_hpd_aep(conn):
-    drop_table(conn, 'hpd_aep')
     dataset = nycdb.Dataset('hpd_aep', args=ARGS)
+    dataset.drop()
     dataset.db_import()
     assert row_count(conn, 'hpd_aep') > 0
     assert has_one_row(conn, "select 1 where to_regclass('public.hpd_aep_bbl_idx') is NOT NULL")
@@ -839,8 +840,8 @@ def test_hpd_aep(conn):
 
 
 def test_hpd_underlying_conditions(conn):
-    drop_table(conn, 'hpd_underlying_conditions')
     dataset = nycdb.Dataset('hpd_underlying_conditions', args=ARGS)
+    dataset.drop()
     dataset.db_import()
     assert row_count(conn, 'hpd_underlying_conditions') == 5
     assert has_index(conn, 'hpd_underlying_conditions_bbl_idx')
@@ -852,9 +853,8 @@ def test_hpd_underlying_conditions(conn):
 
 
 def test_nycha_bbls(conn):
-    drop_table(conn, 'nycha_bbls_18')
-    drop_table(conn, 'nycha_bbls_24')
     dataset = nycdb.Dataset('nycha_bbls', args=ARGS)
+    dataset.drop()
     dataset.db_import()
 
     assert row_count(conn, 'nycha_bbls_24') > 0
@@ -864,3 +864,25 @@ def test_nycha_bbls(conn):
         rec = curs.fetchone()
         assert rec is not None
         assert rec['development'] == 'PATTERSON'
+
+
+def test_hpd_ll44(conn):
+    dataset = nycdb.Dataset('hpd_ll44', args=ARGS)
+    dataset.drop()
+    dataset.db_import()
+    
+    assert row_count(conn, 'hpd_ll44_buildings') > 0
+    assert has_one_row(conn, "select 1 where to_regclass('public.hpd_ll44_buildings_bbl_idx') is NOT NULL")
+    with conn.cursor(row_factory=dict_row) as curs:
+        curs.execute("select * from hpd_ll44_buildings WHERE buildingid = 987329")
+        rec = curs.fetchone()
+        assert rec is not None
+        assert rec['projectid'] == 44218
+
+    assert row_count(conn, 'hpd_ll44_projects') > 0
+    assert has_one_row(conn, "select 1 where to_regclass('public.hpd_ll44_projects_projectid_idx') is NOT NULL")
+    with conn.cursor(row_factory=dict_row) as curs:
+        curs.execute("select * from hpd_ll44_buildings WHERE projectid = 44218")
+        rec = curs.fetchone()
+        assert rec is not None
+        assert rec['programname'] == 'Multifamily Finance Program'
