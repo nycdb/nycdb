@@ -320,6 +320,16 @@ def main():
         action="store_true",
         help="Attempt to undo the creation of the scaffolding.",
     )
+    parser.add_argument(
+        "--schema-only",
+        action="store_true",
+        help="Only print the schema for the csv file without editing and code files.",
+    )
+    parser.add_argument(
+        "--test-data-only",
+        action="store_true",
+        help="Only create and save test data file for the csv file.",
+    )
     args = parser.parse_args()
 
     if args.csvfile == "test":
@@ -349,6 +359,12 @@ def main():
     if args.undo:
         print(f"Undoing scaffolding for dataset '{dc.name}'.")
         dc.undo()
+    elif args.schema_only:
+        print(f"YAML schema for dataset '{dc.name}'.")
+        print(dc.yaml_code)
+    elif args.test_data_only:
+        print(f"Saved test data for for dataset '{dc.name}'.")
+        dc.create_file(dc.test_csv_path, dc.test_csv_text)
     else:
         dc.execute()
         print(f"Scaffolding created for new dataset '{dc.name}'.")

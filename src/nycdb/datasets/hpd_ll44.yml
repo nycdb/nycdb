@@ -1,0 +1,60 @@
+---
+files:
+  -
+    url: https://data.cityofnewyork.us/api/views/hu6m-9cfi/rows.csv?accessType=DOWNLOAD
+    dest: hpd_ll44_buildings.csv
+  -
+    url: https://data.cityofnewyork.us/api/views/ucdy-byxd/rows.csv?accessType=DOWNLOAD
+    dest: hpd_ll44_projects.csv
+  -
+    url: https://data.cityofnewyork.us/api/views/9s68-zggy/rows.csv?accessType=DOWNLOAD
+    dest: hpd_ll44_disqualified_list.csv
+sql:
+    - hpd_ll44.sql
+schema:
+  -
+    table_name: hpd_ll44_buildings
+    fields:
+      Projectid: integer
+      Buildingid: integer
+      Reportingconstructiontype: text
+      Borough: text
+      Block: integer
+      Lot: integer
+      Bin: char(7)
+      Housenumber: text
+      Streetname: text
+      Countedrentalunits: integer
+      Countedhomeownershipunits: integer
+      Allcountedunits: integer
+      Totalbuildingunits: integer
+      Basesquarefootage: integer
+      Stories: integer
+      CommunityBoard: text
+      CouncilDistrict: text
+      CensusTract: text
+      Nta: text
+      Latitude: numeric
+      Longitude: numeric
+      Postcode: char(5)
+      bbl: char(10)
+    skip:
+      - Bbl
+  -
+    table_name: hpd_ll44_projects
+    fields:
+      Projectdwid: integer
+      Projectid: integer
+      Projectname: text
+      Programgroup: text
+      Startdate: date
+      Projectedcompletiondate: date
+      CountedRentalUnits: integer
+      CountedHomeownershipUnits: integer
+      AllCountedUnits: integer
+      Totalprojectunits: integer
+      Commercialsquarefootage: integer
+      Borrowerlegalentityname: text
+      Generalcontractorname: text
+      Isdavisbacon: boolean
+      Issection220Nyslaborlaw: boolean

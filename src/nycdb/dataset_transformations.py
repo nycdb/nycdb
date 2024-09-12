@@ -245,3 +245,10 @@ def hpd_aep(dataset):
 
 def hpd_underlying_conditions(dataset):
     return to_csv(dataset.files[0].dest)
+
+def hpd_ll44_buildings(dataset):
+    fields_to_skip = [s.lower() for s in dataset.schemas[0].get('skip')]
+    return with_bbl(skip_fields(to_csv(dataset.files[0].dest), fields_to_skip))
+
+def hpd_ll44_projects(dataset):
+    return to_csv(dataset.files[1].dest)
