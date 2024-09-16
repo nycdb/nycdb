@@ -18,6 +18,7 @@ Residents, lawyers, tenants, and organizers who want to use data in their strugg
 - [HPD Charges](https://github.com/nycdb/nycdb/wiki/Dataset:-HPD-Charges)
 - [HPD Repair and Vacate Orders](https://github.com/nycdb/nycdb/wiki/Dataset:-HPD-Vacate-Orders)
 - [HPD Affordable Production (Building and Project)](https://github.com/nycdb/nycdb/wiki/Dataset:-HPD-Affordable-Production)
+- [HPD Local Law 44 - housing projects with City financial assistance)](https://github.com/nycdb/nycdb/wiki/Dataset:-HPD-Local-Law-44)
 - [HPD Certificate of No Harassment](https://github.com/nycdb/nycdb/wiki/Dataset:-HPD-Certificate-of-No-Harassment)
 - [HPD Alternative Enforcement Program (AEP)](https://github.com/nycdb/nycdb/wiki/Dataset:-HPD-Alternative-Enforcement-Program-(AEP))
 - [HPD Underlying Conditions Program](https://github.com/nycdb/nycdb/wiki/Dataset:-HPD-Underlying-Conditions-Program)
