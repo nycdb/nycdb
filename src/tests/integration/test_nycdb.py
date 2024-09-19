@@ -252,9 +252,6 @@ def test_pluto_latest(conn):
     pluto = nycdb.Dataset("pluto_latest", args=ARGS)
     pluto.db_import()
     assert row_count(conn, "pluto_latest") == 5
-    assert has_one_row(
-        conn, "select 1 where to_regclass('public.pluto_latest_geom_idx') is NOT NULL"
-    )
 
 
 def test_pluto_sql_columns(conn):

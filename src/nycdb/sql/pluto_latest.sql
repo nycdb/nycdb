@@ -20,8 +20,3 @@ UPDATE pluto_latest SET landusedesc = CASE
       ELSE '9999'
       END;
 CREATE INDEX pluto_latest_bbl_idx on pluto_latest (bbl);
-
-SELECT AddGeometryColumn ('pluto_latest','geom', 2263, 'POINT', 2);
-UPDATE pluto_latest SET 
-  geom = ST_Transform(ST_SetSRID(ST_MakePoint(longitude, latitude), 4326), 2263);
-CREATE INDEX pluto_latest_geom_idx on pluto_latest using GIST (geom);
