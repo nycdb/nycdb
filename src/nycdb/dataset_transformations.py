@@ -252,3 +252,6 @@ def hpd_ll44_buildings(dataset):
 
 def hpd_ll44_projects(dataset):
     return to_csv(dataset.files[1].dest)
+
+def hpd_ll44_tax_incentive(dataset):
+    return to_csv(dataset.files[2].dest)
