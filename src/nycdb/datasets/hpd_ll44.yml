@@ -7,9 +7,6 @@ files:
     url: https://data.cityofnewyork.us/api/views/ucdy-byxd/rows.csv?accessType=DOWNLOAD
     dest: hpd_ll44_projects.csv
   -
-    url: https://data.cityofnewyork.us/api/views/9s68-zggy/rows.csv?accessType=DOWNLOAD
-    dest: hpd_ll44_disqualified_list.csv
-  -
     url: https://data.cityofnewyork.us/api/views/72vt-ykjc/rows.csv?accessType=DOWNLOAD
     dest: hpd_ll44_tax_incentive.csv
 sql:
