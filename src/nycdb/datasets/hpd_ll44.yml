@@ -7,8 +7,8 @@ files:
     url: https://data.cityofnewyork.us/api/views/ucdy-byxd/rows.csv?accessType=DOWNLOAD
     dest: hpd_ll44_projects.csv
   -
-    url: https://data.cityofnewyork.us/api/views/9s68-zggy/rows.csv?accessType=DOWNLOAD
-    dest: hpd_ll44_disqualified_list.csv
+    url: https://data.cityofnewyork.us/api/views/72vt-ykjc/rows.csv?accessType=DOWNLOAD
+    dest: hpd_ll44_tax_incentive.csv
 sql:
     - hpd_ll44.sql
 schema:
@@ -58,3 +58,10 @@ schema:
       Generalcontractorname: text
       Isdavisbacon: boolean
       Issection220Nyslaborlaw: boolean
+  -
+    table_name: hpd_ll44_tax_incentive
+    fields:
+      Taxincentivedwid: integer
+      Projectid: integer
+      Taxincentivename: text
+      Year1Amount: integer
