@@ -117,6 +117,16 @@ def test_ecb_violations(conn):
     assert row_count(conn, "ecb_violations") == 5
 
 
+def test_ecb_violations_header_typo(conn):
+    drop_table(conn, "ecb_violations")
+    ecb_violations = nycdb.Dataset("ecb_violations", args=ARGS)
+    files = [{'url': 'https://data.cityofnewyork.us/api/views/6bgk-3dad/rows.csv?accessType=DOWNLOAD', 'dest': 'ecb_violations_invalid_header.csv'}]
+    ecb_violations.dataset['files'] = files
+    ecb_violations.files = ecb_violations._files()
+    with pytest.raises(AttributeError):
+        ecb_violations.db_import()
+
+
 def test_hpd_complaints(conn):
     drop_table(conn, "hpd_complaints_and_problems")
     hpd_complaints = nycdb.Dataset("hpd_complaints", args=ARGS)
@@ -881,7 +891,7 @@ def test_hpd_ll44(conn):
     dataset = nycdb.Dataset('hpd_ll44', args=ARGS)
     dataset.drop()
     dataset.db_import()
-    
+
     assert row_count(conn, 'hpd_ll44_buildings') > 0
     assert has_one_row(conn, "select 1 where to_regclass('public.hpd_ll44_buildings_bbl_idx') is NOT NULL")
     with conn.cursor(row_factory=dict_row) as curs:

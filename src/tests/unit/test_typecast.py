@@ -1,5 +1,6 @@
 import nycdb
 import datetime
+import pytest
 from nycdb import typecast
 from unittest.mock import patch
 from types import SimpleNamespace
@@ -160,4 +161,15 @@ def test_correct_bbl_typecast_for_pluto():
     t = typecast.Typecast(nycdb.datasets()['pluto_16v2']['schema'])
     assert t.cast['bbl']('1008300028') == '1008300028'
     assert t.cast['bbl']('1008300028.00') == '1008300028'
-    
+
+
+def test_cast_rows():
+    t = typecast.Typecast(nycdb.datasets()['hpd_registrations']['schema'][0])
+    rows = iter([{'boroid': '1', 'streetname': '123 main'}, { 'boroid': '2', 'streetname': '456 broadway'}])
+    assert list(t.cast_rows(rows)) == [{'boroid': 1, 'streetname': '123 main'}, { 'boroid': 2, 'streetname': '456 broadway'}]
+
+
+def test_check_headers():
+    t = typecast.Typecast(nycdb.datasets()['hpd_registrations']['schema'][0])
+    with pytest.raises(AttributeError):
+        t.check_headers({'somethingelse': '1', 'streetname': '123 main'})
