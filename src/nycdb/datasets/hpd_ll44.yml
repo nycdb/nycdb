@@ -30,6 +30,7 @@ schema:
       Totalbuildingunits: integer
       Basesquarefootage: integer
       Stories: integer
+      bbl: char(10)
       CommunityBoard: text
       CouncilDistrict: text
       CensusTract: text
@@ -37,9 +38,8 @@ schema:
       Latitude: numeric
       Longitude: numeric
       Postcode: char(5)
-      bbl: char(10)
     skip:
-      - Bbl
+      - Borough
   -
     table_name: hpd_ll44_projects
     fields:
