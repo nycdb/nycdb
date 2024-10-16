@@ -39,7 +39,7 @@ schema:
       Postcode: char(5)
       bbl: char(10)
     skip:
-      - Bbl
+      - Borough
   -
     table_name: hpd_ll44_projects
     fields:
