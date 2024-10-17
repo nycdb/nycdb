@@ -893,3 +893,17 @@ def test_hpd_ll44(conn):
         rec = curs.fetchone()
         assert rec is not None
         assert rec['taxincentivename'] == 'Article XI'
+
+
+def test_fc_shd(conn):
+    drop_table(conn, 'fc_shd')
+    dataset = nycdb.Dataset('fc_shd', args=ARGS)
+    dataset.db_import()
+    assert row_count(conn, 'fc_shd_building') > 0
+    assert has_one_row(conn, "select 1 where to_regclass('public.fc_shd_building_bbl_idx') is NOT NULL")
+    with conn.cursor(row_factory=dict_row) as curs:
+        curs.execute("select * from fc_shd_building WHERE bbl = '1000160015'")
+        rec = curs.fetchone()
+        assert rec is not None
+        assert rec['proglihtc4'] == True
+        assert rec['startlihtc4'].strftime("%Y-%m-%d") == '2000-01-01'

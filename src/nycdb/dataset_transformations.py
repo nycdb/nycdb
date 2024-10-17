@@ -255,3 +255,7 @@ def hpd_ll44_projects(dataset):
 
 def hpd_ll44_tax_incentive(dataset):
     return to_csv(dataset.files[2].dest)
+
+
+def fc_shd_building(dataset):
+    return to_csv(dataset.files[0].dest)
