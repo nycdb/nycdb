@@ -202,7 +202,31 @@ def dof_tax_lien_sale_list(dataset):
 
 
 def dob_certificate_occupancy(dataset):
-    return with_bbl(skip_fields(to_csv(dataset.files[0].dest), [s.lower() for s in dataset.dataset['schema']['skip']]))
+    fields_to_skip = [s.lower() for s in dataset.schemas[0].get('skip')]
+    return with_bbl(skip_fields(to_csv(dataset.files[0].dest), fields_to_skip))
+
+def dob_foil_certificate_occupancy(dataset):
+    header_replacements = {
+        "apjobnumber": "jobnumber",
+        "jjobtype": "jobtype",
+        "apaissuedate": "issuedate",
+        "jbinnumber": "bin",
+        "jhousenumber": "housenumber",
+        "jstreetname": "streetname",
+        "jblock": "block",
+        "jlot": "lot",
+        "jzip5": "zip5",
+        "jprdwellingunits": "prdwellingunits",
+        "jexdwellingunits": "exdwellingunits",
+        "apaapplicationstatus": "applicationstatus",
+        "apafilingstatus": "filingstatus",
+        "apitemnumber": "itemnumber",
+        "apaissuetype": "issuetype",
+        "jactivestatus": "activestatus",
+        "jjobdocumentnumber": "jobdocumentnumber"
+    }
+    fields_to_skip = [s.lower() for s in dataset.schemas[1].get('skip')]
+    return skip_fields(to_csv(dataset.files[1].dest, header_replacements=header_replacements), fields_to_skip)
 
 
 def hpd_hwo_charges(dataset):

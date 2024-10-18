@@ -763,10 +763,24 @@ def test_dof_tax_lien_sale_list(conn):
 
 
 def test_dob_certificate_occupancy(conn):
-    drop_table(conn, 'dob_certificate_occupancy')
     dob_certificate_occupancy = nycdb.Dataset('dob_certificate_occupancy', args=ARGS)
+    dob_certificate_occupancy.drop()
     dob_certificate_occupancy.db_import()
     assert row_count(conn, 'dob_certificate_occupancy') == 5
+    assert row_count(conn, 'dob_foil_certificate_occupancy') == 5
+    assert has_one_row(conn,"select 1 where to_regclass('public.dob_certificate_occupancy_bbl_idx') is NOT NULL")
+    assert has_one_row(conn,"select 1 where to_regclass('public.dob_foil_certificate_occupancy_bbl_idx') is NOT NULL")
+    with conn.cursor(row_factory=dict_row) as curs:
+        curs.execute("select * from dob_certificate_occupancy WHERE bbl = '2051410035'")
+        rec = curs.fetchone()
+        assert rec is not None
+        assert rec["jobnumber"] == "220466350"
+
+        curs.execute("select * from dob_foil_certificate_occupancy WHERE bbl = '1012440025'")
+        rec = curs.fetchone()
+        assert rec is not None
+        assert rec["jobnumber"] == "100031528"
+
 
 
 def test_dob_safety_violations(conn):

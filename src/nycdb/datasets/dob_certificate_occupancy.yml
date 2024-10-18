@@ -3,34 +3,69 @@ files:
   -
     url: https://nycopendata.socrata.com/api/views/bs8b-p36w/rows.csv?accessType=DOWNLOAD
     dest: dob_certificate_occupancy.csv
-schema:
-  table_name: dob_certificate_occupancy
-  fields:
-    JobNumber: text
-    JobType: text
-    COIssueDate: date
-    BinNumber: char(7)
-    Borough: char(1)
-    Number: text
-    Street: text
-    Block: char(5)
-    Lot: char(7)
-    Postcode: char(5)
-    PrDwellingUnit: smallint
-    ExDwellingUnit: smallint
-    ApplicationStatusRaw: text
-    FilingStatusRaw: text
-    ItemNumber: integer
-    IssueType: text
-    Latitude: numeric
-    Longitude: numeric
-    CommunityBoard: smallint
-    CouncilDistrict: smallint
-    CensusTract:  text
-    NTA: text
-    Location: text
-    BBL: char(10)
-  skip:
-    - BIN
+  -
+    url: https://justfix-data.s3.amazonaws.com/FOIL_2024-810-4230_COList_2000-2012.csv
+    dest: dob_foil_certificate_occupancy.csv
 sql:
   - dob_certificate_occupancy.sql
+schema:
+  -
+    table_name: dob_certificate_occupancy
+    fields:
+      JobNumber: text
+      JobType: text
+      COIssueDate: date
+      BinNumber: char(7)
+      Borough: char(1)
+      Number: text
+      Street: text
+      Block: char(5)
+      Lot: char(7)
+      Postcode: char(5)
+      PrDwellingUnit: smallint
+      ExDwellingUnit: smallint
+      ApplicationStatusRaw: text
+      FilingStatusRaw: text
+      ItemNumber: integer
+      IssueType: text
+      Latitude: numeric
+      Longitude: numeric
+      CommunityBoard: smallint
+      CouncilDistrict: smallint
+      CensusTract:  text
+      NTA: text
+      Location: text
+      BBL: char(10)
+    skip:
+      - BIN
+  -
+    table_name: dob_foil_certificate_occupancy
+    fields:
+      JobNumber: text
+      JobType: text
+      IssueDate: date
+      Year: integer
+      Month: integer
+      Day: integer
+      DateIssued: date
+      Bin: char(7)
+      HouseNumber: integer
+      StreetName: text
+      Block: integer
+      Lot: integer
+      Zip5: integer
+      PrDwellingUnits: integer
+      ExDwellingUnits: integer
+      ApplicationStatus: text
+      FilingStatus: text
+      ItemNumber: integer
+      IssueType: text
+      ActiveStatus: text
+      GisLatitude: numeric
+      GisLongitude: numeric
+      GisCommunityDistrict: integer
+      GisCouncilDistrict: integer
+      GisNtaName: text
+      JobDocumentNumber: integer
+    skip:
+      - GisBbl

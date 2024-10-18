@@ -11,6 +11,7 @@ Residents, lawyers, tenants, and organizers who want to use data in their strugg
 - [DOB Complaints](https://github.com/nycdb/nycdb/wiki/Dataset:-DOB-Complaints)
 - [DOB Vacate Orders](https://github.com/nycdb/nycdb/wiki/Dataset:-DOB-Vacate-Orders) - From [FOIA request by Jennah Gosciak](https://github.com/jennahgosciak/dob_vacate_orders)
 - [DOB Violations](https://github.com/nycdb/nycdb/wiki/Dataset:-DOB-Violations)
+- [DOB Certificate of Occupancy](https://github.com/nycdb/nycdb/wiki/Dataset:-DOB-Certificate-of-Occupancy)
 - [HPD Violations](https://github.com/nycdb/nycdb/wiki/Dataset:-HPD-Violations)
 - [HPD Litigations](https://github.com/nycdb/nycdb/wiki/Dataset:-HPD-Litigations)
 - [HPD Registrations](https://github.com/nycdb/nycdb/wiki/Dataset:-HPD-Registrations)
