@@ -18,3 +18,7 @@ CREATE INDEX on personal_property_master(documentid);
 CREATE INDEX on personal_property_parties(documentid);
 CREATE INDEX on personal_property_references(documentid);
 CREATE INDEX on personal_property_remarks(documentid);
+
+CREATE INDEX on real_property_master(doctype);
+CREATE INDEX on real_property_master(docamount);
+CREATE INDEX on real_property_master(docdate);
