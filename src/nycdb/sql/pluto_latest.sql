@@ -20,3 +20,4 @@ UPDATE pluto_latest SET landusedesc = CASE
       ELSE '9999'
       END;
 CREATE INDEX pluto_latest_bbl_idx on pluto_latest (bbl);
+CREATE INDEX pluto_latest_latitutde_longitude_idx on pluto_latest (latitude, longitude);
