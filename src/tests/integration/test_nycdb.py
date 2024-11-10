@@ -640,6 +640,11 @@ def test_speculation_watch_list(conn):
     speculation_watch_list = nycdb.Dataset("speculation_watch_list", args=ARGS)
     speculation_watch_list.db_import()
     assert row_count(conn, "speculation_watch_list") == 5
+    with conn.cursor(row_factory=dict_row) as curs:
+        curs.execute("select * from speculation_watch_list WHERE bbl = '1001990032'")
+        rec = curs.fetchone()
+        assert rec is not None
+        assert rec["censustract2020"] == "2902"
 
 
 def test_hpd_affordable_production(conn):
@@ -910,8 +915,8 @@ def test_hpd_ll44(conn):
 
 
 def test_fc_shd(conn):
-    drop_table(conn, 'fc_shd')
     dataset = nycdb.Dataset('fc_shd', args=ARGS)
+    dataset.drop()
     dataset.db_import()
     assert row_count(conn, 'fc_shd_building') > 0
     assert has_one_row(conn, "select 1 where to_regclass('public.fc_shd_building_bbl_idx') is NOT NULL")

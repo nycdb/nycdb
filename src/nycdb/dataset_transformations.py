@@ -174,7 +174,15 @@ def dof_421a(dataset):
 
 
 def speculation_watch_list(dataset):
-    return skip_fields(to_csv(dataset.files[0].dest), [s.lower() for s in dataset.dataset['schema']['skip']]);
+    headers_to_replace = {
+        "censustract2020from2023": "censustract2020",
+        "neighborhoodtabulationareanta2020from2023": "nta2020",
+    }
+    fields_to_skip = [s.lower() for s in dataset.dataset["schema"]["skip"]]
+    return skip_fields(
+        to_csv(dataset.files[0].dest, header_replacements=headers_to_replace),
+        fields_to_skip,
+    )
 
 
 def hpd_affordable_building(dataset):
