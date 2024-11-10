@@ -21,3 +21,4 @@ UPDATE pluto_latest SET landusedesc = CASE
       END;
 CREATE INDEX pluto_latest_bbl_idx on pluto_latest (bbl);
 CREATE INDEX pluto_latest_latitutde_longitude_idx on pluto_latest (latitude, longitude);
+CREATE INDEX pluto_latest_latitutde_longitude_st_point_gist_idx ON pluto_latest USING GIST ((st_point(longitude, latitude)));
