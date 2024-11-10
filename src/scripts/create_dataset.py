@@ -249,8 +249,8 @@ def generate_test_py_code(dataset: str) -> str:
     return cleanup_text(
         f"""
     def test_{dataset}(conn):
-        drop_table(conn, '{dataset}')
         dataset = nycdb.Dataset('{dataset}', args=ARGS)
+        dataset.drop()
         dataset.db_import()
         assert row_count(conn, '{dataset}') > 0
         assert has_one_row(conn, "select 1 where to_regclass('public.{dataset}_bbl_idx') is NOT NULL")

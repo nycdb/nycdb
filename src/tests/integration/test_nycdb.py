@@ -111,59 +111,57 @@ def table_columns(conn, table_name):
 
 
 def test_ecb_violations(conn):
-    drop_table(conn, "ecb_violations")
     ecb_violations = nycdb.Dataset("ecb_violations", args=ARGS)
+    ecb_violations.drop()
     ecb_violations.db_import()
     assert row_count(conn, "ecb_violations") == 5
 
 
 def test_hpd_complaints(conn):
-    drop_table(conn, "hpd_complaints_and_problems")
     hpd_complaints = nycdb.Dataset("hpd_complaints", args=ARGS)
+    hpd_complaints.drop()
     hpd_complaints.db_import()
     assert row_count(conn, "hpd_complaints_and_problems") == 10
 
 
 def test_dof_exemptions(conn):
-    drop_table(conn, "dof_exemptions")
-    drop_table(conn, "dof_exemption_classification_codes")
     dof_exemptions = nycdb.Dataset("dof_exemptions", args=ARGS)
+    dof_exemptions.drop()
     dof_exemptions.db_import()
     assert row_count(conn, "dof_exemptions") == 10
 
 
 def test_dof_exemption_classification_codes(conn):
-    drop_table(conn, "dof_exemptions")
-    drop_table(conn, "dof_exemption_classification_codes")
     dof_exemptions = nycdb.Dataset("dof_exemptions", args=ARGS)
+    dof_exemptions.drop()
     dof_exemptions.db_import()
     assert row_count(conn, "dof_exemption_classification_codes") == 10
 
 
 def test_dob_complaints(conn):
-    drop_table(conn, "dob_complaints")
     dob_complaints = nycdb.Dataset("dob_complaints", args=ARGS)
+    dob_complaints.drop()
     dob_complaints.db_import()
     assert row_count(conn, "dob_complaints") == 100
 
 
 def test_pluto10v1(conn):
-    drop_table(conn, "pluto_10v1")
     pluto = nycdb.Dataset("pluto_10v1", args=ARGS)
+    pluto.drop()
     pluto.db_import()
     assert row_count(conn, "pluto_10v1") == 20
 
 
 def test_pluto15v1(conn):
-    drop_table(conn, "pluto_15v1")
     pluto = nycdb.Dataset("pluto_15v1", args=ARGS)
+    pluto.drop()
     pluto.db_import()
     assert row_count(conn, "pluto_15v1") == 50
 
 
 def test_pluto16v2(conn):
-    drop_table(conn, "pluto_16v2")
     pluto = nycdb.Dataset("pluto_16v2", args=ARGS)
+    pluto.drop()
     pluto.db_import()
     assert row_count(conn, "pluto_16v2") == 500
 
@@ -178,78 +176,78 @@ def test_pluto_insert(conn):
 
 
 def test_pluto17v1(conn):
-    drop_table(conn, "pluto_17v1")
     pluto = nycdb.Dataset("pluto_17v1", args=ARGS)
+    pluto.drop()
     pluto.db_import()
     assert row_count(conn, "pluto_17v1") == 500
 
 
 def test_pluto18v1(conn):
-    drop_table(conn, "pluto_18v1")
     pluto = nycdb.Dataset("pluto_18v1", args=ARGS)
+    pluto.drop()
     pluto.db_import()
     assert row_count(conn, "pluto_18v1") == 50
 
 
 def test_pluto18v2(conn):
-    drop_table(conn, "pluto_18v2")
     pluto = nycdb.Dataset("pluto_18v2", args=ARGS)
+    pluto.drop()
     pluto.db_import()
     assert row_count(conn, "pluto_18v2") == 10
 
 
 def test_pluto19v1(conn):
-    drop_table(conn, "pluto_19v1")
     pluto = nycdb.Dataset("pluto_19v1", args=ARGS)
+    pluto.drop()
     pluto.db_import()
     assert row_count(conn, "pluto_19v1") == 10
 
 
 def test_pluto19v2(conn):
-    drop_table(conn, "pluto_19v2")
     pluto = nycdb.Dataset("pluto_19v2", args=ARGS)
+    pluto.drop()
     pluto.db_import()
     assert row_count(conn, "pluto_19v2") == 10
 
 
 def test_pluto20v8(conn):
-    drop_table(conn, "pluto_20v8")
     pluto = nycdb.Dataset("pluto_20v8", args=ARGS)
+    pluto.drop()
     pluto.db_import()
     assert row_count(conn, "pluto_20v8") == 10
 
 
 def test_pluto21v3(conn):
-    drop_table(conn, "pluto_21v3")
     pluto = nycdb.Dataset("pluto_21v3", args=ARGS)
+    pluto.drop()
     pluto.db_import()
     assert row_count(conn, "pluto_21v3") == 5
 
 
 def test_pluto22v1(conn):
-    drop_table(conn, "pluto_22v1")
     pluto = nycdb.Dataset("pluto_22v1", args=ARGS)
+    pluto.drop()
     pluto.db_import()
     assert row_count(conn, "pluto_22v1") == 5
 
 
 def test_pluto23v1(conn):
-    drop_table(conn, 'pluto_23v1')
     pluto = nycdb.Dataset('pluto_23v1', args=ARGS)
+    pluto.drop()
     pluto.db_import()
     assert row_count(conn, 'pluto_23v1') == 5
 
 
 def test_pluto_24v2(conn):
-    drop_table(conn, 'pluto_24v2')
     dataset = nycdb.Dataset('pluto_24v2', args=ARGS)
+    dataset.drop()
     dataset.db_import()
     assert row_count(conn, 'pluto_24v2') == 5
 
 
 def test_pluto_latest(conn):
-    drop_table(conn, "pluto_latest")
     pluto = nycdb.Dataset("pluto_latest", args=ARGS)
+    pluto.drop()
     pluto.db_import()
     assert row_count(conn, "pluto_latest") == 5
 
@@ -262,8 +260,8 @@ def test_pluto_sql_columns(conn):
 
 
 def test_hpd_violations(conn):
-    drop_table(conn, "hpd_violations")
     hpd_violations = nycdb.Dataset("hpd_violations", args=ARGS)
+    hpd_violations.drop()
     hpd_violations.db_import()
     assert row_count(conn, "hpd_violations") == 100
 
@@ -291,17 +289,16 @@ def test_hpd_violations_index(conn):
 
 
 def test_hpd_registrations(conn):
-    drop_table(conn, "hpd_registrations")
-    drop_table(conn, "hpd_contacts")
     ds = nycdb.Dataset("hpd_registrations", args=ARGS)
+    ds.drop()
     ds.db_import()
     assert row_count(conn, "hpd_registrations") == 100
     assert row_count(conn, "hpd_contacts") == 100
 
 
 def test_hpd_litigations(conn):
-    drop_table(conn, "hpd_litigations")
     hpd_litigations = nycdb.Dataset("hpd_litigations", args=ARGS)
+    hpd_litigations.drop()
     hpd_litigations.db_import()
     assert row_count(conn, "hpd_litigations") == 100
 
@@ -318,8 +315,8 @@ def test_hpd_registrations_rows(conn):
 
 
 def test_dof_sales(conn):
-    drop_table(conn, "dof_sales")
     dof_sales = nycdb.Dataset("dof_sales", args=ARGS)
+    dof_sales.drop()
     dof_sales.db_import()
     assert row_count(conn, "dof_sales") == 10
     assert has_one_row(
@@ -328,9 +325,8 @@ def test_dof_sales(conn):
 
 
 def test_dobjobs(conn):
-    drop_table(conn, "dobjobs")
-    drop_table(conn, "dob_now_jobs")
     dobjobs = nycdb.Dataset("dobjobs", args=ARGS)
+    dobjobs.drop()
     dobjobs.db_import()
     assert row_count(conn, "dobjobs") == 100
     columns = table_columns(conn, "dobjobs")
@@ -351,9 +347,8 @@ def test_dobjobs(conn):
 
 
 def test_dobjobs_work_types(conn):
-    drop_table(conn, "dobjobs")
-    drop_table(conn, "dob_now_jobs")
     dobjobs = nycdb.Dataset("dobjobs", args=ARGS)
+    dobjobs.drop()
     dobjobs.db_import()
 
     with conn.cursor(row_factory=dict_row) as curs:
@@ -366,9 +361,8 @@ def test_dobjobs_work_types(conn):
 
 
 def test_dob_now_jobs(conn):
-    drop_table(conn, "dobjobs")
-    drop_table(conn, "dob_now_jobs")
     dob_now_jobs = nycdb.Dataset("dobjobs", args=ARGS)
+    dob_now_jobs.drop()
     dob_now_jobs.db_import()
     assert row_count(conn, "dob_now_jobs") == 5
     assert has_one_row(
@@ -377,8 +371,8 @@ def test_dob_now_jobs(conn):
 
 
 def test_rentstab(conn):
-    drop_table(conn, "rentstab")
     rentstab = nycdb.Dataset("rentstab", args=ARGS)
+    rentstab.drop()
     rentstab.db_import()
     assert row_count(conn, "rentstab") == 100
     assert has_one_row(
@@ -387,35 +381,22 @@ def test_rentstab(conn):
 
 
 def test_rentstab_summary(conn):
-    drop_table(conn, "rentstab_summary")
     rentstab_summary = nycdb.Dataset("rentstab_summary", args=ARGS)
+    rentstab_summary.drop()
     rentstab_summary.db_import()
     assert row_count(conn, "rentstab_summary") == 100
 
 
 def test_rentstab_v2(conn):
-    drop_table(conn, "rentstab_v2")
     rentstab_v2 = nycdb.Dataset("rentstab_v2", args=ARGS)
+    rentstab_v2.drop()
     rentstab_v2.db_import()
     assert row_count(conn, "rentstab_v2") == 100
 
 
 def test_acris(conn):
-    drop_table(conn, "real_property_legals")
-    drop_table(conn, "real_property_master")
-    drop_table(conn, "real_property_parties")
-    drop_table(conn, "real_property_references")
-    drop_table(conn, "real_property_remarks")
-    drop_table(conn, "personal_property_legals")
-    drop_table(conn, "personal_property_master")
-    drop_table(conn, "personal_property_parties")
-    drop_table(conn, "personal_property_references")
-    drop_table(conn, "personal_property_remarks")
-    drop_table(conn, "acris_country_codes")
-    drop_table(conn, "acris_document_control_codes")
-    drop_table(conn, "acris_property_type_codes")
-    drop_table(conn, "acris_ucc_collateral_codes")
     acris = nycdb.Dataset("acris", args=ARGS)
+    acris.drop()
     acris.db_import()
     assert row_count(conn, "real_property_legals") == 100
     assert row_count(conn, "real_property_master") == 100
@@ -437,11 +418,8 @@ def test_acris(conn):
 
 
 def test_marshal_evictions(conn):
-    drop_table(conn, "marshal_evictions_17")
-    drop_table(conn, "marshal_evictions_18")
-    drop_table(conn, "marshal_evictions_19")
-    drop_table(conn, "marshal_evictions_all")
     evictions = nycdb.Dataset("marshal_evictions", args=ARGS)
+    evictions.drop()
     evictions.db_import()
 
     assert row_count(conn, "marshal_evictions_17") == 10
@@ -460,8 +438,8 @@ def test_marshal_evictions(conn):
 
 
 def test_oath_hearings(conn):
-    drop_table(conn, "oath_hearings")
     oath_hearings = nycdb.Dataset("oath_hearings", args=ARGS)
+    oath_hearings.drop()
     oath_hearings.db_import()
     assert row_count(conn, "oath_hearings") == 100
     with conn.cursor(row_factory=dict_row) as curs:
@@ -474,8 +452,8 @@ def test_oath_hearings(conn):
 
 
 def test_dob_violations(conn):
-    drop_table(conn, "dob_violations")
     dob_violations = nycdb.Dataset("dob_violations", args=ARGS)
+    dob_violations.drop()
     dob_violations.db_import()
     assert row_count(conn, "dob_violations") == 100
     # 3028850001
@@ -489,8 +467,8 @@ def test_dob_violations(conn):
 
 
 def test_pad(conn):
-    drop_table(conn, "pad_adr")
     pad = nycdb.Dataset("pad", args=ARGS)
+    pad.drop()
     pad.db_import()
     assert row_count(conn, "pad_adr") == 100
     with conn.cursor(row_factory=dict_row) as curs:
@@ -501,8 +479,8 @@ def test_pad(conn):
 
 
 def test_j51_exemptions(conn):
-    drop_table(conn, "j51_exemptions")
     j51_exemptions = nycdb.Dataset("j51_exemptions", args=ARGS)
+    j51_exemptions.drop()
     j51_exemptions.db_import()
     assert row_count(conn, "j51_exemptions") == 100
     with conn.cursor(row_factory=dict_row) as curs:
@@ -513,8 +491,8 @@ def test_j51_exemptions(conn):
 
 
 def test_hpd_vacateorders(conn):
-    drop_table(conn, "hpd_vacateorders")
     dataset = nycdb.Dataset("hpd_vacateorders", args=ARGS)
+    dataset.drop()
     dataset.db_import()
     assert row_count(conn, "hpd_vacateorders") == 100
     with conn.cursor(row_factory=dict_row) as curs:
@@ -525,8 +503,8 @@ def test_hpd_vacateorders(conn):
 
 
 def test_mci_applications(conn):
-    drop_table(conn, "mci_applications")
     mci_applications = nycdb.Dataset("mci_applications", args=ARGS)
+    mci_applications.drop()
     mci_applications.db_import()
     assert row_count(conn, "mci_applications") == 100
     assert has_one_row(
@@ -543,19 +521,8 @@ def test_mci_applications(conn):
 
 
 def test_oca(conn):
-    drop_table(conn, "oca_index")
-    drop_table(conn, "oca_causes")
-    drop_table(conn, "oca_addresses")
-    drop_table(conn, "oca_parties")
-    drop_table(conn, "oca_events")
-    drop_table(conn, "oca_appearances")
-    drop_table(conn, "oca_appearance_outcomes")
-    drop_table(conn, "oca_motions")
-    drop_table(conn, "oca_decisions")
-    drop_table(conn, "oca_judgments")
-    drop_table(conn, "oca_warrants")
-    drop_table(conn, "oca_metadata")
     oca = nycdb.Dataset("oca", args=ARGS)
+    oca.drop()
     oca.db_import()
     assert row_count(conn, "oca_index") == 100
     assert row_count(conn, "oca_causes") == 100
@@ -598,7 +565,6 @@ def test_oca(conn):
 
 
 def test_dof_annual_sales(conn):
-    drop_table(conn, "dof_annual_sales")
     dof_annual_sales = nycdb.Dataset("dof_annual_sales", args=ARGS)
     dof_annual_sales.files = [
         nycdb.file.File(
@@ -617,12 +583,12 @@ def test_dof_annual_sales(conn):
         ),
     ]
 
+    dof_annual_sales.drop()
     dof_annual_sales.db_import()
     assert row_count(conn, "dof_annual_sales") == 47
 
 
 def test_dof_421a(conn):
-    drop_table(conn, "dof_421a")
     dof_421a = nycdb.Dataset("dof_421a", args=ARGS)
     dof_421a.files = [
         nycdb.file.File(
@@ -630,30 +596,30 @@ def test_dof_421a(conn):
             root_dir=data_dir,
         )
     ]
+    dof_421a.drop()
     dof_421a.db_import()
     assert row_count(conn, "dof_421a") == 45
     assert fetch_one_row(conn, "SELECT * FROM dof_421a LIMIT 1")["fiscalyear"] == "2021"
 
 
 def test_speculation_watch_list(conn):
-    drop_table(conn, "speculation_watch_list")
     speculation_watch_list = nycdb.Dataset("speculation_watch_list", args=ARGS)
+    speculation_watch_list.drop()
     speculation_watch_list.db_import()
     assert row_count(conn, "speculation_watch_list") == 5
 
 
 def test_hpd_affordable_production(conn):
-    drop_table(conn, "hpd_affordable_building")
-    drop_table(conn, "hpd_affordable_project")
     hpd_affordable_production = nycdb.Dataset("hpd_affordable_production", args=ARGS)
+    hpd_affordable_production.drop()
     hpd_affordable_production.db_import()
     assert row_count(conn, "hpd_affordable_building") == 5
     assert row_count(conn, "hpd_affordable_project") == 5
 
 
 def test_hpd_conh(conn):
-    drop_table(conn, "hpd_conh")
     hpd_conh = nycdb.Dataset("hpd_conh", args=ARGS)
+    hpd_conh.drop()
     hpd_conh.db_import()
     assert row_count(conn, "hpd_conh") == 5
     assert has_one_row(conn, "select 1 where to_regclass('public.hpd_conh_bbl_idx') is NOT NULL")
@@ -714,8 +680,8 @@ def test_dbshell(db):
 
 
 def test_dcp_housingdb(conn):
-    drop_table(conn, "dcp_housingdb")
     dataset = nycdb.Dataset("dcp_housingdb", args=ARGS)
+    dataset.drop()
     dataset.db_import()
     assert row_count(conn, "dcp_housingdb") > 0
     assert has_one_row(
@@ -730,8 +696,8 @@ def test_dcp_housingdb(conn):
 
 
 def test_dob_vacate_orders(conn):
-    drop_table(conn, "dob_vacate_orders")
     dataset = nycdb.Dataset("dob_vacate_orders", args=ARGS)
+    dataset.drop()
     dataset.db_import()
     assert row_count(conn, "dob_vacate_orders") > 0
     assert has_one_row(
@@ -747,8 +713,8 @@ def test_dob_vacate_orders(conn):
 
 
 def test_dof_tax_lien_sale_list(conn):
-    drop_table(conn, "dof_tax_lien_sale_list")
     dataset = nycdb.Dataset("dof_tax_lien_sale_list", args=ARGS)
+    dataset.drop()
     dataset.db_import()
     assert row_count(conn, "dof_tax_lien_sale_list") > 0
     assert has_one_row(
@@ -784,8 +750,8 @@ def test_dob_certificate_occupancy(conn):
 
 
 def test_dob_safety_violations(conn):
-    drop_table(conn, 'dob_safety_violations')
     dob_safety_violations = nycdb.Dataset('dob_safety_violations', args=ARGS)
+    dob_safety_violations.drop()
     dob_safety_violations.db_import()
     assert row_count(conn, 'dob_safety_violations') == 9
 
@@ -796,6 +762,7 @@ def test_shapefile_in_alt_schema_works(conn):
     boundaries.setup_db()
     default_search_path = boundaries.db.execute_and_fetchone("SHOW search_path")
     boundaries.db.sql("CREATE SCHEMA IF NOT EXISTS temp; SET search_path TO temp, public")
+    boundaries.drop()
     boundaries.db_import()
     query = "SELECT table_schema FROM information_schema.columns WHERE table_name='nyad'"
     assert boundaries.db.execute_and_fetchone(query) == "temp"
@@ -816,15 +783,15 @@ def test_boundaries(conn):
 
 
 def test_dhs_daily_shelter_count(conn):
-    drop_table(conn, 'dhs_daily_shelter_count')
     ecb_violations = nycdb.Dataset('dhs_daily_shelter_count', args=ARGS)
+    ecb_violations.drop()
     ecb_violations.db_import()
     assert row_count(conn, 'dhs_daily_shelter_count') == 5
 
 
 def test_dohmh_rodent_inspections(conn):
-    drop_table(conn, 'dohmh_rodent_inspections')
     dataset = nycdb.Dataset('dohmh_rodent_inspections', args=ARGS)
+    dataset.drop()
     dataset.db_import()
     assert row_count(conn, 'dohmh_rodent_inspections') == 5
     assert has_one_row(conn, "select 1 where to_regclass('public.dohmh_rodent_inspections_bbl_idx') is NOT NULL")
@@ -910,8 +877,8 @@ def test_hpd_ll44(conn):
 
 
 def test_fc_shd(conn):
-    drop_table(conn, 'fc_shd')
     dataset = nycdb.Dataset('fc_shd', args=ARGS)
+    dataset.drop()
     dataset.db_import()
     assert row_count(conn, 'fc_shd_building') > 0
     assert has_one_row(conn, "select 1 where to_regclass('public.fc_shd_building_bbl_idx') is NOT NULL")
