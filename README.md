@@ -43,6 +43,7 @@ Residents, lawyers, tenants, and organizers who want to use data in their strugg
 - [DHS Daily Shelter Census](https://www.nyc.gov/assets/dhs/downloads/pdf/dailyreport.pdf) - From [scraping by Adrian Nesta and Patrick Spauster](https://github.com/anesta95/nyc_shelter_count/tree/main)
 - [DOHMH Rodent Inspections](https://github.com/nycdb/nycdb/wiki/Dataset:-DOHMH-Rodent-Inspections)
 - [NYU Furman Center's Subsidized Housing Database](https://github.com/nycdb/nycdb/wiki/Dataset:-Subsidized-Housing-Database)
+- [NY Department of State Active Corporations](https://github.com/nycdb/nycdb/wiki/Dataset:-DOS-Active-Corporations)
 
 
 ## Using the database

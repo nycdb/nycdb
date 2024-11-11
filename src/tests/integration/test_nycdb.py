@@ -921,3 +921,17 @@ def test_fc_shd(conn):
         assert rec is not None
         assert rec['proglihtc4'] == True
         assert rec['startlihtc4'].strftime("%Y-%m-%d") == '2000-01-01'
+
+
+def test_dos_active_corporations(conn):
+    dataset = nycdb.Dataset('dos_active_corporations', args=ARGS)
+    dataset.drop()
+    dataset.db_import()
+    assert row_count(conn, 'dos_active_corporations') == 5
+    assert has_one_row(conn, "select 1 where to_regclass('public.dos_active_corporations_dosid_idx') is NOT NULL")
+    with conn.cursor(row_factory=dict_row) as curs:
+        curs.execute("select * from dos_active_corporations WHERE dosid = 4066192")
+        rec = curs.fetchone()
+        assert rec is not None
+        assert rec['initialdosfilingdate'].strftime("%Y-%m-%d") == '2011-03-11'
+

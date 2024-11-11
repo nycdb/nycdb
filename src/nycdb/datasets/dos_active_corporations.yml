@@ -1,0 +1,40 @@
+---
+files:
+  -
+    url: https://data.ny.gov/api/views/n9v6-gdp6/rows.csv?accessType=DOWNLOAD
+    dest: dos_active_corporations.csv
+sql:
+    - dos_active_corporations.sql
+schema:
+  table_name: dos_active_corporations
+  fields:
+    DosId: integer
+    CurrentEntityName: text
+    InitialDosFilingDate: date
+    County: text
+    Jurisdiction: text
+    EntityType: text
+    DosProcessName: text
+    DosProcessAddress1: text
+    DosProcessAddress2: text
+    DosProcessCity: text
+    DosProcessState: text
+    DosProcessZip: text
+    CeoName: text
+    CeoAddress1: text
+    CeoAddress2: text
+    CeoCity: text
+    CeoState: text
+    CeoZip: text
+    RegisteredAgentName: text
+    RegisteredAgentAddress1: text
+    RegisteredAgentAddress2: text
+    RegisteredAgentCity: text
+    RegisteredAgentState: text
+    RegisteredAgentZip: text
+    LocationName: text
+    LocationAddress1: text
+    LocationAddress2: text
+    LocationCity: text
+    LocationState: text
+    LocationZip: text
