@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   nycdb:
     build:
@@ -29,7 +27,7 @@ services:
       - POSTGRES_USER=nycdb
       - POSTGRES_DB=nycdb
     ports:
-      - 127.0.0.1:5432:5432
+      - "127.0.0.1:${NYCDB_POSTGRES_PORT:-5432}:5432"
 
 volumes:
   download-data:
