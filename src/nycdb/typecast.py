@@ -11,6 +11,8 @@ import copy
 import re
 import datetime
 from decimal import Decimal, InvalidOperation
+from collections.abc import Iterable
+
 
 YES_VALUES = [
     1,
@@ -220,13 +222,18 @@ def char_cast(n):
 
 class Typecast:
     def __init__(self, schema):
+        self.table_name = schema.get('table_name')
         self.fields = downcase_fields_and_values(schema["fields"])
         self.cast = self.generate_cast()
 
-    def cast_rows(self, rows):
+    def check_headers(self, row: dict):
+        for column in map(lambda x: x.lower(), row.keys()):
+            if column not in self.cast:
+                raise AttributeError(f"{column} not found. Please verify the columns names for schema {self.table_name} are correct.")
+
+    def cast_rows(self, rows: Iterable) -> Iterable:
         """
-        input: Iterable
-        output: Iterable
+        transforms row values into their python types
         """
         for row in rows:
             yield self.cast_row(row)

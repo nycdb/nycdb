@@ -3,6 +3,7 @@ import logging
 import itertools
 import os
 import subprocess
+from typing import Generator
 from tqdm import tqdm
 
 from . import verify
@@ -101,16 +102,13 @@ class Dataset:
         else:
             logging.debug("no index files exist for this dataset")
 
-    def transform(self, schema):
+    def transform(self, schema: dict) -> Generator:
         """
         Calls the function in dataset_transformation with the same name
         as the schema.
 
         If no function exists with the same name as the schema table, it tries
         to call the function with the same name as the dataset
-
-        Input: dict
-        Output: generator
         """
         tc = Typecast(schema)
 
@@ -118,6 +116,10 @@ class Dataset:
             rows = getattr(dataset_transformations, schema["table_name"])(self)
         except AttributeError:
             rows = getattr(dataset_transformations, self.name)(self, schema)
+
+        # raise error if headers don't match dataset schema
+        forked_rows, rows = itertools.tee(rows, 2)
+        tc.check_headers(next(forked_rows))
 
         return tc.cast_rows(rows)
 
