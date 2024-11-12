@@ -8,5 +8,5 @@ CREATE INDEX ON speculation_watch_list ("postcode");
 CREATE INDEX ON speculation_watch_list ("latitude", "longitude");
 CREATE INDEX ON speculation_watch_list ("communityboard");
 CREATE INDEX ON speculation_watch_list ("councildistrict");
-CREATE INDEX ON speculation_watch_list ("censustract");
+CREATE INDEX ON speculation_watch_list ("censustract2020");
 CREATE INDEX ON speculation_watch_list ("bin");

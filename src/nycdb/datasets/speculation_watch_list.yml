@@ -25,9 +25,9 @@ schema:
     Longitude: numeric
     CommunityBoard: text
     CouncilDistrict: text
-    CensusTract: text
+    CensusTract2020: text
     BIN: char(7)
-    NTA: text
+    NTA2020: text
   skip:
     - location1
 sql:
