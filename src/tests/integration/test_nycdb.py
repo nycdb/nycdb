@@ -917,3 +917,14 @@ def test_dos_active_corporations(conn):
         assert rec is not None
         assert rec['initialdosfilingdate'].strftime("%Y-%m-%d") == '2011-03-11'
 
+def test_dof_property_valuation_and_assessments(conn):
+    dataset = nycdb.Dataset('dof_property_valuation_and_assessments', args=ARGS)
+    dataset.drop()
+    dataset.db_import()
+    assert row_count(conn, 'dof_property_valuation_and_assessments') == 5
+    assert has_one_row(conn, "select 1 where to_regclass('public.dof_property_valuation_and_assessments_bbl_idx') is NOT NULL")
+    with conn.cursor(row_factory=dict_row) as curs:
+        curs.execute("select * from dof_property_valuation_and_assessments WHERE bbl = '1000010010'")
+        rec = curs.fetchone()
+        assert rec is not None
+        assert rec['extracrdt'].strftime("%Y-%m-%d") == '2023-05-17'
