@@ -29,9 +29,9 @@ TABLES = {
         'hpd_registrations_grouped_by_bbl_with_contacts': 130_000
     },
     'hpd_charges': {
-        'hpd_hwo_charges': 88_000, 
-        'hpd_omo_charges': 400_000, 
-        'hpd_omo_invoices': 700_000, 
+        'hpd_hwo_charges': 88_000,
+        'hpd_omo_charges': 400_000,
+        'hpd_omo_invoices': 700_000,
         'hpd_fee_charges': 90_000
     },
     'dof_421a': {'dof_421a': 275_000},
@@ -41,6 +41,7 @@ TABLES = {
         'dof_exemptions': 740_000,
         'dof_exemption_classification_codes': 175
     },
+    'dof_property_valuation_and_assessments': { 'dof_property_valuation_and_assessments': 6_000_000 },
     'rentstab': {'rentstab': 45_000},
     'rentstab_v2': {'rentstab_v2': 40_000},
     'rentstab_summary': {'rentstab_summary': 45_000},

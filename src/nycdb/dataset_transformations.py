@@ -25,6 +25,8 @@ def dof_exemption_classification_codes(dataset):
 def dof_exemptions(dataset):
     return with_bbl(to_csv(dataset.files[1].dest), borough='boro')
 
+def dof_property_valuation_and_assessments(dataset):
+    return with_bbl(to_csv(dataset.files[0].dest), borough='boro')
 
 def _pluto(dataset):
     """
