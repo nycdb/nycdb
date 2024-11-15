@@ -11,26 +11,19 @@ jobs:
     strategy:
       matrix:
         include:
-          - python_version: 3.13-rc-bookworm
-            postgres_image: postgis/postgis:16-master
+          - python_version: 3.14-rc-bookworm
+            postgres_image: postgis/postgis:17-master
+          - python_version: 3.13-bookworm
+            postgres_image: postgis/postgis:17-3.5
+          - python_version: 3.13-bookworm
+            postgres_image: postgis/postgis:16-3.5
+          - python_version: 3.13-bookworm
+            postgres_image: postgis/postgis:15-3.5
           - python_version: 3.12-bookworm
-            postgres_image: postgis/postgis:16-3.4
-          - python_version: 3.12-bookworm
-            postgres_image: postgis/postgis:15-3.4
+            postgres_image: postgis/postgis:16-3.5
           - python_version: 3.11-bookworm
-            postgres_image: postgis/postgis:16-3.4
-          - python_version: 3.11-bookworm
-            postgres_image: postgis/postgis:15-3.4
-          - python_version: 3.11-bookworm
-            postgres_image: postgis/postgis:14-3.4
-          - python_version: 3.10-bookworm
-            postgres_image: postgis/postgis:14-3.4
-          - python_version: 3.9-bullseye
-            postgres_image: postgis/postgis:12-3.4
-          - python_version: 3.8-bullseye
-            postgres_image: postgis/postgis:12-3.4
+            postgres_image: postgis/postgis:14-3.5
     runs-on: ubuntu-latest
-
     env:
       POSTGRES_IMAGE: ${{ matrix.postgres_image }}
       PYTHON_VERSION: ${{ matrix.python_version }}

@@ -4,7 +4,9 @@ from nycdb.file import safe_int
 import time
 import http.server
 import os
-from multiprocessing import Process
+import multiprocessing
+
+mp = multiprocessing.get_context('fork')
 
 def test_file_constructor_with_dest():
     file_dict = { 'url': 'http://example.com', 'dest': 'example.csv' }
@@ -24,10 +26,10 @@ def server_process(directory):
         os.chdir(directory)
         httpd = http.server.HTTPServer( ('', 6789), http.server.SimpleHTTPRequestHandler)
         httpd.serve_forever()
-    
-    p = Process(target=run)
+
+    p = mp.Process(target=run)
     p.start()
-    time.sleep(0.01)
+    time.sleep(0.1)
     return p
 
 def test_download_file(tmpdir):
