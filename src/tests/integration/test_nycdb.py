@@ -878,7 +878,7 @@ def test_hpd_ll44(conn):
         curs.execute("select * from hpd_ll44_buildings WHERE buildingid = 927737")
         rec = curs.fetchone()
         assert rec is not None
-        assert rec['bin'] == "-"
+        assert rec['bin'] == "-      " # space because char(7)
         assert rec['boroid'] == None
     
     assert row_count(conn, 'hpd_ll44_projects') > 0
