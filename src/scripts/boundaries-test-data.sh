@@ -1,5 +1,5 @@
 cd "tests/integration/data"
-VERSION=24b
+VERSION=24d
 
 for table in  "nyad" "nycg" "nyss" "nymc" "nycc" "nyed" "nybb" "nycd" "nysd" "nypp" "nyha" "nyhc" "nyfc" "nyfb" "nyfd"
 do 
