@@ -1,7 +1,7 @@
 ---
 files:
   -
-    url: https://nycopendata.socrata.com/api/views/bs8b-p36w/rows.csv?accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/views/bs8b-p36w/rows.csv?accessType=DOWNLOAD
     dest: dob_certificate_occupancy.csv
   -
     url: https://justfix-data.s3.amazonaws.com/FOIL_2024-810-4230_COList_2000-2012.csv
