@@ -1,125 +1,125 @@
 ---
 files:
-  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyad_24b.zip
-    dest: nyad_24b.zip
-  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nycg_24b.zip
-    dest: nycg_24b.zip
-  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyss_24b.zip
-    dest: nyss_24b.zip
-  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nymc_24b.zip
-    dest: nymc_24b.zip
-  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nycc_24b.zip
-    dest: nycc_24b.zip
-  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyed_24b.zip
-    dest: nyed_24b.zip
-  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nybb_24b.zip
-    dest: nybb_24b.zip
-  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nycd_24b.zip
-    dest: nycd_24b.zip
-  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nysd_24b.zip
-    dest: nysd_24b.zip
-  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nypp_24b.zip
-    dest: nypp_24b.zip
-  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyha_24b.zip
-    dest: nyha_24b.zip
-  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyhc_24b.zip
-    dest: nyhc_24b.zip
-  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyfc_24b.zip
-    dest: nyfc_24b.zip
-  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyfb_24b.zip
-    dest: nyfb_24b.zip
-  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyfd_24b.zip
-    dest: nyfd_24b.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyad_24d.zip
+    dest: nyad_24d.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nycg_24d.zip
+    dest: nycg_24d.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyss_24d.zip
+    dest: nyss_24d.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nymc_24d.zip
+    dest: nymc_24d.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nycc_24d.zip
+    dest: nycc_24d.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyed_24d.zip
+    dest: nyed_24d.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nybb_24d.zip
+    dest: nybb_24d.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nycd_24d.zip
+    dest: nycd_24d.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nysd_24d.zip
+    dest: nysd_24d.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nypp_24d.zip
+    dest: nypp_24d.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyha_24d.zip
+    dest: nyha_24d.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyhc_24d.zip
+    dest: nyhc_24d.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyfc_24d.zip
+    dest: nyfc_24d.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyfb_24d.zip
+    dest: nyfb_24d.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyfd_24d.zip
+    dest: nyfd_24d.zip
 sql: 
   - boundaries.sql
 schema:
   # State Assembly Districts
   - table_name: nyad
-    path: nyad_24b/nyad
-    dest: nyad_24b.zip
+    path: nyad_24d/nyad
+    dest: nyad_24d.zip
     type: shapefile
     srid: 2263
   # Congressional Districts
   - table_name: nycg
-    path: nycg_24b/nycg
-    dest: nycg_24b.zip
+    path: nycg_24d/nycg
+    dest: nycg_24d.zip
     type: shapefile
     srid: 2263
   # State Senate Districts
   - table_name: nyss
-    path: nyss_24b/nyss
-    dest: nyss_24b.zip
+    path: nyss_24d/nyss
+    dest: nyss_24d.zip
     type: shapefile
     srid: 2263
   # Municipal Court Districts
   - table_name: nymc
-    path: nymc_24b/nymc
-    dest: nymc_24b.zip
+    path: nymc_24d/nymc
+    dest: nymc_24d.zip
     type: shapefile
     srid: 2263
   # City Council Districts
   - table_name: nycc
-    path: nycc_24b/nycc
-    dest: nycc_24b.zip
+    path: nycc_24d/nycc
+    dest: nycc_24d.zip
     type: shapefile
     srid: 2263
   # Election Districts
   - table_name: nyed
-    path: nyed_24b/nyed
-    dest: nyed_24b.zip
+    path: nyed_24d/nyed
+    dest: nyed_24d.zip
     type: shapefile
     srid: 2263
   # Borough Boundaries
   - table_name: nybb
-    path: nybb_24b/nybb
-    dest: nybb_24b.zip
+    path: nybb_24d/nybb
+    dest: nybb_24d.zip
     type: shapefile
     srid: 2263
   # Community Districts
   - table_name: nycd
-    path: nycd_24b/nycd
-    dest: nycd_24b.zip
+    path: nycd_24d/nycd
+    dest: nycd_24d.zip
     type: shapefile
     srid: 2263
  # School Districts
   - table_name: nysd
-    path: nysd_24b/nysd
-    dest: nysd_24b.zip
+    path: nysd_24d/nysd
+    dest: nysd_24d.zip
     type: shapefile
     srid: 2263
   # Police Precincts
   - table_name: nypp
-    path: nypp_24b/nypp
-    dest: nypp_24b.zip
+    path: nypp_24d/nypp
+    dest: nypp_24d.zip
     type: shapefile
     srid: 2263
   # Health Area
   - table_name: nyha
-    path: nyha_24b/nyha
-    dest: nyha_24b.zip
+    path: nyha_24d/nyha
+    dest: nyha_24d.zip
     type: shapefile
     srid: 2263
   # Health Center
   - table_name: nyhc
-    path: nyhc_24b/nyhc
-    dest: nyhc_24b.zip
+    path: nyhc_24d/nyhc
+    dest: nyhc_24d.zip
     type: shapefile
     srid: 2263
   # Fire Companies
   - table_name: nyfc
-    path: nyfc_24b/nyfc
-    dest: nyfc_24b.zip
+    path: nyfc_24d/nyfc
+    dest: nyfc_24d.zip
     type: shapefile
     srid: 2263
   # Fire Battalions
   - table_name: nyfb
-    path: nyfb_24b/nyfb
-    dest: nyfb_24b.zip
+    path: nyfb_24d/nyfb
+    dest: nyfb_24d.zip
     type: shapefile
     srid: 2263
   # Fire Divisions
   - table_name: nyfd
-    path: nyfd_24b/nyfd
-    dest: nyfd_24b.zip
+    path: nyfd_24d/nyfd
+    dest: nyfd_24d.zip
     type: shapefile
     srid: 2263
