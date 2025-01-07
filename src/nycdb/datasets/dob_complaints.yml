@@ -1,7 +1,7 @@
 ---
 files:
   -
-    url: https://nycopendata.socrata.com/api/views/eabe-havv/rows.csv?accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/views/eabe-havv/rows.csv?accessType=DOWNLOAD
     dest: dob_complaints.csv
 schema:
   table_name: dob_complaints
