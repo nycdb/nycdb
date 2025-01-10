@@ -1,8 +1,8 @@
 ---
 files:
   -
-    url: https://s3.amazonaws.com/justfix-data/rentstab_counts_from_doffer_2022.csv
-    dest: rentstab_counts_from_doffer_2022.csv
+    url: https://s3.amazonaws.com/justfix-data/rentstab_counts_from_doffer_2023.csv
+    dest: rentstab_counts_from_doffer_2023.csv
 sql:
   - rentstab_v2.sql
 schema:
@@ -19,3 +19,5 @@ schema:
     pdfsoa2021: text
     uc2022: integer
     pdfsoa2022: text
+    uc2023: integer
+    pdfsoa2023: text
