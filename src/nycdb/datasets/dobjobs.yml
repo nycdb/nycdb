@@ -134,9 +134,9 @@ schema:
       ApplicantLastName: text
       OwnersBusinessName: text
       OwnersStreetName: text
-      City: text
-      State: text
-      Zip: char(5)
+      OwnersCity: text
+      OwnersState: text
+      OwnersZip: char(5)
       FilingRepresentativeFirstName: text
       FilingRepresentativeMiddleInitial: numeric
       FilingRepresentativeLastName: text
@@ -179,7 +179,7 @@ schema:
       Shed: bool
       FilingDate: date
       CurrentStatusDate: date
-      PermitIssueDate: date
+      FirstPermitDate: date
       BoilerEquipmentWorkType: bool
       EarthWorkWorkType: bool
       FoundationWorkType: bool
@@ -194,6 +194,8 @@ schema:
       JobType: text
       bbl: char(10)
     skip:
+      # These come from geocoding and are often missing, more than the separate boro/block/lot columns
+      - Postcode
       - Latitude
       - Longitude
       - CouncilDistrict
