@@ -68,6 +68,8 @@ def download_file(url, dest, hide_progress=False):
                         f.write(codecs.decode(chunk, encoding='utf-8', errors='replace'))
                     else:
                         f.write(chunk)
+                else:
+                    print("no download chunk available")
         pbar.close()
         return True
     except:
