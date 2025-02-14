@@ -105,7 +105,25 @@ def rentstab_summary(dataset):
     return to_csv(dataset.files[0].dest)
 
 
-def acris(dataset, schema):
+def acris_real(dataset, schema):
+    dest_file = next(filter(lambda f: schema['table_name'] in f.dest, dataset.files))
+    _to_csv = to_csv(dest_file.dest)
+    if 'skip' in schema:
+        return skip_fields(_to_csv, [s.lower() for s in schema['skip']])
+    else:
+        return _to_csv
+
+
+def acris_personal(dataset, schema):
+    dest_file = next(filter(lambda f: schema['table_name'] in f.dest, dataset.files))
+    _to_csv = to_csv(dest_file.dest)
+    if 'skip' in schema:
+        return skip_fields(_to_csv, [s.lower() for s in schema['skip']])
+    else:
+        return _to_csv
+
+
+def acris_common(dataset, schema):
     dest_file = next(filter(lambda f: schema['table_name'] in f.dest, dataset.files))
     _to_csv = to_csv(dest_file.dest)
     if 'skip' in schema:

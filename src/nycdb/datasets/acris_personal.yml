@@ -1,0 +1,88 @@
+---
+files:
+  -
+    url: https://data.cityofnewyork.us/api/views/uqqa-hym2/rows.csv?accessType=DOWNLOAD
+    dest: acris_personal_property_legals.csv
+  -
+    url: https://data.cityofnewyork.us/api/views/sv7x-dduq/rows.csv?accessType=DOWNLOAD
+    dest: acris_personal_property_master.csv
+  -
+    url: https://data.cityofnewyork.us/api/views/nbbg-wtuz/rows.csv?accessType=DOWNLOAD
+    dest: acris_personal_property_parties.csv
+  -
+    url: https://data.cityofnewyork.us/api/views/6y3e-jcrc/rows.csv?accessType=DOWNLOAD
+    dest: acris_personal_property_references.csv
+  -
+    url: https://data.cityofnewyork.us/api/views/fuzi-5ks9/rows.csv?accessType=DOWNLOAD
+    dest: acris_personal_property_remarks.csv
+sql:
+  - acris_personal.sql
+schema:
+  -
+    table_name: acris_personal_property_legals
+    fields:
+      DOCUMENTID: text
+      RECORDTYPE: char(1)
+      BOROUGH: smallint
+      BLOCK: integer
+      LOT: integer
+      EASEMENT: boolean
+      PARTIALLOT: char(1)
+      AIRRIGHTS: boolean
+      SUBTERRANEANRIGHTS: boolean
+      PROPERTYTYPE: char(2)
+      STREETNUMBER: text
+      STREETNAME: text
+      UNIT: text
+      GOODTHROUGHDATE: date
+  -
+    table_name: acris_personal_property_master
+    fields:
+      DOCUMENTID: text
+      RECORDTYPE: char(1)
+      CRFN:  text
+      BOROUGH: smallint
+      DOCTYPE: text
+      DOCAMOUNT: bigint
+      RECORDEDFILED: date
+      COLLATERAL: char(1)
+      SLID: text
+      ASSESSMENTDATE: date
+      RPTT: integer
+      MODIFIEDDATE: date
+      REELYEAR: smallint
+      REELNBR: integer
+      REELPAGE: integer
+      FILENUMBER: integer
+      GOODTHROUGHDATE: date
+  -
+    table_name: acris_personal_property_parties
+    fields:
+      DOCUMENTID: text
+      RECORDTYPE: char(1)
+      PARTYTYPE: smallint
+      NAME: text
+      ADDRESS1: text
+      ADDRESS2: text
+      COUNTRY: text
+      CITY: text
+      STATE: text
+      ZIP: text
+      GOODTHROUGHDATE: date
+  -
+    table_name: acris_personal_property_references
+    fields:
+      DOCUMENTID: text
+      RECORDTYPE: text
+      REFERENCEBYCRFN: text
+      REFERENCEBYDOCID: text
+      REFERENCEBYFILENBR: text
+      GOODTHROUGHDATE: date
+  -
+    table_name: acris_personal_property_remarks
+    fields:
+      DOCUMENTID: text
+      RECORDTYPE: char(1)
+      REMARKLINENBR: smallint
+      REMARKTEXTLINE: text
+      GOODTHROUGHDATE: date

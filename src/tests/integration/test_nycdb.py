@@ -404,27 +404,40 @@ def test_rentstab_v2(conn):
     assert row_count(conn, "rentstab_v2") == 100
 
 
-def test_acris(conn):
-    acris = nycdb.Dataset("acris", args=ARGS)
+def test_acris_real(conn):
+    acris = nycdb.Dataset("acris_real", args=ARGS)
     acris.drop()
     acris.db_import()
-    assert row_count(conn, "real_property_legals") == 100
-    assert row_count(conn, "real_property_master") == 100
-    assert row_count(conn, "real_property_parties") == 100
-    assert row_count(conn, "real_property_references") == 100
-    assert row_count(conn, "real_property_remarks") == 10
-    assert row_count(conn, "personal_property_legals") == 100
-    assert row_count(conn, "personal_property_master") == 100
-    assert row_count(conn, "personal_property_parties") == 100
-    assert row_count(conn, "personal_property_references") == 10
-    assert row_count(conn, "personal_property_remarks") == 10
+    assert row_count(conn, "acris_real_property_legals") == 100
+    assert row_count(conn, "acris_real_property_master") == 100
+    assert row_count(conn, "acris_real_property_parties") == 100
+    assert row_count(conn, "acris_real_property_references") == 100
+    assert row_count(conn, "acris_real_property_remarks") == 10
+    assert has_one_row(
+        conn, "select * from acris_real_property_legals where bbl = '4131600009'"
+    )
+
+def test_acris_personal(conn):
+    acris = nycdb.Dataset("acris_personal", args=ARGS)
+    acris.drop()
+    acris.db_import()
+    assert row_count(conn, "acris_personal_property_legals") == 100
+    assert row_count(conn, "acris_personal_property_master") == 100
+    assert row_count(conn, "acris_personal_property_parties") == 100
+    assert row_count(conn, "acris_personal_property_references") == 10
+    assert row_count(conn, "acris_personal_property_remarks") == 10
+    assert has_one_row(
+        conn, "select * from acris_personal_property_legals where bbl = '1006020085'"
+    )
+
+def test_acris_common(conn):
+    acris = nycdb.Dataset("acris_common", args=ARGS)
+    acris.drop()
+    acris.db_import()
     assert row_count(conn, "acris_country_codes") == 250
     assert row_count(conn, "acris_document_control_codes") == 123
     assert row_count(conn, "acris_property_type_codes") == 46
     assert row_count(conn, "acris_ucc_collateral_codes") == 8
-    assert has_one_row(
-        conn, "select * from real_property_legals where bbl = '4131600009'"
-    )
 
 
 def test_marshal_evictions(conn):

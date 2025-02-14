@@ -1,0 +1,43 @@
+---
+files:
+  -
+    url: https://data.cityofnewyork.us/api/views/j2iz-mwzu/rows.csv?accessType=DOWNLOAD
+    dest: acris_country_codes.csv
+  -
+    url: https://data.cityofnewyork.us/api/views/7isb-wh4c/rows.csv?accessType=DOWNLOAD
+    dest: acris_document_control_codes.csv
+  -
+    url: https://data.cityofnewyork.us/api/views/94g4-w6xz/rows.csv?accessType=DOWNLOAD
+    dest: acris_property_type_codes.csv
+  -
+    url: https://data.cityofnewyork.us/api/views/q9kp-jvxv/rows.csv?accessType=DOWNLOAD
+    dest: acris_ucc_collateral_codes.csv
+schema:
+  -
+    table_name: acris_country_codes
+    fields:
+      recordtype: char(1)
+      countrycode: char(2)
+      description: text
+  -
+    table_name: acris_document_control_codes
+    fields:
+        RECORDTYPE: char(1)
+        DOCTYPE: text
+        DOCTYPEDESCRIPTION: text
+        CLASSCODEDESCRIPTION: text
+        PARTY1TYPE: text
+        PARTY2TYPE: text
+        PARTY3TYPE: text
+  -
+    table_name: acris_property_type_codes
+    fields:
+        RECORDTYPE: char(1)
+        PROPERTYTYPE: char(2)
+        DESCRIPTION: text
+  -
+    table_name: acris_ucc_collateral_codes
+    fields:
+        RECORDTYPE: char(1)
+        UCCCOLLATERALCODE: char(1)
+        DESCRIPTION: text

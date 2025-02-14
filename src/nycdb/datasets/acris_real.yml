@@ -1,0 +1,91 @@
+---
+files:
+  -
+    url: https://data.cityofnewyork.us/api/views/8h5j-fqxa/rows.csv?accessType=DOWNLOAD
+    dest: acris_real_property_legals.csv
+  -
+    url: https://data.cityofnewyork.us/api/views/bnx9-e6tj/rows.csv?accessType=DOWNLOAD
+    dest: acris_real_property_master.csv
+  -
+    url: https://data.cityofnewyork.us/api/views/636b-3b5g/rows.csv?accessType=DOWNLOAD
+    dest: acris_real_property_parties.csv
+  -
+    url: https://data.cityofnewyork.us/api/views/pwkr-dpni/rows.csv?accessType=DOWNLOAD
+    dest: acris_real_property_references.csv
+  -
+    url: https://data.cityofnewyork.us/api/views/9p4w-7npp/rows.csv?accessType=DOWNLOAD
+    dest: acris_real_property_remarks.csv
+sql:
+  - acris_real.sql
+schema:
+  -
+    table_name: acris_real_property_legals
+    fields:
+      DOCUMENTID: text
+      RECORDTYPE: char(1)
+      BOROUGH: smallint
+      BLOCK: integer
+      LOT: integer
+      EASEMENT: boolean
+      PARTIALLOT: char(1)
+      AIRRIGHTS: boolean
+      SUBTERRANEANRIGHTS: boolean
+      PROPERTYTYPE: char(2)
+      STREETNUMBER: text
+      STREETNAME: text
+      UNIT: text
+      GOODTHROUGHDATE: date
+  -
+    table_name: acris_real_property_master
+    fields:
+      DOCUMENTID: text
+      RECORDTYPE: char(1)
+      CRFN: text
+      BOROUGH: char(1)
+      DOCTYPE: text
+      DOCDATE: date
+      DOCAMOUNT: bigint
+      RECORDEDFILED: date
+      MODIFIEDDATE: date
+      REELYEAR: smallint
+      REELNBR: integer
+      REELPAGE: integer
+      PCTTRANSFERRED: numeric
+      GOODTHROUGHDATE: date
+  -
+    table_name: acris_real_property_parties
+    fields:
+      DOCUMENTID: text
+      RECORDTYPE: char(1)
+      PARTYTYPE: smallint
+      NAME: text
+      ADDRESS1: text
+      ADDRESS2: text
+      COUNTRY: text
+      CITY: text
+      STATE: text
+      ZIP: text
+      GOODTHROUGHDATE: date
+  -
+    table_name: acris_real_property_references
+    fields:
+      DOCUMENTID: text
+      RECORDTYPE: text
+      REFERENCEBYCRFN: text
+      REFERENCEBYDOCID: text
+      REFERENCEBYREELYEAR: smallint
+      REFERENCEBYREELBOROUGH: smallint
+      REFERENCEBYREELNBR: integer
+      REFERENCEBYREELPAGE: integer
+      GOODTHROUGHDATE: date
+    skip:
+      - NOTUSED1
+      - NOTUSED2
+  -
+    table_name: acris_real_property_remarks
+    fields:
+      DOCUMENTID: text
+      RECORDTYPE: char(1)
+      REMARKLINENBR: smallint
+      REMARKTEXTLINE: text
+      GOODTHROUGHDATE: date
