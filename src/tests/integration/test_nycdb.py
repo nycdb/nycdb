@@ -749,8 +749,10 @@ def test_dob_certificate_occupancy(conn):
     dob_certificate_occupancy.db_import()
     assert row_count(conn, 'dob_certificate_occupancy') == 5
     assert row_count(conn, 'dob_foil_certificate_occupancy') == 5
+    assert row_count(conn, 'dob_now_certificate_occupancy') == 5
     assert has_one_row(conn,"select 1 where to_regclass('public.dob_certificate_occupancy_bbl_idx') is NOT NULL")
     assert has_one_row(conn,"select 1 where to_regclass('public.dob_foil_certificate_occupancy_bbl_idx') is NOT NULL")
+    assert has_one_row(conn,"select 1 where to_regclass('public.dob_now_certificate_occupancy_bbl_idx') is NOT NULL")
     with conn.cursor(row_factory=dict_row) as curs:
         curs.execute("select * from dob_certificate_occupancy WHERE bbl = '2051410035'")
         rec = curs.fetchone()
@@ -761,6 +763,11 @@ def test_dob_certificate_occupancy(conn):
         rec = curs.fetchone()
         assert rec is not None
         assert rec["jobnumber"] == "100031528"
+
+        curs.execute("select * from dob_now_certificate_occupancy WHERE jobfilingname = '120434137'")
+        rec = curs.fetchone()
+        assert rec is not None
+        assert rec["bbl"] == "1006930059"
 
 
 

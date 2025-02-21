@@ -238,6 +238,10 @@ def dob_foil_certificate_occupancy(dataset):
     fields_to_skip = [s.lower() for s in dataset.schemas[1].get('skip')]
     return skip_fields(to_csv(dataset.files[1].dest, header_replacements=header_replacements), fields_to_skip)
 
+def dob_now_certificate_occupancy(dataset):
+    fields_to_skip = [s.lower() for s in dataset.schemas[2].get('skip')]
+    return skip_fields(to_csv(dataset.files[2].dest), fields_to_skip)
+
 
 def hpd_hwo_charges(dataset):
     return to_csv(dataset.files[0].dest)
