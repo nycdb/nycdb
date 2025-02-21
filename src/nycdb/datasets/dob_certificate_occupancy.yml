@@ -6,6 +6,9 @@ files:
   -
     url: https://justfix-data.s3.amazonaws.com/FOIL_2024-810-4230_COList_2000-2012.csv
     dest: dob_foil_certificate_occupancy.csv
+  -
+    url: https://data.cityofnewyork.us/api/views/pkdm-hqz6/rows.csv?accessType=DOWNLOAD
+    dest: dob_now_certificate_occupancy.csv
 sql:
   - dob_certificate_occupancy.sql
 schema:
@@ -69,3 +72,32 @@ schema:
       JobDocumentNumber: integer
     skip:
       - GisBbl
+  -
+    table_name: dob_now_certificate_occupancy
+    fields:
+      JobFilingName: text
+      JobType: text
+      Bin: char(7)
+      Borough: text
+      HouseNo: text
+      StreetName: text
+      Block: integer
+      Lot: integer
+      ZipCode: text
+      SubmittedDate: date
+      COfOStatus: text
+      COfOSequence: integer
+      COfOFilingType: text
+      CommunityBoard: integer
+      COfOIssuanceDate: timestamp
+      ApplicationNumber: text
+      Latitude: numeric
+      Longitude: numeric
+      Communitydistrict: text
+      Citycouncildistrict: text
+      Censustract2010: text
+    skip:
+      - Buildingidentificationnumber
+      - Bbl
+      - Ntaname
+      - LocationPoint
