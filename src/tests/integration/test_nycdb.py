@@ -770,7 +770,6 @@ def test_dob_certificate_occupancy(conn):
         assert rec["bbl"] == "1006930059"
 
 
-
 def test_dob_safety_violations(conn):
     dob_safety_violations = nycdb.Dataset('dob_safety_violations', args=ARGS)
     dob_safety_violations.drop()
@@ -796,12 +795,17 @@ def test_boundaries(conn):
     boundaries = nycdb.Dataset('boundaries', args=ARGS)
     boundaries.drop()
     boundaries.db_import()
-    assert row_count(conn, 'nyad') == 5
-    assert row_count(conn, 'nycc') == 5
-    assert get_srid(conn, 'nycc', 'geom') == 2263
-    assert has_one_row(
-        conn, "select 1 where to_regclass('public.nyad_geom_idx') is NOT NULL"
-    )
+
+    for schema in boundaries.schemas:
+        table_name = schema["table_name"]
+        assert row_count(conn, table_name) == 5
+        assert get_srid(conn, table_name, 'geom') == 2263
+        assert has_one_row(conn, f"select 1 where to_regclass('public.{table_name}_geom_idx') is NOT NULL")
+
+    assert has_one_row(conn, "select 1 where to_regclass('public.nynta2010_nta2010_idx') is NOT NULL")
+    assert has_one_row(conn, "select 1 where to_regclass('public.nynta2020_nta2020_idx') is NOT NULL")
+    assert has_one_row(conn, "select 1 where to_regclass('public.nyct2010_boroct2010_idx') is NOT NULL")
+    assert has_one_row(conn, "select 1 where to_regclass('public.nyct2020_boroct2020_idx') is NOT NULL")
 
 
 def test_dhs_daily_shelter_count(conn):
