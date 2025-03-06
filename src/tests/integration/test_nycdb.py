@@ -803,6 +803,18 @@ def test_boundaries(conn):
         conn, "select 1 where to_regclass('public.nyad_geom_idx') is NOT NULL"
     )
 
+def test_nynta(conn):
+    setup_postgis(conn)
+    nynta = nycdb.Dataset('nynta', args=ARGS)
+    nynta.drop()
+    nynta.db_import()
+    assert row_count(conn, 'nynta2020') == 5
+    assert row_count(conn, 'nynta2010') == 5
+    assert get_srid(conn, 'nynta2020', 'geom') == 2263
+    assert has_one_row(conn, "select 1 where to_regclass('public.nynta2020_geom_idx') is NOT NULL")
+    assert has_one_row(conn, "select 1 where to_regclass('public.nynta2010_geom_idx') is NOT NULL")
+    assert has_one_row(conn, "select 1 where to_regclass('public.nynta2010_nta2010_idx') is NOT NULL")
+
 
 def test_dhs_daily_shelter_count(conn):
     ecb_violations = nycdb.Dataset('dhs_daily_shelter_count', args=ARGS)

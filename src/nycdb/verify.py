@@ -106,6 +106,7 @@ TABLES = {
     'dhs_daily_shelter_count': {'dhs_daily_shelter_count': 7_000},
     'hpd_aep': {'hpd_aep': 3_000},
     'hpd_underlying_conditions': {'hpd_underlying_conditions': 500},
+    'nynta': {'nynta2010': 195, 'nynta2020': 262},
 }
 
 
