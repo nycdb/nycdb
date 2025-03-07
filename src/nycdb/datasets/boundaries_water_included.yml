@@ -1,0 +1,85 @@
+---
+files:
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyadwi_25a.zip
+    dest: nyadwi_25a.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nycgwi_25a.zip
+    dest: nycgwi_25a.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nysswi_25a.zip
+    dest: nysswi_25a.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nymcwi_25a.zip
+    dest: nymcwi_25a.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyccwi_25a.zip
+    dest: nyccwi_25a.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyedwi_25a.zip
+    dest: nyedwi_25a.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nybbwi_25a.zip
+    dest: nybbwi_25a.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nycdwi_25a.zip
+    dest: nycdwi_25a.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyct2020wi_25a.zip
+    dest: nyct2020wi_25a.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyct2010wi_25a.zip
+    dest: nyct2010wi_25a.zip
+sql: 
+  - boundaries_water_included.sql
+schema:
+  # State Assembly Districts
+  - table_name: nyadwi
+    path: nyadwi_25a/nyadwi
+    dest: nyadwi_25a.zip
+    type: shapefile
+    srid: 2263
+  # Congressional Districts
+  - table_name: nycgwi
+    path: nycgwi_25a/nycgwi
+    dest: nycgwi_25a.zip
+    type: shapefile
+    srid: 2263
+  # State Senate Districts
+  - table_name: nysswi
+    path: nysswi_25a/nysswi
+    dest: nysswi_25a.zip
+    type: shapefile
+    srid: 2263
+  # Municipal Court Districts
+  - table_name: nymcwi
+    path: nymcwi_25a/nymcwi
+    dest: nymcwi_25a.zip
+    type: shapefile
+    srid: 2263
+  # City Council Districts
+  - table_name: nyccwi
+    path: nyccwi_25a/nyccwi
+    dest: nyccwi_25a.zip
+    type: shapefile
+    srid: 2263
+  # Election Districts
+  - table_name: nyedwi
+    path: nyedwi_25a/nyedwi
+    dest: nyedwi_25a.zip
+    type: shapefile
+    srid: 2263
+  # Borough Boundaries
+  - table_name: nybbwi
+    path: nybbwi_25a/nybbwi
+    dest: nybbwi_25a.zip
+    type: shapefile
+    srid: 2263
+  # Community Districts
+  - table_name: nycdwi
+    path: nycdwi_25a/nycdwi
+    dest: nycdwi_25a.zip
+    type: shapefile
+    srid: 2263
+  # Census Tracts (2010)
+  - table_name: nyct2010wi
+    path: nyct2010wi_25a/nyct2010wi
+    dest: nyct2010wi_25a.zip
+    type: shapefile
+    srid: 2263
+  # Census Tracts (2020)
+  - table_name: nyct2020wi
+    path: nyct2020wi_25a/nyct2020wi
+    dest: nyct2020wi_25a.zip
+    type: shapefile
+    srid: 2263

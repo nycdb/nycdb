@@ -808,6 +808,19 @@ def test_boundaries(conn):
     assert has_one_row(conn, "select 1 where to_regclass('public.nyct2020_boroct2020_idx') is NOT NULL")
 
 
+def test_boundaries_water_included(conn):
+    setup_postgis(conn)
+    boundaries_water_included = nycdb.Dataset('boundaries_water_included', args=ARGS)
+    boundaries_water_included.drop()
+    boundaries_water_included.db_import()
+
+    for schema in boundaries_water_included.schemas:
+        table_name = schema["table_name"]
+        assert row_count(conn, table_name) == 5
+        assert get_srid(conn, table_name, 'geom') == 2263
+        assert has_one_row(conn, f"select 1 where to_regclass('public.{table_name}_geom_idx') is NOT NULL")
+
+
 def test_dhs_daily_shelter_count(conn):
     ecb_violations = nycdb.Dataset('dhs_daily_shelter_count', args=ARGS)
     ecb_violations.drop()
