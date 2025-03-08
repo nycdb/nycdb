@@ -36,3 +36,11 @@ def merge(x, y):
 def consume(iterator, n):
     """advance the iterator n-steps ahead"""
     next(islice(iterator, n, n), None)
+
+
+def colorize(color, text):
+    return {
+        "blue": '\033[94m',
+        "green": '\033[92m',
+        "fail": '\033[91m',
+    }[color] + text + '\033[0m'
