@@ -5,6 +5,7 @@ files:
     dest: pluto_17v1.zip
 schema:
   table_name: pluto_17v1
+  verify_count: 800_000
   fields:
     Borough: text
     Block: integer

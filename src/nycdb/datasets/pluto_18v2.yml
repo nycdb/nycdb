@@ -7,6 +7,7 @@ sql:
   - pluto_18v2.sql
 schema:
   table_name: pluto_18v2
+  verify_count: 800_000
   fields:
     Borough: text
     Block: integer

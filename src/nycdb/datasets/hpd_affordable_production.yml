@@ -9,6 +9,7 @@ files:
 schema:
   -
     table_name: hpd_affordable_building
+    verify_count: 6_000
     fields:
       ProjectId: text
       ProjectName: text
@@ -53,6 +54,7 @@ schema:
       TotalUnits: integer
   -
     table_name: hpd_affordable_project
+    verify_count: 3_400
     fields:
       ProjectId: text
       ProjectName: text

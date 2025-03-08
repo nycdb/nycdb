@@ -5,6 +5,7 @@ files:
     dest: j51_exemptions.csv
 schema:
   table_name: j51_exemptions
+  verify_count: 4_000_000
   fields:
     BoroughCode: integer
     Block: integer

@@ -7,6 +7,7 @@ sql:
   - mci_applications.sql
 schema:
   table_name: mci_applications
+  verify_count: 25_000
   fields:
     BldgId: integer
     StreetAddress: text

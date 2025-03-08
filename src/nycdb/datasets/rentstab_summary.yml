@@ -5,6 +5,7 @@ files:
     dest: changes-summary.csv
 schema:
   table_name: rentstab_summary
+  verify_count: 45_000
   fields:
     ucbbl: char(10)
     unitstotal: integer

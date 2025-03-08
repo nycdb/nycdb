@@ -5,6 +5,7 @@ files:
     dest: dob_safety_violations.csv
 schema:
   table_name: dob_safety_violations
+  verify_count: 491_174
   fields:
     BIN: text
     ViolationIssueDate: date

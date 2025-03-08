@@ -4,6 +4,7 @@ files:
     dest: speculation_watch_list.csv
 schema:
   table_name: speculation_watch_list
+  verify_count: 500
   fields:
     Borough: text
     Boro: char(1)

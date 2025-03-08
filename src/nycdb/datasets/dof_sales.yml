@@ -7,6 +7,7 @@ sql:
   - dof_sales.sql
 schema:
   table_name: dof_sales
+  verify_count: 60_000
   fields:
     Borough: char(1)
     Neighborhood: text
