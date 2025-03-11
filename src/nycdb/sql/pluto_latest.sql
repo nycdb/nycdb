@@ -19,6 +19,7 @@ UPDATE pluto_latest SET landusedesc = CASE
       WHEN landuse IS NULL THEN NULL
       ELSE '9999'
       END;
+CREATE EXTENSION IF NOT EXISTS POSTGIS;
 ALTER TABLE pluto_latest ADD COLUMN latitudelongitudegeom geometry;
 UPDATE pluto_latest SET latitudelongitudegeom = ST_Point(longitude, latitude, 4326);
 CREATE INDEX pluto_latest_bbl_idx on pluto_latest (bbl);
