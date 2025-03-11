@@ -820,6 +820,18 @@ def test_boundaries_water_included(conn):
         assert get_srid(conn, table_name, 'geom') == 2263
         assert has_one_row(conn, f"select 1 where to_regclass('public.{table_name}_geom_idx') is NOT NULL")
 
+def test_boundaries_water_included_25a(conn):
+    setup_postgis(conn)
+    boundaries_water_included_25a = nycdb.Dataset('boundaries_water_included_25a', args=ARGS)
+    boundaries_water_included_25a.drop()
+    boundaries_water_included_25a.db_import()
+
+    for schema in boundaries_water_included_25a.schemas:
+        table_name = schema["table_name"]
+        assert row_count(conn, table_name) == 5
+        assert get_srid(conn, table_name, 'geom') == 2263
+        assert has_one_row(conn, f"select 1 where to_regclass('public.{table_name}_geom_idx') is NOT NULL")
+
 
 def test_dhs_daily_shelter_count(conn):
     ecb_violations = nycdb.Dataset('dhs_daily_shelter_count', args=ARGS)
