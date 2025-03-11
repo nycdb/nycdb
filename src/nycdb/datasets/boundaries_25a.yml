@@ -1,0 +1,157 @@
+---
+files:
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyad_25a.zip
+    dest: nyad_25a.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nycg_25a.zip
+    dest: nycg_25a.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyss_25a.zip
+    dest: nyss_25a.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nymc_25a.zip
+    dest: nymc_25a.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nycc_25a.zip
+    dest: nycc_25a.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyed_25a.zip
+    dest: nyed_25a.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nybb_25a.zip
+    dest: nybb_25a.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nycd_25a.zip
+    dest: nycd_25a.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nysd_25a.zip
+    dest: nysd_25a.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nypp_25a.zip
+    dest: nypp_25a.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyha_25a.zip
+    dest: nyha_25a.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyhc_25a.zip
+    dest: nyhc_25a.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyfc_25a.zip
+    dest: nyfc_25a.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyfb_25a.zip
+    dest: nyfb_25a.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyfd_25a.zip
+    dest: nyfd_25a.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nynta2020_25a.zip
+    dest: nynta2020_25a.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nynta2010_25a.zip
+    dest: nynta2010_25a.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyct2020_25a.zip
+    dest: nyct2020_25a.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyct2010_25a.zip
+    dest: nyct2010_25a.zip
+sql: 
+  - boundaries_25a.sql
+schema:
+  # State Assembly Districts
+  - table_name: nyad_25a
+    path: nyad_25a/nyad
+    dest: nyad_25a.zip
+    type: shapefile
+    srid: 2263
+  # Congressional Districts
+  - table_name: nycg_25a
+    path: nycg_25a/nycg
+    dest: nycg_25a.zip
+    type: shapefile
+    srid: 2263
+  # State Senate Districts
+  - table_name: nyss_25a
+    path: nyss_25a/nyss
+    dest: nyss_25a.zip
+    type: shapefile
+    srid: 2263
+  # Municipal Court Districts
+  - table_name: nymc_25a
+    path: nymc_25a/nymc
+    dest: nymc_25a.zip
+    type: shapefile
+    srid: 2263
+  # City Council Districts
+  - table_name: nycc_25a
+    path: nycc_25a/nycc
+    dest: nycc_25a.zip
+    type: shapefile
+    srid: 2263
+  # Election Districts
+  - table_name: nyed_25a
+    path: nyed_25a/nyed
+    dest: nyed_25a.zip
+    type: shapefile
+    srid: 2263
+  # Borough Boundaries
+  - table_name: nybb_25a
+    path: nybb_25a/nybb
+    dest: nybb_25a.zip
+    type: shapefile
+    srid: 2263
+  # Community Districts
+  - table_name: nycd_25a
+    path: nycd_25a/nycd
+    dest: nycd_25a.zip
+    type: shapefile
+    srid: 2263
+ # School Districts
+  - table_name: nysd_25a
+    path: nysd_25a/nysd
+    dest: nysd_25a.zip
+    type: shapefile
+    srid: 2263
+  # Police Precincts
+  - table_name: nypp_25a
+    path: nypp_25a/nypp
+    dest: nypp_25a.zip
+    type: shapefile
+    srid: 2263
+  # Health Area
+  - table_name: nyha_25a
+    path: nyha_25a/nyha
+    dest: nyha_25a.zip
+    type: shapefile
+    srid: 2263
+  # Health Center
+  - table_name: nyhc_25a
+    path: nyhc_25a/nyhc
+    dest: nyhc_25a.zip
+    type: shapefile
+    srid: 2263
+  # Fire Companies
+  - table_name: nyfc_25a
+    path: nyfc_25a/nyfc
+    dest: nyfc_25a.zip
+    type: shapefile
+    srid: 2263
+  # Fire Battalions
+  - table_name: nyfb_25a
+    path: nyfb_25a/nyfb
+    dest: nyfb_25a.zip
+    type: shapefile
+    srid: 2263
+  # Fire Divisions
+  - table_name: nyfd_25a
+    path: nyfd_25a/nyfd
+    dest: nyfd_25a.zip
+    type: shapefile
+    srid: 2263
+  # Neighborhood Tabulation Areas (2010)
+  - table_name: nynta2010_25a
+    path: nynta2010_25a/nynta2010
+    dest: nynta2010_25a.zip
+    type: shapefile
+    srid: 2263
+  # Neighborhood Tabulation Areas (2020)
+  - table_name: nynta2020_25a
+    path: nynta2020_25a/nynta2020
+    dest: nynta2020_25a.zip
+    type: shapefile
+    srid: 2263
+  # Census Tracts (2010)
+  - table_name: nyct2010_25a
+    path: nyct2010_25a/nyct2010
+    dest: nyct2010_25a.zip
+    type: shapefile
+    srid: 2263
+  # Census Tracts (2020)
+  - table_name: nyct2020_25a
+    path: nyct2020_25a/nyct2020
+    dest: nyct2020_25a.zip
+    type: shapefile
+    srid: 2263
