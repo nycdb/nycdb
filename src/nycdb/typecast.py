@@ -229,7 +229,7 @@ class Typecast:
     def check_headers(self, row: dict):
         for column in map(lambda x: x.lower(), row.keys()):
             if column not in self.cast:
-                raise AttributeError(f"{column} not found. Please verify the columns names for schema {self.table_name} are correct.")
+                raise AttributeError(f"The column '{column}' in the data is not found in the schema. Please verify the columns names for schema {self.table_name} are correct.")
 
     def cast_rows(self, rows: Iterable) -> Iterable:
         """
