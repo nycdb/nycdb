@@ -99,6 +99,7 @@ files:
     dest: ecb_violations.csv
 schema:
   table_name: ecb_violations
+  verify_count: 1_300_000
   fields:
     IsnDobBisExtract: text
     EcbViolationNumber: text
@@ -236,10 +237,12 @@ With SQL, this is:
 SELECT COUNT(*) FROM <dataset_table_name>
 ```
 
-and then add a key to `verify.py` with a rounded number thats below the true count:
+and then add this count to the schema, which will become the minium number of rows required for this table
 
 ```
-'ecb_violations': {'ecb_violations': 1300000},
+schemas:
+  table_name: 'ecb_violations'
+  verify_count: 1_300_000
 ```
 
 Now, when you run the terminal command `nycdb --verify ecb_violations`, it should say your data is verified.

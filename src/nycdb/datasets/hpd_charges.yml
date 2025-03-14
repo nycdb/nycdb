@@ -16,6 +16,7 @@ sql:
 schema:
   -
     table_name: hpd_hwo_charges
+    verify_count: 88_000
     fields:
       HWOID: integer
       HWONumber: text
@@ -51,6 +52,7 @@ schema:
       NTA: text
   -
     table_name: hpd_omo_charges
+    verify_count: 400_000
     fields:
       OMOID: integer
       OMONumber: text
@@ -86,6 +88,7 @@ schema:
       NTA: text
   -
     table_name: hpd_omo_invoices
+    verify_count: 700_000
     fields:
       InvoiceID: text
       InvoiceSequenceID: text
@@ -102,6 +105,7 @@ schema:
       UniqueKey: text
   -
     table_name: hpd_fee_charges
+    verify_count: 90_000
     fields:
       Feeid: integer
       Buildingid: integer

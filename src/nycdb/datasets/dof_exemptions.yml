@@ -9,6 +9,7 @@ files:
 schema:
   -
     table_name: dof_exemption_classification_codes
+    verify_count: 175
     fields:
       exemptcode: integer
       sdeacode: text
@@ -19,6 +20,7 @@ schema:
       updated: date
   -
     table_name: dof_exemptions
+    verify_count: 740_000
     fields:
       parid: text
       boro: integer

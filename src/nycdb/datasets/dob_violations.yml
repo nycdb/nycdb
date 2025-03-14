@@ -5,6 +5,7 @@ files:
     dest: dob_violations.csv
 schema:
   table_name: dob_violations
+  verify_count: 2_000_000
   fields:
     BBL: char(10)
     IsnDobBisViol: text

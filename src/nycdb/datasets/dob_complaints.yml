@@ -5,6 +5,7 @@ files:
     dest: dob_complaints.csv
 schema:
   table_name: dob_complaints
+  verify_count: 1_000_000
   fields:
     complaintnumber: integer
     status: text

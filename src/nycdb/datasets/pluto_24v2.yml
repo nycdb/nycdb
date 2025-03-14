@@ -6,6 +6,7 @@ sql:
   - pluto_24v2.sql
 schema:
   table_name: pluto_24v2
+  verify_count: 800_000
   fields:
     Borough: text
     Block: integer

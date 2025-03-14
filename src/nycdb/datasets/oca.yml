@@ -44,6 +44,7 @@ sql:
 schema:
   -
     table_name: oca_index
+    verify_count: 1_300_000
     fields:
       indexnumberid: text
       court: text
@@ -59,6 +60,7 @@ schema:
       dateofjurydemand: date
   -
     table_name: oca_causes
+    verify_count: 1_300_000
     fields:
       indexnumberid: text
       causeofactiontype: text
@@ -66,6 +68,7 @@ schema:
       amount: numeric
   -
     table_name: oca_addresses
+    verify_count: 1_300_000
     fields:
       indexnumberid: text
       city: text
@@ -73,6 +76,7 @@ schema:
       postalcode: text
   -
     table_name: oca_parties
+    verify_count: 3_400_000
     fields:
       indexnumberid: text
       role: text
@@ -81,6 +85,7 @@ schema:
       undertenant: boolean
   -
     table_name: oca_events
+    verify_count: 2_500_000
     fields:
       indexnumberid: text
       eventname: text
@@ -90,6 +95,7 @@ schema:
       answertype: text
   -
     table_name: oca_appearances
+    verify_count: 2_500_000
     fields:
       indexnumberid: text
       appearanceid: bigint
@@ -100,6 +106,7 @@ schema:
       motionsequence: int
   -
     table_name: oca_appearance_outcomes
+    verify_count: 2_500_000
     fields:
       indexnumberid: text
       appearanceid: bigint
@@ -107,6 +114,7 @@ schema:
       outcomebasedontype: text
   -
     table_name: oca_motions
+    verify_count: 700_000
     fields:
       indexnumberid: text
       sequence: int
@@ -118,6 +126,7 @@ schema:
       motiondecisiondate: date
   -
     table_name: oca_decisions
+    verify_count: 650_000
     fields:
       indexnumberid: text
       sequence: int
@@ -125,6 +134,7 @@ schema:
       highlight: text
   -
     table_name: oca_judgments
+    verify_count: 600_000
     fields:
       indexnumberid: text
       sequence: int
@@ -140,6 +150,7 @@ schema:
       debtorsroles: text
   -
     table_name: oca_warrants
+    verify_count: 600_000
     fields:
       indexnumberid: text
       judgmentsequence: int
@@ -168,6 +179,7 @@ schema:
       executiondate: date
   -
     table_name: oca_metadata
+    verify_count: 1_300_000
     fields:
       indexnumberid: text
       initialdate: date

@@ -17,6 +17,7 @@ sql:
 schema:
   -
     table_name: marshal_evictions_17
+    verify_count: 17_000
     fields:
       boro: text
       courtindex: text
@@ -38,6 +39,7 @@ schema:
       bbl: char(10)
   -
     table_name: marshal_evictions_18
+    verify_count: 19_000
     fields:
       UniqueId: text
       CourtIndexNumber: text
@@ -63,6 +65,7 @@ schema:
       GeosearchFound: text
   -
     table_name: marshal_evictions_19
+    verify_count: 16_000
     fields:
       UniqueId: text
       Bbl: char(10)
@@ -81,6 +84,7 @@ schema:
       ScheduleStatus: text
   -
     table_name: marshal_evictions_all
+    verify_count: 55_000
     fields:
       UniqueId: text
       Bbl: text

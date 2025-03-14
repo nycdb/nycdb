@@ -5,6 +5,7 @@ files:
     dest: dhs_daily_shelter_count.csv
 schema:
   table_name: dhs_daily_shelter_count
+  verify_count: 7_000
   fields:
     Measure: text
     Count: integer

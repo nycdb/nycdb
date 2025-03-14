@@ -47,6 +47,7 @@ sql:
 schema:
   -
     table_name: real_property_legals
+    verify_count: 1_000_000
     fields:
       DOCUMENTID: text
       RECORDTYPE: char(1)
@@ -64,6 +65,7 @@ schema:
       GOODTHROUGHDATE: date
   -
     table_name: real_property_master
+    verify_count: 1_000_000
     fields:
       DOCUMENTID: text
       RECORDTYPE: char(1)
@@ -81,6 +83,7 @@ schema:
       GOODTHROUGHDATE: date
   -
     table_name: real_property_parties
+    verify_count: 1_000_000
     fields:
       DOCUMENTID: text
       RECORDTYPE: char(1)
@@ -95,6 +98,7 @@ schema:
       GOODTHROUGHDATE: date
   -
     table_name: real_property_references
+    verify_count: 1_000_000
     fields:
       DOCUMENTID: text
       RECORDTYPE: text
@@ -110,6 +114,7 @@ schema:
       - NOTUSED2
   -
     table_name: real_property_remarks
+    verify_count: 1_000_000
     fields:
       DOCUMENTID: text
       RECORDTYPE: char(1)
@@ -118,6 +123,7 @@ schema:
       GOODTHROUGHDATE: date
   -
     table_name: personal_property_legals
+    verify_count: 1_000_000
     fields:
       DOCUMENTID: text
       RECORDTYPE: char(1)
@@ -135,6 +141,7 @@ schema:
       GOODTHROUGHDATE: date
   -
     table_name: personal_property_master
+    verify_count: 1_000_000
     fields:
       DOCUMENTID: text
       RECORDTYPE: char(1)
@@ -155,6 +162,7 @@ schema:
       GOODTHROUGHDATE: date
   -
     table_name: personal_property_parties
+    verify_count: 1_000_000
     fields:
       DOCUMENTID: text
       RECORDTYPE: char(1)
@@ -169,6 +177,7 @@ schema:
       GOODTHROUGHDATE: date
   -
     table_name: personal_property_references
+    verify_count: 1_000_000
     fields:
       DOCUMENTID: text
       RECORDTYPE: text
@@ -178,6 +187,7 @@ schema:
       GOODTHROUGHDATE: date
   -
     table_name: personal_property_remarks
+    verify_count: 400_000
     fields:
       DOCUMENTID: text
       RECORDTYPE: char(1)
@@ -186,12 +196,14 @@ schema:
       GOODTHROUGHDATE: date
   -
     table_name: acris_country_codes
+    verify_count: 250
     fields:
       recordtype: char(1)
       countrycode: char(2)
       description: text
   -
     table_name: acris_document_control_codes
+    verify_count: 123
     fields:
         RECORDTYPE: char(1)
         DOCTYPE: text
@@ -202,12 +214,14 @@ schema:
         PARTY3TYPE: text
   -
     table_name: acris_property_type_codes
+    verify_count: 46
     fields:
         RECORDTYPE: char(1)
         PROPERTYTYPE: char(2)
         DESCRIPTION: text
   -
     table_name: acris_ucc_collateral_codes
+    verify_count: 8
     fields:
         RECORDTYPE: char(1)
         UCCCOLLATERALCODE: char(1)

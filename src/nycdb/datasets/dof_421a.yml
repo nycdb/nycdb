@@ -62,6 +62,7 @@ files:
     dest: 421a_1617_statenisland.xlsx
 schema:
   table_name: dof_421a
+  verify_count: 275_000
   fields:
     borough: char(1)
     neighborhood: text

@@ -272,6 +272,7 @@ files:
     dest: dof_annual_sales_2003_si.xls
 schema:
   table_name: dof_annual_sales
+  verify_count: 900_000
   fields:
     borough: char(1)
     neighborhood: text
