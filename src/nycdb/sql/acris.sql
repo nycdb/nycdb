@@ -22,3 +22,6 @@ CREATE INDEX on personal_property_remarks(documentid);
 CREATE INDEX on real_property_master(doctype);
 CREATE INDEX on real_property_master(docamount);
 CREATE INDEX on real_property_master(docdate);
+
+CREATE INDEX on real_property_parties(name);
+CREATE INDEX on real_property_parties(partytype);
