@@ -10,7 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: "3.x"
     - name: Install pypa/build
@@ -37,7 +37,7 @@ jobs:
       id-token: write  # IMPORTANT: mandatory for trusted publishing
     steps:
     - name: Download all the dists
-      uses: actions/download-artifact@v4.1.7
+      uses: actions/download-artifact@v4
       with:
         name: python-package-distributions
         path: src/dist/
@@ -45,7 +45,6 @@ jobs:
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
         packages-dir: src/dist/
-
 
   github-release:
     name: >-
@@ -61,12 +60,12 @@ jobs:
 
     steps:
     - name: Download all the dists
-      uses: actions/download-artifact@v4.1.7
+      uses: actions/download-artifact@v4
       with:
         name: python-package-distributions
         path: src/dist/
     - name: Sign the dists with Sigstore
-      uses: sigstore/gh-action-sigstore-python@v1.2.3
+      uses: sigstore/gh-action-sigstore-python@v3.0.0
       with:
         inputs: >-
           ./src/dist/*.tar.gz
