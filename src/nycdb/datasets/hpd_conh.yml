@@ -7,6 +7,7 @@ sql:
   - hpd_conh.sql
 schema:
   table_name: hpd_conh
+  verify_count: 1_000
   fields:
     BuildingId: text
     bin: char(7)

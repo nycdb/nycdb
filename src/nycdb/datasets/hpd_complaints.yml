@@ -8,6 +8,7 @@ sql:
 schema:
   -
     table_name: hpd_complaints_and_problems
+    verify_count: 13_000_000
     fields:
       ReceivedDate: date
       ProblemID: integer

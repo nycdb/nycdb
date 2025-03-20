@@ -7,6 +7,7 @@ sql:
   - hpd_violations.sql
 schema:
   table_name: hpd_violations
+  verify_count: 4_000_000
   fields:
     ViolationID: integer
     BuildingID: integer

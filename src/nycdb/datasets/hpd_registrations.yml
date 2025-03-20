@@ -21,6 +21,7 @@ sql:
 schema:
   -
     table_name: hpd_registrations
+    verify_count: 150_000
     fields:
       registrationID: integer
       buildingID: integer
@@ -40,6 +41,7 @@ schema:
       registrationenddate: date
   -
     table_name: hpd_contacts
+    verify_count: 600_000
     fields:
       registrationcontactID: integer
       registrationID: integer

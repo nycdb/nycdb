@@ -14,6 +14,7 @@ index:
 schema:
   -
     table_name: dobjobs
+    verify_count: 1_000_000
     fields:
       Job: bigint
       Doc: smallint
@@ -115,6 +116,7 @@ schema:
       id: 'serial PRIMARY KEY'
   -
     table_name: dob_now_jobs
+    verify_count: 380_000
     fields:
       JobFilingNumber: text
       FilingStatus: text

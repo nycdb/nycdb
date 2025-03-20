@@ -6,13 +6,12 @@ import subprocess
 from typing import Generator
 from tqdm import tqdm
 
-from . import verify
 from . import dataset_transformations
 from . import sql
 from .database import Database
 from .typecast import Typecast
 from .file import File
-from .utility import list_wrap, merge
+from .utility import list_wrap, merge, colorize
 from .datasets import datasets
 from .shapefile import Shapefile
 
@@ -43,15 +42,17 @@ class Dataset:
         if self.args:
             self.root_dir = self.args.root_dir
         else:
-            self.root_dir = './data'
+            self.root_dir = "./data"
 
         self.dataset = datasets()[dataset_name]
         self.files = self._files()
-        self.schemas = list_wrap(self.dataset['schema'])
+        self.schemas = list_wrap(self.dataset["schema"])
 
     def _files(self):
-        return [File(file_dict, folder=self.name, root_dir=self.root_dir) for file_dict in self.dataset['files']]
-
+        return [
+            File(file_dict, folder=self.name, root_dir=self.root_dir)
+            for file_dict in self.dataset["files"]
+        ]
 
     def download_files(self):
         """
@@ -78,10 +79,10 @@ class Dataset:
             if limit is None or schema["table_name"] in limit:
                 if schema.get("type") == "shapefile":
                     Shapefile(
-                        schema, 
-                        connstring=self.db.connstring(), 
-                        root_dir=self.root_dir, 
-                        db_schema=self.db.get_current_db_schema()
+                        schema,
+                        connstring=self.db.connstring(),
+                        root_dir=self.root_dir,
+                        db_schema=self.db.get_current_db_schema(),
                     ).db_import()
                 else:
                     self.import_schema(schema)
@@ -169,7 +170,49 @@ class Dataset:
         if it contains approximately the right number of rows.
         """
         self.setup_db()
-        verify.check_dataset(self.db, self.name)
+        exit_state = True
+
+        for schema in self.schemas:
+            table_name = schema["table_name"]
+
+            if not self.db.table_exists(table_name):
+                exit_state = False
+                print(colorize("fail", table_name + " is missing!"))
+                continue
+
+            cnt = self.db.row_count(table_name)
+            if not schema.get("verify_count"):
+                exit_state = False
+                print(
+                    colorize(
+                        "fail",
+                        table_name
+                        + " is missing verify_count. It has "
+                        + format(cnt, ",")
+                        + " rows",
+                    )
+                )
+            elif cnt >= schema["verify_count"]:
+                print(
+                    colorize(
+                        "green", table_name + " has " + format(cnt, ",") + " rows "
+                    )
+                )
+            else:
+                exit_state = False
+                if cnt == 0:
+                    print(colorize("fail", table_name + " has no rows!"))
+                else:
+                    print(
+                        colorize("fail", table_name + " has ")
+                        + format(cnt, ",")
+                        + colorize("fail", " rows, ")
+                        + colorize("fail", "expecting at least ")
+                        + colorize("blue", format(schema["verify_count"], ","))
+                        + colorize("fail", " rows")
+                    )
+
+        return exit_state
 
     def dump(self):
         """
@@ -187,7 +230,6 @@ class Dataset:
         )
         subprocess.run(cmd, env=self.pg_env(), check=True)
 
-
     def drop(self):
         """
         Drops the dataset from postgres.
@@ -195,8 +237,7 @@ class Dataset:
         self.setup_db()
 
         for s in self.schemas:
-            self.db.sql(sql.drop_table(s['table_name']))
-
+            self.db.sql(sql.drop_table(s["table_name"]))
 
     def pg_env(self):
         """

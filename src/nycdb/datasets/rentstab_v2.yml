@@ -7,6 +7,7 @@ sql:
   - rentstab_v2.sql
 schema:
   table_name: rentstab_v2
+  verify_count: 40_000
   fields:
     ucbbl: char(10)
     uc2018: integer
