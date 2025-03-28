@@ -1,0 +1,31 @@
+---
+files:
+  -
+    url: https://data.cityofnewyork.us/api/views/6z8x-wfk4/rows.csv?accessType=DOWNLOAD
+    dest: executed_evictions.csv
+sql:
+    - executed_evictions.sql
+schema:
+  table_name: executed_evictions
+  verify_count: 105_000
+  fields:
+    CourtIndexNumber: text
+    DocketNumber: text
+    EvictionAddress: text
+    EvictionApartmentNumber: text
+    ExecutedDate: date
+    MarshalFirstName: text
+    MarshalLastName: text
+    ResidentialCommercial: text
+    Borough: text
+    EvictionPostcode: text
+    Ejectment: text
+    EvictionLegalPossession: text
+    Latitude: numeric
+    Longitude: numeric
+    CommunityBoard: text
+    CouncilDistrict: text
+    CensusTract: text
+    Bin: char(7)
+    Bbl: char(10)
+    Nta: text

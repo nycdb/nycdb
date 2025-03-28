@@ -301,3 +301,7 @@ def fc_shd_building(dataset):
 
 def dos_active_corporations(dataset):
     return to_csv(dataset.files[0].dest)
+
+
+def executed_evictions(dataset):
+    return to_csv(dataset.files[0].dest)
