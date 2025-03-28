@@ -990,3 +990,16 @@ def test_dof_property_valuation_and_assessments(conn):
         rec = curs.fetchone()
         assert rec is not None
         assert rec['extracrdt'].strftime("%Y-%m-%d") == '2023-05-17'
+
+
+def test_executed_evictions(conn):
+    dataset = nycdb.Dataset('executed_evictions', args=ARGS)
+    dataset.drop()
+    dataset.db_import()
+    assert row_count(conn, 'executed_evictions') == 10
+    assert has_one_row(conn, "select 1 where to_regclass('public.executed_evictions_bbl_idx') is NOT NULL")
+    with conn.cursor(row_factory=dict_row) as curs:
+        curs.execute("select * from executed_evictions WHERE bbl = '3048060077'")
+        rec = curs.fetchone()
+        assert rec is not None
+        assert rec['executeddate'].strftime("%Y-%m-%d") == '2024-02-26'
