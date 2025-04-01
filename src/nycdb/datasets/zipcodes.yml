@@ -1,0 +1,12 @@
+---
+files:
+  - url: https://justfix-data.s3.us-east-1.amazonaws.com/nyc-zip-codes.zip
+    dest: nyc-zip-codes.zip
+sql: 
+  - zipcodes.sql
+schema:
+  - table_name: zipcodes
+    path: nyc-zip-codes/ZIP_CODE_040114.shp
+    dest: nyc-zip-codes.zip
+    type: shapefile
+    srid: 2263
