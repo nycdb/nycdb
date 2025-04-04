@@ -852,6 +852,17 @@ def test_boundaries_water_included_25a(conn):
         assert has_one_row(conn, f"select 1 where to_regclass('public.{table_name}_geom_idx') is NOT NULL")
 
 
+def test_zipcodes(conn):
+    setup_postgis(conn)
+    zipcodes = nycdb.Dataset('zipcodes', args=ARGS)
+    zipcodes.drop()
+    zipcodes.db_import()
+
+    assert row_count(conn, "zipcodes") == 5
+    assert get_srid(conn, "zipcodes", 'geom') == 2263
+    assert has_one_row(conn, f"select 1 where to_regclass('public.zipcodes_geom_idx') is NOT NULL")
+
+
 def test_dhs_daily_shelter_count(conn):
     ecb_violations = nycdb.Dataset('dhs_daily_shelter_count', args=ARGS)
     ecb_violations.drop()

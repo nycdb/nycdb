@@ -46,6 +46,7 @@ Residents, lawyers, tenants, and organizers who want to use data in their strugg
 - [NYU Furman Center's Subsidized Housing Database](https://github.com/nycdb/nycdb/wiki/Dataset:-Subsidized-Housing-Database)
 - [NY Department of State Active Corporations](https://github.com/nycdb/nycdb/wiki/Dataset:-DOS-Active-Corporations)
 - [NYC Political/Administrative/Census Boundaries (DCP)](https://github.com/nycdb/nycdb/wiki/Dataset:-Boundaries-(Political,-Administrative,-Census))
+- [NYC Zip Code Boundaries (Archive)](https://github.com/nycdb/nycdb/wiki/Dataset:-Zipcodes)
 
 
 ## Using the database
