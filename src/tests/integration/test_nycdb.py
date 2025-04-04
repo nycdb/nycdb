@@ -310,7 +310,11 @@ def test_hpd_litigations(conn):
     hpd_litigations = nycdb.Dataset("hpd_litigations", args=ARGS)
     hpd_litigations.drop()
     hpd_litigations.db_import()
-    assert row_count(conn, "hpd_litigations") == 100
+    assert row_count(conn, "hpd_litigations") == 10
+    with conn.cursor(row_factory=dict_row) as curs:
+        curs.execute("select * from hpd_litigations WHERE bbl = '1008960023'")
+        rec = curs.fetchone()
+        assert rec["caseopendate"].strftime("%Y-%m-%d") == "2023-04-20"
 
 
 def test_hpd_registrations_derived_tables(conn):
