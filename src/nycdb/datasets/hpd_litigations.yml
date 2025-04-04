@@ -18,7 +18,7 @@ schema:
     Block: integer
     Lot: integer
     CaseType: text
-    CaseOpenDate: 'timestamp without time zone'
+    CaseOpenDate: date
     CaseStatus: text
     OpenJudgement: text
     FindingOfHarassment: text
