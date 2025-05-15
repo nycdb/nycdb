@@ -1018,3 +1018,28 @@ def test_executed_evictions(conn):
         rec = curs.fetchone()
         assert rec is not None
         assert rec['executeddate'].strftime("%Y-%m-%d") == '2024-02-26'
+
+
+def test_pluto_latest_districts(conn):
+    dataset_names = ["pluto_latest", "boundaries_25a", "pluto_latest_districts"]
+    for dataset_name in dataset_names:
+        dataset = nycdb.Dataset(dataset_name, args=ARGS)
+        dataset.drop()
+        dataset.db_import()
+
+    assert row_count(conn, "pluto_latest_districts") == 5
+    assert has_one_row(conn, "select 1 where to_regclass('public.pluto_latest_districts_bbl_idx') is NOT NULL")
+    assert has_one_row(conn, "select 1 where to_regclass('public.pluto_latest_districts_geom_idx') is NOT NULL")
+
+
+
+def test_pluto_latest_districts_25a(conn):
+    dataset_names = ["pluto_latest", "boundaries_25a", "pluto_latest_districts_25a"]
+    for dataset_name in dataset_names:
+        dataset = nycdb.Dataset(dataset_name, args=ARGS)
+        dataset.drop()
+        dataset.db_import()
+
+    assert row_count(conn, "pluto_latest_districts_25a") == 5
+    assert has_one_row(conn, "select 1 where to_regclass('public.pluto_latest_districts_25a_bbl_idx') is NOT NULL")
+    assert has_one_row(conn, "select 1 where to_regclass('public.pluto_latest_districts_25a_geom_idx') is NOT NULL")

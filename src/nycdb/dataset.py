@@ -46,9 +46,13 @@ class Dataset:
 
         self.dataset = datasets()[dataset_name]
         self.files = self._files()
-        self.schemas = list_wrap(self.dataset["schema"])
+        self.schemas = (
+            list_wrap(self.dataset["schema"]) if "schema" in self.dataset else []
+        )
 
     def _files(self):
+        if "files" not in self.dataset:
+            return []
         return [
             File(file_dict, folder=self.name, root_dir=self.root_dir)
             for file_dict in self.dataset["files"]
