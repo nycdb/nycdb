@@ -72,7 +72,7 @@ class Dataset:
         Inserts the dataset in the postgres.
 
         Optionally, provide a list of table names to limit the import
-        to certain schemas in the datset
+        to certain schemas in the dataset
 
         Output:  True | Throws
         """
@@ -88,6 +88,10 @@ class Dataset:
                         root_dir=self.root_dir,
                         db_schema=self.db.get_current_db_schema(),
                     ).db_import()
+                elif "fields" not in schema:
+                    # Tables without fields are created via SQL and have no data
+                    # file to import
+                    continue
                 else:
                     self.import_schema(schema)
 
@@ -149,9 +153,14 @@ class Dataset:
         Issues CREATE TABLE statements for all tables in the dataset.
         """
         for s in self.schemas:
-            # tables of type 'shapefile' do not need to be created first
-            if s.get("type") != "shapefile":
-                self.db.sql(sql.create_table(s["table_name"], s["fields"]))
+            # tables of type 'shapefile' do not need to be created first. And
+            # tables without fields are for tables created via the sql script
+            # and don't have a data file associated with them, so also don't
+            # need to be created in advance here. 
+            if s.get("type") == "shapefile" or "fields" not in s:
+                continue
+            
+            self.db.sql(sql.create_table(s["table_name"], s["fields"]))
 
     def sql_files(self):
         """

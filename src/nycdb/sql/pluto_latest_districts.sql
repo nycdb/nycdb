@@ -23,7 +23,6 @@ CREATE TEMP TABLE IF NOT EXISTS x_pluto_geom AS (
 
 CREATE INDEX ON x_pluto_geom using gist (geom);
 
-DROP TABLE IF EXISTS pluto_latest_districts;
 CREATE TABLE IF NOT EXISTS pluto_latest_districts AS (
 	SELECT
 		p.bbl,
