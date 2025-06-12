@@ -4,3 +4,6 @@ sql:
 schema:
   table_name: pluto_latest_districts
   verify_count: 800_000
+dependencies:
+  - pluto_latest
+  - boundaries

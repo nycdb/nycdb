@@ -1031,6 +1031,16 @@ def test_pluto_latest_districts(conn):
     assert has_one_row(conn, "select 1 where to_regclass('public.pluto_latest_districts_bbl_idx') is NOT NULL")
     assert has_one_row(conn, "select 1 where to_regclass('public.pluto_latest_districts_geom_idx') is NOT NULL")
 
+def test_pluto_latest_districts_fails_without_depdendencies(conn):
+    dataset_names = ["pluto_latest", "boundaries_25a", "pluto_latest_districts"]
+    for dataset_name in dataset_names:
+        dataset = nycdb.Dataset(dataset_name, args=ARGS)
+        dataset.drop()
+
+    with pytest.raises(Exception) as excinfo:
+        dataset = nycdb.Dataset("pluto_latest_districts", args=ARGS)
+        dataset.db_import()
+    assert "Missing dataset dependency" in str(excinfo.value)
 
 
 def test_pluto_latest_districts_25a(conn):

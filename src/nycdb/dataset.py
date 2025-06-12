@@ -49,6 +49,9 @@ class Dataset:
         self.schemas = (
             list_wrap(self.dataset["schema"]) if "schema" in self.dataset else []
         )
+        self.dependencies = (
+            list_wrap(self.dataset["dependencies"]) if "dependencies" in self.dataset else []
+        )
 
     def _files(self):
         if "files" not in self.dataset:
@@ -78,6 +81,15 @@ class Dataset:
         """
         self.setup_db()
         self.create_schema()
+
+        if self.dependencies:
+            for dep_dataset_name in self.dependencies:
+                dep_dataset = Dataset(dep_dataset_name)
+                for dep_schema in dep_dataset.schemas:
+                    if not self.db.table_exists(dep_schema["table_name"]):
+                        raise Exception(
+                            f"Missing dataset dependency. '{"','".join(self.dependencies)}' datasets must be loaded first."
+                        )
 
         for schema in self.schemas:
             if limit is None or schema["table_name"] in limit:
@@ -156,10 +168,10 @@ class Dataset:
             # tables of type 'shapefile' do not need to be created first. And
             # tables without fields are for tables created via the sql script
             # and don't have a data file associated with them, so also don't
-            # need to be created in advance here. 
+            # need to be created in advance here.
             if s.get("type") == "shapefile" or "fields" not in s:
                 continue
-            
+
             self.db.sql(sql.create_table(s["table_name"], s["fields"]))
 
     def sql_files(self):
