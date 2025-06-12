@@ -46,9 +46,7 @@ class Dataset:
 
         self.dataset = datasets()[dataset_name]
         self.files = self._files()
-        self.schemas = (
-            list_wrap(self.dataset["schema"]) if "schema" in self.dataset else []
-        )
+        self.schemas = list_wrap(self.dataset["schema"])
         self.dependencies = (
             list_wrap(self.dataset["dependencies"]) if "dependencies" in self.dataset else []
         )
