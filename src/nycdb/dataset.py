@@ -48,7 +48,9 @@ class Dataset:
         self.files = self._files()
         self.schemas = list_wrap(self.dataset["schema"])
         self.dependencies = (
-            list_wrap(self.dataset["dependencies"]) if "dependencies" in self.dataset else []
+            list_wrap(self.dataset["dependencies"])
+            if "dependencies" in self.dataset
+            else []
         )
 
     def _files(self):
@@ -86,7 +88,7 @@ class Dataset:
                 for dep_schema in dep_dataset.schemas:
                     if not self.db.table_exists(dep_schema["table_name"]):
                         raise Exception(
-                            f"Missing dataset dependency. '{"','".join(self.dependencies)}' datasets must be loaded first."
+                            f"Missing dataset dependency. {','.join(self.dependencies)} datasets must be loaded first."
                         )
 
         for schema in self.schemas:
