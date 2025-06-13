@@ -47,8 +47,15 @@ class Dataset:
         self.dataset = datasets()[dataset_name]
         self.files = self._files()
         self.schemas = list_wrap(self.dataset["schema"])
+        self.dependencies = (
+            list_wrap(self.dataset["dependencies"])
+            if "dependencies" in self.dataset
+            else []
+        )
 
     def _files(self):
+        if "files" not in self.dataset:
+            return []
         return [
             File(file_dict, folder=self.name, root_dir=self.root_dir)
             for file_dict in self.dataset["files"]
@@ -68,12 +75,21 @@ class Dataset:
         Inserts the dataset in the postgres.
 
         Optionally, provide a list of table names to limit the import
-        to certain schemas in the datset
+        to certain schemas in the dataset
 
         Output:  True | Throws
         """
         self.setup_db()
         self.create_schema()
+
+        if self.dependencies:
+            for dep_dataset_name in self.dependencies:
+                dep_dataset = Dataset(dep_dataset_name)
+                for dep_schema in dep_dataset.schemas:
+                    if not self.db.table_exists(dep_schema["table_name"]):
+                        raise Exception(
+                            f"Missing dataset dependency. {','.join(self.dependencies)} datasets must be loaded first."
+                        )
 
         for schema in self.schemas:
             if limit is None or schema["table_name"] in limit:
@@ -84,6 +100,10 @@ class Dataset:
                         root_dir=self.root_dir,
                         db_schema=self.db.get_current_db_schema(),
                     ).db_import()
+                elif "fields" not in schema:
+                    # Tables without fields are created via SQL and have no data
+                    # file to import
+                    continue
                 else:
                     self.import_schema(schema)
 
@@ -145,9 +165,14 @@ class Dataset:
         Issues CREATE TABLE statements for all tables in the dataset.
         """
         for s in self.schemas:
-            # tables of type 'shapefile' do not need to be created first
-            if s.get("type") != "shapefile":
-                self.db.sql(sql.create_table(s["table_name"], s["fields"]))
+            # tables of type 'shapefile' do not need to be created first. And
+            # tables without fields are for tables created via the sql script
+            # and don't have a data file associated with them, so also don't
+            # need to be created in advance here.
+            if s.get("type") == "shapefile" or "fields" not in s:
+                continue
+
+            self.db.sql(sql.create_table(s["table_name"], s["fields"]))
 
     def sql_files(self):
         """
