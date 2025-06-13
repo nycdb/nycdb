@@ -8,7 +8,7 @@ CREATE TABLE zipcodes AS (
     SELECT
         zipcode,
         st_union(geom) AS geom
-    FROM zipcodes
+    FROM zipcodes_orig
     GROUP BY zipcode
 );
 CREATE INDEX zipcodes_geom_idx ON zipcodes USING GIST (geom);
