@@ -862,6 +862,7 @@ def test_zipcodes(conn):
     zipcodes.drop()
     zipcodes.db_import()
 
+    assert row_count(conn, "zipcodes_orig") == 5
     assert row_count(conn, "zipcodes") == 5
     assert get_srid(conn, "zipcodes", 'geom') == 2263
     assert has_one_row(conn, f"select 1 where to_regclass('public.zipcodes_geom_idx') is NOT NULL")
