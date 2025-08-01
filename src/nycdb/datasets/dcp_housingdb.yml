@@ -1,13 +1,13 @@
 ---
 files:
   -
-    url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nychousingdb_22q2_csv.zip
+    url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/housing-project-level/nychdb_24q4_csv.zip
     dest: dcp_housingdb.zip
 sql:
   - dcp_housingdb.sql
 schema:
   table_name: dcp_housingdb
-  verify_count: 70_000
+  verify_count: 77_000
   fields:
     JobNumber: text
     JobType: text
