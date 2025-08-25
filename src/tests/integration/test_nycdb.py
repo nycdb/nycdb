@@ -255,6 +255,13 @@ def test_pluto_24v2(conn):
     assert row_count(conn, 'pluto_24v2') == 5
 
 
+def test_pluto_25v2_1(conn):
+    dataset = nycdb.Dataset('pluto_25v2_1', args=ARGS)
+    dataset.drop()
+    dataset.db_import()
+    assert row_count(conn, 'pluto_25v2_1') == 5
+
+
 def test_pluto_latest(conn):
     pluto = nycdb.Dataset("pluto_latest", args=ARGS)
     pluto.drop()
