@@ -378,7 +378,7 @@ def test_dob_now_jobs(conn):
     dob_now_jobs = nycdb.Dataset("dobjobs", args=ARGS)
     dob_now_jobs.drop()
     dob_now_jobs.db_import()
-    assert row_count(conn, "dob_now_jobs") == 5
+    assert row_count(conn, "dob_now_jobs") == 100
     assert has_one_row(
         conn, "select 1 where to_regclass('public.dob_now_jobs_bbl') is NOT NULL"
     )

@@ -194,6 +194,8 @@ schema:
       SupportofExcavationWorkType: bool
       TemporaryPlaceofAssemblyWorkType: bool
       JobType: text
+      ApprovedDate: date
+      SignoffDate: date
       bbl: char(10)
     skip:
       # These come from geocoding and are often missing, more than the separate boro/block/lot columns
