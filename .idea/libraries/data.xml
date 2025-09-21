@@ -1,0 +1,69 @@
+<component name="libraryTable">
+  <library name="data">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/nyfd_24d.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/nyadwi_25a.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/nyhc_25a.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/dcp_housingdb.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/pluto_16v2.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/nyfb_24d.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/pluto_23v1.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/pluto_17v1.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/nyhc_24d.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/nysswi_25a.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/nycgwi_25a.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/nyha_24d.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/pluto_10v1.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/nyct2020_25a.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/nyss_25a.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/nycd_24d.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/nyfb_25a.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/pad.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/pluto_19v2.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/nymc_24d.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/nyed_24d.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/nyad_25a.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/pluto_24v2.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/nyccwi_25a.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/pluto_19v1.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/nycc_25a.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/nyfd_25a.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/nyha_25a.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/nynta2020_25a.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/pluto_25v2_1.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/nyct2010_25a.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/pluto_18v2.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/nyc-zip-codes.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/nyed_25a.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/nymcwi_25a.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/nynta2010_25a.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/nypp_25a.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/nybb_25a.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/nyfc_24d.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/nypp_24d.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/nycg_24d.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/nybb_24d.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/nyct2020wi_25a.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/nymc_25a.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/nycg_25a.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/pluto_18v1.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/nycc_24d.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/pluto_15v1.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/pluto_21v3.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/nysd_24d.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/nycdwi_25a.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/pluto_22v1.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/nyad_24d.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/nysd_25a.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/nyedwi_25a.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/nybbwi_25a.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/nycd_25a.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/nyfc_25a.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/nyss_24d.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/pluto_20v8.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/tests/integration/data/nyct2010wi_25a.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,1 +1,0 @@
-CREATE INDEX dof_property_valuation_and_assessments_bbl_idx on dof_property_valuation_and_assessments(bbl)

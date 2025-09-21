@@ -1,2 +1,0 @@
-CREATE INDEX hpd_underlying_conditions_bbl_idx ON hpd_underlying_conditions (bbl);
-CREATE INDEX hpd_underlying_conditions_orderissuedate_idx ON hpd_underlying_conditions (orderissuedate);

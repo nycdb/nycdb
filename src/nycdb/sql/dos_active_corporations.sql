@@ -1,3 +1,0 @@
-CREATE INDEX dos_active_corporations_dosid_idx on dos_active_corporations (dosid);
-CREATE INDEX dos_active_corporations_initialdosfilingdate_idx on dos_active_corporations (initialdosfilingdate);
-CREATE INDEX dos_active_corporations_currententityname_idx on dos_active_corporations (currententityname);
