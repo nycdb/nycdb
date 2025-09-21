@@ -26,5 +26,4 @@ schema:
     Number: text
     ViolationCategory: text
     ViolationType: text
-sql:
-  - dob_violations.sql
+

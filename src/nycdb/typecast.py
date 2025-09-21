@@ -242,13 +242,21 @@ class Typecast:
         """
         Converts values of dictionary by type of dataset
         input: Dict
-        output: Dict
+        output: Tuple
         """
         try:
-            d = {}
-            for column, val in row.items():
-                d[column] = self.cast[column.lower()](val)
-            return d
+            # Downcase the keys of the input row for consistent lookup
+            row_lower = {k.lower(): v for k, v in row.items()}
+
+            values = []
+            for column_name in self.fields.keys():
+                # self.cast keys are already lowercased from generate_cast
+                cast_func = self.cast.get(column_name)
+                if cast_func:
+                    value = row_lower.get(column_name)
+                    values.append(cast_func(value))
+
+            return tuple(values)
         except:
             # print the row for debugging:
             print(row)

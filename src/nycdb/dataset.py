@@ -3,6 +3,8 @@ import logging
 import itertools
 import os
 import subprocess
+import csv
+import tempfile
 from typing import Generator
 from tqdm import tqdm
 
@@ -153,11 +155,20 @@ class Dataset:
         pbar = tqdm(unit="rows", disable=self.args.hide_progress)
         while True:
             batch = list(itertools.islice(rows, 0, BATCH_SIZE))
-            if len(batch) == 0:
+            if not batch:
                 break
-            else:
-                pbar.update(len(batch))
-                self.db.insert_rows(batch, table_name=schema["table_name"])
+
+            pbar.update(len(batch))
+            with tempfile.NamedTemporaryFile(
+                "w", delete=False, newline="", encoding="utf-8", suffix=".csv"
+            ) as f:
+                writer = csv.writer(f)
+                writer.writerows(batch)
+                temp_path = f.name
+
+            self.db.insert_rows(temp_path, table_name=schema["table_name"])
+            os.remove(temp_path)
+
         pbar.close()
 
     def create_schema(self):

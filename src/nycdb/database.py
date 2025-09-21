@@ -1,53 +1,35 @@
 import os
-import re
-import psycopg
-from . import sql
+import duckdb
 
 
 class Database:
     """
-    Database connection. This is a wrapper around psycopg.connection, accessible at `.conn`
-    see http://initd.org/psycopg/docs/connection.html for psycopg's documentation
-
-
+    Database connection. This is a wrapper around duckdb.connect, accessible at .conn
     """
 
     def __init__(self, args, table_name=None):
         """
-        args is a Namespace that must contain: user, password, database, host, and port
+        args is a Namespace that must contain: db_path
         """
-        self.connection_params = {
-            "user": args.user,
-            "password": args.password,
-            "host": args.host,
-            "database": args.database,
-            "port": args.port,
-        }
-
+        self.db_path = getattr(args, 'db_path', 'nycdb.duckdb')
         self.table_name = table_name
-        self.conn = psycopg.connect(self.conninfo(), cursor_factory=psycopg.ClientCursor)
+        self.conn = duckdb.connect(self.db_path)
+        self.conn.execute("INSTALL spatial;")
+        self.conn.execute("LOAD spatial;")
 
     def sql(self, SQL):
         """executes single sql statement"""
-        with self.conn.cursor() as curs:
-            curs.execute(SQL)
-        self.conn.commit()
+        self.conn.execute(SQL)
 
-    def insert_rows(self, rows, table_name=None):
+    def insert_rows(self, file_path, table_name=None):
         """
-        Inserts many rows, all in the same transaction using executemany
+        Bulk inserts rows from a file path.
         """
 
         if table_name is None:
             table_name = self.table_name
 
-        with self.conn.cursor() as curs:
-            try:
-                sql.copy(curs, table_name, rows)
-            except psycopg.Error:
-                print(rows)  # useful for debugging
-                raise
-        self.conn.commit()
+        self.conn.execute(f"COPY {table_name} FROM '{file_path}' (AUTO_DETECT TRUE)")
 
     def execute_sql_file(self, sql_file):
         """
@@ -63,40 +45,14 @@ class Database:
         """
         Execute the given query and returns the first row
         """
-        with self.conn.cursor() as curs:
-            curs.execute(query)
-            return curs.fetchone()[0]
+        return self.conn.execute(query).fetchone()[0]
 
     def table_exists(self, table_name):
         """Tests if the table exists"""
-        query = "SELECT EXISTS(SELECT 1 FROM information_schema.tables where table_name = '{0}')".format(
-            table_name
-        )
-        return self.execute_and_fetchone(query)
-
-    def get_current_db_schema(self):
-        search_path = self.execute_and_fetchone("SHOW search_path;")
-        # default search_path is '"$user", public'
-        match = re.search(r'(?:".*",\s)?.*?(\w+)', search_path)
-        first_non_user_schema = match.group(1) if match else None
-        return first_non_user_schema
+        query = f"SELECT 1 FROM information_schema.tables WHERE table_name = '{table_name}'"
+        return self.conn.execute(query).fetchone() is not None
 
     def row_count(self, table_name):
         """returns the row count of the table"""
-        query = "SELECT COUNT(*) from {0}".format(table_name)
+        query = f"SELECT COUNT(*) from {table_name}"
         return self.execute_and_fetchone(query)
-
-    def password_file_contents(self):
-        return "{host}:{port}:{database}:{user}:{password}".format(
-            **self.connection_params
-        )
-
-    def conninfo(self):
-        return "host={host} port={port} dbname={database} user={user} password={password}".format(
-            **self.connection_params
-        )
-
-    def connstring(self):
-        return "postgresql://{user}:{password}@{host}:{port}/{database}".format(
-            **self.connection_params
-        )

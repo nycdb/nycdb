@@ -22,5 +22,4 @@ schema:
     dispositioncode: text
     inspectiondate: date
     dobrundate: date
-sql:
-  - dob_complaints.sql
+

@@ -1,12 +1,11 @@
 import os
-import subprocess
 import tempfile
 import zipfile
 
 
 class Shapefile:
-    def __init__(self, schema, connstring=None, root_dir=None, db_schema="public"):
-        self.connstring = connstring
+    def __init__(self, schema, conn=None, root_dir=None, db_schema="public"):
+        self.conn = conn
         self.table_name = schema["table_name"]
         self.path = schema["path"]
         self.srid = schema["srid"]
@@ -17,19 +16,13 @@ class Shapefile:
         with tempfile.TemporaryDirectory() as tmpdir:
             zipfile.ZipFile(self.zip_file, mode="r").extractall(path=tmpdir)
 
-            shp2pgsql = subprocess.run(
-                [
-                    "shp2pgsql",
-                    f"-s {self.srid}:2263",
-                    os.path.join(tmpdir, self.path),
-                    f"{self.db_schema}.{self.table_name}",
-                ],
-                universal_newlines=True,
-                stdout=subprocess.PIPE,
-            )
+            shapefile_path = os.path.join(tmpdir, self.path)
+            
+            # It's good practice to escape the path, especially on Windows
+            shapefile_path_escaped = shapefile_path.replace('\\', '\\\\')
 
-            psql = subprocess.run(
-                ["psql", self.connstring],
-                universal_newlines=True,
-                input=shp2pgsql.stdout,
-            )
+            query = f"""
+            CREATE TABLE {self.table_name} AS 
+            SELECT * FROM ST_Read('{shapefile_path_escaped}');
+            """
+            self.conn.execute(query)

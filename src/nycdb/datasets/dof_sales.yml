@@ -31,4 +31,4 @@ schema:
     SalePrice: bigint
     SaleDate: date
     bbl: char(10)
-    id: 'serial PRIMARY KEY'
+    id: 'INTEGER PRIMARY KEY AUTOINCREMENT'

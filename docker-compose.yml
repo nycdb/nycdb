@@ -7,29 +7,6 @@ services:
     volumes:
       - ./src:/nycdb/src
       - download-data:/nycdb/src/data
-    environment:
-      - NYCDB_POSTGRES_HOST=db
-      - NYCDB_TEST_POSTGRES_HOST=db
-      - NYCDB_TEST_POSTGRES_DB=nycdb_test
-      - NYCDB_TEST_POSTGRES_USER=nycdb
-      - NYCDB_TEST_POSTGRES_PASSWORD=nycdb
-      - NYCDB_TEST_POSTGRES_PORT=5432
-    depends_on:
-      - db
-  db:
-    image: "${POSTGRES_IMAGE:-postgis/postgis:16-3.4}"
-    shm_size: 1gb
-    volumes:
-      - database-data:/var/lib/postgresql/data
-      - ./src/scripts/createExtensionPostGIS.sql:/docker-entrypoint-initdb.d/createExtensionPostGIS.sql
-    environment:
-      - POSTGRES_PASSWORD=nycdb
-      - POSTGRES_USER=nycdb
-      - POSTGRES_DB=nycdb
-    ports:
-      - "127.0.0.1:${NYCDB_POSTGRES_PORT:-5432}:5432"
 
 volumes:
   download-data:
-  database-data:
-    name: "${NYCDB_DATABASE_VOLUME_NAME:-database-data}"
