@@ -4,7 +4,7 @@ files:
     url: https://justfix-data.s3.us-east-1.amazonaws.com/hpd-reg-2025-09-01/hpd_registrations.csv
     dest: hpd_registrations.csv
   -
-    url: https://data.cityofnewyork.us/api/views/feu5-w2e2/rows.csv?accessType=DOWNLOAD
+    url: https://justfix-data.s3.us-east-1.amazonaws.com/hpd-reg-2025-09-01/hpd_contacts.csv
     dest: hpd_contacts.csv
 sql:
   - hpd_registrations/add_bbl.sql
