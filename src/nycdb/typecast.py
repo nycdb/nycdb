@@ -137,9 +137,10 @@ def date(x):
     if isinstance(x, (datetime.date, datetime.datetime)):
         return x
     # checks for 2018-12-31 date input
-    if re.match(r"\d{4}-\d{1,2}-\d{1,2}", x):
+    date_match = re.match(r"\d{4}-\d{1,2}-\d{1,2}", x)
+    if date_match:
         try:
-            return datetime.datetime.strptime(x, "%Y-%m-%d").date()
+            return datetime.datetime.strptime(date_match[0], "%Y-%m-%d").date()
         except ValueError:
             return None
     # checks for 20181231 date input
