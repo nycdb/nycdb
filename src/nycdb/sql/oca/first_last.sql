@@ -6,30 +6,33 @@
 
 -- FROM: https://wiki.postgresql.org/wiki/First/last_(aggregate)
 
+-- updated to change "anyarray" to "anycompatiblearray" and "anyelement" to "anycompatibleelement" for postgreSQL version > 13
+
+
 -- Create a function that always returns the first non-NULL item
-DROP FUNCTION IF EXISTS public.first_agg(anyelement, anyelement) CASCADE;
-CREATE OR REPLACE FUNCTION public.first_agg ( anyelement, anyelement )
-RETURNS anyelement LANGUAGE SQL IMMUTABLE STRICT AS $$
+DROP FUNCTION IF EXISTS public.first_agg(anycompatibleelement, anycompatibleelement) CASCADE;
+CREATE OR REPLACE FUNCTION public.first_agg ( anycompatibleelement, anycompatibleelement )
+RETURNS anycompatibleelement LANGUAGE SQL IMMUTABLE STRICT AS $$
         SELECT $1;
 $$;
  
 -- And then wrap an aggregate around it
 CREATE AGGREGATE public.FIRST (
         sfunc    = public.first_agg,
-        basetype = anyelement,
-        stype    = anyelement
+        basetype = anycompatibleelement,
+        stype    = anycompatibleelement
 );
  
 -- Create a function that always returns the last non-NULL item
-DROP FUNCTION IF EXISTS public.last_agg(anyelement, anyelement) CASCADE;
-CREATE OR REPLACE FUNCTION public.last_agg ( anyelement, anyelement )
-RETURNS anyelement LANGUAGE SQL IMMUTABLE STRICT AS $$
+DROP FUNCTION IF EXISTS public.last_agg(anycompatibleelement, anycompatibleelement) CASCADE;
+CREATE OR REPLACE FUNCTION public.last_agg ( anycompatibleelement, anycompatibleelement )
+RETURNS anycompatibleelement LANGUAGE SQL IMMUTABLE STRICT AS $$
         SELECT $2;
 $$;
  
 -- And then wrap an aggregate around it
 CREATE AGGREGATE public.LAST (
         sfunc    = public.last_agg,
-        basetype = anyelement,
-        stype    = anyelement
+        basetype = anycompatibleelement,
+        stype    = anycompatibleelement
 );

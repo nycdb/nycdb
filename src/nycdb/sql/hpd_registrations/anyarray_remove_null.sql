@@ -1,6 +1,8 @@
-DROP FUNCTION IF EXISTS anyarray_remove_null(anyarray);
-CREATE OR REPLACE FUNCTION anyarray_remove_null(from_array anyarray)
-        RETURNS anyarray AS
+-- updated to change "anyarray" to "anycompatiblearray" for postgreSQL version > 13
+
+DROP FUNCTION IF EXISTS anyarray_remove_null(anycompatiblearray);
+CREATE OR REPLACE FUNCTION anyarray_remove_null(from_array anycompatiblearray)
+        RETURNS anycompatiblearray AS
 $BODY$
         DECLARE
                 -- The variable used to track iteration over "from_array".
