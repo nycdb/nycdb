@@ -2,7 +2,7 @@
 
 
 -- Create a function that always returns the first non-NULL item
-CREATE OR REPLACE FUNCTION public.first_agg ( anyelement, anyelement )
+DROP FUNCTION IF EXISTS public.first_agg ( anyelement, anyelement );
 CREATE OR REPLACE FUNCTION public.first_agg ( anycompatible, anycompatible )
 RETURNS anycompatible LANGUAGE SQL IMMUTABLE STRICT AS $$
         SELECT $1;
@@ -19,7 +19,7 @@ CREATE AGGREGATE public.FIRST (
 );
  
 -- Create a function that always returns the last non-NULL item
-CREATE OR REPLACE FUNCTION public.last_agg ( anyelement, anyelement )
+DROP FUNCTION IF EXISTS public.last_agg ( anyelement, anyelement );
 CREATE OR REPLACE FUNCTION public.last_agg ( anycompatible, anycompatible )
 RETURNS anycompatible LANGUAGE SQL IMMUTABLE STRICT AS $$
         SELECT $2;
