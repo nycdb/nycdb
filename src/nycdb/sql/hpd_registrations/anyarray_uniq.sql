@@ -3,6 +3,7 @@
 -- from https://www.github.com/JDBurnZ/anyarray
 -- Adapted to use "anycompatiblearray" instead of "anyarray" for compatibility with PostgreSQL version > 13
 
+DROP FUNCTION IF EXISTS anyarray_uniq(anyarray);
 DROP FUNCTION IF EXISTS anyarray_uniq(anycompatiblearray);
 CREATE OR REPLACE FUNCTION anyarray_uniq(with_array anycompatiblearray)
 	RETURNS anycompatiblearray AS
