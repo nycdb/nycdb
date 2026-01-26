@@ -775,10 +775,10 @@ def test_dob_certificate_occupancy(conn):
         assert rec is not None
         assert rec["jobnumber"] == "100031528"
 
-        curs.execute("select * from dob_now_certificate_occupancy WHERE jobfilingname = '120434137'")
+        curs.execute("select * from dob_now_certificate_occupancy WHERE jobfilingname = '420664873'")
         rec = curs.fetchone()
         assert rec is not None
-        assert rec["bbl"] == "1006930059"
+        assert rec["bbl"] == "4000467503"
 
 
 def test_dob_safety_violations(conn):

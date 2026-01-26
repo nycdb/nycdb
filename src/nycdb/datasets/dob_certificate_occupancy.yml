@@ -92,13 +92,12 @@ schema:
       CommunityBoard: integer
       COfOIssuanceDate: timestamp
       ApplicationNumber: text
+      NumberOfDwellingUnits: integer
+      COfONumber: text
       Latitude: numeric
       Longitude: numeric
-      Communitydistrict: text
-      Citycouncildistrict: text
-      Censustract2010: text
+      CouncilDistrict: text
     skip:
-      - Buildingidentificationnumber
       - Bbl
-      - Ntaname
-      - LocationPoint
+      - CensusTract
+      - Nta
