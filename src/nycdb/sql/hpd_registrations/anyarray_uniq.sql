@@ -1,9 +1,12 @@
 
+
 -- from https://www.github.com/JDBurnZ/anyarray
+-- Adapted to use "anycompatiblearray" instead of "anyarray" for compatibility with PostgreSQL version > 13
 
 DROP FUNCTION IF EXISTS anyarray_uniq(anyarray);
-CREATE OR REPLACE FUNCTION anyarray_uniq(with_array anyarray)
-	RETURNS anyarray AS
+DROP FUNCTION IF EXISTS anyarray_uniq(anycompatiblearray);
+CREATE OR REPLACE FUNCTION anyarray_uniq(with_array anycompatiblearray)
+	RETURNS anycompatiblearray AS
 $BODY$
 	DECLARE
 		-- The variable used to track iteration over "with_array".
