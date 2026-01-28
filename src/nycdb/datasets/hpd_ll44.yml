@@ -18,6 +18,7 @@ schema:
       Projectid: integer
       Buildingid: integer
       Reportingconstructiontype: text
+      BoroughCode: char(1)
       Borough: text
       Block: integer
       Lot: integer
@@ -38,8 +39,6 @@ schema:
       Latitude: numeric
       Longitude: numeric
       Postcode: char(5)
-    skip:
-      - Borough
   -
     table_name: hpd_ll44_projects
     fields:
