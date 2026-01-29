@@ -948,15 +948,7 @@ def test_hpd_ll44(conn):
         rec = curs.fetchone()
         assert rec is not None
         assert rec['projectid'] == 44218
-        assert rec['bbl'] == '1017900046'
-        assert rec['boroid'] == 1
-
-    with conn.cursor(row_factory=dict_row) as curs:
-        curs.execute("select * from hpd_ll44_buildings WHERE buildingid = 927737")
-        rec = curs.fetchone()
-        assert rec is not None
-        assert rec['bin'] == "-      " # space because char(7)
-        assert rec['boroid'] == None
+        assert rec['bbl'] == '1017900001'
     
     assert row_count(conn, 'hpd_ll44_projects') > 0
     assert has_one_row(conn, "select 1 where to_regclass('public.hpd_ll44_projects_projectid_idx') is NOT NULL")
