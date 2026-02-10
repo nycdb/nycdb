@@ -1,7 +1,7 @@
 ---
 files:
   -
-    url: https://furmancenter.org/files/CoreData/FC_SHD_bbl_analysis_2024-08-29.csv
+    url: https://furmancenter.org/files/CoreData/FC_SHD_bbl_analysis_2025-05-13.csv
     dest: fc_shd_building.csv
 sql:
     - fc_shd.sql
