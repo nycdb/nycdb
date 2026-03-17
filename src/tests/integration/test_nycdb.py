@@ -1052,3 +1052,17 @@ def test_pluto_latest_districts_25a(conn):
     assert row_count(conn, "pluto_latest_districts_25a") == 5
     assert has_one_row(conn, "select 1 where to_regclass('public.pluto_latest_districts_25a_bbl_idx') is NOT NULL")
     assert has_one_row(conn, "select 1 where to_regclass('public.pluto_latest_districts_25a_geom_idx') is NOT NULL")
+
+
+def test_hpd_jurisdiction(conn):
+    dataset = nycdb.Dataset('hpd_jurisdiction', args=ARGS)
+    dataset.drop()
+    dataset.db_import()
+    assert row_count(conn, 'hpd_jurisdiction') > 0
+    assert has_one_row(conn, "select 1 where to_regclass('public.hpd_jurisdiction_bbl_idx') is NOT NULL")
+    with conn.cursor(row_factory=dict_row) as curs:
+        curs.execute("select * from hpd_jurisdiction WHERE bbl = '4108650003'")
+        rec = curs.fetchone()
+        assert rec is not None
+        assert rec['buildingid'] == 510711
+        assert rec['streetname'] == '100 AVENUE'
