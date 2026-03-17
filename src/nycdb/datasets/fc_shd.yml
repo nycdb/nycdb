@@ -143,7 +143,7 @@ schema:
     table_name: fc_shd_subsidy
     verify_count: 14_000
     fields:
-      FcSubsidyId: integer
+      FcSubsidyId: text
       RefBbl: char(10)
       RefAddress: text
       AgencyName: text
