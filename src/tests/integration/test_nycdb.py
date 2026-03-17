@@ -985,7 +985,7 @@ def test_fc_shd(conn):
         curs.execute("select * from fc_shd_subsidy WHERE bbl = '1000160015'")
         rec = curs.fetchone()
         assert rec is not None
-        assert rec['sub_subsidy_name'] == "LIHTC 4%"
+        assert rec['subsubsidyname'] == "LIHTC 4%"
         assert rec['start_date'].strftime("%Y-%m-%d") == '2000-01-01'
 
 
