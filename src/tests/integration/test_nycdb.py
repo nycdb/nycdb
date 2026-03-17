@@ -986,7 +986,7 @@ def test_fc_shd(conn):
         rec = curs.fetchone()
         assert rec is not None
         assert rec['subsubsidyname'] == "LIHTC 4%"
-        assert rec['start_date'].strftime("%Y-%m-%d") == '2000-01-01'
+        assert rec['startdate'].strftime("%Y-%m-%d") == '2000-01-01'
 
 
 def test_dos_active_corporations(conn):
