@@ -165,7 +165,7 @@ def cleanup_text(text: str) -> str:
 def get_head(filepath: Path, max_lines: int) -> str:
     lines = []
     i = 0
-    with filepath.open("r") as f:
+    with filepath.open("r", encoding='latin-1') as f:
         for line in f.readlines():
             lines.append(line)
             i += 1
