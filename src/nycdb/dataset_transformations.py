@@ -304,3 +304,7 @@ def dos_active_corporations(dataset):
 
 def executed_evictions(dataset):
     return to_csv(dataset.files[0].dest)
+
+
+def hpd_jurisdiction(dataset):
+    return with_bbl(to_csv(dataset.files[0].dest), borough='boroid')

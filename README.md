@@ -23,6 +23,7 @@ Residents, lawyers, tenants, and organizers who want to use data in their strugg
 - [HPD Certificate of No Harassment](https://github.com/nycdb/nycdb/wiki/Dataset:-HPD-Certificate-of-No-Harassment)
 - [HPD Alternative Enforcement Program (AEP)](https://github.com/nycdb/nycdb/wiki/Dataset:-HPD-Alternative-Enforcement-Program-(AEP))
 - [HPD Underlying Conditions Program](https://github.com/nycdb/nycdb/wiki/Dataset:-HPD-Underlying-Conditions-Program)
+- [HPD Buildings under HPD Jurisdiction](https://github.com/nycdb/nycdb/wiki/Dataset:-HPD-Jurisdiction-Buildings)
 - [Department of Finance Rolling Sales](https://github.com/nycdb/nycdb/wiki/Dataset:-DOF-Rolling-Sales)
 - [Department of Finance Annualized Sales](https://github.com/nycdb/nycdb/wiki/Dataset:-DOF-Annualized-Sales)
 - [Department of Finance Property Tax Exemptions](https://github.com/nycdb/nycdb/wiki/Dataset:-DOF-Exemptions)
