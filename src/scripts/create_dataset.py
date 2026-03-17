@@ -180,7 +180,7 @@ def guess_data_type(name: str, value: str) -> str:
     file based on the column names (for special cases like BBL) and the values
     from the CSV, and defaults to 'text' when there's no better guess.
 
-        >>> guess_data_type('bbl', '1012340123)
+        >>> guess_data_type('bbl', '1012340123')
         'char(10)'
         >>> guess_data_type('latitude', '43.5123')
         'numeric'

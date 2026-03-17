@@ -1,0 +1,35 @@
+---
+files:
+  -
+    url: https://data.cityofnewyork.us/api/views/kj4p-ruqc/rows.csv?accessType=DOWNLOAD
+    dest: hpd_jurisdiction.csv
+sql:
+    - hpd_jurisdiction.sql
+schema:
+  table_name: hpd_jurisdiction  
+  verify_count: 400_000
+  fields:
+    buildingID: integer
+    boroID: smallint
+    boro: text
+    houseNumber: text
+    lowHouseNumber: text
+    highHouseNumber: text
+    streetName: text
+    zip: char(5)
+    block: integer
+    lot: smallint
+    bin: char(7)
+    communityBoard: smallint
+    censusTract: integer
+    managementProgram: text
+    dobBuildingClassID: smallint
+    dobBuildingClass: text
+    legalStories: integer
+    legalClassA: integer
+    legalClassB: integer
+    registrationID: integer
+    lifecycle: text
+    recordStatusID: integer
+    recordStatus: text
+    bbl: char(10)
