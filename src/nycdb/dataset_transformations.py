@@ -297,6 +297,8 @@ def hpd_ll44_tax_incentive(dataset):
 def fc_shd_building(dataset):
     return to_csv(dataset.files[0].dest)
 
+def fc_shd_subsidy(dataset):
+    return to_csv(dataset.files[1].dest)
 
 def dos_active_corporations(dataset):
     return to_csv(dataset.files[0].dest)
