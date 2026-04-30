@@ -56,9 +56,6 @@ Residents, lawyers, tenants, and organizers who want to use data in their strugg
 
 Go to [src/README.md](src/README.md) for documentation on how to create your own copy of the database locally.
 
-### Use the Housing Data Coalition's instance
-
-The Housing Data Coalition hosts their own copy ("instance") of nycdb. If you are not a member of HDC and would like to use it, please contact housingdatacoalition@gmail.com
 
 ### Acknowledgments
 
