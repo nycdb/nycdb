@@ -4,6 +4,28 @@ This can be tricky depending on the dataset - some might require you to write co
 
 This guide will cover adding a dataset from NYC Open Data.
 
+### Helper scripts you can lean on
+
+Before walking through the steps by hand, two scripts in `src/scripts/` will
+do a lot of the work for you:
+
+- `python scripts/create_dataset.py path/to/my_data.csv` will auto-generate
+  the YAML, the dataset-transformation stub, the integration test, and the
+  fake-data fixture for a new dataset. Treat the output as a starting point
+  and review/edit before opening a PR. Pass `--undo` to back out everything
+  it created.
+- `python scripts/create_dataset.py path/to/my_data.csv --schema-only` just
+  prints the `fields:` block you would paste into your dataset YAML. Useful
+  when you're adding a multi-table dataset or when an existing dataset's
+  schema changed upstream.
+- `python scripts/create_dataset.py path/to/my_data.csv --test-data-only`
+  just regenerates the integration-test fixture. Useful when the dataset
+  schema changed but the rest of the scaffolding is unchanged.
+
+You can also run the test suite with the same Docker setup CI uses by running
+`sh scripts/test` from outside the container (this is the recommended way to
+run the tests locally).
+
 ### Step 1 - find the raw `.csv` download url
 
 We need to find a URL that will trigger an automatic download of the dataset when we visit it.
