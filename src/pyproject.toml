@@ -36,7 +36,18 @@ requires = ["setuptools >= 61"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
-packages = ["nycdb"]
+# Explicitly list every sql/yml-bearing directory so setuptools doesn't warn
+# that "Package would be ignored" (see #284). nycdb/datasets and nycdb/sql/*
+# don't have __init__.py and only hold data files, but setuptools' build_py
+# step still flags them as implicit namespace packages absent from the list.
+packages = [
+    "nycdb",
+    "nycdb.datasets",
+    "nycdb.sql",
+    "nycdb.sql.dobjobs",
+    "nycdb.sql.hpd_registrations",
+    "nycdb.sql.oca",
+]
 
 [tool.setuptools.package-data]
 nycdb =  ["datasets/*.yml", "sql/*.sql", "sql/**/*.sql"]
