@@ -70,8 +70,8 @@ def download_file(url, dest, hide_progress=False):
                         f.write(chunk)
         pbar.close()
         return True
-    except:
-        raise DownloadFailedException("Could not download: {}".format(url))
+    except (requests.RequestException, OSError) as e:
+        raise DownloadFailedException("Could not download {}: {}".format(url, e))
 
 
 class File:
