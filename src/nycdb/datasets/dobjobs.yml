@@ -16,7 +16,6 @@ schema:
     table_name: dobjobs
     verify_count: 1_000_000
     fields:
-      JOBS1NO: integer
       Job: bigint
       Doc: smallint
       Borough: text
@@ -108,10 +107,14 @@ schema:
       LONGITUDE: numeric
       COUNCILDISTRICT: smallint
       CENSUSTRACT: text
-      NTANAME: text
+      NTA: text
+      BIN: char(7)
       bbl: char(10)
       DOBRunDate: date
       id: 'serial PRIMARY KEY'
+    skip:
+      # This bbl column comes from geocoding is missing more often than the separate boro/block/lot columns
+      - bbl
   -
     table_name: dob_now_jobs
     verify_count: 380_000
@@ -212,5 +215,5 @@ schema:
       FilingReviewType: text
       bbl: char(10)
     skip:
-      # This BBL comes from geocoding and is missing more often than the one we will construct from separate borough/block/lot columns
-      - BBL
+      # This bbl column comes from geocoding is missing more often than the separate boro/block/lot columns
+      - bbl
