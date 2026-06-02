@@ -373,12 +373,11 @@ def test_dobjobs_work_types(conn):
     dobjobs.db_import()
 
     with conn.cursor(row_factory=dict_row) as curs:
-        curs.execute("select * from dobjobs WHERE job = '{}'".format("310077591"))
+        curs.execute("select * from dobjobs WHERE job = '{}'".format("240304167"))
         rec = curs.fetchone()
-        assert rec["landmarked"] is False
-        assert rec["loftboard"] is None
-        assert rec["pcfiled"] is True
-        assert rec["mechanical"] is True
+        assert rec["boiler"] is None
+        assert rec["standpipe"] is None
+        assert rec["equipment"] is True
 
 
 def test_dob_now_jobs(conn):
