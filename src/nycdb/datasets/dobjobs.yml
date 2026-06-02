@@ -108,7 +108,6 @@ schema:
       COUNCILDISTRICT: smallint
       CENSUSTRACT: text
       NTA: text
-      BIN: char(7)
       bbl: char(10)
       DOBRunDate: date
       id: 'serial PRIMARY KEY'
