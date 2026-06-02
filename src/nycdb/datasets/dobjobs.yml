@@ -16,6 +16,7 @@ schema:
     table_name: dobjobs
     verify_count: 1_000_000
     fields:
+      jobs1no: bigint
       Job: bigint
       Doc: smallint
       Borough: text
