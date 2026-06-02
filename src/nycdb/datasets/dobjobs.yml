@@ -16,6 +16,7 @@ schema:
     table_name: dobjobs
     verify_count: 1_000_000
     fields:
+      JOBS1NO: integer
       Job: bigint
       Doc: smallint
       Borough: text
@@ -24,6 +25,7 @@ schema:
       Block: text
       Lot: text
       Bin: char(7)
+      TotalConstructionFloorArea: integer
       JobType: text
       JobStatus: text
       JobStatusDescrp: text
@@ -51,6 +53,7 @@ schema:
       CurbCut: boolean
       Other: boolean
       OtherDescription: text
+      WithdrawalFlag: smallint
       ApplicantsFirstName: text
       ApplicantsLastName: text
       ApplicantProfessionalTitle: text
@@ -62,6 +65,9 @@ schema:
       Assigned: date
       Approved: date
       FullyPermitted: date
+      SignoffDate: date
+      SpecialActionStatus: char(1)
+      SpecialActionDate: date
       InitialCost: bigint
       TotalEstFee: bigint
       FeeStatus: text
@@ -95,24 +101,16 @@ schema:
       City: text
       State: text
       Zip: text
-      OwnersPhone: text
-      JobDescription: text
-      DOBRunDate: date
-      JOBS1NO: integer
-      TotalConstructionFloorArea: integer
-      WithdrawalFlag: smallint
-      SignoffDate: date
-      SpecialActionStatus: char(1)
-      SpecialActionDate: date
       BuildingClass: text
+      JobDescription: text
       JobNoGoodCount: smallint
-      GISLATITUDE: numeric
-      GISLONGITUDE: numeric
-      GISCOUNCILDISTRICT: smallint
-      GISCENSUSTRACT: text
-      GISNTANAME: text
-      GISBIN: char(7)
+      LATITUDE: numeric
+      LONGITUDE: numeric
+      COUNCILDISTRICT: smallint
+      CENSUSTRACT: text
+      NTANAME: text
       bbl: char(10)
+      DOBRunDate: date
       id: 'serial PRIMARY KEY'
   -
     table_name: dob_now_jobs
@@ -135,10 +133,10 @@ schema:
       ApplicantsMiddleInitial: text
       ApplicantLastName: text
       OwnersBusinessName: text
-      OwnersStreetName: text
-      OwnersCity: text
-      OwnersState: text
-      OwnersZip: char(5)
+      ApplicantStreetName: text
+      ApplicantCity: text
+      ApplicantState: text
+      ApplicantZip: char(5)
       FilingRepresentativeFirstName: text
       FilingRepresentativeMiddleInitial: numeric
       FilingRepresentativeLastName: text
@@ -149,6 +147,13 @@ schema:
       FilingRepresentativeZip: text
       SprinklerWorkType: bool
       PlumbingWorkType: bool
+      StandpipeWorkType: bool
+      AntennaWorkType: bool
+      SignWorkType: bool
+      CurbCutWorkType: bool
+      FenceWorkType: bool
+      ScaffoldWorkType: bool
+      ShedWorkType: bool
       InitialCost: numeric
       TotalConstructionFloorArea: numeric
       ReviewBuildingCode: text
@@ -172,13 +177,6 @@ schema:
       Built2informationvalue: text
       Built2Ainformationvalue: text
       Built2Binformationvalue: text
-      Standpipe: bool
-      Antenna: bool
-      CurbCut: bool
-      Sign: bool
-      Fence: bool
-      Scaffold: bool
-      Shed: bool
       FilingDate: date
       CurrentStatusDate: date
       FirstPermitDate: date
@@ -193,16 +191,26 @@ schema:
       StructuralWorkType: bool
       SupportofExcavationWorkType: bool
       TemporaryPlaceofAssemblyWorkType: bool
+      GreenRoofWorkType: bool
+      SolarWorkType: bool
+      FullDemolitionWorkType: bool
+      SuspendedScaffoldWorkType: bool
       JobType: text
+      Latitude: numeric
+      Longitude: numeric
+      Postcode: char(5)
+      CouncilDistrict: text
+      CensusTract: text
+      NTA: text
       ApprovedDate: date
       SignoffDate: date
+      ApplicantBusinessName: text
+      OwnerFirstName: text
+      OwnerLastName: text
+      OwnerType: text
+      JobDescription: text
+      FilingReviewType: text
       bbl: char(10)
     skip:
-      # These come from geocoding and are often missing, more than the separate boro/block/lot columns
-      - Postcode
-      - Latitude
-      - Longitude
-      - CouncilDistrict
-      - CensusTract
-      - NTA
-      - BIN
+      # This BBL comes from geocoding and is missing more often than the one we will construct from separate borough/block/lot columns
+      - BBL
