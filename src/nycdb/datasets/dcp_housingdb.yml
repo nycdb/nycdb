@@ -2,6 +2,7 @@
 files:
   -
     url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/housing-project-level/nychdb_24q4_csv.zip
+    url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/housing-database/housing-project-level/nychdb_inactiveincluded_25q4_csv.zip
     dest: dcp_housingdb.zip
 sql:
   - dcp_housingdb.sql

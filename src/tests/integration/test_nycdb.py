@@ -714,10 +714,10 @@ def test_dcp_housingdb(conn):
     )
 
     with conn.cursor(row_factory=dict_row) as curs:
-        curs.execute("select * from dcp_housingdb WHERE jobnumber = '102138820'")
+        curs.execute("select * from dcp_housingdb WHERE jobnumber = '500523980'")
         rec = curs.fetchone()
         assert rec is not None
-        assert rec["latitude"] == Decimal("40.796734999999998")
+        assert rec["latitude"] == Decimal("40.60982279914498")
 
 
 def test_dob_vacate_orders(conn):
