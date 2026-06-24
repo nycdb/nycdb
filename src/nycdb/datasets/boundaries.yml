@@ -1,42 +1,42 @@
 ---
 files:
-  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyad_25a.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/state-assembly/state-assembly/nyad_25a.zip
     dest: nyad_25a.zip
-  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nycg_25a.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/congressional/nycg_25a.zip
     dest: nycg_25a.zip
-  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyss_25a.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/state-senate/nyss_25a.zip
     dest: nyss_25a.zip
-  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nymc_25a.zip
+  - url: ttps://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/municipal-court/nymc_25a.zip
     dest: nymc_25a.zip
-  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nycc_25a.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/city-council/nycc_25a.zip
     dest: nycc_25a.zip
-  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyed_25a.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/election-districts/nyed_25a1.zip
     dest: nyed_25a.zip
-  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nybb_25a.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/borough-boundaries/nybb_25a.zip
     dest: nybb_25a.zip
-  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nycd_25a.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/community-districts/nycd_25a.zip
     dest: nycd_25a.zip
-  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nysd_25a.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/school/nysd_25a.zip
     dest: nysd_25a.zip
-  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nypp_25a.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/police-precincts/nypp_25a.zip
     dest: nypp_25a.zip
-  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyha_25a.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/health-area/nyha_25a.zip
     dest: nyha_25a.zip
-  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyhc_25a.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/health-center/nyhc_25a.zip
     dest: nyhc_25a.zip
-  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyfc_25a.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/fire-companies/nyfc_25a.zip
     dest: nyfc_25a.zip
-  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyfb_25a.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/fire-battalions/nyfb_25a.zip
     dest: nyfb_25a.zip
-  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyfd_25a.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/fire-divisions/nyfd_25a.zip
     dest: nyfd_25a.zip
-  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nynta2020_25a.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/neighborhood-tabulation-areas/nynta2020_25a.zip
     dest: nynta2020_25a.zip
-  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nynta2010_25a.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/neighborhood-tabulation-areas/nynta2020_25a.zip
     dest: nynta2010_25a.zip
-  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyct2020_25a.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/census-tracts/nyct2020_25a.zip
     dest: nyct2020_25a.zip
-  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyct2010_25a.zip
+  - url: https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/census-tracts/nyct2010_25a.zip
     dest: nyct2010_25a.zip
 sql: 
   - boundaries.sql
