@@ -76,6 +76,8 @@ schema:
     ResidFAR: numeric
     CommFAR: numeric
     FacilFAR: numeric
+    AffResFAR: numeric
+    MnfFAR: numeric
     BoroCode: char(1)
     BBL: char(10)
     CondoNo: text
