@@ -103,6 +103,11 @@ schema:
     Notes: text
     BCT2020: text
     BCTCB2020: text
+    MIHOPT1: text
+    MIHOPT2: text
+    MIHOPT3: text
+    MIHOPT4: text
+    TransitZone: text
   skip:
     - mapplutof
     - rpaddate
