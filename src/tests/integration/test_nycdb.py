@@ -884,15 +884,15 @@ def test_dohmh_rodent_inspections(conn):
     dataset = nycdb.Dataset('dohmh_rodent_inspections', args=ARGS)
     dataset.drop()
     dataset.db_import()
-    assert row_count(conn, 'dohmh_rodent_inspections') == 5
+    assert row_count(conn, 'dohmh_rodent_inspections') == 100
     assert has_one_row(conn, "select 1 where to_regclass('public.dohmh_rodent_inspections_bbl_idx') is NOT NULL")
     with conn.cursor(row_factory=dict_row) as curs:
-        curs.execute("select * from dohmh_rodent_inspections WHERE bbl = '1000520021'")
+        curs.execute("select * from dohmh_rodent_inspections WHERE jobidcaseid = 'PC7936281'")
         rec = curs.fetchone()
         assert rec is not None
-        print(rec)
-        assert rec['inspectiondate'].strftime("%Y-%m-%d") == '2021-03-26'
-        assert rec['approveddate'].strftime("%Y-%m-%d") == '2021-03-29'
+        assert rec['jobidcaseid'] == 'PC7936281'
+        assert rec['inspectiondate'].strftime("%Y-%m-%d") == '2022-09-08'
+        assert rec['bbl'] == '2025090010'
 
 
 def test_hpd_aep(conn):
