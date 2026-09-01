@@ -8,24 +8,23 @@ sql:
 schema:
   table_name: dohmh_rodent_inspections
   fields:
+    JobIdCaseId: text
+    InspectionDate: timestamp
     InspectionType: text
-    JobTicketOrWorkOrderId: integer
-    JobId: text
-    JobProgress: integer
-    BoroCode: char(1)
-    Block: char(5)
-    Lot: char(4)
     HouseNumber: text
     StreetName: text
     ZipCode: text
+    Borough: text
+    Result: text
+    LetterType: text
+    Observations: text
+    BoroCode: char(1)
+    Block: char(5)
+    Lot: char(4)
     XCoord: numeric
     YCoord: numeric
     Latitude: numeric
     Longitude: numeric
-    Borough: text
-    InspectionDate: timestamp
-    Result: text
-    ApprovedDate: timestamp
     CommunityBoard: text
     CouncilDistrict: text
     CensusTract: text
