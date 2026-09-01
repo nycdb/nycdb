@@ -8,7 +8,7 @@ For more background information on this project and links to download copies of 
 
 ## Using the cli tool
 
-You will need python 3.6+ and Postgres. The latest version can be installed from pypi with pip:  `python3 -m pip install nycdb`
+You will need Python 3.8+ and Postgres 14+ (these match what `pyproject.toml` and CI test against). The latest released version can be installed from PyPI: `python3 -m pip install nycdb`. PyPI sometimes trails the repo, so if you need an unreleased fix install from source instead.
 
 If the installation is successful, you can view a summary of the tool's options by running `nycdb --help`
 
