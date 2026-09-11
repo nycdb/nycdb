@@ -1077,3 +1077,17 @@ def test_hpd_jurisdiction(conn):
         assert rec is not None
         assert rec['buildingid'] == 510711
         assert rec['streetname'] == '100 AVENUE'
+
+def test_dof_property_charges_balance(conn):
+    dataset = nycdb.Dataset('dof_property_charges_balance', args=ARGS)
+    dataset.drop()
+    dataset.db_import()
+    assert row_count(conn, 'dof_property_charges_balance') == 100
+    assert has_one_row(conn, "select 1 where to_regclass('public.dof_property_charges_balance_bbl_idx') is NOT NULL")
+    assert has_one_row(conn, "select 1 where to_regclass('public.dof_property_charges_balance_parid_idx') is NOT NULL")
+    with conn.cursor(row_factory=dict_row) as curs:
+        curs.execute("select * from dof_property_charges_balance WHERE bbl = '5001310113'")
+        rec = curs.fetchone()
+        assert rec is not None
+        assert rec['code'] == 'CHG'
+        assert rec['sumbal'] == Decimal('2274.05')

@@ -1,0 +1,46 @@
+---
+files:
+  -
+    url: https://data.cityofnewyork.us/api/views/scjx-j6np/rows.csv?accessType=DOWNLOAD
+    dest: dof_property_charges_balance.csv
+sql:
+    - dof_property_charges_balance.sql
+schema:
+  table_name: dof_property_charges_balance
+  verify_count: 100_000_000
+  fields:
+    Rectype: text
+    Parid: text
+    Code: text
+    Projno: text
+    AccountId: text
+    DtPdBegin: date
+    DtPdEnd: date
+    Valclass: text
+    Luc: text
+    TransCtr: text
+    PriorOwnerFlag: text
+    CityOwnedFlag: text
+    HiLoInt: text
+    PetInd: text
+    ActInstall: text
+    IntAgree: text
+    TypeAcct: integer
+    SumLiab: numeric
+    SumColl: numeric
+    SumInt: numeric
+    SumDsc: numeric
+    SumBal: numeric
+    UpDate: date
+    DueDate: date
+    PostThru: date
+    DtGrace: date
+    IdBlock: text
+    IdLot: text
+    Rolltype: text
+    Taxyear: integer
+    Prioryear: integer
+    Cycle: text
+    Accode: text
+    Extractdt: date
+    bbl: char(10)

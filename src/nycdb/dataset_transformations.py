@@ -9,6 +9,7 @@ from .transform import hpd_registrations_address_cleanup, hpd_contacts_address_c
 from .datasets import datasets
 from .annual_sales import AnnualSales
 from .dof_421a import iter_421a
+from .utility import merge
 
 def ecb_violations(dataset):
     return with_bbl(to_csv(dataset.files[0].dest), borough='boro')
@@ -310,3 +311,9 @@ def executed_evictions(dataset):
 
 def hpd_jurisdiction(dataset):
     return with_bbl(to_csv(dataset.files[0].dest), borough='boroid')
+
+
+def dof_property_charges_balance(dataset):
+    for row in to_csv(dataset.files[0].dest):
+        parid = row.get('parid') or ''
+        yield merge(row, {'bbl': parid[:10]})
