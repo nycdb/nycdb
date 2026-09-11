@@ -29,6 +29,7 @@ Residents, lawyers, tenants, and organizers who want to use data in their strugg
 - [Department of Finance Property Tax Exemptions](https://github.com/nycdb/nycdb/wiki/Dataset:-DOF-Exemptions)
 - [Tax bills - Rent Stabilization Unit Counts](https://github.com/nycdb/nycdb/wiki/Dataset:-Rent-Stabilized-Buildings) ([John Krauss](https://github.com/talos/nyc-stabilization-unit-counts) and [Atul Varma's](https://github.com/JustFixNYC/nyc-doffer) data)
 - [DOF Tax Lien Sale List](https://github.com/nycdb/nycdb/wiki/Dataset:-DOF-Tax-Lien-Sale-List)
+- [DOF Property Valuation and Assessments (Tax Classes 1–4)](https://data.cityofnewyork.us/City-Government/Property-Valuation-and-Assessment-Data-Tax-Classes-1-2-3-4/8y4t-faws) — Real estate assessment data for property tax, exemptions, and abatements
 - [ACRIS](https://github.com/nycdb/nycdb/wiki/Dataset:-ACRIS)
 - [Executed Evictions](https://github.com/nycdb/nycdb/wiki/Dataset:-Executed-Evictions) - Direct from Open Data
 - [Marshal Evictions](https://github.com/nycdb/nycdb/wiki/Dataset:-Marshal-Evictions) - From [DOI](https://data.cityofnewyork.us/City-Government/Evictions/6z8x-wfk4) via ANHD's [Displacement Alert Project](https://github.com/ANHD-NYC-CODE/anhd-council-backend) and [API](https://api.displacementalert.org/docs/) (built by [Jade Ahking](https://github.com/0xStarcat))

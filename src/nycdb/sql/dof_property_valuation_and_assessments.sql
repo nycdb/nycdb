@@ -1,1 +1,3 @@
-CREATE INDEX dof_property_valuation_and_assessments_bbl_idx on dof_property_valuation_and_assessments(bbl)
+CREATE INDEX dof_property_valuation_and_assessments_bbl_idx on dof_property_valuation_and_assessments(bbl);
+CREATE INDEX dof_property_valuation_and_assessments_parid_idx on dof_property_valuation_and_assessments(parid);
+CREATE INDEX dof_property_valuation_and_assessments_year_idx on dof_property_valuation_and_assessments(year);

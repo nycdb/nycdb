@@ -7,7 +7,7 @@ sql:
   - dof_property_valuation_and_assessments.sql
 schema:
   table_name: dof_property_valuation_and_assessments
-  verify_count: 6_000_000
+  verify_count: 11_700_000
   fields:
     Parid: text
     Boro: char(1)
