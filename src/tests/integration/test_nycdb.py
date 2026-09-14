@@ -1006,10 +1006,14 @@ def test_dof_property_valuation_and_assessments(conn):
     dataset.db_import()
     assert row_count(conn, 'dof_property_valuation_and_assessments') == 5
     assert has_one_row(conn, "select 1 where to_regclass('public.dof_property_valuation_and_assessments_bbl_idx') is NOT NULL")
+    assert has_one_row(conn, "select 1 where to_regclass('public.dof_property_valuation_and_assessments_parid_idx') is NOT NULL")
+    assert has_one_row(conn, "select 1 where to_regclass('public.dof_property_valuation_and_assessments_year_idx') is NOT NULL")
     with conn.cursor(row_factory=dict_row) as curs:
         curs.execute("select * from dof_property_valuation_and_assessments WHERE bbl = '1000010010'")
         rec = curs.fetchone()
         assert rec is not None
+        assert rec['parid'] == '1000010010'
+        assert rec['year'] == 2024
         assert rec['extracrdt'].strftime("%Y-%m-%d") == '2023-05-17'
 
 
