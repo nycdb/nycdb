@@ -1,0 +1,2 @@
+CREATE INDEX dof_property_charges_balance_bbl_idx on dof_property_charges_balance (bbl);
+CREATE INDEX dof_property_charges_balance_parid_idx on dof_property_charges_balance (parid);
