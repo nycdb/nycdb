@@ -1,10 +1,10 @@
 ---
 files:
   -
-    url: https://furmancenter.org/files/CoreData/FC_SHD_bbl_analysis_2025-05-13.csv
+    url: https://www.furmancenter.org/files/CoreData/FC_SHD_bbl_analysis_2026-05-05.csv
     dest: fc_shd_building.csv
   -
-    url: https://furmancenter.org/files/CoreData/FC_SHD_subsidy_analysis_2025-05-13.csv
+    url: https://www.furmancenter.org/files/CoreData/FC_SHD_subsidy_analysis_2026-05-05.csv
     dest: fc_shd_subsidy.csv
 sql:
     - fc_shd.sql
@@ -35,6 +35,10 @@ schema:
       TaxDelinquency: boolean
       NetIncSqft: numeric
       GrossExpSqft: numeric
+      Fld2020: text
+      Fld2050: text
+      FldFirm: text
+      HeZones: text
       Latitude: numeric
       Longitude: numeric
       IncTarUnits0Bed: integer
@@ -46,6 +50,7 @@ schema:
       DataDof: boolean
       DataHcrlihtc: boolean
       DataHpd: boolean
+      DataHpdlihtc: boolean
       DataHudcon: boolean
       DataHudfin: boolean
       DataHudlihtc: boolean
@@ -174,6 +179,7 @@ schema:
       DataDof: boolean
       DataHcrlihtc: boolean
       DataHpd: boolean
+      DataHpdlihtc: boolean
       DataHudcon: boolean
       DataHudfin: boolean
       DataHudlihtc: boolean
