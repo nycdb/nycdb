@@ -5,8 +5,10 @@ files:
 sql: 
   - zipcodes.sql
 schema:
-  - table_name: zipcodes
+  - table_name: zipcodes_orig
     path: nyc-zip-codes/ZIP_CODE_040114.shp
     dest: nyc-zip-codes.zip
     type: shapefile
     srid: 2263
+  - table_name: zipcodes
+    verify_count: 263
