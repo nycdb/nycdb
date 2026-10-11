@@ -30,6 +30,17 @@ You can also verify all datasets: ` nycdb --verify-all `
 
 By default the downloaded data files are is stored in `./data`. Use `--root-dir` to change the location of the data directory.
 
+#### Socrata app token
+
+Datasets from NYC Open Data (data.cityofnewyork.us) and data.ny.gov are downloaded from the Socrata SODA3 `query.csv` endpoint. Socrata requires an [app token](https://dev.socrata.com/docs/app-tokens.html) or user authentication for that endpoint. Create a token in your Socrata account and set it in the environment:
+
+```
+export NYCDB_SOCRATA_APP_TOKEN=<your app token>
+nycdb --download hpd_violations
+```
+
+nycdb sends the token in the `X-App-Token` header, only to `https://data.cityofnewyork.us/api/v3/views/<id>/query.csv` and `https://data.ny.gov/api/v3/views/<id>/query.csv`. It is not sent to other downloads, and those requests do not follow redirects. Do not put the token in a dataset file or URL. Without the token, nycdb logs a warning and tries the download without it. If Socrata refuses the request (HTTP 401 or 403), the download fails and no file is saved.
+
 You can export a `.sql` file for any dataset by using the `--dump` command
 
 ## Development

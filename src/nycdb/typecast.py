@@ -52,6 +52,10 @@ INTEGER_TYPES = ["integer", "smallint", "bigint", "int"]
 # For 2-digit year values, decide when 19XX or 20XX
 CENTURY_THRESHOLD = 40
 
+# Socrata SODA3 exports dates as 2018-12-31T00:00:00.000
+ISO_DATETIME = re.compile(r"^(\d{4}-\d{1,2}-\d{1,2})T\d{2}:\d{2}:\d{2}(\.\d+)?$")
+ISO_TIMESTAMP = re.compile(r"^(\d{4})-(\d{1,2})-(\d{1,2})T(\d{2}):(\d{2}):(\d{2})(?:\.(\d+))?$")
+
 
 def downcase_fields_and_values(d):
     """downcase keys and values in dictionary"""
@@ -136,6 +140,10 @@ def date(x):
 
     if isinstance(x, (datetime.date, datetime.datetime)):
         return x
+    # checks for 2018-12-31T00:00:00.000 date input
+    iso_datetime = ISO_DATETIME.match(x)
+    if iso_datetime:
+        x = iso_datetime.group(1)
     # checks for 2018-12-31 date input
     if re.match(r"\d{4}-\d{1,2}-\d{1,2}", x):
         try:
@@ -179,13 +187,23 @@ def time(x):
 def timestamp(x):
     """
     Converts string into datetime.datetime
-    Example inputs: '2020-12-31 13:01:01', '2020-12-31 01:01:01 PM'
+    Example inputs: '2020-12-31 13:01:01', '2020-12-31 01:01:01 PM',
+    '2020-12-31T13:01:01.500'
     """
     if x is None:
         return None
 
     if isinstance(x, datetime.datetime):
         return x
+    # checks for 2020-12-31T13:01:01.500 timestamp input
+    iso_timestamp = ISO_TIMESTAMP.match(x.strip())
+    if iso_timestamp:
+        *fields, fraction = iso_timestamp.groups()
+        microsecond = int((fraction or "0")[:6].ljust(6, "0"))
+        try:
+            return datetime.datetime(*map(int, fields), microsecond)
+        except ValueError:
+            return None
     x_parts = x.strip().split(" ", 1)
     if len(x_parts) == 2:
         try:

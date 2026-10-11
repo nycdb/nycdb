@@ -1,7 +1,7 @@
 ---
 files:
   -
-    url: https://data.cityofnewyork.us/api/views/64uk-42ks/rows.csv?accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/v3/views/64uk-42ks/query.csv
     dest: pluto_latest.csv
 sql:
   - pluto_latest.sql

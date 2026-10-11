@@ -1,7 +1,7 @@
 ---
 files:
   -
-    url: https://data.cityofnewyork.us/api/views/ygpa-z7cr/rows.csv?accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/v3/views/ygpa-z7cr/query.csv
     dest: hpd_complaints_and_problems.csv
 sql:
   - hpd_complaints.sql

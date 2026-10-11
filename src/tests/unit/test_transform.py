@@ -19,6 +19,23 @@ def test_to_csv(tmpdir):
     assert output_list[1] == {'name': 'bob', 'borough': 'bronx', 'block': '3', 'lot': '4'}
 
 
+def test_to_csv_drops_socrata_system_columns(tmpdir):
+    f = tmpdir.join('test.csv')
+    f.write('":id","violation_id","boro",":updated_at"\n'
+            '"row-ab12","1","BRONX","2026-10-08T20:07:34.263Z"\n')
+
+    output_list = list(nycdb.transform.to_csv(f.strpath, header_replacements={'boro': 'borough'}))
+    assert output_list == [{'violationid': '1', 'borough': 'BRONX'}]
+
+
+def test_to_csv_system_column_does_not_replace_data_column(tmpdir):
+    f = tmpdir.join('test.csv')
+    f.write('"id","name",":id"\n"7","alice","row-ab12"\n')
+
+    output_list = list(nycdb.transform.to_csv(f.strpath))
+    assert output_list == [{'id': '7', 'name': 'alice'}]
+
+
 def test_zip_to_csv():
     test_csv_file = os.path.join(os.path.dirname(__file__), 'cats.zip')
     out = list(nycdb.transform.to_csv(nycdb.transform.extract_csvs_from_zip(test_csv_file)))
@@ -52,6 +69,13 @@ def test_flip_numbers_nothing_to_flip():
 def test_flip_numbers():
     assert nycdb.transform.flip_numbers('1one') == 'one1'
     assert nycdb.transform.flip_numbers('123one') == 'one123'
+
+
+def test_iso_dates_to_text():
+    table = [{'a': '2023-01-04T00:00:00.000', 'b': '2019-04-17T00:00:00.000'},
+             {'a': '01/04/2023', 'b': None}]
+    out = list(nycdb.transform.iso_dates_to_text(nycdb.transform.iso_dates_to_text(table, ['a']), ['b'], '%m/%Y'))
+    assert out == [{'a': '01/04/2023', 'b': '04/2019'}, {'a': '01/04/2023', 'b': None}]
 
 
 def test_skip_fields():

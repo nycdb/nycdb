@@ -1,7 +1,7 @@
 ---
 files:
   -
-    url: https://data.cityofnewyork.us/api/views/9rz4-mjek/rows.csv?accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/v3/views/9rz4-mjek/query.csv
     dest: dof_tax_lien_sale_list.csv
 sql:
     - dof_tax_lien_sale_list.sql

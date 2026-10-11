@@ -83,6 +83,14 @@ def test_date_invalid_iso8601_string():
     assert typecast.date('1994-02-31') is None
 
 
+def test_date_socrata_iso8601_datetime():
+    assert typecast.date('2026-09-30T00:00:00.000') == datetime.date(2026, 9, 30)
+    assert typecast.date('2026-09-30T13:45:01') == datetime.date(2026, 9, 30)
+    assert typecast.date('1994-02-31T00:00:00.000') is None
+    assert typecast.date('2026-09-30T00:00:00.000Z') is None
+    assert typecast.date('2026-09-30 00:00:00') is None
+
+
 def test_date_accepts_datetime():
     assert typecast.date(datetime.date(1925, 5, 1)) == datetime.date(1925, 5, 1)
 
@@ -126,6 +134,21 @@ def test_timestamp_bad_str():
     assert typecast.timestamp('2020-02-31 23:30:00') == None
     assert typecast.timestamp('05/13/2020 23:30:00 AM XYZ') == None
     assert typecast.timestamp('WHATHAPP') == None
+
+def test_timestamp_socrata_iso8601():
+    assert typecast.timestamp('2023-09-21T10:54:00.000') == datetime.datetime(2023, 9, 21, 10, 54, 0)
+    assert typecast.timestamp('2023-09-21T10:54:07.125') == datetime.datetime(2023, 9, 21, 10, 54, 7, 125000)
+    assert typecast.timestamp('2023-09-21T10:54:07') == datetime.datetime(2023, 9, 21, 10, 54, 7)
+    assert typecast.timestamp('09/21/2023 10:54:00 AM') == datetime.datetime(2023, 9, 21, 10, 54, 0)
+
+
+def test_timestamp_invalid_socrata_iso8601():
+    assert typecast.timestamp('2023-02-31T10:54:00.000') is None
+    assert typecast.timestamp('2023-09-21T25:54:00.000') is None
+    assert typecast.timestamp('2023-09-21T10:54:00.000Z') is None
+    assert typecast.timestamp('2023-09-21T') is None
+    assert typecast.timestamp('') is None
+
 
 def test_timestamp_none():
     assert typecast.timestamp(None) is None

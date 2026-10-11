@@ -215,6 +215,7 @@ def generate_yaml_code(dataset: str, csvpath: Path) -> str:
         [
             f"{to_pascal_case(name)}: {guess_data_type(name, value)}"
             for name, value in zip(header_row, value_row)
+            if not name.startswith(":")  # Socrata system columns, dropped by to_csv
         ]
     )
     return cleanup_text(

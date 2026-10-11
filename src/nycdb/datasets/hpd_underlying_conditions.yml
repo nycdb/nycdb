@@ -1,7 +1,7 @@
 ---
 files:
   -
-    url: https://data.cityofnewyork.us/api/views/xpbf-ithr/rows.csv?accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/v3/views/xpbf-ithr/query.csv
     dest: hpd_underlying_conditions.csv
 sql:
     - hpd_underlying_conditions.sql

@@ -1,10 +1,10 @@
 ---
 files:
   -
-    url: https://data.cityofnewyork.us/api/views/hg8x-zxpr/rows.csv?accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/v3/views/hg8x-zxpr/query.csv
     dest: hpd_affordable_building.csv
   -
-    url: https://data.cityofnewyork.us/api/views/hq68-rnsi/rows.csv?accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/v3/views/hq68-rnsi/query.csv
     dest: hpd_affordable_project.csv
 schema:
   -

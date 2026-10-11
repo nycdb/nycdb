@@ -4,7 +4,7 @@ Each function in this file is the name of a table or dataset.
 import logging
 import itertools
 
-from .transform import with_bbl, to_csv, stream_files_from_zip, extract_csv_from_zip, skip_fields
+from .transform import with_bbl, to_csv, stream_files_from_zip, extract_csv_from_zip, skip_fields, iso_dates_to_text
 from .transform import hpd_registrations_address_cleanup, hpd_contacts_address_cleanup
 from .datasets import datasets
 from .annual_sales import AnnualSales
@@ -38,7 +38,14 @@ def _pluto(dataset):
     extension = 'txt' if dataset.name == 'pluto_10v1' else 'csv'
 
     if dataset.name == 'pluto_latest':
-        pluto_generator = to_csv(dataset.files[0].dest, header_replacements={"taxblock": "block", "taxlot": "lot"})
+        pluto_generator = to_csv(dataset.files[0].dest, header_replacements={
+            "taxblock": "block",
+            "taxlot": "lot",
+            "cd": "communityboard",
+            "ct2010": "censustract2010",
+            "council": "councildistrict",
+            "zipcode": "postcode",
+        })
     else:
         pluto_generator = to_csv(stream_files_from_zip(dataset.files[0].dest, extension=extension))
 
@@ -72,7 +79,7 @@ def dob_complaints(dataset):
 
 
 def hpd_violations(dataset):
-    return to_csv(dataset.files[0].dest)
+    return to_csv(dataset.files[0].dest, header_replacements={'boro': 'borough', 'zip': 'postcode'})
 
 
 def hpd_registrations(dataset):
@@ -84,15 +91,34 @@ def hpd_contacts(dataset):
 
 
 def dof_sales(dataset):
-    return with_bbl(to_csv(dataset.files[0].dest))
+    return with_bbl(to_csv(dataset.files[0].dest, header_replacements={'buildingclassattimeof': 'buildingclassattimeofsale'}))
 
 
 def dobjobs(dataset):
-    return with_bbl(to_csv(dataset.files[0].dest))
+    header_replacements = {
+        'gislatitude': 'latitude',
+        'gislongitude': 'longitude',
+        'giscouncildistrict': 'councildistrict',
+        'giscensustract': 'censustract',
+        'gisntaname': 'nta',
+    }
+    return with_bbl(to_csv(dataset.files[0].dest, header_replacements=header_replacements))
 
 
 def dob_now_jobs(dataset):
-    return with_bbl(skip_fields(to_csv(dataset.files[1].dest), [s.lower() for s in dataset.schemas[1]['skip']]))
+    header_replacements = {
+        'city': 'applicantcity',
+        'state': 'applicantstate',
+        'zip': 'applicantzip',
+        'standpipe': 'standpipeworktype',
+        'antenna': 'antennaworktype',
+        'sign': 'signworktype',
+        'curbcut': 'curbcutworktype',
+        'fence': 'fenceworktype',
+        'scaffold': 'scaffoldworktype',
+        'shed': 'shedworktype',
+    }
+    return with_bbl(skip_fields(to_csv(dataset.files[1].dest, header_replacements=header_replacements), [s.lower() for s in dataset.schemas[1]['skip']]))
 
 def rentstab(dataset):
     return to_csv(dataset.files[0].dest)
@@ -106,9 +132,44 @@ def rentstab_summary(dataset):
     return to_csv(dataset.files[0].dest)
 
 
+# NYC Open Data's query.csv export names some ACRIS columns differently
+# from the display names that the table columns are based on.
+ACRIS_HEADER_REPLACEMENTS = {
+    'real_property_master': {
+        'recordedborough': 'borough',
+        'documentdate': 'docdate',
+        'documentamt': 'docamount',
+        'recordeddatetime': 'recordedfiled',
+        'reelyr': 'reelyear',
+        'reelpg': 'reelpage',
+        'percenttrans': 'pcttransferred',
+    },
+    'real_property_remarks': {'sequencenumber': 'remarklinenbr', 'remarktext': 'remarktextline'},
+    'personal_property_legals': {'addrunit': 'unit'},
+    'personal_property_master': {
+        'recordedborough': 'borough',
+        'documentamt': 'docamount',
+        'recordeddatetime': 'recordedfiled',
+        'ucccollateral': 'collateral',
+        'fedtaxserialnbr': 'slid',
+        'fedtaxassessmentdate': 'assessmentdate',
+        'rpttlnbr': 'rptt',
+        'reelyr': 'reelyear',
+        'reelpg': 'reelpage',
+        'filenbr': 'filenumber',
+    },
+    'personal_property_references': {
+        'crfn': 'referencebycrfn',
+        'docidref': 'referencebydocid',
+        'filenbr': 'referencebyfilenbr',
+    },
+    'personal_property_remarks': {'sequencenumber': 'remarklinenbr', 'remarktext': 'remarktextline'},
+}
+
+
 def acris(dataset, schema):
     dest_file = next(filter(lambda f: schema['table_name'] in f.dest, dataset.files))
-    _to_csv = to_csv(dest_file.dest)
+    _to_csv = to_csv(dest_file.dest, header_replacements=ACRIS_HEADER_REPLACEMENTS.get(schema['table_name'], {}))
     if 'skip' in schema:
         return skip_fields(_to_csv, [s.lower() for s in schema['skip']])
     else:
@@ -132,7 +193,7 @@ def pad_adr(dataset):
 
 
 def j51_exemptions(dataset):
-    return with_bbl(to_csv(dataset.files[0].dest), borough='boroughcode')
+    return with_bbl(to_csv(dataset.files[0].dest, header_replacements={'b': 'boroughcode', 'e': 'easement'}), borough='boroughcode')
 
 
 def marshal_evictions(dataset, schema):
@@ -151,11 +212,18 @@ def nycha_bbls_24(dataset):
 
 
 def hpd_litigations(dataset):
-    return to_csv(dataset.files[0].dest)
+    return to_csv(dataset.files[0].dest, header_replacements={'boroid': 'boro', 'casejudgement': 'openjudgement'})
 
 
 def hpd_vacateorders(dataset):
-    return to_csv(dataset.files[0].dest)
+    header_replacements = {
+        'boroshortname': 'borough',
+        'housenumber': 'number',
+        'streetname': 'street',
+        'actualrescinddate': 'rescinddate',
+        'postoce': 'postcode',
+    }
+    return to_csv(dataset.files[0].dest, header_replacements=header_replacements)
 
 
 def oca(dataset, schema):
@@ -180,6 +248,9 @@ def speculation_watch_list(dataset):
     headers_to_replace = {
         "censustract2020from2023": "censustract2020",
         "neighborhoodtabulationareanta2020from2023": "nta2020",
+        "censustract": "censustract2020",
+        "nta": "nta2020",
+        "geocodedcolumn": "location1",
     }
     fields_to_skip = [s.lower() for s in dataset.dataset["schema"]["skip"]]
     return skip_fields(
@@ -189,15 +260,35 @@ def speculation_watch_list(dataset):
 
 
 def hpd_affordable_building(dataset):
-    return to_csv(dataset.files[0].dest)
+    header_replacements = {
+        'housenumber': 'number',
+        'streetname': 'street',
+        'neighborhoodtabulationarea': 'ntaneighborhoodtabulationarea',
+        'extendedaffordabilitystatus': 'extendedaffordabilityonly',
+    }
+    return to_csv(dataset.files[0].dest, header_replacements=header_replacements)
 
 
 def hpd_affordable_project(dataset):
-    return to_csv(dataset.files[1].dest)
+    header_replacements = {
+        'extendedaffordabilitystatus': 'extendedaffordabilityonly',
+        'verylowincome': 'verylowincomeunits',
+        'moderateincome': 'moderateincomeunits',
+        'middleincome': 'middleincomeunits',
+        'other': 'otherincomeunits',
+    }
+    return to_csv(dataset.files[1].dest, header_replacements=header_replacements)
 
 
 def hpd_conh(dataset):
-    return to_csv(dataset.files[0].dest, header_replacements={"neighborhoodtabulationareanta2020": "nta"})
+    header_replacements = {
+        "neighborhoodtabulationareanta2020": "nta",
+        "aeporder": "dischargedaep",
+        "zipcode": "postcode",
+        "censustract": "censustract2020",
+        "ntaneighborhoodtabulation": "nta",
+    }
+    return to_csv(dataset.files[0].dest, header_replacements=header_replacements)
 
 
 def dcp_housingdb(dataset):
@@ -209,12 +300,12 @@ def dob_vacate_orders(dataset):
 
 
 def dof_tax_lien_sale_list(dataset):
-    return with_bbl(to_csv(dataset.files[0].dest))
+    return with_bbl(iso_dates_to_text(to_csv(dataset.files[0].dest), ['month'], '%m/%Y'))
 
 
 def dob_certificate_occupancy(dataset):
     fields_to_skip = [s.lower() for s in dataset.schemas[0].get('skip')]
-    return with_bbl(skip_fields(to_csv(dataset.files[0].dest), fields_to_skip))
+    return with_bbl(skip_fields(to_csv(dataset.files[0].dest, header_replacements={'housenumber': 'number', 'streetname': 'street'}), fields_to_skip))
 
 def dob_foil_certificate_occupancy(dataset):
     header_replacements = {
@@ -241,7 +332,12 @@ def dob_foil_certificate_occupancy(dataset):
 
 def dob_now_certificate_occupancy(dataset):
     fields_to_skip = [s.lower() for s in dataset.schemas[2].get('skip')]
-    return skip_fields(to_csv(dataset.files[2].dest), fields_to_skip)
+    header_replacements = {
+        'citycouncildistrict': 'councildistrict',
+        'censustract2010': 'censustract',
+        'ntaname': 'nta',
+    }
+    return skip_fields(to_csv(dataset.files[2].dest, header_replacements=header_replacements), fields_to_skip)
 
 
 def hpd_hwo_charges(dataset):
@@ -261,7 +357,7 @@ def hpd_fee_charges(dataset):
 
 
 def dob_safety_violations(dataset):
-    return with_bbl(to_csv(dataset.files[0].dest), borough='borough')
+    return with_bbl(to_csv(dataset.files[0].dest, header_replacements={'zip': 'postcode'}), borough='borough')
 
 
 def dhs_daily_shelter_count(dataset):
@@ -271,7 +367,7 @@ def dhs_daily_shelter_count(dataset):
 def dohmh_rodent_inspections(dataset):
     return with_bbl(
         skip_fields(
-            to_csv(dataset.files[0].dest),
+            to_csv(dataset.files[0].dest, header_replacements={'jobid': 'jobidcaseid'}),
             [s.lower() for s in dataset.dataset["schema"]["skip"]],
         ),
         borough="borocode",
@@ -279,17 +375,29 @@ def dohmh_rodent_inspections(dataset):
 
 
 def hpd_aep(dataset):
-    return to_csv(dataset.files[0].dest, header_replacements={'ofbcviolationsatstart': 'bcviolationsatstart'})
+    header_replacements = {
+        'ofbcviolationsatstart': 'bcviolationsatstart',
+        'boro': 'borough',
+        'phn': 'number',
+        'streetaddress': 'street',
+    }
+    return to_csv(dataset.files[0].dest, header_replacements=header_replacements)
 
 
 def hpd_underlying_conditions(dataset):
-    return to_csv(dataset.files[0].dest)
+    header_replacements = {
+        'phn': 'numberphn',
+        'streetname': 'street',
+        'censustract': 'censustract2020',
+        'nta': 'nta2020',
+    }
+    return iso_dates_to_text(to_csv(dataset.files[0].dest, header_replacements=header_replacements), ['orderissuedate'])
 
 def hpd_ll44_buildings(dataset):
-    return to_csv(dataset.files[0].dest)
+    return to_csv(dataset.files[0].dest, header_replacements={'boroid': 'borough', 'communityboardcb': 'communityboard'})
 
 def hpd_ll44_projects(dataset):
-    return to_csv(dataset.files[1].dest)
+    return to_csv(dataset.files[1].dest, header_replacements={'programname': 'programgroup'})
 
 def hpd_ll44_tax_incentive(dataset):
     return to_csv(dataset.files[2].dest)
@@ -302,11 +410,25 @@ def fc_shd_subsidy(dataset):
     return to_csv(dataset.files[1].dest)
 
 def dos_active_corporations(dataset):
-    return to_csv(dataset.files[0].dest)
+    header_replacements = {
+        'chairmanname': 'ceoname',
+        'chairmanaddress1': 'ceoaddress1',
+        'chairmanaddress2': 'ceoaddress2',
+        'chairmancity': 'ceocity',
+        'chairmanstate': 'ceostate',
+        'chairmanzip': 'ceozip',
+    }
+    return to_csv(dataset.files[0].dest, header_replacements=header_replacements)
 
 
 def executed_evictions(dataset):
-    return to_csv(dataset.files[0].dest)
+    header_replacements = {
+        'evictionaptnum': 'evictionapartmentnumber',
+        'residentialcommercialind': 'residentialcommercial',
+        'evictionzip': 'evictionpostcode',
+        'evictionpossession': 'evictionlegalpossession',
+    }
+    return to_csv(dataset.files[0].dest, header_replacements=header_replacements)
 
 
 def hpd_jurisdiction(dataset):

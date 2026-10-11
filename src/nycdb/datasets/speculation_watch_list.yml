@@ -1,6 +1,6 @@
 ---
 files:
-  - url: https://data.cityofnewyork.us/api/views/adax-9mit/rows.csv?accessType=DOWNLOAD
+  - url: https://data.cityofnewyork.us/api/v3/views/adax-9mit/query.csv
     dest: speculation_watch_list.csv
 schema:
   table_name: speculation_watch_list
