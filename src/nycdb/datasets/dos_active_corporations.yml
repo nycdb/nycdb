@@ -1,7 +1,7 @@
 ---
 files:
   -
-    url: https://data.ny.gov/api/views/n9v6-gdp6/rows.csv?accessType=DOWNLOAD
+    url: https://data.ny.gov/api/v3/views/n9v6-gdp6/query.csv
     dest: dos_active_corporations.csv
 sql:
     - dos_active_corporations.sql

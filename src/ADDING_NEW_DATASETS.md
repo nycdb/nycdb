@@ -38,11 +38,13 @@ For the DOB ECB Violations (the dataset we're adding in this example), when you 
 Make note of the last part of this path - `6bgk-3dad` - this is the dataset's ID code.
 
 
-The raw `.csv` download link for this the entire dataset is `https://data.cityofnewyork.us/api/views/6bgk-3dad/rows.csv?accessType=DOWNLOAD`.
+The raw `.csv` download link for this the entire dataset is `https://data.cityofnewyork.us/api/v3/views/6bgk-3dad/query.csv`.
 
 Note how the code `6bgk-3dad` was included after the part of the url that says `views`.
 
 For any other NY Open Data dataset, you'll need to use the link above but replace the dataset ID code with the correct one.
+
+Use this `query.csv` link rather than the older `api/views/.../rows.csv?accessType=DOWNLOAD` link, which stops working when Socrata removes its SODA1 API in December 2026. Its column names are the API field names shown on the dataset's API page (for example `ecb_violation_number`), dates look like `2024-01-31T00:00:00.000`, and the system columns that begin with `:` (such as `:id`) are dropped when the file is loaded. Avoid the `export.csv` link: it formats numbers for display, so `1234` can arrive as `1,234`.
 
 
 ### Step 2 - tell NYCDB how to manage the files
@@ -54,7 +56,7 @@ Make a new file in `src/nycdb/datasets` called `ecb_violations.yml` and paste th
 ---
 files:
   -
-    url: https://data.cityofnewyork.us/api/views/6bgk-3dad/rows.csv?accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/v3/views/6bgk-3dad/query.csv
     dest: ecb_violations.csv
 ```
 
@@ -117,7 +119,7 @@ For this example, we'll fill out the rest of the `ecb_violations.yml` configurat
 ---
 files:
   -
-    url: https://data.cityofnewyork.us/api/views/6bgk-3dad/rows.csv?accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/v3/views/6bgk-3dad/query.csv
     dest: ecb_violations.csv
 schema:
   table_name: ecb_violations

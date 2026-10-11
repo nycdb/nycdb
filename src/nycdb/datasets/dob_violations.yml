@@ -1,7 +1,7 @@
 ---
 files:
   -
-    url: https://data.cityofnewyork.us/api/views/3h2n-5cm9/rows.csv?accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/v3/views/3h2n-5cm9/query.csv
     dest: dob_violations.csv
 schema:
   table_name: dob_violations

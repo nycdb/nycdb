@@ -1,7 +1,7 @@
 ---
 files:
   -
-    url: https://data.cityofnewyork.us/api/views/6z8x-wfk4/rows.csv?accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/v3/views/6z8x-wfk4/query.csv
     dest: executed_evictions.csv
 sql:
     - executed_evictions.sql

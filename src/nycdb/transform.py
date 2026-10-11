@@ -1,4 +1,5 @@
 import csv
+import datetime
 import io
 import re
 import types
@@ -6,6 +7,7 @@ from zipfile import ZipFile
 
 from .address import normalize_street, normalize_street_number, normalize_apartment
 from .bbl import bbl
+from .typecast import ISO_DATETIME
 from .utility import merge
 
 invalid_header_chars = ["\n", "\r", ' ', '-', '#', '.', "'", '"', '_', '/', '(', ')', ':', '+']
@@ -104,16 +106,43 @@ def to_csv(file_path_or_generator, header_replacements={}):
         raise ValueError("to_csv accepts Strings or Generators")
 
     with f:
-        headers = clean_headers(f.readline())
+        header_line = f.readline()
+        headers = clean_headers(header_line)
         headers = [header_replacements[h] if header_replacements.get(h) else h for h in headers]
             #replace headers with table replacements and return new headers
+
+        # Socrata's SODA3 exports (e.g. NYC Open Data query.csv) add system
+        # columns such as ":id" and ":updated_at" that are not dataset fields.
+        # They are renamed to ":<index>", which clean_headers never produces, and dropped.
+        system_columns = []
+        for i, h in enumerate(header_line.split(',')):
+            if h.strip().strip('"').startswith(':'):
+                headers[i] = ':{}'.format(i)
+                system_columns.append(headers[i])
+
         for row in csv.DictReader(f, fieldnames=headers):
+            for name in system_columns:
+                del row[name]
             yield row
 
 
 def with_bbl(table, borough='borough', block='block', lot='lot'):
     for row in table:
         yield merge(row, {'bbl': bbl(row[borough], row[block], row[lot])})
+
+def iso_dates_to_text(table, fields, date_format='%m/%d/%Y'):
+    """
+    Socrata's SODA3 query.csv writes dates as 2023-01-04T00:00:00.000.
+    For date columns that are stored as text, this keeps the format of
+    the old rows.csv export (by default 01/04/2023).
+    """
+    for row in table:
+        for f in fields:
+            match = ISO_DATETIME.match(row.get(f) or '')
+            if match:
+                row[f] = datetime.datetime.strptime(match.group(1), '%Y-%m-%d').strftime(date_format)
+        yield row
+
 
 def skip_fields(table, fields_to_skip):
     for row in table:

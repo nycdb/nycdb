@@ -1,10 +1,10 @@
 ---
 files:
   -
-    url: https://data.cityofnewyork.us/api/views/ic3t-wcy2/rows.csv?accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/v3/views/ic3t-wcy2/query.csv
     dest: dobjobs.csv
   -
-    url: https://data.cityofnewyork.us/api/views/w9ak-ipjd/rows.csv?accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/v3/views/w9ak-ipjd/query.csv
     dest: dob_now_jobs.csv
 sql:
   - dobjobs/add_columns.sql

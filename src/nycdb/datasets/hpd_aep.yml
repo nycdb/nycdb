@@ -1,7 +1,7 @@
 ---
 files:
   -
-    url: https://data.cityofnewyork.us/api/views/hcir-3275/rows.csv?accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/v3/views/hcir-3275/query.csv
     dest: hpd_aep.csv
 sql:
     - hpd_aep.sql

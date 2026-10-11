@@ -1,7 +1,7 @@
 ---
 files:
   -
-    url: https://data.cityofnewyork.us/api/views/p937-wjvj/rows.csv?accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/v3/views/p937-wjvj/query.csv
     dest: dohmh_rodent_inspections.csv
 sql:
     - dohmh_rodent_inspections.sql

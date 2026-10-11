@@ -1,7 +1,7 @@
 ---
 files:
   -
-    url: https://data.cityofnewyork.us/api/views/scjx-j6np/rows.csv?accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/v3/views/scjx-j6np/query.csv
     dest: dof_property_charges_balance.csv
 sql:
     - dof_property_charges_balance.sql

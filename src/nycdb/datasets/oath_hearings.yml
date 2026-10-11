@@ -1,7 +1,7 @@
 ---
 files:
   -
-    url: https://data.cityofnewyork.us/api/views/jz4z-kudi/rows.csv?accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/v3/views/jz4z-kudi/query.csv
     dest: oath_hearings.csv
 sql:
   - oath_hearings.sql

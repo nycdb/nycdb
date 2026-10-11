@@ -1,7 +1,7 @@
 ---
 files:
   -
-    url: https://data.cityofnewyork.us/api/views/wvxf-dwi5/rows.csv?accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/v3/views/wvxf-dwi5/query.csv
     dest: hpd_violations.csv
 sql:
   - hpd_violations.sql

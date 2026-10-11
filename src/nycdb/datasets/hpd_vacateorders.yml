@@ -1,7 +1,7 @@
 ---
 files:
   -
-    url: https://data.cityofnewyork.us/api/views/tb8q-a3ar/rows.csv?accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/v3/views/tb8q-a3ar/query.csv
     dest: hpd_vacateorders.csv
 sql:
   - hpd_vacateorders.sql

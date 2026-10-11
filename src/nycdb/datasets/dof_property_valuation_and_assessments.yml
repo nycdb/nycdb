@@ -1,7 +1,7 @@
 ---
 files:
   -
-    url: https://data.cityofnewyork.us/api/views/8y4t-faws/rows.csv?accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/v3/views/8y4t-faws/query.csv
     dest: dof_property_valuation_and_assessments.csv
 sql:
   - dof_property_valuation_and_assessments.sql
