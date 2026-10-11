@@ -66,14 +66,15 @@ QUERY_URL = 'https://data.cityofnewyork.us/api/v3/views/abcd-1234/query.csv'
 
 
 class SyntheticRaw(io.BytesIO):
-    def __init__(self, body, fail_mid_stream=False):
+    def __init__(self, body, fail_mid_stream=False, error=ConnectionResetError):
         super().__init__(body)
         self.fail_mid_stream = fail_mid_stream
+        self.error = error
         self.reads = 0
 
     def read(self, amt=None, **kwargs):
         if self.fail_mid_stream and self.reads > 0:
-            raise ConnectionResetError('synthetic stream failure')
+            raise self.error('synthetic stream failure')
         self.reads += 1
         return super().read(amt)
 
@@ -235,3 +236,19 @@ def test_failed_stream_leaves_no_file(transport, monkeypatch, tmpdir):
     with pytest.raises(nycdb.file.DownloadFailedException):
         nycdb.file.download_file(QUERY_URL, dest.strpath, hide_progress=True)
     assert dest.check() is False
+    assert tmpdir.join('data/query.csv.part').check() is False
+
+
+def test_interrupted_download_is_not_cached(transport, tmpdir):
+    sent, routes = transport
+    url = 'https://s3.amazonaws.com/example/big.csv'
+    routes[url] = (200, SyntheticRaw(b'a,b\n1,', fail_mid_stream=True, error=KeyboardInterrupt), {})
+    dest = tmpdir.join('data/big.csv')
+    with pytest.raises(KeyboardInterrupt):
+        nycdb.file.download_file(url, dest.strpath, hide_progress=True)
+    assert dest.check() is False
+    routes[url] = (200, b'a,b\n1,2\n', {})
+    assert nycdb.file.download_file(url, dest.strpath, hide_progress=True)
+    assert len(sent) == 2
+    assert dest.read() == 'a,b\n1,2\n'
+    assert tmpdir.join('data/big.csv.part').check() is False

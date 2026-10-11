@@ -19,7 +19,7 @@ class DownloadFailedException(Exception):
 SOCRATA_APP_TOKEN_ENV = 'NYCDB_SOCRATA_APP_TOKEN'
 SOCRATA_HOSTS = frozenset(['data.cityofnewyork.us', 'data.ny.gov'])
 SOCRATA_QUERY_PATH = re.compile(r'^/api/v3/views/[a-z0-9]{4}-[a-z0-9]{4}/query\.csv$')
-VALID_APP_TOKEN = re.compile(r'^[\x21-\x7e]+$')
+VALID_APP_TOKEN = re.compile(r'[\x21-\x7e]+')
 
 open_str_kwargs = {'mode': 'w', 'encoding': 'utf-8', 'errors': 'replace'}
 open_byte_kwargs = {'mode': 'wb'}
@@ -72,7 +72,7 @@ def socrata_app_token():
     token = os.environ.get(SOCRATA_APP_TOKEN_ENV, '').strip()
     if not token:
         return None
-    if not VALID_APP_TOKEN.match(token):
+    if not VALID_APP_TOKEN.fullmatch(token):
         raise DownloadFailedException(
             "{} contains characters that are not allowed in an HTTP header".format(SOCRATA_APP_TOKEN_ENV))
     return token
@@ -92,8 +92,11 @@ def download_file(url, dest, hide_progress=False):
     NYCDB_SOCRATA_APP_TOKEN, if set. Those requests do not follow redirects,
     so the token is never sent to another URL.
 
-    A response with an HTTP error status, or a download that fails part way,
-    raises DownloadFailedException and leaves no file at the destination.
+    A response with an HTTP error status, or a download that fails part way
+    with an error, raises DownloadFailedException and leaves no file at the
+    destination. Data is written to <dest>.part and moved to the destination
+    only when the download is complete, so an interrupted download is not
+    treated as already downloaded.
     """
     mkdir(dest)
 
@@ -110,6 +113,7 @@ def download_file(url, dest, hide_progress=False):
         else:
             logging.warning("{} is not set. Socrata requires an app token for {}".format(SOCRATA_APP_TOKEN_ENV, url))
 
+    partial = dest + '.part'
     try:
         logging.info("Downloading {url} to {dest}".format(url=url, dest=dest))
         is_csv_file = is_csv(dest)
@@ -120,7 +124,7 @@ def download_file(url, dest, hide_progress=False):
         check_response(r, url, socrata_query and not headers)
         total_bytes = safe_int(r.headers.get('content-length'))
         pbar = tqdm(total=total_bytes, unit='B', unit_scale=True, unit_divisor=1024, disable=hide_progress)
-        with open(dest, **open_kwargs(dest)) as f:
+        with open(partial, **open_kwargs(dest)) as f:
             for chunk in r.iter_content(chunk_size=(512 * 1024)):
                 if chunk:
                     pbar.update(len(chunk))
@@ -129,12 +133,13 @@ def download_file(url, dest, hide_progress=False):
                     else:
                         f.write(chunk)
         pbar.close()
+        os.replace(partial, dest)
         return True
     except (requests.RequestException, OSError) as e:
-        remove_partial(dest)
+        remove_partial(partial)
         raise DownloadFailedException("Could not download {}: {}".format(url, e))
     except DownloadFailedException:
-        remove_partial(dest)
+        remove_partial(partial)
         raise
 
 
@@ -153,9 +158,9 @@ def check_response(r, url, missing_socrata_token=False):
     raise DownloadFailedException(message)
 
 
-def remove_partial(dest):
+def remove_partial(path):
     try:
-        os.remove(dest)
+        os.remove(path)
     except FileNotFoundError:
         pass
 
