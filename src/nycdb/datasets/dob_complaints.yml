@@ -1,7 +1,7 @@
 ---
 files:
   -
-    url: https://data.cityofnewyork.us/api/views/eabe-havv/rows.csv?accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/v3/views/eabe-havv/export.csv
     dest: dob_complaints.csv
 schema:
   table_name: dob_complaints

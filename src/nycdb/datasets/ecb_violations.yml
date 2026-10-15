@@ -1,7 +1,7 @@
 ---
 files:
   -
-    url: https://data.cityofnewyork.us/api/views/6bgk-3dad/rows.csv?accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/v3/views/6bgk-3dad/export.csv
     dest: ecb_violations.csv
 sql:
   - ecb_violations.sql

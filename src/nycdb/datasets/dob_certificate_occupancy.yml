@@ -1,13 +1,13 @@
 ---
 files:
   -
-    url: https://data.cityofnewyork.us/api/views/bs8b-p36w/rows.csv?accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/v3/views/bs8b-p36w/export.csv
     dest: dob_certificate_occupancy.csv
   -
     url: https://justfix-data.s3.amazonaws.com/FOIL_2024-810-4230_COList_2000-2012.csv
     dest: dob_foil_certificate_occupancy.csv
   -
-    url: https://data.cityofnewyork.us/api/views/pkdm-hqz6/rows.csv?accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/v3/views/pkdm-hqz6/export.csv
     dest: dob_now_certificate_occupancy.csv
 sql:
   - dob_certificate_occupancy.sql

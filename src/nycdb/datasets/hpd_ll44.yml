@@ -1,13 +1,13 @@
 ---
 files:
   -
-    url: https://data.cityofnewyork.us/api/views/hu6m-9cfi/rows.csv?accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/v3/views/hu6m-9cfi/export.csv
     dest: hpd_ll44_buildings.csv
   -
-    url: https://data.cityofnewyork.us/api/views/ucdy-byxd/rows.csv?accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/v3/views/ucdy-byxd/export.csv
     dest: hpd_ll44_projects.csv
   -
-    url: https://data.cityofnewyork.us/api/views/72vt-ykjc/rows.csv?accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/v3/views/72vt-ykjc/export.csv
     dest: hpd_ll44_tax_incentive.csv
 sql:
     - hpd_ll44.sql

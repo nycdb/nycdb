@@ -1,7 +1,7 @@
 ---
 files:
   -
-    url: https://data.cityofnewyork.us/api/views/kj4p-ruqc/rows.csv?accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/v3/views/kj4p-ruqc/export.csv
     dest: hpd_jurisdiction.csv
 sql:
     - hpd_jurisdiction.sql

@@ -1,46 +1,46 @@
 ---
 files:
   -
-    url: https://data.cityofnewyork.us/api/views/8h5j-fqxa/rows.csv?accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/v3/views/8h5j-fqxa/export.csv
     dest: acris_real_property_legals.csv
   -
-    url: https://data.cityofnewyork.us/api/views/bnx9-e6tj/rows.csv?accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/v3/views/bnx9-e6tj/export.csv
     dest: acris_real_property_master.csv
   -
-    url: https://data.cityofnewyork.us/api/views/636b-3b5g/rows.csv?accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/v3/views/636b-3b5g/export.csv
     dest: acris_real_property_parties.csv
   -
-    url: https://data.cityofnewyork.us/api/views/pwkr-dpni/rows.csv?accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/v3/views/pwkr-dpni/export.csv
     dest: acris_real_property_references.csv
   -
-    url: https://data.cityofnewyork.us/api/views/9p4w-7npp/rows.csv?accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/v3/views/9p4w-7npp/export.csv
     dest: acris_real_property_remarks.csv
   -
-    url: https://data.cityofnewyork.us/api/views/uqqa-hym2/rows.csv?accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/v3/views/uqqa-hym2/export.csv
     dest: acris_personal_property_legals.csv
   -
-    url: https://data.cityofnewyork.us/api/views/sv7x-dduq/rows.csv?accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/v3/views/sv7x-dduq/export.csv
     dest: acris_personal_property_master.csv
   -
-    url: https://data.cityofnewyork.us/api/views/nbbg-wtuz/rows.csv?accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/v3/views/nbbg-wtuz/export.csv
     dest: acris_personal_property_parties.csv
   -
-    url: https://data.cityofnewyork.us/api/views/6y3e-jcrc/rows.csv?accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/v3/views/6y3e-jcrc/export.csv
     dest: acris_personal_property_references.csv
   -
-    url: https://data.cityofnewyork.us/api/views/fuzi-5ks9/rows.csv?accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/v3/views/fuzi-5ks9/export.csv
     dest: acris_personal_property_remarks.csv
   -
-    url: https://data.cityofnewyork.us/api/views/j2iz-mwzu/rows.csv?accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/v3/views/j2iz-mwzu/export.csv
     dest: acris_country_codes.csv
   -
-    url: https://data.cityofnewyork.us/api/views/7isb-wh4c/rows.csv?accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/v3/views/7isb-wh4c/export.csv
     dest: acris_document_control_codes.csv
   -
-    url: https://data.cityofnewyork.us/api/views/94g4-w6xz/rows.csv?accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/v3/views/94g4-w6xz/export.csv
     dest: acris_property_type_codes.csv
   -
-    url: https://data.cityofnewyork.us/api/views/q9kp-jvxv/rows.csv?accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/v3/views/q9kp-jvxv/export.csv
     dest: acris_ucc_collateral_codes.csv
 sql:
   - acris.sql

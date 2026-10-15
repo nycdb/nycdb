@@ -120,7 +120,7 @@ def test_ecb_violations(conn):
 def test_ecb_violations_header_typo(conn):
     ecb_violations = nycdb.Dataset("ecb_violations", args=ARGS)
     ecb_violations.drop()
-    files = [{'url': 'https://data.cityofnewyork.us/api/views/6bgk-3dad/rows.csv?accessType=DOWNLOAD', 'dest': 'ecb_violations_invalid_header.csv'}]
+    files = [{'url': 'https://data.cityofnewyork.us/api/v3/views/6bgk-3dad/export.csv', 'dest': 'ecb_violations_invalid_header.csv'}]
     ecb_violations.dataset['files'] = files
     ecb_violations.files = ecb_violations._files()
     with pytest.raises(AttributeError):

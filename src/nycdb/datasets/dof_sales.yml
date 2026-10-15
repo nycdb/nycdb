@@ -1,7 +1,7 @@
 ---
 files:
   -
-    url: https://data.cityofnewyork.us/api/views/usep-8jbt/rows.csv?accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/v3/views/usep-8jbt/export.csv
     dest: dof_sales.csv
 sql:
   - dof_sales.sql

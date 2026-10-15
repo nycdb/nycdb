@@ -1,15 +1,15 @@
 files:
   -
-    url: https://data.cityofnewyork.us/api/views/sbnd-xujn/rows.csv?accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/v3/views/sbnd-xujn/export.csv
     dest: hpd_hwo_charges.csv
   -
-    url: https://data.cityofnewyork.us/api/views/mdbu-nrqn/rows.csv?accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/v3/views/mdbu-nrqn/export.csv
     dest: hpd_omo_charges.csv
   -
-    url: https://data.cityofnewyork.us/api/views/emrz-5p35/rows.csv?accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/v3/views/emrz-5p35/export.csv
     dest: hpd_omo_invoices.csv
   -
-    url: https://data.cityofnewyork.us/api/views/cp6j-7bjj/rows.csv?accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/v3/views/cp6j-7bjj/export.csv
     dest: hpd_fee_charges.csv
 sql:
   - hpd_charges.sql

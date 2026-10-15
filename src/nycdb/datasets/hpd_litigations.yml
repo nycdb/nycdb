@@ -1,7 +1,7 @@
 ---
 files:
   -
-    url: https://data.cityofnewyork.us/api/views/59kj-x8nc/rows.csv?accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/v3/views/59kj-x8nc/export.csv
     dest: hpd_litigations.csv
 sql:
   - hpd_litigations.sql
