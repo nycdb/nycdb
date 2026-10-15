@@ -38,7 +38,7 @@ For the DOB ECB Violations (the dataset we're adding in this example), when you 
 Make note of the last part of this path - `6bgk-3dad` - this is the dataset's ID code.
 
 
-The raw `.csv` download link for this the entire dataset is `https://data.cityofnewyork.us/api/views/6bgk-3dad/rows.csv?accessType=DOWNLOAD`.
+The raw `.csv` download link for this the entire dataset is `https://data.cityofnewyork.us/api/v3/views/6bgk-3dad/export.csv`.
 
 Note how the code `6bgk-3dad` was included after the part of the url that says `views`.
 
@@ -54,7 +54,7 @@ Make a new file in `src/nycdb/datasets` called `ecb_violations.yml` and paste th
 ---
 files:
   -
-    url: https://data.cityofnewyork.us/api/views/6bgk-3dad/rows.csv?accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/v3/views/6bgk-3dad/export.csv
     dest: ecb_violations.csv
 ```
 
@@ -117,7 +117,7 @@ For this example, we'll fill out the rest of the `ecb_violations.yml` configurat
 ---
 files:
   -
-    url: https://data.cityofnewyork.us/api/views/6bgk-3dad/rows.csv?accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/v3/views/6bgk-3dad/export.csv
     dest: ecb_violations.csv
 schema:
   table_name: ecb_violations

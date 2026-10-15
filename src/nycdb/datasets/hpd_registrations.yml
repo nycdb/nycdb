@@ -1,10 +1,10 @@
 ---
 files:
   -
-    url: https://data.cityofnewyork.us/api/views/tesw-yqqr/rows.csv?accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/v3/views/tesw-yqqr/export.csv
     dest: hpd_registrations.csv
   -
-    url: https://data.cityofnewyork.us/api/views/feu5-w2e2/rows.csv?accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/v3/views/feu5-w2e2/export.csv
     dest: hpd_contacts.csv
 sql:
   - hpd_registrations/add_bbl.sql

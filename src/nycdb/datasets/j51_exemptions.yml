@@ -1,7 +1,7 @@
 ---
 files:
   - 
-    url: https://data.cityofnewyork.us/api/views/y7az-s7wc/rows.csv?accessType=DOWNLOAD
+    url: https://data.cityofnewyork.us/api/v3/views/y7az-s7wc/export.csv
     dest: j51_exemptions.csv
 schema:
   table_name: j51_exemptions
